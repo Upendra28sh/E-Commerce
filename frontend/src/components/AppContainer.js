@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/home';
-import Router from './AppRouter';
+import Router from '../router/AppRouter';
 import Header from './Header'
 
 class AppContainer extends React.Component {
@@ -21,6 +21,7 @@ class AppContainer extends React.Component {
                     logout={this.props.logout}
                     toggleLogin={this.props.toggleLogin}
                     shopping_cart={this.props.shopping_cart}
+                    history={this.props.history}
                 />
 
                 {this.props.showLogin ?
@@ -28,10 +29,9 @@ class AppContainer extends React.Component {
                         Email: <input onChange={(event) => this.props.typing(event, 'email')} type="text"></input>
                         Password: <input onChange={(event) => this.props.typing(event, 'password')}type="password"></input>
                         <button onClick={()=> this.props.submitLogin(this.props.email, this.props.password)}>Submit</button>
-                    </div> :
-                    <h1 className="title">LUCYMAIL</h1>}
+                    </div> : <div></div>}
 
-                <div className="main">
+                <div className="container">
                     <Router />
                 </div>
             </div>
