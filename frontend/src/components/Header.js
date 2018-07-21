@@ -8,7 +8,8 @@ const Search = Input.Search;
 const menu = (
     <Menu>
         <Menu.Item key="1">Your Profile</Menu.Item>
-        <Menu.Item key="3">Your Friends</Menu.Item>
+        <Menu.Item key="2">Your Order</Menu.Item>
+        <Menu.Item key="3"><NavLink to="/saved">Saved Products</NavLink></Menu.Item>
     </Menu>
 );
 

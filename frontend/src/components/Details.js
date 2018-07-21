@@ -33,6 +33,14 @@ class Details extends React.Component {
         }
     }
 
+    containsObject(obj, list) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].id === obj.id) {
+                return true;
+            }
+        }
+        return false;
+    }
     componentDidMount() {
         console.log(this.props);
         this.props.getDetails(this.props.match.params.id);
@@ -42,7 +50,6 @@ class Details extends React.Component {
         if(!this.state.visible) {
             return <Redirect to="/"/>
         } 
-        {console.log(this.props)}
         return (
             <Modal
                 visible={this.state.visible}
@@ -118,7 +125,22 @@ class Details extends React.Component {
                                     }
                                 </Col>
                                 <Col span={8}>
-                                    <Button type="primary" size="large">Save</Button>
+                                    <Button 
+                                        type="primary" 
+                                        size="large" 
+                                        onClick={
+                                            (e) => {
+                                                if (this.containsObject(this.props.details, this.props.saved)) {
+                                                    e.target.innerHTML = "Already Saved";
+                                                } else {
+                                                    this.props.saved.push(this.props.details);
+                                                    e.target.innerHTML = "Saved";
+                                                }
+                                            }
+                                        }
+                                    >
+                                        Save
+                                    </Button>
                                 </Col>
                                 <Col span={8}>
                                     <Button type="primary" size="large">Share</Button>

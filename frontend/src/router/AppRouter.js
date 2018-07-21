@@ -8,6 +8,7 @@ import SignUp from '../components/SignUp';
 import User from '../components/User';
 import Seller from '../components/Seller';
 import Cart from '../components/Cart';
+import Saved from '../components/Saved';
 import Confirm from '../components/Confirm';
 import Thanks from '../components/Thanks';
 
@@ -21,6 +22,7 @@ const Router = () => {
             <Route exact path="/user/:id" component={User} />
             <Route exact path="/seller/:id" component={Seller} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/saved" component={Saved} />
             <Route exact path="/confirm" component={Confirm} />
             <Route exact path="/thanks" component={Thanks} />
         </Switch>
