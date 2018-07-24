@@ -6,11 +6,9 @@ import ReduxThunk from 'redux-thunk';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-import './styles/index.css';
-import './styles/custom.css';
-
 import Container from './components/AppContainer';
 import reducer from './reducers/home';
+import 'antd/dist/antd.css';
 
 const store = createStore(
     reducer,
