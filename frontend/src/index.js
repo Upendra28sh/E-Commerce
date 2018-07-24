@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-// import {Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import './styles/index.css';
 import './styles/custom.css';
+
 import Container from './components/AppContainer';
 import reducer from './reducers/home';
 
@@ -19,14 +19,14 @@ const store = createStore(
 );
 
 let name = Cookies.get('name');
-if (name != undefined) {
+if (name !== undefined) {
     store.dispatch({
         type: 'read-cookie-name',
         first_name: name
     })
 }
 let token = Cookies.get('token');
-if (token != undefined) {
+if (token !== undefined) {
     store.dispatch({
         type: 'read-cookie-token',
         token: token.token

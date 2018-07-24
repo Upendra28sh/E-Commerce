@@ -1,7 +1,9 @@
 import $ from 'jquery';
-import { hashHistory } from 'react-router'
+import createBrowserHistory from 'history/createBrowserHistory'
 const StripeCheckout = window.StripeCheckout;
-const BASEURL = location.hostname === 'localhost' ? 'http://localhost:4000' : '';
+const BASEURL = 'http://localhost:4000';
+
+const history = createBrowserHistory();
 
 // Show products on home page
 export function getProducts() {
@@ -139,7 +141,7 @@ export function submitSignUp(first, last, address1, address2, city, state, zip, 
             })
         })
         .then(data => {
-            hashHistory.push('/');
+            history.push('/');
             dispatch({
                 type: 'login-successful',
                 payload: data
@@ -218,7 +220,7 @@ export function deleteFromCart(item, token) {
 //             })
 //         })
 //         .then(response => {
-//             hashHistory.push('/thanks');
+//             history.push('/thanks');
 //             dispatch({
 //                 type: 'purchase-successful'
 //             })
@@ -263,7 +265,7 @@ export function chargeCard(amount, cookieToken, email) {
                         })
                     })
                     .then(response => {
-                        hashHistory.push('/thanks');
+                        history.push('/thanks');
                         dispatch({
                             type: 'purchase-successful'
                         })

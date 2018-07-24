@@ -11,7 +11,7 @@ class Thanks extends React.Component {
     render() {
         return (
             <div>
-                <img className="thumbsUp" src="/like.svg"></img>
+                <img className="thumbsUp" src="/like.svg" alt="Thanks"></img>
                 <h2 className="thanks">Thank you for your purchase!</h2>
             </div>
         );
