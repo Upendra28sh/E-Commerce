@@ -17,6 +17,7 @@ const INITIAL_STATE = {
     password_confirm: '',
     passwords_match: true,
     shopping_cart: [],
+    saved: [],
     empty_fields: false
 };
 

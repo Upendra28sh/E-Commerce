@@ -13,9 +13,9 @@ class Cart extends React.Component {
         return total;
     }
 
-    componentDidMount() {
-        this.props.getCart(this.props.token);
-    }
+    // componentDidMount() {
+    //     this.props.getCart(this.props.token);
+    // }
 
     render() {
         return (
