@@ -29,7 +29,8 @@ h2#name {
 }
 
 .ant-row {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 
 .ant-btn-primary {
@@ -39,14 +40,6 @@ h2#name {
 
 .ant-cascader-menu {
     height: 100%;
-}
-
-img.profile__image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    border-radius: 50%;
 }
 
 div.profile__details {
@@ -59,9 +52,31 @@ h2.profile__name {
 }
 
 div.profile__details > p.profile__stats {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 div.profile__details > p.profile__stats > span {
     margin-right: 20px;
+}
+
+div#profile-img {
+    width: 250px;
+    height: 250px;
+    border: solid 3px whitesmoke;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+}
+
+img#search {
+    width: 60%;
+    height: 60%;
+    padding: 10%;
+    margin-left: 25%;
+}
+
+div#search_result {
+    margin-top: 10%;
+    font-size: 40px;
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Cascader, Input, Dropdown, Menu, Icon } from 'antd';
 
 const Search = Input.Search;
@@ -88,7 +87,7 @@ const options = [{
 const Header = (props) => {
     return (
         <ul className="nav">
-            <img src="/like.svg" className="header__logo"/>
+            <img src="/like.svg" className="header__logo" alt='logo'/>
             <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
             <li>
                 <Cascader options={options} expandTrigger={'hover'} style={{height: '100%', width: '100%'}}>
@@ -114,7 +113,7 @@ const Header = (props) => {
             <li>
                 <div className="cart">
                     <Link to="/cart">
-                        <img src="/shopping-cart.svg"></img>
+                        <img src="/shopping-cart.svg" alt='cart'></img>
                         <div>{props.shopping_cart.length}</div>
                     </Link>
                 </div> 
@@ -122,7 +121,7 @@ const Header = (props) => {
 
             <li>
                 <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>
-                    <a className="ant-dropdown-link" href="#">
+                    <a className="ant-dropdown-link">
                         <Icon type="down" />
                     </a>
                 </Dropdown>
