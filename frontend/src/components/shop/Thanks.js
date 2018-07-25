@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/home';
-// import { Link } from 'react-router';
+import * as actions from '../../actions/shop';
 
 class Thanks extends React.Component {
     componentDidMount() {

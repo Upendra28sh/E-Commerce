@@ -1,16 +1,16 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 
-import Landing from '../components/Landing';
-import Home from '../components/Home';
-import Search from '../components/Search';
-import SignUp from '../components/SignUp';
-import User from '../components/User';
-import Seller from '../components/Seller';
-import Cart from '../components/Cart';
-import Saved from '../components/Saved';
-import Confirm from '../components/Confirm';
-import Thanks from '../components/Thanks';
+import Landing from '../components/shop/Landing';
+import Home from '../components/shop/Home';
+import Search from '../components/shop/Search';
+import SignUp from '../components/shop/SignUp';
+import User from '../components/shop/User';
+import Seller from '../components/shop/Seller';
+import Cart from '../components/shop/Cart';
+import Saved from '../components/shop/Saved';
+import Confirm from '../components/shop/Confirm';
+import Thanks from '../components/shop/Thanks';
 
 const Router = () => {
     return (
