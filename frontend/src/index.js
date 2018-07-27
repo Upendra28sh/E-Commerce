@@ -10,8 +10,7 @@ import StoreContainer from './components/shop/Container';
 import AdminContainer from './components/admin/Container';
 import reducer from './reducers/shop';
 
-import 'antd/dist/antd.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/main.css' ;
 
 const store = createStore(
     reducer,

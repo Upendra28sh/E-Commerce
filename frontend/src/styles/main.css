@@ -1,5 +1,5 @@
-@import url(~antd/dist/antd.css);
 @import url(~bootstrap/dist/css/bootstrap.min.css);
+@import url(~antd/dist/antd.css);
 .header__logo {
   max-height: 50px;
   max-width: 50px;
@@ -20,28 +20,37 @@ img#product_image {
   width: 90%; }
 
 img#seller__image {
+  margin-top: 6px;
   height: 50px;
   width: 50px;
-  border: dashed 1px black;
+  border: solid 1px black;
   border-radius: 50%; }
 
 div#seller__name {
-  font-size: 35px; }
+  font-size: 25px; }
+  div#seller__name span {
+    font-size: 14px;
+    display: block; }
 
 h2#name {
-  font-weight: 900;
-  font-size: 35px; }
+  font-size: 35px;
+  margin-bottom: 0; }
+
+h2#price {
+  font-size: 1.7rem;
+  margin-top: 15px; }
+
+.overview {
+  padding-left: 30px; }
+  .overview li {
+    line-height: 20px; }
 
 #detail > div.ant-row {
   margin: 10px 0 10px 0; }
 
-.ant-row {
-  margin-bottom: 10px;
-  margin-top: 15px; }
-
 .ant-btn-primary {
-  width: 100%;
-  border: solid 1px white; }
+  width: 95%;
+  margin: auto; }
 
 .ant-cascader-menu {
   height: 100%; }
