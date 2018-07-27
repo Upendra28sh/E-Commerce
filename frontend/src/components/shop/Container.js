@@ -30,8 +30,8 @@ class Container extends React.Component {
                         <button onClick={()=> this.props.submitLogin(this.props.email, this.props.password)}>Submit</button>
                     </div> : <div></div>}
 
-                <div className="container">
-                    <Router />
+                <div>
+                    <Router/>
                 </div>
             </div>
         )

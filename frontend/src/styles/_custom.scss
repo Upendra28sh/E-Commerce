@@ -1,83 +1,119 @@
 .header__logo {
-    max-height: 50px;
-    max-width: 50px;
-    float: left;
+  max-height: 50px;
+  max-width: 50px;
+  float: left;
+}
+
+.navbar_container {
+  //box-shadow: 5px 10px;
+  border-bottom: 1px solid #c8c8c8;
+
+  ul.nav_bar {
+    margin: 0.5rem 0;
+  }
+}
+
+.container_40 {
+  padding: 0 4rem ;
+}
+
+.banner {
+  width: 100%;
+  //padding-top: 10px;
 }
 
 img#product_image {
-    width: 90%;
+  width: 90%;
 }
 
 img#seller__image {
-    height: 50px;
-    width: 50px;
-    border: dashed 1px black;
-    border-radius: 50%;
+  margin-top: 6px;
+  height: 50px;
+  width: 50px;
+  border: solid 1px black;
+  border-radius: 50%;
 }
 
 div#seller__name {
-    font-size: 35px;
+  font-size: 25px;
+
+  span {
+    font-size: 14px;
+    display: block;
+  }
 }
 
 h2#name {
-    font-weight: 900;
-    font-size: 35px;
+  //font-weight: 900;
+  font-size: 35px;
+  margin-bottom: 0;
+}
+
+h2#price {
+  font-size: 1.7rem;
+  margin-top: 15px;
+}
+
+.overview {
+  padding-left: 30px;
+  li {
+    line-height: 20px;
+
+  }
 }
 
 #detail > div.ant-row {
-    margin: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
-.ant-row {
-    margin-bottom: 10px;
-    margin-top: 15px;
-}
+//TODO : Refaxtor in New Class
 
 .ant-btn-primary {
-    width: 100%;
-    border: solid 1px;
+  width: 95%;
+  margin: auto;
+  //border: solid 1px white;
 }
 
 .ant-cascader-menu {
-    height: 100%;
+  height: 100%;
 }
 
 div.profile__details {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 h2.profile__name {
-    font-size: 45px;
-    font-weight: 500;
-    margin-bottom: 0;
+  font-size: 45px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 div.profile__details > p.profile__stats {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 div.profile__details > p.profile__stats > span {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 div#profile-img {
-    width: 250px;
-    height: 250px;
-    border: solid 3px whitesmoke;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    margin: auto;
+  width: 250px;
+  height: 250px;
+  border: solid 3px whitesmoke;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin: auto;
 }
 
 img#search {
-    width: 60%;
-    height: 60%;
-    padding: 10%;
-    margin-left: 25%;
+  width: 60%;
+  height: 60%;
+  padding: 10%;
+  margin-left: 25%;
 }
 
 div#search_result {
-    margin-top: 10%;
-    font-size: 40px;
+  margin-top: 10%;
+  font-size: 40px;
 }

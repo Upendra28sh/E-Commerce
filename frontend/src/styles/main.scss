@@ -1,4 +1,10 @@
+//@import './' ;
+
+
+@import '~bootstrap/dist/css/bootstrap.min.css' ;
+@import '~antd/dist/antd.css';
 @import './custom';
+
 
 body {
   margin: 0;
@@ -6,13 +12,16 @@ body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
+
 .main {
   min-height: 500px;
 }
-.nav_bar{
+
+.nav_bar {
   // text-align: center;
   padding: 0;
 }
+
 .userName {
   position: absolute;
   top: 21px;
@@ -20,10 +29,12 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
 .nav_bar li {
   display: inline-block;
   padding: 10px;
 }
+
 .nav_bar li a, .nav_bar li {
   text-decoration: none;
   text-transform: uppercase;
@@ -32,15 +43,18 @@ body {
   letter-spacing: 2px;
   background-color: white;
 }
+
 .nav_bar li a:hover, .nav_bar li:hover {
   cursor: pointer;
   font-weight: 900;
   background-color: white;
 }
+
 .active {
   font-weight: 900;
   background-color: white;
 }
+
 .title {
   margin: 30px 0 0 20px;
   text-align: center;
@@ -48,20 +62,56 @@ body {
   font-size: 30px;
   letter-spacing: 0.6em;
 }
+
 .products {
-  max-width: 1050px;
+  //max-width: 1050px;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   margin: 60px auto;
   text-align: center;
+
+  .product {
+    width: 20%;
+
+    .image-container {
+      margin: 10px;
+    }
+
+    img {
+      //box-sizing: border-box;
+      //padding: 10px;
+      //padding-left  : 10px;
+      //padding-right : 10px;
+      width: 100%;
+    }
+
+  }
+
+  //.product:nth-child(4n) {
+  //  img {
+  //    padding-right: 0;
+  //    padding-left: 20px;
+  //  }
+  //}
+  //
+  //.product:nth-child(4n+1) {
+  //  img {
+  //    padding-left: 0;
+  //    padding-right: 20px;
+  //  }
+  //}
 }
 
 .each_product {
   width: 330px;
   padding: 10px;
 }
+
 .footer {
   padding: 20px;
 }
+
 .footer p {
   clear: both;
   letter-spacing: 1px;
@@ -71,31 +121,38 @@ body {
   margin: 100px auto;
   line-height: 25px;
 }
+
 .product-image, .product-info {
   float: left;
   width: 43%;
   margin-top: 20px;
 }
+
 .product-image {
   margin-right: 50px;
 }
+
 .product-image img {
   width: 100%;
 }
+
 .details {
   max-width: 960px;
   width: 100%;
   height: 400px;
   margin: 60px auto;
 }
+
 .details h2 {
   font-weight: 400;
   letter-spacing: 1.2px;
 }
+
 .details p, li {
   letter-spacing: 1.2px;
   line-height: 30px;
 }
+
 .add-cart {
   margin-top: 30px;
   width: 300px;
@@ -108,14 +165,17 @@ body {
   font-weight: 400;
   font-size: 13px;
 }
+
 .add-cart:hover, .login button:hover, .confirmButton:hover, .checkout button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.8);
 }
+
 .login {
   text-align: center;
   letter-spacing: 1px;
 }
+
 .login input {
   margin-top: 29px;
   padding: 5px;
@@ -123,6 +183,7 @@ body {
   margin-right: 20px;
   letter-spacing: 1px;
 }
+
 .login button, .signUp button, .shoppingCart button {
   width: 109px;
   height: 32px;
@@ -134,63 +195,71 @@ body {
   font-weight: 400;
   font-size: 11px;
 }
+
 .signUp button {
   width: 100%;
   height: 40px;
   font-size: 15px;
   letter-spacing: 5px;
 }
+
 .signUp {
   margin: 60px auto;
   width: 400px;
 }
+
 .signUp input {
   padding: 5px;
   border-radius: 0;
   letter-spacing: 1px;
 }
+
 label {
   font-weight: 300;
 }
-.cart {
-  width: 25px;
-  position: absolute;
-  left: 95%;
-  top: 17px;
-}
+
+
 .shoppingCart, table {
   max-width: 800px;
   width: 100%;
   margin: 50px auto;
 }
+
 .cartHeading {
   font-size: 17px;
   text-transform: uppercase;
   font-weight: 300;
   letter-spacing: 1px;
 }
+
 .cartImage {
   width: 100px;
 }
+
 tr {
   border-bottom: 1px solid #dcdee2;
 }
+
 th, td, tr {
   font-size: 16px;
   padding: 15px 0;
   width: 200px;
 }
+
 .deleteCol {
   width: 5px;
 }
+
 .deleteCol:hover {
   color: red;
   cursor: pointer;
 }
+
 .tableHeaders th {
   font-weight: 700;
   font-size: 12px;
 }
+
 .shoppingCart button {
   float: right;
   width: 200px;
@@ -199,41 +268,49 @@ th, td, tr {
   font-size: 14px;
   letter-spacing: 5px;
 }
+
 .thumbsUp {
   display: block;
   margin: 75px auto;
   width: 75px;
 }
+
 .thanks {
   text-align: center;
   font-size: 20px;
   font-weight: 300;
   letter-spacing: 1px;
 }
+
 .checkout button {
   width: 100%;
   height: 40px;
   font-size: 15px;
   letter-spacing: 5px;
 }
+
 .confirmButton a {
   text-decoration: none;
   color: white;
 }
+
 .billing, .shipping {
   width: 300px;
   display: inline-block;
   margin-right: 20px;
 }
+
 .formHeader {
   letter-spacing: 1px;
   margin-bottom: 20px;
 }
+
 .addressForms {
   max-width: 644px;
   width: 100%;
   margin: 0 auto;
 }
+
 .message {
   font-weight: 400;
   color: red;
@@ -241,17 +318,17 @@ th, td, tr {
 
 @media screen and (max-width: 960px) {
   .product-image, .product-info {
-      width: 100%;
-      padding: 30px;
+    width: 100%;
+    padding: 30px;
   }
   .product-image {
-      text-align: center;
+    text-align: center;
   }
   .product-image img {
-      text-align: center;
-      max-width: 400px;
+    text-align: center;
+    max-width: 400px;
   }
   .signUp {
-      padding: 24px;
+    padding: 24px;
   }
 }
