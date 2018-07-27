@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/home';
-import Router from '../router/AppRouter';
+import * as actions from '../../actions/shop';
+import Router from '../../router/ShopRouter';
 import Header from './Header'
 
-class AppContainer extends React.Component {
+class Container extends React.Component {
 
     render() {
         return (
@@ -38,9 +38,9 @@ class AppContainer extends React.Component {
     }
 }
 
-const AppContainerContainer = connect(
+const ContainerContainer = connect(
     state => state,
     actions
-)(AppContainer);
+)(Container);
 
-export default AppContainerContainer;
+export default ContainerContainer;

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Modal, Row, Col, Tabs, Icon, Divider, Button, InputNumber, Alert, Select, Tag } from 'antd';
-import * as actions from '../actions/home';
+import * as actions from '../../actions/shop';
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option

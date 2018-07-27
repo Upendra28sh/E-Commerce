@@ -86,7 +86,7 @@ const options = [{
 
 const Header = (props) => {
     return (
-        <ul className="nav">
+        <ul className="nav_bar">
             <img src="/like.svg" className="header__logo" alt='logo'/>
             <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
             <li>
@@ -100,32 +100,30 @@ const Header = (props) => {
             </li>
             <li><NavLink to="/signup" activeClassName="active">Sign Up</NavLink></li>
 
-            <div style={{width: '20%'}}></div>
-
-            <li>
+                <div class="float-right">   
+                 
                 <Search
                     placeholder="input search text"
                     onSearch={value => props.history.push(`/search/${value}`)}
                     style={{ width: '200px', marginTop: '10px' }}
                 />
-            </li>
-
-            <li>
                 <div className="cart">
                     <Link to="/cart">
                         <img src="/shopping-cart.svg" alt='cart'></img>
-                        <div>{props.shopping_cart.length}</div>
+                        {/* <div>{props.shopping_cart.length}</div> */}
                     </Link>
-                </div> 
-            </li>
-
-            <li>
-                <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>
+                    </div>
+                    <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>
                     <a className="ant-dropdown-link">
                         <Icon type="down" />
                     </a>
                 </Dropdown>
-            </li>
+           
+                </div> 
+
+
+           
+             
 
         </ul>
     );
