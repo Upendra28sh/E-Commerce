@@ -11,6 +11,7 @@ import AdminContainer from './components/admin/Container';
 import reducer from './reducers/shop';
 
 import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const store = createStore(
     reducer,
