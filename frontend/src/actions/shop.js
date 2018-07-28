@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import createBrowserHistory from 'history/createBrowserHistory'
 const StripeCheckout = window.StripeCheckout;
-// const BASEURL = 'http://localhost:4000';
-const BASEURL = 'http://192.168.0.104:4000';
+const BASEURL = 'http://localhost:4000';
+// const BASEURL = 'http://192.168.0.104:4000';
 
 const history = createBrowserHistory();
 

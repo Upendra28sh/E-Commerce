@@ -22,8 +22,28 @@
   //padding-top: 10px;
 }
 
-img#product_image {
+.information {
+  margin-top: 10px;
+}
+
+div#product_image {
   width: 90%;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+
+  div {
+    background: white;
+    font-size: 25px;
+    border: none;
+    float: right;
+    margin: 10px 10px 0 0;
+    width: 40px;
+    height: 40px;
+    padding: 5px 7px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 }
 
 img#seller__image {
