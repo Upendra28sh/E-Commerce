@@ -154,7 +154,7 @@ class Details extends React.Component {
 
                             <Row>
                                 <Col span={12}>
-                                    <Button type="primary" size="large" onClick={() => this.checkUser()}>Add To
+                                    <Button type="primary" size="large" className="modalBtn" onClick={() => this.checkUser()}>Add To
                                         Cart</Button>
                                     {
                                         this.props.empty_fields ?
@@ -163,7 +163,7 @@ class Details extends React.Component {
                                     }
                                 </Col>
                                 <Col span={12}>
-                                    <Button type="primary" size="large">Share</Button>
+                                    <Button type="primary" size="large" className="modalBtn">Share</Button>
                                 </Col>
                             </Row>
 

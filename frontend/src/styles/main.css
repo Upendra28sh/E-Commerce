@@ -8,10 +8,10 @@
 .navbar_container {
   border-bottom: 1px solid #c8c8c8; }
   .navbar_container ul.nav_bar {
-    margin: 0.5rem 0; }
+    margin: 0.8rem 0; }
 
 .container_40 {
-  padding: 0 4rem; }
+  padding: 0 6.5rem; }
 
 .banner {
   width: 100%; }
@@ -65,35 +65,12 @@ h2#price {
 #detail > div.ant-row {
   margin: 10px 0 10px 0; }
 
-.ant-btn-primary {
+.modalBtn {
   width: 95%;
   margin: auto; }
 
 .ant-cascader-menu {
   height: 100%; }
-
-div.profile__details {
-  margin-top: 50px; }
-
-h2.profile__name {
-  font-size: 45px;
-  font-weight: 500;
-  margin-bottom: 0; }
-
-div.profile__details > p.profile__stats {
-  font-size: 20px; }
-
-div.profile__details > p.profile__stats > span {
-  margin-right: 20px; }
-
-div#profile-img {
-  width: 250px;
-  height: 250px;
-  border: solid 3px whitesmoke;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  margin: auto; }
 
 img#search {
   width: 60%;
@@ -104,6 +81,53 @@ img#search {
 div#search_result {
   margin-top: 10%;
   font-size: 40px; }
+
+.profile {
+  margin-top: 20px; }
+  .profile__image {
+    height: 170px;
+    width: 170px;
+    background-size: cover;
+    background-position: center;
+    border: solid 1px gray;
+    float: right;
+    margin-right: 5%; }
+  .profile__info h1 {
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 32px; }
+  .profile__info p {
+    margin-bottom: 0;
+    color: black;
+    font-size: 1.7rem;
+    color: gray; }
+    .profile__info p .numbers {
+      margin-right: 10px; }
+  .profile__info .tagline {
+    margin-top: 1px;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+    color: black; }
+  .profile__info div.button_group {
+    margin-top: 4%; }
+    .profile__info div.button_group button {
+      width: 100px;
+      margin: 0 10px 0 0;
+      border: solid 1px black;
+      background-color: transparent;
+      border-radius: 5%;
+      padding: 0.5rem;
+      color: #000;
+      cursor: pointer; }
+    .profile__info div.button_group button:hover {
+      border: solid 1px gray; }
+  .profile__details {
+    margin-top: 1%; }
+    .profile__details .ant-tabs-tab {
+      color: #575757; }
+
+html {
+  font-size: 62.5%; }
 
 body {
   margin: 0;

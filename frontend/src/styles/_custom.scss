@@ -9,12 +9,12 @@
   border-bottom: 1px solid #c8c8c8;
 
   ul.nav_bar {
-    margin: 0.5rem 0;
+    margin: 0.8rem 0;
   }
 }
 
 .container_40 {
-  padding: 0 4rem ;
+  padding: 0 6.5rem ;
 }
 
 .banner {
@@ -86,9 +86,7 @@ h2#price {
   margin: 10px 0 10px 0;
 }
 
-//TODO : Refaxtor in New Class
-
-.ant-btn-primary {
+.modalBtn {
   width: 95%;
   margin: auto;
   //border: solid 1px white;
@@ -96,34 +94,6 @@ h2#price {
 
 .ant-cascader-menu {
   height: 100%;
-}
-
-div.profile__details {
-  margin-top: 50px;
-}
-
-h2.profile__name {
-  font-size: 45px;
-  font-weight: 500;
-  margin-bottom: 0;
-}
-
-div.profile__details > p.profile__stats {
-  font-size: 20px;
-}
-
-div.profile__details > p.profile__stats > span {
-  margin-right: 20px;
-}
-
-div#profile-img {
-  width: 250px;
-  height: 250px;
-  border: solid 3px whitesmoke;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  margin: auto;
 }
 
 img#search {
