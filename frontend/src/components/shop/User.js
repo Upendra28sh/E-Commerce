@@ -1,46 +1,52 @@
 import React from 'react';
-import { Row, Col, Tabs, Icon } from 'antd';
+import {Row, Col, Tabs, Icon} from 'antd';
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 
 
 const User = (props) => {
     return (
-        <div className="container_40 profile">
-            <Row>
-                <Col span={10}>
-                    <div
-                        className="profile__image"
-                        style={{backgroundImage: "url('https://www.seoclerk.com/pics/319222-1IvI0s1421931178.png')"}}>
-                    </div>
-                </Col>
-                <Col className="profile__info" span={14}>
-                    <h1>User Name</h1>
-                    <p className="stats">
-                        <span className="numbers"><Icon type="file" /><span className="posts"> 16</span> posts</span>
-                        <span className="numbers"><Icon type="user" /><span className="followers"> 257</span> followers</span>
-                        <span className="numbers"><Icon type="user-add" /><span className="connections"> 249</span> following</span>
-                    </p>
-                    <p className="tagline">Fusce semper vel odio eu finibus. Integer mattis enim sit amet urna hendrerit, ac pulvinar augue feugiat</p>
-                    <div className="button_group">
-                        <button><Icon type="heart" />&nbsp;&nbsp;Follow</button>
-                        <button><Icon type="facebook" />&nbsp;&nbsp;Share</button>
-                        <button><Icon type="twitter" />&nbsp;&nbsp;Tweet</button>
-                    </div>
+        <div className='bg-grey'>
+            <div className="container">
+                <div className="profile">
 
-                </Col>
-            </Row>
-            <Row className="profile__details">
-                <Col span={24}>
-                    <Tabs defaultActiveKey="1" size="default" style={{textAlign: 'center'}}>
-                        <TabPane tab="Posts" key="1">Content of tab 1</TabPane>
-                        <TabPane tab="Connections" key="2">Content of tab 2</TabPane>
-                        <TabPane tab="Followers" key="3">Content of tab 3</TabPane>
-                    </Tabs>
-                </Col>
-            </Row>
+                    <Row>
+                        <Col span={6}>
+                            <div className="profile__image"/>
+                        </Col>
+                        <Col className="profile__info" span={18}>
+                            <h1>dhruvramdev</h1>
+                            <p className="stats">
+                                <span className="numbers"><Icon type="file"/><span
+                                    className="posts"> 16</span> posts</span>
+                                <span className="numbers"><Icon type="user"/><span className="followers"> 257</span> followers</span>
+                                <span className="numbers"><Icon type="user-add"/><span
+                                    className="connections"> 249</span> following</span>
+                            </p>
+                            <p className="tagline">Fusce semper vel odio eu finibus. Integer mattis enim sit amet urna
+                                hendrerit, ac pulvinar augue feugiat</p>
+                            <div className="button_group">
+                                <button><Icon type="heart"/>&nbsp;&nbsp;Follow</button>
+                                <button><Icon type="facebook"/>&nbsp;&nbsp;Share</button>
+                                <button><Icon type="twitter"/>&nbsp;&nbsp;Tweet</button>
+                            </div>
+
+                        </Col>
+                    </Row>
+                    <Row className="profile__details">
+                        <Col span={24}>
+                            <Tabs defaultActiveKey="1" size="default" style={{textAlign: 'center'}}>
+                                <TabPane tab="Posts" key="1">Content of tab 1</TabPane>
+                                <TabPane tab="Connections" key="2">Content of tab 2</TabPane>
+                                <TabPane tab="Followers" key="3">Content of tab 3</TabPane>
+                            </Tabs>
+                        </Col>
+                    </Row>
+                </div>
+
+            </div>
         </div>
     );
-}
+};
 
 export default User;
