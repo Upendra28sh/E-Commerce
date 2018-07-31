@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import {Redirect, NavLink} from 'react-router-dom';
 import {Modal, Row, Col, Tabs, Icon, Divider, Button, InputNumber, Alert, Select, Tag} from 'antd';
 import * as actions from '../../actions/shop';
 
@@ -36,10 +36,10 @@ class Details extends React.Component {
     containsObject(obj, list) {
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === obj.id) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
     componentDidMount() {
@@ -66,7 +66,32 @@ class Details extends React.Component {
                     <Row>
                         <Col span={14}>
                             <div id="image">
-                                <img alt="envelope" id="product_image" src={this.props.details.image_url}/>
+                                <div
+                                    id="product_image"
+                                    style={{backgroundImage: `url("${this.props.details.image_url}")`}}
+                                >
+                                    <div
+                                        onClick={
+                                            (e) => {
+                                                let index = this.containsObject(this.props.details, this.props.saved);
+                                                console.log(index);
+                                                if (index > -1) {
+                                                    e.target.className = "anticon anticon-heart-o";
+                                                    this.props.saved.splice(index, 1);
+                                                } else {
+                                                    e.target.className = "anticon anticon-heart";
+                                                    this.props.saved.push(this.props.details);
+                                                }
+                                            }
+                                        }
+                                    >
+                                        {
+                                            this.containsObject(this.props.details, this.props.saved) > -1 ? <Icon type="heart" /> : <Icon type="heart-o" />
+                                        }
+
+                                        {/*<Icon type="heart-o" />*/}
+                                    </div>
+                                </div>
                             </div>
                         </Col>
 
@@ -117,7 +142,7 @@ class Details extends React.Component {
                                 <h5>Overview</h5>
                                 <ul className="overview">
                                     <li>Handmade item</li>
-                                    <li>Materials: VATS NOT INCLUDED, SEE ITEM DETAILS</li>
+                                    <li>Materials: See Item Details</li>
                                     <li>Cash On Delivery Available</li>
                                     <li>Gift message available</li>
                                 </ul>
@@ -128,8 +153,8 @@ class Details extends React.Component {
                             </p>
 
                             <Row>
-                                <Col span={8}>
-                                    <Button type="primary" size="large" onClick={() => this.checkUser()}>Add To
+                                <Col span={12}>
+                                    <Button type="primary" size="large" className="modalBtn" onClick={() => this.checkUser()}>Add To
                                         Cart</Button>
                                     {
                                         this.props.empty_fields ?
@@ -137,33 +162,15 @@ class Details extends React.Component {
                                             <p></p>
                                     }
                                 </Col>
-                                <Col span={8}>
-                                    <Button
-                                        type="primary"
-                                        size="large"
-                                        onClick={
-                                            (e) => {
-                                                if (this.containsObject(this.props.details, this.props.saved)) {
-                                                    e.target.innerHTML = "Already Saved";
-                                                } else {
-                                                    this.props.saved.push(this.props.details);
-                                                    e.target.innerHTML = "Saved";
-                                                }
-                                            }
-                                        }
-                                    >
-                                        Save
-                                    </Button>
-                                </Col>
-                                <Col span={8}>
-                                    <Button type="primary" size="large">Share</Button>
+                                <Col span={12}>
+                                    <Button type="primary" size="large" className="modalBtn">Share</Button>
                                 </Col>
                             </Row>
 
                         </Col>
 
                     </Row>
-                    <Row>
+                    <Row className="information">
                         <Col span={24}>
                             <Tabs defaultActiveKey="1">
                                 <TabPane tab={<span><Icon type="android"/>Description</span>} key="1">

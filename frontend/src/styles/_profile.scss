@@ -1,0 +1,74 @@
+.profile {
+  margin-top: 45px;
+
+  &__image {
+    height: 170px;
+    width: 170px;
+    background-size: cover;
+    background-position: center;
+    border: solid 1px gray;
+    border-radius: 50%;
+    float: right;
+    margin-right: 10%;
+  }
+
+  &__info {
+
+    h1 {
+      margin-bottom: 0;
+      font-weight: 700;
+      font-size: 32px;
+    }
+
+    .stats {
+      margin-top: 12px;
+      margin-bottom: 12px;
+      color: black;
+      font-size: 1.7rem;
+
+
+      .numbers {
+        margin-right: 5%;
+
+        span {
+          font-weight: 900;
+        }
+      }
+    }
+
+    .tagline {
+      margin-bottom: 0;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    div.button_group {
+      margin-top: 2%;
+
+      button {
+        width: 100px;
+        margin: 0 10px 0 0;
+        border: solid 1px black;
+        background-color: transparent;
+        border-radius: 5%;
+        padding: 0.5rem;
+        color: #000;
+        cursor: pointer;
+      }
+      button:hover {
+        border: solid 1px gray;
+      }
+    }
+  }
+
+  &__details {
+
+    margin-top: 1%;
+
+    .ant-tabs-tab {
+      color: #575757;
+    }
+
+  }
+
+}

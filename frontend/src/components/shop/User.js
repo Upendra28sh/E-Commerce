@@ -6,25 +6,31 @@ const { TabPane } = Tabs;
 
 const User = (props) => {
     return (
-        <div>
+        <div className="container_40 profile">
             <Row>
-                <Col id="profile" span={10}>
-                    <div 
-                        id="profile-img" 
+                <Col span={10}>
+                    <div
+                        className="profile__image"
                         style={{backgroundImage: "url('https://www.seoclerk.com/pics/319222-1IvI0s1421931178.png')"}}>
                     </div>
                 </Col>
-                <Col span={14} className="profile__details">
-                    <h2 className="profile__name">User Name</h2>
-                    <p className="profile__stats">
-                        <span><Icon type="file" /><span className="posts"> 16</span> posts</span>
-                        <span><Icon type="user" /><span className="followers"> 257</span> followers</span>
-                        <span><Icon type="user-add" /><span className="connections"> 249</span> following</span>
+                <Col className="profile__info" span={14}>
+                    <h1>User Name</h1>
+                    <p className="stats">
+                        <span className="numbers"><Icon type="file" /><span className="posts"> 16</span> posts</span>
+                        <span className="numbers"><Icon type="user" /><span className="followers"> 257</span> followers</span>
+                        <span className="numbers"><Icon type="user-add" /><span className="connections"> 249</span> following</span>
                     </p>
-                    <button className="btn btn-primary">Follow</button>
+                    <p className="tagline">Fusce semper vel odio eu finibus. Integer mattis enim sit amet urna hendrerit, ac pulvinar augue feugiat</p>
+                    <div className="button_group">
+                        <button><Icon type="heart" />&nbsp;&nbsp;Follow</button>
+                        <button><Icon type="facebook" />&nbsp;&nbsp;Share</button>
+                        <button><Icon type="twitter" />&nbsp;&nbsp;Tweet</button>
+                    </div>
+
                 </Col>
             </Row>
-            <Row>
+            <Row className="profile__details">
                 <Col span={24}>
                     <Tabs defaultActiveKey="1" size="default" style={{textAlign: 'center'}}>
                         <TabPane tab="Posts" key="1">Content of tab 1</TabPane>
