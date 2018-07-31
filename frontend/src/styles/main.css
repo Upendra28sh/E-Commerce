@@ -83,33 +83,35 @@ div#search_result {
   font-size: 40px; }
 
 .profile {
-  margin-top: 20px; }
+  margin-top: 45px; }
   .profile__image {
     height: 170px;
     width: 170px;
     background-size: cover;
     background-position: center;
     border: solid 1px gray;
+    border-radius: 50%;
     float: right;
-    margin-right: 5%; }
+    margin-right: 10%; }
   .profile__info h1 {
     margin-bottom: 0;
     font-weight: 700;
     font-size: 32px; }
-  .profile__info p {
-    margin-bottom: 0;
+  .profile__info .stats {
+    margin-top: 12px;
+    margin-bottom: 12px;
     color: black;
-    font-size: 1.7rem;
-    color: gray; }
-    .profile__info p .numbers {
-      margin-right: 10px; }
+    font-size: 1.7rem; }
+    .profile__info .stats .numbers {
+      margin-right: 5%; }
+      .profile__info .stats .numbers span {
+        font-weight: 900; }
   .profile__info .tagline {
-    margin-top: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-size: 1.5rem;
     color: black; }
   .profile__info div.button_group {
-    margin-top: 4%; }
+    margin-top: 2%; }
     .profile__info div.button_group button {
       width: 100px;
       margin: 0 10px 0 0;

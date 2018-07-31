@@ -1,5 +1,5 @@
 .profile {
-  margin-top: 20px;
+  margin-top: 45px;
 
   &__image {
     height: 170px;
@@ -7,8 +7,9 @@
     background-size: cover;
     background-position: center;
     border: solid 1px gray;
+    border-radius: 50%;
     float: right;
-    margin-right: 5%;
+    margin-right: 10%;
   }
 
   &__info {
@@ -19,27 +20,30 @@
       font-size: 32px;
     }
 
-    p {
-      margin-bottom: 0;
+    .stats {
+      margin-top: 12px;
+      margin-bottom: 12px;
       color: black;
       font-size: 1.7rem;
-      color: gray;
 
 
       .numbers {
-        margin-right: 10px;
+        margin-right: 5%;
+
+        span {
+          font-weight: 900;
+        }
       }
     }
 
     .tagline {
-      margin-top: 1px;
-      margin-bottom: 8px;
+      margin-bottom: 0;
       font-size: 1.5rem;
       color: black;
     }
 
     div.button_group {
-      margin-top: 4%;
+      margin-top: 2%;
 
       button {
         width: 100px;
