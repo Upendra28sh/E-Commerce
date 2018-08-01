@@ -1,9 +1,109 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~antd/dist/antd.css);
-.header__logo {
-  max-height: 50px;
-  max-width: 50px;
-  float: left; }
+.product {
+  font-family: 'Lato', sans-serif; }
+  .product .ant-row {
+    margin: 10px 0 10px 0; }
+  .product .ant-tabs-ink-bar {
+    background-color: #999999 !important; }
+  .product .ant-tabs-nav .ant-tabs-tab-active {
+    color: #777777 !important; }
+  .product .ant-tabs-nav {
+    color: #aaaaaa !important; }
+  .product__image {
+    width: 90%;
+    margin: auto;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center; }
+  .product__heart {
+    background: white;
+    font-size: 25px;
+    border: none;
+    float: right;
+    margin: 10px 10px 0 0;
+    width: 40px;
+    height: 40px;
+    padding: 3px 8px;
+    border-radius: 50%;
+    cursor: pointer; }
+  .product__seller-name {
+    font-size: 25px;
+    font-weight: 400; }
+    .product__seller-name span {
+      font-size: 14px;
+      display: block; }
+  .product__seller-image {
+    margin-top: 6px;
+    max-height: 50px;
+    max-width: 50px;
+    border: solid 1px black;
+    border-radius: 50%; }
+  .product__name {
+    font-size: 35px;
+    margin-bottom: 0; }
+  .product__price {
+    font-size: 1.7rem;
+    margin-top: 15px; }
+  .product__overview {
+    padding-left: 30px; }
+    .product__overview li {
+      line-height: 20px; }
+  .product__add-to-cart {
+    width: 95%;
+    margin: auto;
+    background-color: #3897f0 !important;
+    border-color: #3897f0 !important; }
+  .product__share {
+    width: 95%;
+    margin: auto;
+    background-color: #3897f0 !important;
+    border-color: #3897f0 !important; }
+
+.profile {
+  padding-top: 45px; }
+  .profile__image {
+    background-image: url("https://scontent-bom1-1.cdninstagram.com/vp/633748d19c49931c166948e7c6b05f65/5BFD73F1/t51.2885-19/s150x150/30086307_190554238405069_2778711456735035392_n.jpg");
+    margin: auto;
+    height: 170px;
+    width: 170px;
+    background-size: cover;
+    background-position: center;
+    border: solid 0 gray;
+    border-radius: 50%; }
+  .profile__info {
+    font-size: 16px; }
+    .profile__info h1 {
+      font-size: 32px;
+      line-height: 40px;
+      font-weight: 300; }
+    .profile__info .stats {
+      margin-top: 12px;
+      margin-bottom: 12px; }
+      .profile__info .stats .numbers {
+        margin-right: 5%; }
+        .profile__info .stats .numbers span {
+          font-weight: bold; }
+    .profile__info .tagline {
+      margin-bottom: 0; }
+    .profile__info div.button_group {
+      margin-top: 15px; }
+      .profile__info div.button_group button {
+        width: 100px;
+        margin: 0 10px 0 0;
+        border: none;
+        border-radius: 5px;
+        padding: 2px 0;
+        color: white;
+        background-color: #3897f0;
+        cursor: pointer; }
+      .profile__info div.button_group button:hover {
+        border: solid 1px gray; }
+  .profile__details {
+    margin-top: 1%; }
+    .profile__details .ant-tabs-tab {
+      color: #575757; }
 
 .navbar_container {
   border-bottom: 1px solid #c8c8c8; }
@@ -19,117 +119,36 @@
 .information {
   margin-top: 10px; }
 
-div#product_image {
-  width: 90%;
-  height: 500px;
-  background-size: cover;
-  background-position: center; }
-  div#product_image div {
-    background: white;
-    font-size: 25px;
-    border: none;
-    float: right;
-    margin: 10px 10px 0 0;
-    width: 40px;
-    height: 40px;
-    padding: 5px 7px;
-    border-radius: 50%;
-    cursor: pointer; }
+.bg-grey {
+  background-color: #fafafa !important; }
 
-img#seller__image {
-  margin-top: 6px;
-  height: 50px;
-  width: 50px;
-  border: solid 1px black;
-  border-radius: 50%; }
-
-div#seller__name {
-  font-size: 25px; }
-  div#seller__name span {
-    font-size: 14px;
-    display: block; }
-
-h2#name {
-  font-size: 35px;
-  margin-bottom: 0; }
-
-h2#price {
-  font-size: 1.7rem;
-  margin-top: 15px; }
-
-.overview {
-  padding-left: 30px; }
-  .overview li {
-    line-height: 20px; }
-
-#detail > div.ant-row {
-  margin: 10px 0 10px 0; }
-
-.modalBtn {
-  width: 95%;
-  margin: auto; }
+.search-result {
+  padding: 50px 0;
+  display: flex !important;
+  align-items: center; }
+  .search-result__image {
+    max-height: 150px;
+    max-width: 150px;
+    margin: auto; }
+    .search-result__image img {
+      border: solid 1px #777777;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%; }
+  .search-result__text h1 {
+    font-size: 32px;
+    line-height: 40px; }
+  .search-result__text span {
+    font-size: 16px; }
+    .search-result__text span span {
+      font-weight: bold; }
 
 .ant-cascader-menu {
   height: 100%; }
 
-img#search {
-  width: 60%;
-  height: 60%;
-  padding: 10%;
-  margin-left: 25%; }
-
 div#search_result {
   margin-top: 10%;
   font-size: 40px; }
-
-.profile {
-  margin-top: 45px; }
-  .profile__image {
-    height: 170px;
-    width: 170px;
-    background-size: cover;
-    background-position: center;
-    border: solid 1px gray;
-    border-radius: 50%;
-    float: right;
-    margin-right: 10%; }
-  .profile__info h1 {
-    margin-bottom: 0;
-    font-weight: 700;
-    font-size: 32px; }
-  .profile__info .stats {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    color: black;
-    font-size: 1.7rem; }
-    .profile__info .stats .numbers {
-      margin-right: 5%; }
-      .profile__info .stats .numbers span {
-        font-weight: 900; }
-  .profile__info .tagline {
-    margin-bottom: 0;
-    font-size: 1.5rem;
-    color: black; }
-  .profile__info div.button_group {
-    margin-top: 2%; }
-    .profile__info div.button_group button {
-      width: 100px;
-      margin: 0 10px 0 0;
-      border: solid 1px black;
-      background-color: transparent;
-      border-radius: 5%;
-      padding: 0.5rem;
-      color: #000;
-      cursor: pointer; }
-    .profile__info div.button_group button:hover {
-      border: solid 1px gray; }
-  .profile__details {
-    margin-top: 1%; }
-    .profile__details .ant-tabs-tab {
-      color: #575757; }
-
-html {
-  font-size: 62.5%; }
 
 body {
   margin: 0;

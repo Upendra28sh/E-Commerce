@@ -1,58 +1,59 @@
 .profile {
-  margin-top: 45px;
+  padding-top: 45px;
 
   &__image {
+
+    background-image: url("https://scontent-bom1-1.cdninstagram.com/vp/633748d19c49931c166948e7c6b05f65/5BFD73F1/t51.2885-19/s150x150/30086307_190554238405069_2778711456735035392_n.jpg");
+    margin: auto;
     height: 170px;
     width: 170px;
     background-size: cover;
     background-position: center;
-    border: solid 1px gray;
+    border: solid 0 gray;
     border-radius: 50%;
-    float: right;
-    margin-right: 10%;
+    //float: right;
+    //margin-right: 10%;
   }
 
   &__info {
+    font-size: 16px;
 
     h1 {
-      margin-bottom: 0;
-      font-weight: 700;
       font-size: 32px;
+      line-height: 40px;
+      font-weight: 300;
     }
 
     .stats {
       margin-top: 12px;
       margin-bottom: 12px;
-      color: black;
-      font-size: 1.7rem;
-
 
       .numbers {
         margin-right: 5%;
 
         span {
-          font-weight: 900;
+          font-weight: bold;
         }
       }
     }
 
     .tagline {
       margin-bottom: 0;
-      font-size: 1.5rem;
-      color: black;
+      //font-size: 1.5rem;
     }
 
     div.button_group {
-      margin-top: 2%;
+      margin-top: 15px;
 
       button {
         width: 100px;
         margin: 0 10px 0 0;
-        border: solid 1px black;
-        background-color: transparent;
-        border-radius: 5%;
-        padding: 0.5rem;
-        color: #000;
+        border: none;
+        //background-color: transparent;
+        border-radius: 5px;
+        padding: 2px 0;
+        color: white;
+        background-color: #3897f0;
         cursor: pointer;
       }
       button:hover {

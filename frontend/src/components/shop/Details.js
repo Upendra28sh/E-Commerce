@@ -47,6 +47,18 @@ class Details extends React.Component {
         this.props.getDetails(this.props.match.params.id);
     }
 
+    handleSaveClick(e) {
+        let index = this.containsObject(this.props.details, this.props.saved);
+        console.log(index);
+        if (index > -1) {
+            e.target.className = "anticon anticon-heart-o";
+            this.props.saved.splice(index, 1);
+        } else {
+            e.target.className = "anticon anticon-heart";
+            this.props.saved.push(this.props.details);
+        }
+    }
+
     render() {
         if (!this.state.visible) {
             return <Redirect to="/"/>;
@@ -62,67 +74,50 @@ class Details extends React.Component {
                 id="myModal"
             >
                 {console.log(this.context)}
-                <div className="details">
+                <div className="product">
                     <Row>
                         <Col span={14}>
-                            <div id="image">
-                                <div
-                                    id="product_image"
-                                    style={{backgroundImage: `url("${this.props.details.image_url}")`}}
-                                >
-                                    <div
-                                        onClick={
-                                            (e) => {
-                                                let index = this.containsObject(this.props.details, this.props.saved);
-                                                console.log(index);
-                                                if (index > -1) {
-                                                    e.target.className = "anticon anticon-heart-o";
-                                                    this.props.saved.splice(index, 1);
-                                                } else {
-                                                    e.target.className = "anticon anticon-heart";
-                                                    this.props.saved.push(this.props.details);
-                                                }
-                                            }
-                                        }
-                                    >
-                                        {
-                                            this.containsObject(this.props.details, this.props.saved) > -1 ? <Icon type="heart" /> : <Icon type="heart-o" />
-                                        }
-
-                                        {/*<Icon type="heart-o" />*/}
-                                    </div>
+                            <div className="product__image"
+                                 style={{backgroundImage: `url("${this.props.details.image_url}")`}}>
+                                <div className='product__heart'
+                                     onClick={e => this.handleSaveClick(e)}>
+                                    {
+                                        this.containsObject(this.props.details, this.props.saved) > -1 ?
+                                            <Icon type="heart"/> : <Icon type="heart-o"/>
+                                    }
                                 </div>
                             </div>
-                        </Col>
 
+                        </Col>
                         <Col span={10}>
-                            <Row>
+                            <Row className='product__seller'>
                                 <Col span={4}>
-                                    <img src="/like.svg" id="seller__image" alt="seller_name"/>
+                                    <img src="/like.svg" className='product__seller-image' id="seller__image"
+                                         alt="seller_name"/>
                                 </Col>
-                                <Col span={20} id="seller__name">
+                                <Col span={20} className="product__seller-name">
                                     Seller Info
                                     <span>This is a one liner</span>
                                 </Col>
                             </Row>
 
-                            <div id="detail">
+                            <div>
                                 <div className='my-2'>
-                                    <h2 id="name">{this.props.details.name}</h2>
+                                    <h2 className="product__name">{this.props.details.name}</h2>
                                 </div>
-                                <div  className='my-1'>
+                                <div className='my-1'>
                                     <Tag className="detail">Clothes</Tag>
                                     <Tag className="detail">Shirt</Tag>
                                     <Tag className="detail">Envelope</Tag>
                                 </div>
-                                <div  className='my-2'>
-                                    <h2 id="price">₹{this.props.details.price}.00</h2>
+                                <div className='my-2'>
+                                    <h2 className="product__price">₹{this.props.details.price}.00</h2>
                                 </div>
 
-                                <div  className='my-2'>
-                                    <div>Size: </div>
+                                <div className='my-2'>
+                                    <div>Size:</div>
                                     <Select
-                                        style={{width : '100%'}}
+                                        style={{width: '100%'}}
                                         // showSearch
                                         placeholder="Select Size"
                                         optionFilterProp="children"
@@ -132,15 +127,15 @@ class Details extends React.Component {
                                         <Option value="l">L</Option>
                                     </Select>
                                 </div>
-                                <div  className='my-2'>
-                                    <div>Quantity: </div>
-                                    <InputNumber style={{width : '100%'}} min={1} max={10} defaultValue={1}/>
+                                <div className='my-2'>
+                                    <div>Quantity:</div>
+                                    <InputNumber style={{width: '100%'}} min={1} max={10} defaultValue={1}/>
                                 </div>
                             </div>
 
                             <div>
                                 <h5>Overview</h5>
-                                <ul className="overview">
+                                <ul className="product__overview">
                                     <li>Handmade item</li>
                                     <li>Materials: See Item Details</li>
                                     <li>Cash On Delivery Available</li>
@@ -154,7 +149,8 @@ class Details extends React.Component {
 
                             <Row>
                                 <Col span={12}>
-                                    <Button type="primary" size="large" className="modalBtn" onClick={() => this.checkUser()}>Add To
+                                    <Button type="primary" size="large" className="product__add-to-cart"
+                                            onClick={() => this.checkUser()}>Add To
                                         Cart</Button>
                                     {
                                         this.props.empty_fields ?
@@ -163,7 +159,7 @@ class Details extends React.Component {
                                     }
                                 </Col>
                                 <Col span={12}>
-                                    <Button type="primary" size="large" className="modalBtn">Share</Button>
+                                    <Button type="primary" size="large" className="product__share">Share</Button>
                                 </Col>
                             </Row>
 
