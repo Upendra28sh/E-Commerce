@@ -2,10 +2,11 @@
 
 @import '~bootstrap/dist/css/bootstrap.min.css' ;
 @import '~antd/dist/antd.css';
-@import './custom';
 
 @import "./product";
 @import './profile';
+
+@import './custom';
 
 //html {
 //  font-size: 62.5%;

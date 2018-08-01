@@ -1,51 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~antd/dist/antd.css);
-.navbar_container {
-  border-bottom: 1px solid #c8c8c8; }
-  .navbar_container ul.nav_bar {
-    margin: 0.8rem 0; }
-
-.container_40 {
-  padding: 0 6.5rem; }
-
-.banner {
-  width: 100%; }
-
-.information {
-  margin-top: 10px; }
-
-.bg-grey {
-  background-color: #fafafa !important; }
-
-.search-result {
-  padding: 50px 0;
-  display: flex !important;
-  align-items: center; }
-  .search-result__image {
-    max-height: 150px;
-    max-width: 150px;
-    margin: auto; }
-    .search-result__image img {
-      border: solid 1px #777777;
-      border-radius: 50%;
-      width: 100%;
-      height: 100%; }
-  .search-result__text h1 {
-    font-size: 32px;
-    line-height: 40px; }
-  .search-result__text span {
-    font-size: 16px; }
-    .search-result__text span span {
-      font-weight: bold; }
-
-.ant-cascader-menu {
-  height: 100%; }
-
-div#search_result {
-  margin-top: 10%;
-  font-size: 40px; }
-
 .product {
   font-family: 'Lato', sans-serif; }
   .product .ant-row {
@@ -149,6 +104,51 @@ div#search_result {
     margin-top: 1%; }
     .profile__details .ant-tabs-tab {
       color: #575757; }
+
+.navbar_container {
+  border-bottom: 1px solid #c8c8c8; }
+  .navbar_container ul.nav_bar {
+    margin: 0.8rem 0; }
+
+.container_40 {
+  padding: 0 6.5rem; }
+
+.banner {
+  width: 100%; }
+
+.information {
+  margin-top: 10px; }
+
+.bg-grey {
+  background-color: #fafafa !important; }
+
+.search-result {
+  padding: 50px 0;
+  display: flex !important;
+  align-items: center; }
+  .search-result__image {
+    max-height: 150px;
+    max-width: 150px;
+    margin: auto; }
+    .search-result__image img {
+      border: solid 1px #777777;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%; }
+  .search-result__text h1 {
+    font-size: 32px;
+    line-height: 40px; }
+  .search-result__text span {
+    font-size: 16px; }
+    .search-result__text span span {
+      font-weight: bold; }
+
+.ant-cascader-menu {
+  height: 100%; }
+
+div#search_result {
+  margin-top: 10%;
+  font-size: 40px; }
 
 body {
   margin: 0;
