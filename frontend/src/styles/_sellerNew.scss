@@ -13,7 +13,6 @@
 }
 
 .page_content {
-  margin-bottom: 20px;
   border: solid 1px #dcdcdc;
   padding: 40px 80px;
   background-color: white;
@@ -41,13 +40,29 @@
   margin-bottom: 0px;
 
   button {
-    margin: 20px 100px auto auto;
-    float: right;
     font-size: 18px;
     color: white;
     background-color: #1d1d1d;
     border: none;
     font-weight: 800;
     padding: 8px;
+
+    &:first-child {
+      float: left;
+      margin-top: 20px;
+      margin-left: 100px;
+    }
+
+    &:last-child {
+      float: right;
+      margin: 20px 100px auto auto;
+    }
+  }
+}
+
+.gst {
+
+  input {
+    display: inline;
   }
 }

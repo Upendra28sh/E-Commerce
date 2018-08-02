@@ -7,7 +7,7 @@ import Search from '../components/shop/Search';
 import SignUp from '../components/shop/SignUp';
 import User from '../components/shop/User';
 import Seller from '../components/shop/Seller';
-import AddSeller from '../components/shop/AddSeller';
+import AddSeller from '../components/shop/AddSeller/index';
 import Cart from '../components/shop/Cart';
 import Checkout from '../components/shop/Checkout';
 import Saved from '../components/shop/Saved';
