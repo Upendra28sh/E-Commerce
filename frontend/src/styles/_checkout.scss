@@ -1,0 +1,52 @@
+.checkout_form {
+
+  padding: 0 20px;
+
+  * {
+    display: block;
+  }
+
+  input {
+    border: solid 1px #b4b4b4;
+    box-shadow: none;
+    width: 100%;
+    margin-bottom: 10px;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  label {
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.form_content {
+  border: solid 1px #dcdcdc;
+  padding: 30px;
+  background-color: white;
+}
+
+.form_title {
+  text-align: center;
+  font-weight: 600;
+  padding: 20px 20px 0 20px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.submit_btn {
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 36px;
+  font-size: 18px;
+  background: black;
+  color: white;
+  font-weight: 600;
+}
