@@ -85,53 +85,56 @@ const options = [{
 
 
 const Header = (props) => {
-    return (
-        <div className="navbar_container">
-            <div className='container_40'>
-                <ul className="nav_bar">
-                    {/*<img src="/like.svg" className="header__logo" alt='logo'/>*/}
-                    <li>
-                        <NavLink to="/" activeClassName="active">Home</NavLink>
-                    </li>
-                    <li>
-                        <Cascader options={options} expandTrigger={'hover'} style={{height: '100%', width: '100%'}}>
-                            <a>Categories</a>
-                        </Cascader>
-                    </li>
-                    <li>{props.token ?
-                        <Link onClick={props.logout} to="">Log Out</Link> :
-                        <Link onClick={props.toggleLogin} to="">Log In</Link>}
-                    </li>
-                    <li><NavLink to="/signup" activeClassName="active">Sign Up</NavLink></li>
-
-                    <div className="float-right">
-
-                        {/*<Search*/}
-                        {/*placeholder="input search text"*/}
-                        {/*onSearch={value => props.history.push(`/search/${value}`)}*/}
-                        {/*style={{width: '200px', marginTop: '10px'}}*/}
-                        {/*/>*/}
+    if (props.history.location.pathname === "/") {
+        return <div></div>;
+    }
+    else
+        return (
+            <div className="navbar_container">
+                <div className='container_40'>
+                    <ul className="nav_bar">
+                        {/*<img src="/like.svg" className="header__logo" alt='logo'/>*/}
                         <li>
-                            <Icon type='search' style={{fontSize: 18}}/>
-
+                            <NavLink to="/" activeClassName="active">Home</NavLink>
                         </li>
                         <li>
-                            <Icon type='shopping-cart' style={{fontSize: 18}}/>
-                            {/* <div>{props.shopping_cart.length}</div> */}
+                            <Cascader options={options} expandTrigger={'hover'} style={{height: '100%', width: '100%'}}>
+                                <a>Categories</a>
+                            </Cascader>
+                        </li>
+                        <li>{props.token ?
+                            <Link onClick={props.logout} to="">Log Out</Link> :
+                            <Link onClick={props.toggleLogin} to="">Log In</Link>}
+                        </li>
+                        <li><NavLink to="/signup" activeClassName="active">Sign Up</NavLink></li>
 
-                        </li>
-                        <li>
-                            <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>
-                                <a className="ant-dropdown-link">
-                                    <Icon type="down"/>
-                                </a>
-                            </Dropdown>
-                        </li>
-                    </div>
-                </ul>
+                        <div className="float-right">
+
+                            {/*<Search*/}
+                            {/*placeholder="input search text"*/}
+                            {/*onSearch={value => props.history.push(`/search/${value}`)}*/}
+                            {/*style={{width: '200px', marginTop: '10px'}}*/}
+                            {/*/>*/}
+                            <li>
+                                <Icon type='search' style={{fontSize: 18}}/>
+
+                            </li>
+                            <li>
+                                <Link to="/cart"><Icon type='shopping-cart' style={{fontSize: 18}}/></Link>
+                                {/* <div>{props.shopping_cart.length}</div> */}
+                            </li>
+                            <li>
+                                <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>
+                                    <a className="ant-dropdown-link">
+                                        <Icon type="down"/>
+                                    </a>
+                                </Dropdown>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
             </div>
-        </div>
-    );
+        );
 };
 
 export default Header;

@@ -73,7 +73,6 @@ class Details extends React.Component {
                 style={{margin: '0 20%'}}
                 id="myModal"
             >
-                {console.log(this.context)}
                 <div className="product">
                     <Row>
                         <Col span={14}>

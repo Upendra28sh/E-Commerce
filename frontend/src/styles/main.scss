@@ -3,8 +3,12 @@
 @import '~bootstrap/dist/css/bootstrap.min.css' ;
 @import '~antd/dist/antd.css';
 
+@import "./landing";
 @import "./product";
 @import './profile';
+@import "./sellerNew";
+@import "./cart";
+@import "./checkout";
 
 @import './custom';
 
@@ -47,13 +51,11 @@ body {
   color: black;
   font-size: 13px;
   letter-spacing: 2px;
-  background-color: white;
 }
 
 .nav_bar li a:hover, .nav_bar li:hover {
   cursor: pointer;
   font-weight: 900;
-  background-color: white;
 }
 
 .active {
