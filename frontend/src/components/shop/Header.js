@@ -98,13 +98,12 @@ const Header = (props) => {
                             <NavLink to="/" activeClassName="active">Home</NavLink>
                         </li>
                         <li>
+                            <NavLink to="/feed" activeClassName="active">My Feed</NavLink>
+                        </li>
+                        <li>
                             <Cascader options={options} expandTrigger={'hover'} style={{height: '100%', width: '100%'}}>
                                 <a>Categories</a>
                             </Cascader>
-                        </li>
-                        <li>{props.token ?
-                            <Link onClick={props.logout} to="">Log Out</Link> :
-                            <Link onClick={props.toggleLogin} to="">Log In</Link>}
                         </li>
                         <li><NavLink to="/signup" activeClassName="active">Sign Up</NavLink></li>
 
@@ -120,8 +119,17 @@ const Header = (props) => {
 
                             </li>
                             <li>
+                                <Icon type='bell' style={{fontSize: 18}}/>
+
+                            </li>
+                            <li>
                                 <Link to="/cart"><Icon type='shopping-cart' style={{fontSize: 18}}/></Link>
                                 {/* <div>{props.shopping_cart.length}</div> */}
+                            </li>
+
+                            <li>{props.token ?
+                                <Link onClick={props.logout} to="">Log Out</Link> :
+                                <Link onClick={props.toggleLogin} to="">Log In</Link>}
                             </li>
                             <li>
                                 <Dropdown overlay={menu} trigger={['click']} placement='bottomRight'>

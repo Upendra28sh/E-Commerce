@@ -2,9 +2,11 @@
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~antd/dist/antd.css);
 .bg-image {
-  background-size: cover;
-  background-position: center;
-  height: 1000px; }
+  height: 100vh;
+  width: 100%;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat; }
   .bg-image .landing_logo {
     height: 34px;
     margin-top: 5px; }
@@ -19,7 +21,7 @@
       font-size: 14px; }
   .bg-image #landing_header {
     color: white;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 80px;
     font-weight: 900;
     text-align: center;
