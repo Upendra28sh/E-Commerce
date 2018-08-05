@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
-
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import '~bootstrap/dist/css/bootstrap.min.css' ;
 @import '~antd/dist/antd.css';
 
@@ -8,8 +8,8 @@
 @import './profile';
 @import "./sellerNew";
 @import "./cart";
+@import "./feed";
 @import "./checkout";
-
 @import './custom';
 
 //html {
@@ -323,7 +323,9 @@ th, td, tr {
   font-weight: 400;
   color: red;
 }
-
+.atn-btn{
+  letter-spacing: 2px;
+}
 @media screen and (max-width: 960px) {
   .product-image, .product-info {
     width: 100%;

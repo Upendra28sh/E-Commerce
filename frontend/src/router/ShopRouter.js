@@ -13,7 +13,7 @@ import Checkout from '../components/shop/Checkout';
 import Saved from '../components/shop/Saved';
 import Confirm from '../components/shop/Confirm';
 import Thanks from '../components/shop/Thanks';
-
+import Feed from '../components/shop/myfeed'
 const Router = () => {
     return (
         <Switch>
@@ -29,6 +29,7 @@ const Router = () => {
             <Route exact path="/saved" component={Saved} />
             <Route exact path="/confirm" component={Confirm} />
             <Route exact path="/thanks" component={Thanks} />
+            <Route exact path="/feed" component={Feed} />
         </Switch>
     )
 }
