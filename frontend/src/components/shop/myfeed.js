@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Card } from 'antd';
+import { Icon } from 'antd';
 
-const { Meta } = Card;
 
 class Feed extends React.Component {
     
@@ -25,10 +24,10 @@ class Feed extends React.Component {
             <div class="photo__info">
                 <div class="photo__actions">
                     <span class="photo__action">
-                        <i class="fa fa-heart-o fa-lg"></i>
+                    <Icon type="heart-o"  style={{ fontSize: 21, color: 'black' }} />
                     </span>
                     <span class="photo__action">
-                        <i class="fa fa-comment-o fa-lg"></i>
+                    <Icon type="message"  style={{ fontSize: 21, color: 'black' }}/>
                     </span>
                 </div>
                 <span class="photo__likes">45 likes</span>
@@ -49,7 +48,7 @@ class Feed extends React.Component {
                 <span class="photo__time-ago">2 hours ago</span>
                 <div class="photo__add-comment-container">
                     <textarea name="comment" placeholder="Add a comment..."></textarea>
-                    <i class="fa fa-ellipsis-h"></i>
+                    <Icon type="ellipsis" style={{ fontSize: 21, color: 'black' }} />
                 </div>
             </div>
         </div>
