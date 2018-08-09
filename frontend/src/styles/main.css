@@ -13,13 +13,12 @@
     margin-top: 5px; }
   .bg-image .landing_item {
     background-color: transparent;
-    float: right; }
+    float: right;
+    color: white;
+    font-weight: 600;
+    font-size: 14px; }
     .bg-image .landing_item:hover {
       border-bottom: solid 1px white; }
-    .bg-image .landing_item * {
-      color: white;
-      font-weight: 600;
-      font-size: 14px; }
   .bg-image #landing_header {
     color: white;
     font-family: Lato, sans-serif;
