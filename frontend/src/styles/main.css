@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~antd/dist/antd.css);
 .bg-image {
-  background-size: cover;
-  background-position: center;
-  height: 1000px; }
+  height: 100vh;
+  width: 100%;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat; }
   .bg-image .landing_logo {
     height: 34px;
     margin-top: 5px; }
@@ -19,7 +22,7 @@
       font-size: 14px; }
   .bg-image #landing_header {
     color: white;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 80px;
     font-weight: 900;
     text-align: center;
@@ -222,6 +225,132 @@
 
 .left_part {
   border-right: solid 1px #1513131c; }
+
+#feed {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+#feed .photo {
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 65px; }
+
+.photo .photo__header {
+  padding: 15px;
+  display: flex;
+  align-items: center; }
+
+.photo__header .photo__avatar {
+  width: 32px;
+  border-radius: 50%;
+  margin-right: 10px; }
+
+.photo .photo__user-info .photo__author {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px; }
+
+.photo > img {
+  max-width: 100%; }
+
+.photo .photo__info {
+  padding: 15px 20px; }
+
+.photo__actions {
+  margin-bottom: 15px;
+  font-size: 115%; }
+
+.photo__actions .photo__action:first-child {
+  margin-right: 15px; }
+
+.photo__actions .photo__action {
+  cursor: pointer; }
+
+.photo .photo__likes {
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block; }
+
+.photo .photo__add-comment-container {
+  margin-top: 15px;
+  border-top: 1px solid #e6e6e6;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.photo__add-comment-container textarea {
+  width: 90%;
+  border: 0;
+  font-size: 14px;
+  resize: none;
+  height: 20px; }
+
+.photo__add-comment-container textarea:focus,
+.photo__add-comment-container textarea:active {
+  outline: none; }
+
+.photo__add-comment-container i {
+  cursor: pointer; }
+
+.photo .photo__time-ago {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #999;
+  margin-top: 10px;
+  display: block; }
+
+.photo__comment {
+  margin-bottom: 10px; }
+
+.photo__comments .photo__comment-author {
+  font-weight: 600; }
+
+ol,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol,
+ul {
+  list-style: none; }
+
+blockquote,
+q {
+  quotes: none; }
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none; }
 
 .checkout_form {
   padding: 0 20px; }
@@ -554,6 +683,9 @@ th, td, tr {
 .message {
   font-weight: 400;
   color: red; }
+
+.atn-btn {
+  letter-spacing: 2px; }
 
 @media screen and (max-width: 960px) {
   .product-image, .product-info {
