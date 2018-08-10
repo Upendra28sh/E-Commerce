@@ -4,27 +4,24 @@
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat;
-
+  
   .landing_logo {
     height: 34px;
     margin-top: 5px;
   }
-
+  
   .landing_item {
     background-color: transparent;
     float: right;
-
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    
     &:hover {
       border-bottom: solid 1px white;
     }
-
-    * {
-      color: white;
-      font-weight: 600;
-      font-size: 14px;
-    }
   }
-
+  
   #landing_header {
     color: white;
     font-family: Lato, sans-serif;

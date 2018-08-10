@@ -6,7 +6,8 @@ const Search = Input.Search;
 
 const MenuI = (props)=>{
 
-  return(  <Menu>
+  return(  
+    <Menu>
         <Menu.Item key="1">Your Profile</Menu.Item>
         <Menu.Item key="2">Your Order</Menu.Item>
         <Menu.Item key="3"><NavLink to="/saved">Saved Products</NavLink></Menu.Item>
@@ -98,7 +99,7 @@ const Header = (props) => {
                     <ul className="nav_bar">
                         {/*<img src="/like.svg" className="header__logo" alt='logo'/>*/}
                         <li>
-                            <NavLink to="/" onClick={props.showLogin ? props.toggleLogin :''} activeClassName="active">Home</NavLink>
+                            <NavLink to="/" activeClassName="active">Home</NavLink>
                         </li>
                         <li>
                             <NavLink to="/feed" activeClassName="active">My Feed</NavLink>
