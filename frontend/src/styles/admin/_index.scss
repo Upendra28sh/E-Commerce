@@ -1,0 +1,15 @@
+@import "./product-card";
+
+.admin-panel {
+  .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, .2);
+    margin: 16px;
+  }
+}
+
+.ant-card.grey-header {
+  .ant-card-head {
+    background: #f9f9f9 !important;
+  }
+}
