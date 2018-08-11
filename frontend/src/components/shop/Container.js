@@ -10,7 +10,7 @@ class Container extends React.Component {
             <div>
                 <Header {...this.props}
                 />
-                <div>
+                <div className='main'>
                     <Router/>
                 </div>
             </div>

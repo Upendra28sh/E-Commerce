@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row, Col, Tabs, Icon} from 'antd';
+import Feed from "./Feed";
 
 const {TabPane} = Tabs;
 
@@ -36,9 +37,9 @@ const User = (props) => {
                     <Row className="profile__details">
                         <Col span={24}>
                             <Tabs defaultActiveKey="1" size="default" style={{textAlign: 'center'}}>
-                                <TabPane tab="Posts" key="1">Content of tab 1</TabPane>
-                                <TabPane tab="Connections" key="2">Content of tab 2</TabPane>
-                                <TabPane tab="Followers" key="3">Content of tab 3</TabPane>
+                                <TabPane tab="WishList" key="1">Content of tab 1</TabPane>
+                                <TabPane tab="Posts" key="2"><Feed/></TabPane>
+                                <TabPane tab="Shops" key="3">Content of tab 3</TabPane>
                             </Tabs>
                         </Col>
                     </Row>
