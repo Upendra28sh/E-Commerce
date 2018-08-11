@@ -8,10 +8,9 @@ class OrderList extends Component {
         return (
             <div>
                 <OrderTable/>
+                {/* 
                 <div className='container'>
                     <h3>Order List</h3>
-
-
                     <OrderCard/>
                     <br/>
                     <OrderCard/>
@@ -19,8 +18,8 @@ class OrderList extends Component {
                     <OrderCard/>
                     <br/>
                     <OrderCard/>
-
                 </div>
+                */}
             </div>
         );
     }

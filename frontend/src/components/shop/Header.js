@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {Cascader, Input, Dropdown, Menu, Icon, Button} from 'antd';
+import {Cascader, Input, Dropdown, Menu, Icon, Button, Row, Col} from 'antd';
 
 const Search = Input.Search;
 
@@ -17,77 +17,123 @@ const MenuI = (props) => {
     );
 };
 
-const options = [{
-    value: 'Clothes',
-    label: 'clothes',
-    children:
-        [
-            {
-                value: 'Men',
-                label: 'Men',
-                children:
-                    [
-                        {
-                            value: 'Shirts',
-                            label: 'Shirts'
-                        },
-                        {
-                            value: 'Pants',
-                            label: 'Pants'
-                        }
-                    ]
-            },
-            {
-                value: 'Women',
-                label: 'Women',
-                children:
-                    [
-                        {
-                            value: 'Shirts',
-                            label: 'Shirts'
-                        },
-                        {
-                            value: 'Pants',
-                            label: 'Pants'
-                        }
-                    ]
-            },
-            {
-                value: 'Kids',
-                label: 'Kids',
-                children:
-                    [
-                        {
-                            value: 'Shirts',
-                            label: 'Shirts'
-                        },
-                        {
-                            value: 'Pants',
-                            label: 'Pants'
-                        }
-                    ]
-            }
-        ],
-}, {
-    value: 'Electronics',
-    label: 'electronics',
-    children:
-        [
-            {
-                value: 'Phone',
-                label: 'Phone',
-            },
-            {
-                value: 'Laptop',
-                label: 'Laptop',
-            },
-            {
-                value: 'PC',
-                label: 'PC',
-            }
-        ]
-}];
+// const options = [{
+//     value: 'Clothes',
+//     label: 'clothes',
+//     children:
+//         [
+//             {
+//                 value: 'Men',
+//                 label: 'Men',
+//                 children:
+//                     [
+//                         {
+//                             value: 'Shirts',
+//                             label: 'Shirts'
+//                         },
+//                         {
+//                             value: 'Pants',
+//                             label: 'Pants'
+//                         }
+//                     ]
+//             },
+//             {
+//                 value: 'Women',
+//                 label: 'Women',
+//                 children:
+//                     [
+//                         {
+//                             value: 'Shirts',
+//                             label: 'Shirts'
+//                         },
+//                         {
+//                             value: 'Pants',
+//                             label: 'Pants'
+//                         }
+//                     ]
+//             },
+//             {
+//                 value: 'Kids',
+//                 label: 'Kids',
+//                 children:
+//                     [
+//                         {
+//                             value: 'Shirts',
+//                             label: 'Shirts'
+//                         },
+//                         {
+//                             value: 'Pants',
+//                             label: 'Pants'
+//                         }
+//                     ]
+//             }
+//         ],
+// }, {
+//     value: 'Electronics',
+//     label: 'electronics',
+//     children:
+//         [
+//             {
+//                 value: 'Phone',
+//                 label: 'Phone',
+//             },
+//             {
+//                 value: 'Laptop',
+//                 label: 'Laptop',
+//             },
+//             {
+//                 value: 'PC',
+//                 label: 'PC',
+//             }
+//         ]
+// }];
 
+const menu = (
+    <div className="categories">
+        <Row>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong><li>Men</li></strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong><li>Women</li></strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong><li>Kids</li></strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong><li>Electronics</li></strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+        </Row>
+    </div>
+);
 
 class Header extends React.Component {
 
@@ -119,22 +165,26 @@ class Header extends React.Component {
                 <div className='container_40'>
                     <ul className="nav_bar">
                         {/*<img src="/like.svg" className="header__logo" alt='logo'/>*/}
-
-                        <li>
+                        {/* <li>
                             <Cascader options={options} expandTrigger={'hover'} style={{height: '100%', width: '100%'}}>
                                 <a>Categories</a>
                             </Cascader>
+                        </li> */}
+
+                        <li>
+                            <Dropdown overlay={menu} trigger={["click"]}>
+                                <span>Categories</span>
+                            </Dropdown>
                         </li>
                         <li>
                             <Link to="/feed">My Feed</Link>
                         </li>
                         <li>
-                            <Link to="/">Trending</Link>
+                            <Link to="/trending">Trending</Link>
                         </li>
                         <div className="float-right">
                             <li>
                                 <Icon type='bell' style={{fontSize: 18}}/>
-
                             </li>
                             
                             {
@@ -153,15 +203,15 @@ class Header extends React.Component {
                                 )
                             }
                             
-
-                            
                             <li>
                                 <Link to="/cart"><Icon type='shopping-cart' style={{fontSize: 18}}/></Link>
                                 {/* <div>{this.props.shopping_cart.length}</div> */}
                             </li>
+
                             <li style={{border: 'solid 2px gray', paddingTop: '0px', paddingBottom: '0px', marginLeft: '10px'}} >
                                 Hi, {this.props.first_name || "Dhruv"}
                             </li>
+
                             <li style={{border: 'solid 2px gray', paddingTop: '0px', paddingBottom: '0px', marginLeft: '10px'}} >
                                 <Dropdown overlay={<MenuI />} trigger={['click']}
                                           placement='bottomRight'>

@@ -1,0 +1,14 @@
+.categories {
+    width: 500px;
+    background-color: white;
+    padding: 10px 0px 0px 10px;
+    border: solid 1px rgb(173, 169, 169);
+
+    &__list {
+        padding: 0 10px;
+        
+        li {
+            padding: 2px 0;
+        }
+    }
+}

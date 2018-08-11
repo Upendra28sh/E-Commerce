@@ -30,6 +30,7 @@ class Cart extends React.Component {
     render() {
         return (
             <div className="bg-grey">
+            {console.log(this.props)}
                 <div className="container_160">
                     <div className="cart_title">
                         <h2>{this.props.shopping_cart.length} item{this.props.shopping_cart.length > 1 ? 's': ''} in your cart</h2>
