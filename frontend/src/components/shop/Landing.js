@@ -48,13 +48,13 @@ const Landing = (props) => {
                         <NavLink to="/signup"><li className="landing_item">Sign Up</li></NavLink>
                     </ul>
                 </div>
-                <Link to="/shop" style={{color: 'white'}}><h1 id="landing_header">GO ➡ </h1></Link>
+                <Link to="/feed" style={{color: 'white'}}><h1 id="landing_header">GO ➡ </h1></Link>
             </div>
-            <div>
+            {/* <div>
                 <p>Other Stuff</p>
                 <p>Other Stuff</p>
                 <p>Other Stuff</p>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -20,10 +20,11 @@ const User = (props) => {
                             <p className="stats">
                                 <span className="numbers"><Icon type="file"/><span
                                     className="posts"> 16</span> posts</span>
-                                <span className="numbers"><Icon type="user"/><span className="followers"> 257</span> followers</span>
+                                <span className="numbers"><Icon type="user"/><span className="connections"> 257</span> connections</span>
                                 <span className="numbers"><Icon type="user-add"/><span
                                     className="connections"> 249</span> following</span>
                             </p>
+                            <p className="tagline"><strong>Dhruv Ramdev</strong></p>
                             <p className="tagline">Fusce semper vel odio eu finibus. Integer mattis enim sit amet urna
                                 hendrerit, ac pulvinar augue feugiat</p>
                             <div className="button_group">

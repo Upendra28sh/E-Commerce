@@ -49,19 +49,60 @@ const columns = [{
 }];
 
 
-const source = [{
-    date: "09-08-2018",
-    id: "1004234",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: true,
-    delivered: true,
-    total: "Rs. 3500",
-    status: "PrePaid",
-    age: "1d 15h"
-}];
+const source = [
+    {
+        date: "09-08-2018",
+        id: "1004234",
+        name: "Dhruv Ramdev",
+        city: "Delhi",
+        confirmed: true,
+        packed: true,
+        shipped: true,
+        delivered: true,
+        total: "Rs. 3500",
+        status: "PrePaid",
+        age: "1d 15h"
+    },
+    {
+        date: "19-08-2018",
+        id: "1004234",
+        name: "Dhruv Ramdev",
+        city: "Delhi",
+        confirmed: true,
+        packed: true,
+        shipped: true,
+        delivered: true,
+        total: "Rs. 3900",
+        status: "PrePaid",
+        age: "2d 15h"
+    },
+    {
+        date: "29-08-2018",
+        id: "1004234",
+        name: "Dhruv Ramdev",
+        city: "Delhi",
+        confirmed: true,
+        packed: true,
+        shipped: true,
+        delivered: true,
+        total: "Rs. 3800",
+        status: "PrePaid",
+        age: "3d 15h"
+    },
+    {
+        date: "09-09-2018",
+        id: "1004234",
+        name: "Dhruv Ramdev",
+        city: "Delhi",
+        confirmed: true,
+        packed: true,
+        shipped: true,
+        delivered: true,
+        total: "Rs. 3700",
+        status: "PrePaid",
+        age: "1d 12h"
+    }
+];
 
 class OrderTable extends Component {
     render() {

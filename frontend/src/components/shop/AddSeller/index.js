@@ -3,43 +3,19 @@ import {Progress, Input} from 'antd';
 
 import ShopName from "./ShopName";
 import ShopDetails from './ShopDetails';
+import SellerDetails from './SellerDetails';
 
 const pages = [
     <ShopName />,
+    <SellerDetails />,
     <ShopDetails />,
-    (
-        <div>
-            <div className="page_title">
-                <h2>Stock Your Shop</h2>
-                <p>Add as many listings as you can. Ten or more would be a great start. More listings means more chances
-                    to be discovered!</p>
-            </div>
-            <div className="page_content">
-                <h1>Page 3</h1>
-            </div>
-        </div>
-
-    ),
-    (
-        <div>
-            <div className="page_title">
-                <h2>Stock Your Shop</h2>
-                <p>Add as many listings as you can. Ten or more would be a great start. More listings means more chances
-                    to be discovered!</p>
-            </div>
-            <div className="page_content">
-                <h1>Page 4</h1>
-            </div>
-        </div>
-
-    ),
 ];
 
 class AddSeller extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            percent: 25,
+            percent: 100/3,
             page: 0,
             gst: false
         }
@@ -48,10 +24,11 @@ class AddSeller extends React.Component {
     onContinue = () => {
         this.setState(
             (prevState) => {
-                return {
-                    percent: prevState.percent += 25,
-                    page: prevState.page += 1
-                }
+                if (prevState.percent < 100)
+                    return {
+                        percent: prevState.percent += 100/3,
+                        page: prevState.page += 1
+                    }
             }
         );
     };
@@ -59,10 +36,11 @@ class AddSeller extends React.Component {
     onBack = () => {
         this.setState(
             (prevState) => {
-                return {
-                    percent: prevState.percent -= 25,
-                    page: prevState.page -= 1
-                }
+                if (prevState.percent > 100/3)
+                    return {
+                        percent: prevState.percent -= 100/3,
+                        page: prevState.page -= 1
+                    }
             }
         );
     };

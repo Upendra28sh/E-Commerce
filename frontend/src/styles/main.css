@@ -355,7 +355,7 @@ q:after {
   padding: 0 20px; }
   .checkout_form * {
     display: block; }
-  .checkout_form input {
+  .checkout_form input, .checkout_form textarea {
     border: solid 1px #b4b4b4;
     box-shadow: none;
     width: 100%;
@@ -776,7 +776,7 @@ body {
 label {
   font-weight: 300; }
 
-.shoppingCart, table {
+.shoppingCart {
   max-width: 800px;
   width: 100%;
   margin: 50px auto; }
