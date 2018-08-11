@@ -14,7 +14,8 @@ import Checkout from '../components/shop/Checkout';
 import Saved from '../components/shop/Saved';
 import Confirm from '../components/shop/Confirm';
 import Thanks from '../components/shop/Thanks';
-import Feed from '../components/shop/myfeed'
+
+import Feed from '../components/shop/Feed'
 
 const Router = () => {
     return (

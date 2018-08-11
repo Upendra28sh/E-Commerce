@@ -130,22 +130,31 @@ const Header = (props) => {
                                 {/* <div>{props.shopping_cart.length}</div> */}
                             </li>
 
-                            {props.token ?
                             <li>
-                                <Dropdown overlay={<MenuI logout={props.logout}/>} trigger={['click']} placement='bottomRight'>
-                                <a className="ant-dropdown-link">
-                                Hi, {props.first_name} <Icon type="down"/>
-                                </a>
-                            </Dropdown>
-                            </li> :
-                            <li>
-                            <Button onClick={props.toggleLogin} type="primary">
-                               Log In
-                                </Button>
-                                &nbsp;&nbsp;
-                              <NavLink to="/signup" activeClassName="active">Sign Up</NavLink>
-                          </li>
-                          }
+                                <Dropdown overlay={<MenuI logout={props.logout}/>} trigger={['click']}
+                                          placement='bottomRight'>
+                                    <a className="ant-dropdown-link">
+                                        Hi, {props.first_name || "Dhruv"} <Icon type="down"/>
+                                    </a>
+                                </Dropdown>
+                            </li>
+
+                            {/*{props.token ?*/}
+                            {/*<li>*/}
+                                {/*<Dropdown overlay={<MenuI logout={props.logout}/>} trigger={['click']} placement='bottomRight'>*/}
+                                {/*<a className="ant-dropdown-link">*/}
+                                {/*Hi, {props.first_name} <Icon type="down"/>*/}
+                                {/*</a>*/}
+                            {/*</Dropdown>*/}
+                            {/*</li> :*/}
+                            {/*<li>*/}
+                            {/*<Button onClick={props.toggleLogin} type="primary">*/}
+                               {/*Log In*/}
+                                {/*</Button>*/}
+                                {/*&nbsp;&nbsp;*/}
+                              {/*<NavLink to="/signup" activeClassName="active">Sign Up</NavLink>*/}
+                          {/*</li>*/}
+                          {/*}*/}
 
                             
                         </div>

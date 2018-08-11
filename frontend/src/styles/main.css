@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~antd/dist/antd.css);
 .bg-image {
@@ -447,6 +446,182 @@ q:after {
 div#search_result {
   margin-top: 10%;
   font-size: 40px; }
+
+.make-3D-space {
+  position: relative;
+  perspective: 800px;
+  width: 100%;
+  height: 500px;
+  transform-style: preserve-3d;
+  transition: transform 5s;
+  margin-bottom: 10px; }
+
+.product-card {
+  width: 95%;
+  height: 490px;
+  position: absolute;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  -webkit-transition: 100ms ease-out;
+  -moz-transition: 100ms ease-out;
+  -o-transition: 100ms ease-out;
+  transition: 100ms ease-out; }
+  .product-card__front {
+    width: 100%;
+    height: 500px;
+    background: #fff;
+    position: absolute;
+    -webkit-transition: all 100ms ease-out;
+    -moz-transition: all 100ms ease-out;
+    -o-transition: all 100ms ease-out;
+    transition: all 100ms ease-out; }
+  .product-card.animate {
+    -webkit-transition: all 100ms ease-out;
+    -moz-transition: all 100ms ease-out;
+    -o-transition: all 100ms ease-out;
+    transition: all 100ms ease-out; }
+    .product-card.animate .stats-container {
+      top: 250px;
+      -webkit-transition: all 200ms ease-out;
+      -moz-transition: all 200ms ease-out;
+      -o-transition: all 200ms ease-out;
+      transition: all 200ms ease-out; }
+    .product-card.animate .product-card__overlay {
+      opacity: 0.7;
+      -webkit-transition: all 200ms ease-out;
+      -moz-transition: all 200ms ease-out;
+      -o-transition: all 200ms ease-out;
+      transition: all 200ms ease-out; }
+    .product-card.animate .product-card__view-details {
+      opacity: 1;
+      width: 152px;
+      font-size: 15px;
+      margin-left: -75px;
+      top: 115px;
+      -webkit-transition: all 200ms ease-out;
+      -moz-transition: all 200ms ease-out;
+      -o-transition: all 200ms ease-out;
+      transition: all 200ms ease-out; }
+  .product-card__image {
+    height: 100%;
+    width: 100%;
+    background-color: #fafafa;
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/t-shirt.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center; }
+  .product-card__stats .stats-container {
+    background: #fff;
+    position: absolute;
+    top: 386px;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    padding: 27px 35px 35px;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    transition: all 200ms ease-out; }
+    .product-card__stats .stats-container p {
+      font-size: 16px;
+      color: #b1b1b3;
+      padding: 2px 0 20px 0; }
+  .product-card__name {
+    font-size: 22px;
+    color: #393c45; }
+  .product-card__price {
+    float: right;
+    color: #48cfad;
+    font-size: 22px;
+    font-weight: 600; }
+  .product-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #48daa1;
+    opacity: 0; }
+  .product-card__colors div {
+    margin-top: 3px;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    float: left; }
+  .product-card__colors div span {
+    width: 15px;
+    height: 15px;
+    display: block;
+    border-radius: 50%; }
+  .product-card__colors div span:hover {
+    width: 17px;
+    height: 17px;
+    margin: -1px 0 0 -1px; }
+  .product-card__colors div.c-blue span {
+    background: #6e8cd5; }
+  .product-card__colors div.c-red span {
+    background: #f56060; }
+  .product-card__colors div.c-green span {
+    background: #44c28d; }
+  .product-card__colors div.c-white span {
+    background: #fff;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #e8e9eb; }
+  .product-card__options {
+    padding: 2px 0 0; }
+    .product-card__options strong {
+      font-weight: 700;
+      color: #393c45;
+      font-size: 14px; }
+    .product-card__options span {
+      color: #969699;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 8px; }
+  .product-card__view-details {
+    position: absolute;
+    top: 112px;
+    left: 50%;
+    margin-left: -85px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 19px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 0;
+    width: 172px;
+    opacity: 0;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    transition: all 200ms ease-out; }
+    .product-card__view-details:hover {
+      background: #fff;
+      color: #48cfad;
+      cursor: pointer; }
+  .product-card__shadow {
+    width: 335px;
+    height: 520px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+    background: -o-linear-gradient(right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+    background: -moz-linear-gradient(right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)); }
+
+.admin-panel .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px; }
+
+.ant-card.grey-header .ant-card-head {
+  background: #f9f9f9 !important; }
 
 body {
   margin: 0;
