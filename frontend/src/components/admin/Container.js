@@ -1,11 +1,105 @@
 import React from 'react';
-import Router from '../../router/AdminRouter';
 import {Layout, Menu, Icon, Divider} from 'antd';
 import {Link} from 'react-router-dom';
+
+import Router from '../../router/AdminRouter';
 // import '../../styles/admin/_index.css';
 
 const {Header, Content, Footer, Sider} = Layout;
 
+const source = [
+    {
+      date: "09-08-2018",
+      id: "1004234",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: false,
+      shipped: false,
+      delivered: false,
+      total: "Rs. 3500",
+      status: "PrePaid",
+      age: "1d 15h"
+    },
+    {
+      date: "19-08-2018",
+      id: "1004234",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: true,
+      shipped: false,
+      delivered: false,
+      total: "Rs. 3900",
+      status: "PrePaid",
+      age: "2d 15h"
+    },
+    {
+      date: "29-08-2018",
+      id: "1004235",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: true,
+      shipped: false,
+      delivered: false,
+      total: "Rs. 3800",
+      status: "PrePaid",
+      age: "3d 15h"
+    },
+    {
+      date: "09-09-2018",
+      id: "1004236",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: false,
+      shipped: false,
+      delivered: false,
+      total: "Rs. 3700",
+      status: "PrePaid",
+      age: "1d 12h"
+    },
+    {
+      date: "09-09-2018",
+      id: "1004237",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: true,
+      shipped: true,
+      delivered: true,
+      total: "Rs. 3700",
+      status: "PrePaid",
+      age: "1d 12h"
+    },
+    {
+      date: "09-09-2018",
+      id: "1004238",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: true,
+      shipped: true,
+      delivered: false,
+      total: "Rs. 3700",
+      status: "PrePaid",
+      age: "1d 12h"
+    },
+    {
+      date: "09-09-2018",
+      id: "1004239",
+      name: "Dhruv Ramdev",
+      city: "Delhi",
+      confirmed: true,
+      packed: true,
+      shipped: true,
+      delivered: false,
+      total: "Rs. 3700",
+      status: "PrePaid",
+      age: "1d 12h"
+    }
+  ];
 
 class Container extends React.Component {
     render() {
@@ -56,7 +150,7 @@ class Container extends React.Component {
                     <Header style={{background: '#fff', padding: 0}}/>
                     <Content style={{margin: '24px 16px 0', overflow: 'initial'}}>
                         <div style={{padding: 24}}>
-                            <Router/>
+                            <Router />
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>

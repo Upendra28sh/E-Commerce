@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends Component {
 
@@ -28,10 +29,10 @@ class ProductCard extends Component {
                     <div className="product-card__front">
                         <div className="product-card__shadow"/>
                         <div className='product-card__image'>
-                            {/*<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/t-shirt.png"/>*/}
+                            {/* <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/t-shirt.png"/> */}
                         </div>
                         <div className="product-card__overlay"/>
-                        <div className="product-card__view-details">View details</div>
+                        <Link to="/admin/listing/1234"><div className="product-card__view-details">View details</div></Link>
                         <div className="product-card__stats">
                             <div className="stats-container">
                                 <span className="product-card__price">$39</span>

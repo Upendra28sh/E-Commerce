@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { Table } from "antd";
 
@@ -15,7 +16,8 @@ const columns = [
     title: "Order ID",
     dataIndex: "id",
     key: "id",
-    align: 'center'
+    align: 'center',
+    render: (value) => <Link to={`/admin/orders/${value}`}>{value}</Link>
   },
   {
     title: "Name",
@@ -106,7 +108,7 @@ const source = [
   },
   {
     date: "29-08-2018",
-    id: "1004234",
+    id: "1004235",
     name: "Dhruv Ramdev",
     city: "Delhi",
     confirmed: true,
@@ -119,7 +121,7 @@ const source = [
   },
   {
     date: "09-09-2018",
-    id: "1004234",
+    id: "1004236",
     name: "Dhruv Ramdev",
     city: "Delhi",
     confirmed: true,
@@ -132,7 +134,7 @@ const source = [
   },
   {
     date: "09-09-2018",
-    id: "1004234",
+    id: "1004237",
     name: "Dhruv Ramdev",
     city: "Delhi",
     confirmed: true,
@@ -145,7 +147,7 @@ const source = [
   },
   {
     date: "09-09-2018",
-    id: "1004234",
+    id: "1004238",
     name: "Dhruv Ramdev",
     city: "Delhi",
     confirmed: true,
@@ -158,7 +160,7 @@ const source = [
   },
   {
     date: "09-09-2018",
-    id: "1004234",
+    id: "1004239",
     name: "Dhruv Ramdev",
     city: "Delhi",
     confirmed: true,
