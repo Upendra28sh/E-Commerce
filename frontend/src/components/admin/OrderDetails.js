@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
-import { Card, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import { Card, Row, Col, Dropdown, Steps } from 'antd';
+
+const Step = Steps.Step;
 
 const item = {
     date: "09-09-2018",
     id: "1004239",
     name: "Dhruv Ramdev",
     city: "Delhi",
-    total: "Rs. 3700",
+    total: "Rs. 37000",
     status: "PrePaid",
-    age: "1d 12h"
+    age: "1d 12h",
+    payment: "COD",
+    product: "Laptop",
 }
+
+const status = (
+    <div style={{backgroundColor: 'white', marginTop: '20px'}}>
+        <Steps current={3}>
+            <Step title="Confirmed" description="This is a description." />
+            <Step title="Packed" description="This is a description." />
+            <Step title="Shipped" description="This is a description." />
+            <Step title="Delivered" description="This is a description." />
+        </Steps>
+    </div>
+);
 
 export default class OrderDetails extends Component {
     constructor(props) {
@@ -44,12 +60,15 @@ export default class OrderDetails extends Component {
                                             )
                                         }
                                     </table>
-                                    
                                 </div>
                             </Col>
                             <Col span={8}>
                                 <img src="http://shfcs.org/en/wp-content/uploads/2015/11/MedRes_Product-presentation-2.jpg" alt={item.name}/>
                             </Col>
+                            {/* <Dropdown overlay={status} trigger={['click']}>
+                                <span className="order-status">Order Status</span>
+                            </Dropdown> */}
+                            {status}
                         </Row>
                     </div>
                 </Card>

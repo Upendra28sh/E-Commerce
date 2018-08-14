@@ -656,7 +656,8 @@ div#search_result {
     background-color: #2dcc2d; }
 
 .order__details {
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 10px; }
   .order__details th {
     font-size: 18px;
     padding-left: 20px;
@@ -667,7 +668,8 @@ div#search_result {
     padding-left: 20px; }
 
 .order img {
-  width: 100%; }
+  width: 90%;
+  margin-left: 5%; }
 
 .order_header {
   display: flex;
