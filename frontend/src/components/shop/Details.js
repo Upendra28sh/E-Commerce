@@ -44,7 +44,19 @@ class Details extends React.Component {
 
     componentDidMount() {
         console.log(this.props);
-        this.props.getDetails(this.props.match.params.id);
+        if(this.props.products.length==0)
+        {
+            this.props.getProducts();
+            console.log("error",this.props.products);
+            this.props.getDetails(this.props.products[this.props.match.params.id-1].id);
+            
+        }
+        else
+        {
+            console.log("error",this.props.products);
+        this.props.getDetails(this.props.products[this.props.match.params.id-1].id);
+        }
+        console.log("testing",this.props);
     }
 
     handleSaveClick(e) {
@@ -77,7 +89,7 @@ class Details extends React.Component {
                     <Row>
                         <Col span={14}>
                             <div className="product__image"
-                                 style={{backgroundImage: `url("${this.props.details.image_url}")`}}>
+                                 style={{backgroundImage: `url("product_images/${this.props.details.image}")`}}>
                                 <div className='product__heart'
                                      onClick={e => this.handleSaveClick(e)}>
                                     {
@@ -95,8 +107,8 @@ class Details extends React.Component {
                                          alt="seller_name"/>
                                 </Col>
                                 <Col span={20} className="product__seller-name">
-                                    Seller Info
-                                    <span>This is a one liner</span>
+                                 {this.props.details.seller!=undefined ? this.props.details.seller.name :'undefined'}
+                                    <span>{this.props.details.seller!=undefined ? this.props.details.seller.about :'undefined'}</span>
                                 </Col>
                             </Row>
 

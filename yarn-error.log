@@ -1,23 +1,29 @@
 Arguments: 
-  /home/saurabh/.nvm/versions/node/v8.11.3/bin/node /usr/bin/yarn install
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add apollo-boost react-apollo graphql
 
 PATH: 
-  /home/saurabh/.nvm/versions/node/v8.11.3/bin:/home/saurabh/.local/bin:/home/saurabh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  C:\Users\shiva\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\shiva\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Git\cmd;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\nodejs;C:\HashiCorp\Vagrant\bin;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Microsoft VS Code\bin;C:\WINDOWS\System32\OpenSSH;C:\Users\shiva\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Users\shiva\AppData\Local\Programs\Python\Python36-32;C:\Users\shiva\AppData\Local\Microsoft\WindowsApps;C:\Users\shiva\AppData\Local\atom\bin;C:\Program Files\Microsoft VS Code\bin;C:\MinGW\bin;C:\LLVM\bin;C:\glo662wb\bin;C:\Users\shiva\AppData\Roaming\npm;C:\Users\shiva\AppData\Local\Yarn\bin;C:\Users\shiva\AppData\Local\Microsoft\WindowsApps;C:\Program Files\PostgreSQL\10\bin;C:\Program Files\PostgreSQL\10\lib;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.7.0
 
 Node version: 
-  8.11.3
+  8.11.1
 
 Platform: 
-  linux x64
+  win32 x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/saurabh/Downloads/E-commerce-App/node_modules/.yarn-integrity'
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com registry.yarnpkg.com:443
+      at errnoException (dns.js:50:10)
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:92:26)
 
 npm manifest: 
   {
+    "scripts": {
+      "front": "cd frontend && yarn run start",
+      "back": "cd backend && yarn run start"
+    },
     "dependencies": {
       "global": "^4.3.2",
       "gyp": "^0.5.0",
