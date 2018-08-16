@@ -5,6 +5,7 @@ import ProductDetails from "../components/admin/ProductDetails";
 import ProductNew from "../components/admin/ProductNew";
 import OrderList from "../components/admin/OrderList";
 import OrderDetails from "../components/admin/OrderDetails";
+import UserTable from '../components/admin/UserTable';
 
 const temp = () => <p>Welcome to Seller Dashboard</p>
 const login = () => <p>Login</p>
@@ -19,6 +20,7 @@ const Router = () => {
             <Route exact path="/admin/listing/:id" component={ProductDetails} />
             <Route exact path="/admin/orders/" component={OrderList} />
             <Route exact path="/admin/orders/:id" component={OrderDetails} />
+            <Route exact path="/admin/users/" component={UserTable} />
         </Switch>
     )
 }

@@ -7,100 +7,6 @@ import Router from '../../router/AdminRouter';
 
 const {Header, Content, Footer, Sider} = Layout;
 
-const source = [
-    {
-      date: "09-08-2018",
-      id: "1004234",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: false,
-      shipped: false,
-      delivered: false,
-      total: "Rs. 3500",
-      status: "PrePaid",
-      age: "1d 15h"
-    },
-    {
-      date: "19-08-2018",
-      id: "1004234",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: true,
-      shipped: false,
-      delivered: false,
-      total: "Rs. 3900",
-      status: "PrePaid",
-      age: "2d 15h"
-    },
-    {
-      date: "29-08-2018",
-      id: "1004235",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: true,
-      shipped: false,
-      delivered: false,
-      total: "Rs. 3800",
-      status: "PrePaid",
-      age: "3d 15h"
-    },
-    {
-      date: "09-09-2018",
-      id: "1004236",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: false,
-      shipped: false,
-      delivered: false,
-      total: "Rs. 3700",
-      status: "PrePaid",
-      age: "1d 12h"
-    },
-    {
-      date: "09-09-2018",
-      id: "1004237",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: true,
-      shipped: true,
-      delivered: true,
-      total: "Rs. 3700",
-      status: "PrePaid",
-      age: "1d 12h"
-    },
-    {
-      date: "09-09-2018",
-      id: "1004238",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: true,
-      shipped: true,
-      delivered: false,
-      total: "Rs. 3700",
-      status: "PrePaid",
-      age: "1d 12h"
-    },
-    {
-      date: "09-09-2018",
-      id: "1004239",
-      name: "Dhruv Ramdev",
-      city: "Delhi",
-      confirmed: true,
-      packed: true,
-      shipped: true,
-      delivered: false,
-      total: "Rs. 3700",
-      status: "PrePaid",
-      age: "1d 12h"
-    }
-  ];
-
 class Container extends React.Component {
     render() {
         return (
@@ -116,15 +22,17 @@ class Container extends React.Component {
                         </Menu.Item>
                         <Menu.Item key="2">
                             <Link to={'/admin/orders'}>
-                            <Icon type="shopping-cart"/>
-                            <span className="nav-text">Orders</span>
+                                <Icon type="shopping-cart"/>
+                                <span className="nav-text">Orders</span>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="3">
-                            <Icon type="upload"/>
-                            <span className="nav-text">nav 3</span>
+                            <Link to={'/admin/users'}>
+                                <Icon type="user"/>
+                                <span className="nav-text">Users</span>
+                            </Link>
                         </Menu.Item>
-                        <Menu.Item key="4">
+                        {/* <Menu.Item key="4">
                             <Icon type="bar-chart"/>
                             <span className="nav-text">nav 4</span>
                         </Menu.Item>
@@ -143,7 +51,7 @@ class Container extends React.Component {
                         <Menu.Item key="8">
                             <Icon type="shop"/>
                             <span className="nav-text">nav 8</span>
-                        </Menu.Item>
+                        </Menu.Item> */}
                     </Menu>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>
