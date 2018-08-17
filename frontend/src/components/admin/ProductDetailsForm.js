@@ -1,9 +1,28 @@
 import React from 'react';
 import { Card, Row, Col, Avatar, Input } from 'antd';
+import { addProduct } from '../../actions/admin';
 
 class ProductDetailsForm extends React.Component {
     constructor(props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const data = e.target;
+        const obj = {
+            name: data["0"].value,
+            price: data["1"].value,
+            description: data["2"].value,
+            image: data["3"].value,
+            seller: "5b65ec564299f042002ef1e9"  // Hardcoded seller ID
+        };
+        addProduct(obj);
+        for(let i=0; i<4; i++) {
+            data[`${i}`].value = '';
+        }
+        
     }
 
     render() {
@@ -51,51 +70,53 @@ class ProductDetailsForm extends React.Component {
                     <br />
                     
                     <Row className="product_details">
+                        <form onSubmit={this.handleSubmit}>
+                            <Row className="product_details__item">
+                                <Col className="product_details__label" span={4}>
+                                    Name
+                                    <p>Tell the world all about your item and tell them what is great about your product.</p>
+                                </Col>
+                                <Col span={20} className="product_details__input">
+                                    <Input name="name"/>
+                                </Col> 
+                            </Row>
 
-                        <Row className="product_details__item">
-                            <Col className="product_details__label" span={4}>
-                                Name
-                                <p>Tell the world all about your item and tell them what is great about your product.</p>
-                            </Col>
-                            <Col span={20} className="product_details__input">
-                                <Input />
-                            </Col> 
-                        </Row>
+                            <Row className="product_details__item">
+                                <Col className="product_details__label" span={4}>
+                                    Price
+                                    <p>Tell the world all about your item and tell them what is great about your product.</p>
+                                </Col>
+                                <Col span={20} className="product_details__input">
+                                    <Input name="price" type="number"/>
+                                </Col> 
+                            </Row>
 
-                        <Row className="product_details__item">
-                            <Col className="product_details__label" span={4}>
-                                Price
-                                <p>Tell the world all about your item and tell them what is great about your product.</p>
-                            </Col>
-                            <Col span={20} className="product_details__input">
-                                <Input />
-                            </Col> 
-                        </Row>
+                            <Row className="product_details__item">
+                                <Col className="product_details__label" span={4}>
+                                    Description
+                                    <p>Tell the world all about your item and tell them what is great about your product.</p>
+                                </Col>
+                                <Col span={20} className="product_details__input">
+                                    <Input name="description"/>
+                                </Col> 
+                            </Row>
 
-                        <Row className="product_details__item">
-                            <Col className="product_details__label" span={4}>
-                                Description
-                                <p>Tell the world all about your item and tell them what is great about your product.</p>
-                            </Col>
-                            <Col span={20} className="product_details__input">
-                                <Input />
-                            </Col> 
-                        </Row>
-
-                        <Row className="product_details__item">
-                            <Col className="product_details__label" span={4}>
-                                Overview
-                                <p>Tell the world all about your item and tell them what is great about your product.</p>
-                            </Col>
-                            <Col span={20} className="product_details__input">
-                                <Input />
-                            </Col> 
-                        </Row>
-
+                            <Row className="product_details__item">
+                                <Col className="product_details__label" span={4}>
+                                    Image URL
+                                    <p>Tell the world all about your item and tell them what is great about your product.</p>
+                                </Col>
+                                <Col span={20} className="product_details__input">
+                                    <Input name="image"/>
+                                </Col> 
+                            </Row>
+                            <button>
+                                Add
+                            </button>
+                        </form>
                     </Row>
-
                 </Card>
-            
+
             </div>
         );
     }
