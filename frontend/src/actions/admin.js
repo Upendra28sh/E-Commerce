@@ -8,8 +8,7 @@ const client = new ApolloClient({
     uri: "http://localhost:4000"
 });
 
-// Add a project to DB
-
+// Add a product to DB
 export function addProduct({name, price, description, image, seller}) {
     console.log(name, price, description, image, seller);
     const temp = () => {
@@ -42,4 +41,23 @@ export function addProduct({name, price, description, image, seller}) {
         )
     }
     temp();
+}
+
+   
+export function allOrders() {
+    let asyncAction = function (dispatch) {
+        client.query({
+            query: gql`
+            query { 
+                allOrders {
+                    id
+                    discount
+                    shipping
+                }
+            }
+        `
+        })
+        .then(result => console.log("test", result));
+    }
+    return asyncAction;
 }
