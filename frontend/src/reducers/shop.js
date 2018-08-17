@@ -19,7 +19,8 @@ const INITIAL_STATE = {
     passwords_match: true,
     shopping_cart: [],
     saved: [],
-    empty_fields: false
+    empty_fields: false,
+    orders :[]
 };
 
 function reducer(state = INITIAL_STATE, action) {
@@ -126,7 +127,11 @@ function reducer(state = INITIAL_STATE, action) {
     } else if (action.type === 'purchase-successful') {
         return Object.assign({}, state, {
             shopping_cart: []
-        });
+        })
+    } else if (action.type === 'get-orders') {
+        return Object.assign({}, state, {
+            orders: action.payload
+        })
     } else {
         return state;
     }
