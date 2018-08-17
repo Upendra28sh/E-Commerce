@@ -5,20 +5,28 @@ const products = require('./products');
 const sellers = require('./sellers');
 const orders = require('./orders');
 const users = require('./users');
+const auth = require('./auth');
+
+// Token code
+// 1 -> Successful signin/signup
+// 2 -> Email already registered
+// 3 -> Invalid password
+// 4 -> Email not registered
 
 const typeDefs = gql`
     type Query {
         ${products.Query},
         ${sellers.Query},
         ${orders.Query},
-        ${users.Query}
+        ${users.Query},
     }
 
     type Mutation {
         ${products.Mutation},
         ${sellers.Mutation},
         ${orders.Mutation},
-        ${users.Mutation}
+        ${users.Mutation},
+        ${auth.Mutation}
     }
 
     type Product {
@@ -50,6 +58,11 @@ const typeDefs = gql`
         name: String,
         image: String,
         about: String
+    }
+
+    type Token {
+        code: Int,
+        content: String
     }
 `;
 
