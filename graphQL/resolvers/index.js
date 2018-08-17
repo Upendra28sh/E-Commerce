@@ -6,6 +6,7 @@ const products = require('./products');
 const sellers = require('./sellers');
 const orders = require('./orders');
 const users = require('./users');
+const auth = require('./auth');
 
 const resolvers = {
     Query: {
@@ -19,7 +20,8 @@ const resolvers = {
         ...products.Mutation,
         ...sellers.Mutation,        
         ...orders.Mutation,        
-        ...users.Mutation
+        ...users.Mutation,
+        ...auth.Mutation
     }
 };
 
