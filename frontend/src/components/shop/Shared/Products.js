@@ -8,7 +8,7 @@ import ProductRouter from '../ProductRouter';
 class Home extends React.Component {
     componentDidMount() {
         this.props.getProducts();
-        console.log("test",this.props.products);
+        console.log("Test",this.props.products);
     }
 
     render() {

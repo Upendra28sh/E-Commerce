@@ -47,7 +47,7 @@ class Container extends React.Component {
     render() {
         return (
             <div className='bg-grey'>
-                {
+                {   
                     window.onscroll = () => this.fixedHeader()
                 }
                 {
