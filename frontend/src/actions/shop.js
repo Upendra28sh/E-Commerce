@@ -1,26 +1,45 @@
 import $ from 'jquery';
+import ApolloClient from "apollo-boost";
+import gql from "graphql-tag";
+
 import createBrowserHistory from 'history/createBrowserHistory'
 const StripeCheckout = window.StripeCheckout;
+
 const BASEURL = 'http://localhost:4000';
 // const BASEURL = 'http://192.168.0.104:4000';
-
+const client = new ApolloClient({
+    uri: "http://localhost:4000"
+  });
+  
 const history = createBrowserHistory();
 
 // Show products on home page
 export function getProducts() {
+    
+
     let asyncAction = function(dispatch) {
-        $.ajax({
-            type: 'GET',
-            url: BASEURL + '/api/products',
-        })
-        .then(data => dispatch({
-            type: 'get-products',
-            payload: data
-        }))
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error + '. Please try again.');
-        })
+    client.query({
+    query: gql`
+    
+    query{ allProducts {
+        id
+        name
+        price
+        image
+        description
+        seller {
+            id
+            name
+            about
+        }
+          }
+        }
+    `
+  })
+  .then(result => dispatch({
+    type: 'get-products',
+    payload: result.data.allProducts
+   })) ;
     }
     return asyncAction;
 }
@@ -50,23 +69,32 @@ export function getCart(token) {
 
 // Show details of individual product when the image is clicked
 export function getDetails(id) {
+    
     let asyncAction = function(dispatch) {
-        $.ajax({
-            type: 'GET',
-            url: BASEURL + '/api/product/' + id,
-        })
-        .then(data => {
-            dispatch({
-                type: 'get-details',
-                payload: data
-            })
-        })
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error + '. Please try again.');
-        })
-    }
-    return asyncAction;
+        client.query({
+        query: gql`
+        
+        query{ Product(id :"${id}") {
+            id
+            name
+            price
+            image
+            description
+            seller {
+                id
+                name
+                about
+            }
+              }
+            }
+        `
+      })
+      .then(result => dispatch({
+        type: 'get-details',
+        payload: result.data.Product
+       })) ;
+        }
+        return asyncAction;
 }
 
 // Show log in form when Log in is clicked in the nav bar

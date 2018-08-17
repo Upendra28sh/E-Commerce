@@ -9,7 +9,6 @@ import Cookies from 'js-cookie';
 import StoreContainer from './components/shop/Container';
 import AdminContainer from './components/admin/Container';
 import reducer from './reducers/shop';
-
 import './styles/main.css' ;
 
 const store = createStore(
