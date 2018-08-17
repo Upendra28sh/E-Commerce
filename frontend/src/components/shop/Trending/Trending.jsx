@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Menu, Row, Col } from 'antd';
+import {Button, Card, Menu, Row, Col} from 'antd';
 import {Switch, Route, Link, Redirect} from 'react-router-dom';
 
 import Posts from '../Shared/Posts';
@@ -9,14 +9,16 @@ const {Meta} = Card;
 
 const navGroup = () => {
     return (
-        <div className="navigate__items">
-            <Row>
-                <Link to="/feed/products"><Col span={12}>Products</Col></Link>
-                <Link to="/feed/posts"><Col span={12}>Posts</Col></Link>
-            </Row>
+        <div className="container" style={{maxWidth: 630}}>
+            <div className="navigate__items">
+                <Row>
+                    <Link to="/trending/products"><Col span={12}>Products</Col></Link>
+                    <Link to="/trending/posts"><Col span={12}>Posts</Col></Link>
+                </Row>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 class Container extends React.Component {
 
@@ -24,7 +26,13 @@ class Container extends React.Component {
         super(props);
         this.state = {
             fixedHeader: false
-        }
+        };
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', () => {
+            this.fixedHeader();
+        });
     }
 
     fixedHeader = () => {
@@ -39,33 +47,29 @@ class Container extends React.Component {
                 (prevState) => ({
                     fixedHeader: fixed
                 })
-            )
+            );
         }
-        
-    }
+
+    };
 
     render() {
         return (
             <div className='bg-grey'>
                 {
-                    window.onscroll = () => this.fixedHeader()
-                }
-                {
                     this.state.fixedHeader ? (
                         <div className="navigate navigate--sticky">
-                            {navGroup()}                                        
+                            {navGroup()}
                         </div>
                     ) : (
                         <div className="navigate">
-                            {navGroup()}                                                                              
+                            {navGroup()}
                         </div>
                     )
                 }
-                <Redirect to="/feed/posts" />
-
                 <Switch>
-                    <Route path="/feed/posts" component={Posts} />
-                    <Route path="/feed/products" component={Products} />
+                    <Route exact path="/" component={() => <Redirect to="/trending/posts"/>}/>
+                    <Route path="/trending/posts" component={Posts}/>
+                    <Route path="/trending/products" component={Products}/>
                 </Switch>
             </div>
         );

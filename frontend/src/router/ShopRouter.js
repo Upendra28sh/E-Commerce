@@ -13,8 +13,8 @@ import Checkout from '../components/shop/Checkout';
 import Saved from '../components/shop/Saved';
 import Confirm from '../components/shop/Confirm';
 import Thanks from '../components/shop/Thanks';
-import Feed from '../components/shop/Feed/Container';
-import Trending from '../components/shop/Trending/Container';
+import Feed from '../components/shop/Feed/Feed';
+import Trending from '../components/shop/Trending/Trending';
 import Details from '../components/shop/Details'
 
 const Router = () => {

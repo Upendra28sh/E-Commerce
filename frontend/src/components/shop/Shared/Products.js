@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link,Router} from 'react-router-dom';
+import {Link, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Carousel} from 'antd' ;
 import * as actions from '../../../actions/shop';
@@ -7,13 +7,17 @@ import ProductRouter from '../ProductRouter';
 
 class Home extends React.Component {
     componentDidMount() {
-        this.props.getProducts();
-        console.log("test",this.props.products);
+
+        console.log("Fetching Products");
+        this.props.getProducts().then(() => {
+            console.log("fetched products");
+            console.log("test", this.props.products);
+        });
     }
 
     render() {
         return (
-            
+
             <div>
                 <div className="container_40">
                     <div className="products">
@@ -32,7 +36,7 @@ class Home extends React.Component {
                 </div>
                 <ProductRouter/>
             </div>
-            
+
         );
     }
 }

@@ -31,7 +31,7 @@
   margin-bottom: 5px;
 }
 
-.photo>img {
+.photo > img {
   max-width: 100%;
 }
 
@@ -113,8 +113,18 @@
 
   &__items {
 
-    background:rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.97);
     padding: 0;
+
+    div >  a:first-child > div {
+      border-right: #fafafa 2px solid;
+      //:10px solid black;
+    }
+    div >  a:nth-child(2) > div {
+      border-left: #fafafa 2px solid;
+      //:10px solid black;
+    }
+
 
     div > a > div {
       cursor: pointer;
@@ -131,13 +141,12 @@
 
 ol,
 ul,
-li,
-  {
+li {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 

@@ -1,20 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,500,600');
-
-@import '~bootstrap/dist/css/bootstrap.min.css' ;
-@import '~antd/dist/antd.css';
-
-@import "./header";
-@import "./landing";
-@import "./product";
-@import './profile';
-@import "./sellerNew";
-@import "./cart";
-@import "./feed";
-@import "./checkout";
-@import './custom';
-
-@import "./admin/index";
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/antd/dist/antd.css';
+@import "styles/header";
+@import "styles/landing";
+@import "styles/product";
+@import 'styles/profile';
+@import "styles/sellerNew";
+@import "styles/cart";
+@import "styles/feed";
+@import "styles/checkout";
+@import 'styles/custom';
+@import "styles/admin/index";
 
 //html {
 //  font-size: 62.5%;
@@ -236,7 +233,6 @@ label {
   font-weight: 300;
 }
 
-
 .shoppingCart {
   max-width: 800px;
   width: 100%;
@@ -333,9 +329,11 @@ th, td, tr {
   font-weight: 400;
   color: red;
 }
-.atn-btn{
+
+.atn-btn {
   letter-spacing: 2px;
 }
+
 @media screen and (max-width: 960px) {
   .product-image, .product-info {
     width: 100%;

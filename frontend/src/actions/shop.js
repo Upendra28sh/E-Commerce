@@ -2,51 +2,57 @@ import $ from 'jquery';
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 
-import createBrowserHistory from 'history/createBrowserHistory'
+import createBrowserHistory from 'history/createBrowserHistory';
+
 const StripeCheckout = window.StripeCheckout;
 
 const BASEURL = 'http://localhost:4000';
 // const BASEURL = 'http://192.168.0.104:4000';
 const client = new ApolloClient({
     uri: "http://localhost:4000"
-  });
-  
+});
+
 const history = createBrowserHistory();
 
 // Show products on home page
 export function getProducts() {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
-    
-    query{ allProducts {
-        id
-        name
-        price
-        image
-        description
-        seller {
-            id
-            name
-            about
-        }
-          }
-        }
-    `
-  })
-  .then(result => dispatch({
-    type: 'get-products',
-    payload: result.data.allProducts
-   })) ;
-    }
+    let asyncAction = function (dispatch) {
+        client.query({
+            query: gql`
+                allProducts {
+                    id
+                    name
+                    pr
+                    query{ice
+                        image
+                        description
+                        seller {
+                            id
+                            name
+                            about
+                        }
+                    }
+                }
+            `
+        })
+        .then(result => {
+            dispatch({
+                type: 'get-products',
+            });
+
+
+        }).catch(err => {
+            console.log("Errrrrrrr");
+            throw new Error("Some Error");
+        });
+    };
     return asyncAction;
 }
 
 // Show all items in user's shopping cart
 export function getCart(token) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         $.ajax({
             type: 'POST',
             url: BASEURL + '/api/shopping_cart_items',
@@ -55,60 +61,60 @@ export function getCart(token) {
                 token: token
             })
         })
-        .then(data => dispatch({
-            type: 'get-cart',
-            payload: data
-        }))
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error + '. Please try again.');
-        })
-    }
+            .then(data => dispatch({
+                type: 'get-cart',
+                payload: data
+            }))
+            .catch(resp => {
+                let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong';
+                alert(error + '. Please try again.');
+            });
+    };
     return asyncAction;
 }
 
 // Show details of individual product when the image is clicked
 export function getDetails(id) {
-    
-    let asyncAction = function(dispatch) {
+
+    let asyncAction = function (dispatch) {
         client.query({
-        query: gql`
-        
-        query{ Product(id :"${id}") {
-            id
-            name
-            price
-            image
-            description
-            seller {
-                id
-                name
-                about
-            }
-              }
-            }
-        `
-      })
-      .then(result => dispatch({
-        type: 'get-details',
-        payload: result.data.Product
-       })) ;
-        }
-        return asyncAction;
+            query: gql`
+
+                query{ Product(id :"${id}") {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    seller {
+                        id
+                        name
+                        about
+                    }
+                }
+                }
+            `
+        })
+        .then(result => dispatch({
+            type: 'get-details',
+            payload: result.data.Product
+        }));
+    };
+    return asyncAction;
 }
 
 // Show log in form when Log in is clicked in the nav bar
 export function toggleLogin() {
     return {
         type: 'toggle-login'
-    }
+    };
 }
 
 // User clicks log out button in the nav bar
 export function logout() {
     return {
         type: 'logout'
-    }
+    };
 }
 
 // User typing in any input field
@@ -116,19 +122,19 @@ export function typing(event, field) {
     return {
         type: field,
         value: event.target.value
-    }
+    };
 }
 
 // Check if all fields are filled in a form
 export function emptyFields() {
     return {
         type: 'empty_fields'
-    }
+    };
 }
 
 // Submit login
 export function submitLogin(email, password) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         $.ajax({
             type: 'POST',
             url: BASEURL + '/api/user/login',
@@ -138,21 +144,21 @@ export function submitLogin(email, password) {
                 password: password
             })
         })
-        .then(data => dispatch({
-            type: 'login-successful',
-            payload: data
-        }))
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error + '. Please try again.');
-        })
-    }
+            .then(data => dispatch({
+                type: 'login-successful',
+                payload: data
+            }))
+            .catch(resp => {
+                let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong';
+                alert(error + '. Please try again.');
+            });
+    };
     return asyncAction;
 }
 
 // Submit new user sign up
 export function submitSignUp(first, last, address1, address2, city, state, zip, email, password) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         $.ajax({
             type: 'POST',
             url: BASEURL + '/api/user/signup',
@@ -169,24 +175,24 @@ export function submitSignUp(first, last, address1, address2, city, state, zip, 
                 password: password
             })
         })
-        .then(data => {
-            history.push('/');
-            dispatch({
-                type: 'login-successful',
-                payload: data
+            .then(data => {
+                history.push('/');
+                dispatch({
+                    type: 'login-successful',
+                    payload: data
+                });
             })
-        })
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error + '. Please try again.');
-        })
-    }
+            .catch(resp => {
+                let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong';
+                alert(error + '. Please try again.');
+            });
+    };
     return asyncAction;
 }
 
 // Add item to user's cart
 export function addToCart(id, token) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         $.ajax({
             type: 'POST',
             url: BASEURL + '/api/shopping_cart',
@@ -197,23 +203,23 @@ export function addToCart(id, token) {
 
             })
         })
-        .then(newCart => {
-            dispatch({
-                type: 'update-cart',
-                payload: newCart
+            .then(newCart => {
+                dispatch({
+                    type: 'update-cart',
+                    payload: newCart
+                });
             })
-        })
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error);
-        })
-    }
+            .catch(resp => {
+                let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong';
+                alert(error);
+            });
+    };
     return asyncAction;
 }
 
 // Delete item from user's cart
 export function deleteFromCart(item, token) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         $.ajax({
             type: 'POST',
             url: BASEURL + '/api/delete_shopping_cart',
@@ -223,17 +229,17 @@ export function deleteFromCart(item, token) {
                 token: token
             })
         })
-        .then(newCart => {
-            dispatch({
-                type: 'update-cart',
-                payload: newCart
+            .then(newCart => {
+                dispatch({
+                    type: 'update-cart',
+                    payload: newCart
+                });
             })
-        })
-        .catch(resp => {
-            let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong'
-            alert(error);
-        })
-    }
+            .catch(resp => {
+                let error = (resp && resp.responseJSON && resp.responseJSON.message) || 'Something went wrong';
+                alert(error);
+            });
+    };
     return asyncAction;
 }
 
@@ -264,7 +270,7 @@ export function deleteFromCart(item, token) {
 
 // Submit payment button click
 export function chargeCard(amount, cookieToken, email) {
-    let asyncAction = function(dispatch) {
+    let asyncAction = function (dispatch) {
         let handler = StripeCheckout.configure({
             key: 'pk_test_mHlocB4xkrc0EgJxchCMRjFs',
             image: '/envelope.png',
@@ -284,28 +290,28 @@ export function chargeCard(amount, cookieToken, email) {
                     })
                 })
                 // After payment is processed in the back end send another request to update the database and set state
-                .then(response => {
-                    $.ajax({
-                        type: 'POST',
-                        url: BASEURL + '/api/checkout',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            token: cookieToken
-                        })
-                    })
                     .then(response => {
-                        history.push('/thanks');
-                        dispatch({
-                            type: 'purchase-successful'
+                        $.ajax({
+                            type: 'POST',
+                            url: BASEURL + '/api/checkout',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                token: cookieToken
+                            })
                         })
-                    })
-                })
+                            .then(response => {
+                                history.push('/thanks');
+                                dispatch({
+                                    type: 'purchase-successful'
+                                });
+                            });
+                    });
             }
         });
         handler.open({
             name: 'Lucy Mail',
             amount: amount
         });
-    }
+    };
     return asyncAction;
 }
