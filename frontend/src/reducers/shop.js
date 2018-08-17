@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+
 const INITIAL_STATE = {
     products: [],
     details: {},
@@ -18,30 +19,32 @@ const INITIAL_STATE = {
     passwords_match: true,
     shopping_cart: [],
     saved: [],
-    empty_fields: false
+    empty_fields: false,
+    orders :[]
 };
 
 function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'get-products') {
+        console.log("Reducer Console Log : ", action);
         return Object.assign({}, state, {
             products: action.payload
-        })
+        });
     } else if (action.type === 'get-details') {
         return Object.assign({}, state, {
             details: action.payload
-        })
+        });
     } else if (action.type === 'toggle-login') {
         return Object.assign({}, state, {
             showLogin: !state.showLogin
-        })
+        });
     } else if (action.type === 'read-cookie-name') {
         return Object.assign({}, state, {
             first_name: action.first_name
-        })
+        });
     } else if (action.type === 'read-cookie-token') {
         return Object.assign({}, state, {
             token: action.token
-        })
+        });
     } else if (action.type === 'login-successful') {
         Cookies.set('token', action.payload.token);
         Cookies.set('name', action.payload.first_name);
@@ -52,7 +55,7 @@ function reducer(state = INITIAL_STATE, action) {
             user_id: action.payload.id,
             showLogin: false,
             empty_fields: false
-        })
+        });
     } else if (action.type === 'logout') {
         Cookies.remove('name');
         Cookies.remove('token');
@@ -62,47 +65,47 @@ function reducer(state = INITIAL_STATE, action) {
             email: '',
             password: '',
             shopping_cart: []
-        })
+        });
     } else if (action.type === 'empty_fields') {
         return Object.assign({}, state, {
             empty_fields: true
-        })
+        });
     } else if (action.type === 'first-name') {
         return Object.assign({}, state, {
             first_name: action.value
-        })
+        });
     } else if (action.type === 'last-name') {
         return Object.assign({}, state, {
             last_name: action.value
-        })
+        });
     } else if (action.type === 'address-1') {
         return Object.assign({}, state, {
             address_1: action.value
-        })
+        });
     } else if (action.type === 'address-2') {
         return Object.assign({}, state, {
             address_2: action.value
-        })
+        });
     } else if (action.type === 'city') {
         return Object.assign({}, state, {
             city: action.value
-        })
+        });
     } else if (action.type === 'state') {
         return Object.assign({}, state, {
             state: action.value
-        })
+        });
     } else if (action.type === 'zip') {
         return Object.assign({}, state, {
             zip: action.value
-        })
+        });
     } else if (action.type === 'email') {
         return Object.assign({}, state, {
             email: action.value
-        })
+        });
     } else if (action.type === 'password') {
         return Object.assign({}, state, {
             password: action.value
-        })
+        });
     } else if (action.type === 'password-confirm') {
         let newPassword = action.value;
         let matched = false;
@@ -112,21 +115,25 @@ function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             password_confirm: action.value,
             passwords_match: matched
-        })
+        });
     } else if (action.type === 'update-cart') {
         return Object.assign({}, state, {
             shopping_cart: action.payload
-        })
+        });
     } else if (action.type === 'get-cart') {
         return Object.assign({}, state, {
             shopping_cart: action.payload
-        })
+        });
     } else if (action.type === 'purchase-successful') {
         return Object.assign({}, state, {
             shopping_cart: []
         })
+    } else if (action.type === 'get-orders') {
+        return Object.assign({}, state, {
+            orders: action.payload
+        })
     } else {
-        return state
+        return state;
     }
 }
 

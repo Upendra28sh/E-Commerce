@@ -43,20 +43,22 @@ class Details extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        if(this.props.products.length==0)
-        {
-            this.props.getProducts();
-            console.log("error",this.props.products);
-            this.props.getDetails(this.props.products[this.props.match.params.id-1].id);
-            
+        console.log(this.props.products);
+        console.log("Actions : ", actions);
+
+        if (this.props.products.length == 0) {
+            this.props.getProducts().then(data => {
+                console.log("Success");
+            });
+            console.log("error", this.props.products);
+            // this.props.getDetails(this.props.products[this.props.match.params.id - 1].id);
+
         }
-        else
-        {
-            console.log("error",this.props.products);
-        this.props.getDetails(this.props.products[this.props.match.params.id-1].id);
+        else {
+            console.log("error", this.props.products);
+            // this.props.getDetails(this.props.products[this.props.match.params.id - 1].id);
         }
-        console.log("testing",this.props);
+        console.log("testing", this.props);
     }
 
     handleSaveClick(e) {
@@ -107,8 +109,8 @@ class Details extends React.Component {
                                          alt="seller_name"/>
                                 </Col>
                                 <Col span={20} className="product__seller-name">
-                                 {this.props.details.seller!=undefined ? this.props.details.seller.name :'undefined'}
-                                    <span>{this.props.details.seller!=undefined ? this.props.details.seller.about :'undefined'}</span>
+                                    {this.props.details.seller != undefined ? this.props.details.seller.name : 'undefined'}
+                                    <span>{this.props.details.seller != undefined ? this.props.details.seller.about : 'undefined'}</span>
                                 </Col>
                             </Row>
 

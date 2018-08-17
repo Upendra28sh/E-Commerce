@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col, Tabs, Icon} from 'antd';
-import Feed from "./Feed/Container";
+import Feed from "./Feed/Feed";
 
 const {TabPane} = Tabs;
 
