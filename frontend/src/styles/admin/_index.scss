@@ -16,3 +16,13 @@
     background: #f9f9f9 !important;
   }
 }
+
+.add_listing {
+  button {
+    border: none;
+    cursor: pointer;
+    padding: 1px 10px;
+    background-color: transparent;
+    font-size: 32px;
+  }
+}
