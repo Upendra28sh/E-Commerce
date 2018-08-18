@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { Table } from "antd";
-
+import * as actions from '../../actions/admin';
+import { connect } from 'react-redux';
+import { runInThisContext } from "vm";
 const statusSymbol = value => value ? <div className="status status--success"></div> : <div className="status"></div>
 
 const columns = [
@@ -92,92 +94,24 @@ const source = [
     total: "Rs. 3500",
     status: "PrePaid",
     age: "1d 15h"
-  },
-  {
-    date: "19-08-2018",
-    id: "1004234",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: false,
-    delivered: false,
-    total: "Rs. 3900",
-    status: "PrePaid",
-    age: "2d 15h"
-  },
-  {
-    date: "29-08-2018",
-    id: "1004235",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: false,
-    delivered: false,
-    total: "Rs. 3800",
-    status: "PrePaid",
-    age: "3d 15h"
-  },
-  {
-    date: "09-09-2018",
-    id: "1004236",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: false,
-    shipped: false,
-    delivered: false,
-    total: "Rs. 3700",
-    status: "PrePaid",
-    age: "1d 12h"
-  },
-  {
-    date: "09-09-2018",
-    id: "1004237",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: true,
-    delivered: true,
-    total: "Rs. 3700",
-    status: "PrePaid",
-    age: "1d 12h"
-  },
-  {
-    date: "09-09-2018",
-    id: "1004238",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: true,
-    delivered: false,
-    total: "Rs. 3700",
-    status: "PrePaid",
-    age: "1d 12h"
-  },
-  {
-    date: "09-09-2018",
-    id: "1004239",
-    name: "Dhruv Ramdev",
-    city: "Delhi",
-    confirmed: true,
-    packed: true,
-    shipped: true,
-    delivered: false,
-    total: "Rs. 3700",
-    status: "PrePaid",
-    age: "1d 12h"
   }
 ];
 
 class OrderTable extends Component {
+  constructor(props){
+    super(props)
+}
+
+componentDidMount(){
+   
+    this.props.allOrders()
+    
+}
   render() {
     return (
       <div>
-        <Table dataSource={source} columns={columns} />
+        <Table dataSource={this.props.orders} columns={columns} />
+        {console.log(this.props)}
       </div>
     );
   }
@@ -185,4 +119,8 @@ class OrderTable extends Component {
 
 OrderTable.propTypes = {};
 
-export default OrderTable;
+export default connect(
+  state => state,
+  actions
+)(OrderTable);
+

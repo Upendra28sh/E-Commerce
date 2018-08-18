@@ -20,25 +20,25 @@ export function getProducts() {
     let asyncAction = function (dispatch) {
         client.query({
             query: gql`
+            query {
                 allProducts {
+                  id
+                  name
+                  image
+                  description
+                  seller{
                     id
                     name
-                    pr
-                    query{ice
-                        image
-                        description
-                        seller {
-                            id
-                            name
-                            about
-                        }
-                    }
+                  }
                 }
+              }
+              
             `
         })
         .then(result => {
             dispatch({
                 type: 'get-products',
+                payload : result.data.allProducts
             });
 
 

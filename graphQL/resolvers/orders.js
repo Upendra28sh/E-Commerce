@@ -5,11 +5,11 @@ module.exports = {
     Query: {
         allOrders: (parent, args, context, info) => {
             return Order.find({}).populate({
-                path: 'product',
+                path: 'products',
                 populate: {
                     path: 'seller'
                 }
-            }).exec().then(
+            }).populate('user').exec().then(
                 data => data
             )
         },
@@ -17,11 +17,11 @@ module.exports = {
             return Order.findOne({
                 _id: args.id
             }).populate({
-                path: 'product',
+                path: 'products',
                 populate: {
                     path: 'seller'
                 }
-            }).exec().then(
+            }).populate('user').exec().then(
                 data => data
             )
         }
@@ -32,7 +32,17 @@ module.exports = {
             return Order.create({
                 discount: args.discount,
                 shipping: args.shipping,
-                user: args.userID
+                user: args.userID,
+                date:args.date,
+                PayStatus:args.PayStatus,
+                Total:args.Total,
+                paymode:args.paymode,
+                city:args.city,
+                Confirmed:args.Confirmed,
+                Packed:args.Packed,
+                Shipped:args.Shipped,
+                Delivered:args.Delivered,
+                
             }).then(
                 createdOrder => {
                     args.productIDs.forEach(function (id) {

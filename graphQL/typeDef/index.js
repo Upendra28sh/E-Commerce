@@ -50,14 +50,29 @@ const typeDefs = gql`
         user: User,
         products: [Product],
         shipping: Int,
-        discount: Int
+        discount: Int,
+        date:Int,
+        Total:Int,
+        paymode:String,
+        city:String,
+        Confirmed:Boolean,
+        Packed:Boolean,
+        Shipped:Boolean,
+        Delivered:Boolean,
+        PayStatus:String
     }
 
     type User {
         id: ID,
         name: String,
         image: String,
-        about: String
+        about: String,
+        City:String,
+        Latest:Int,
+        order:Int,
+        email:String,
+        Contact:String,
+        Total:Int
     }
 
     type Token {

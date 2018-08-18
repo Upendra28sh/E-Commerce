@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
 import OrderCard from "./OrderCard";
 import OrderTable from "./OrderTable";
-import { connect } from 'react-redux';
-import * as actions from '../../actions/admin';
+
+
 
 class OrderList extends Component {
-    constructor(props){
-        super(props)
-    }
-
-    componentDidMount(){
-        console.log(this.props)
-        this.props.allOrders()
-    }
+    
         render() {
         return (
             <div>
@@ -28,14 +21,12 @@ class OrderList extends Component {
                     <br/>
                     <OrderCard/>
                 </div>
-                */}
+                
+                */console.log(this.props)}
             </div>
         );
     }
 }
 
 
-export default connect(
-    state => state,
-    actions
-)(OrderList);
+export default OrderList;
