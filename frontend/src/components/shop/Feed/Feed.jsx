@@ -68,9 +68,9 @@ class Feed extends React.Component {
                 }
 
                 <Switch>
-                    <Route exact path="/" component={() => <Redirect to="/feed/posts"/>}/>
-                    <Route path="/feed/posts" component={Posts}/>
-                    <Route path="/feed/products" component={Products}/>
+                    <Route exact path="/feed/" component={() => <Redirect to="/feed/posts"/>}/>
+                    <Route path="/feed/posts/" component={Posts}/>
+                    <Route path="/feed/products/" component={Products}/>
                 </Switch>
             </div>
         );

@@ -20,7 +20,10 @@ const INITIAL_STATE = {
     shopping_cart: [],
     saved: [],
     empty_fields: false,
-    orders :[]
+    orders :[],
+    orderdetail:{},
+    users:[]
+
 };
 
 function reducer(state = INITIAL_STATE, action) {
@@ -128,12 +131,57 @@ function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             shopping_cart: []
         })
-    } else if (action.type === 'get-orders') {
+    } if (action.type === 'get-orders') {
+        let temp=[];
+        action.payload.map((order)=>{
+            let d = new Date(order.date*1000);
+            console.log("date",d);
+            let current = Date.now();
+            let diff= new Date(current-d);
+            let temporder={
+                date: d.toDateString(),
+                id: order.id,
+                name: order.user.name,
+                city: order.city,
+                confirmed: order.Confirmed,
+                packed: order.Packed,
+                shipped: false,
+                delivered: false,
+                total: "Rs. "+ order.Total,
+                status: order.PayStatus,
+                age: diff.toDateString()
+             };
+             temp.push(temporder);
+             console.log("test",temp);
+        })
         return Object.assign({}, state, {
-            orders: action.payload
+            orders: temp
+        })
+    } else if(action.type === 'get-order'){
+        return Object.assign({}, state, {
+            orderdetail: action.payload
+        })
+    } else
+    if (action.type === 'get-users') {
+        let temp=[];
+        action.payload.map((user)=>{
+            let temporder={
+                customer: user.name,
+                email: user.email,
+                 orders: user.order,
+                total: user.Total,
+                city: user.City,
+                latest: "13/04/18",
+                contact: user.Contact
+             };
+             temp.push(temporder);
+             console.log("test",temp);
+        })
+        return Object.assign({}, state, {
+            users: temp
         })
     } else {
-        return state;
+        return state
     }
 }
 

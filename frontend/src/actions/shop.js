@@ -8,37 +8,36 @@ const StripeCheckout = window.StripeCheckout;
 
 const BASEURL = 'http://localhost:4000';
 // const BASEURL = 'http://192.168.0.104:4000';
+
 const client = new ApolloClient({
     uri: "http://localhost:4000"
 });
+// const client = new ApolloClient({
+//     uri: "http://18.216.241.175:4000"
+// });
 
 const history = createBrowserHistory();
 
 // Show products on home page
 export function getProducts() {
-
-    let asyncAction = function (dispatch) {
-        client.query({
+    console.log('Fetching Products');
+    return dispatch => {
+        return client.query({
             query: gql`
-                allProducts {
-                    id
-                    name
-                    pr
-                    query{ice
+                query {
+                    allProducts {
+                        id
+                        name
                         image
-                        description
-                        seller {
-                            id
-                            name
-                            about
-                        }
                     }
+
                 }
             `
         })
         .then(result => {
             dispatch({
                 type: 'get-products',
+                payload: result.data.allProducts
             });
 
 
@@ -47,8 +46,39 @@ export function getProducts() {
             throw new Error("Some Error");
         });
     };
-    return asyncAction;
 }
+
+// Show details of individual product when the image is clicked
+export function getDetails(id) {
+
+    return dispatch => {
+        return client.query({
+            query: gql`
+                query{ Product(id :"${id}") {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    seller {
+                        id
+                        name
+                        about
+                    }
+                }
+                }
+            `
+        })
+        .then(result => dispatch({
+            type: 'get-details',
+            payload: result.data.Product
+        })).catch(err => {
+            console.log("Errrrrrrr");
+            throw new Error("Some Error");
+        });
+    };
+}
+
 
 // Show all items in user's shopping cart
 export function getCart(token) {
@@ -73,35 +103,6 @@ export function getCart(token) {
     return asyncAction;
 }
 
-// Show details of individual product when the image is clicked
-export function getDetails(id) {
-
-    let asyncAction = function (dispatch) {
-        client.query({
-            query: gql`
-
-                query{ Product(id :"${id}") {
-                    id
-                    name
-                    price
-                    image
-                    description
-                    seller {
-                        id
-                        name
-                        about
-                    }
-                }
-                }
-            `
-        })
-        .then(result => dispatch({
-            type: 'get-details',
-            payload: result.data.Product
-        }));
-    };
-    return asyncAction;
-}
 
 // Show log in form when Log in is clicked in the nav bar
 export function toggleLogin() {

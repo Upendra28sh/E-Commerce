@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, NavLink} from 'react-router-dom';
 import {Modal, Row, Col, Tabs, Icon, Divider, Button, InputNumber, Alert, Select, Tag} from 'antd';
-import * as actions from '../../actions/shop';
+import {getProducts, getDetails, addToCart} from '../../actions/shop';
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -34,31 +34,31 @@ class Details extends React.Component {
     }
 
     containsObject(obj, list) {
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].id === obj.id) {
-                return i;
-            }
-        }
-        return -1;
+        // for (let i = 0; i < list.length; i++) {
+        //     if (list[i].id === obj.id) {
+        //         return i;
+        //     }
+        // }
+        // return -1;
     }
 
-    componentDidMount() {
-        console.log(this.props.products);
-        console.log("Actions : ", actions);
+    componentWillMount() {
+        // console.log(this.props.products);
+        // console.log("Actions : ", actions);
 
-        if (this.props.products.length == 0) {
+        if (this.props.products.length === 0) {
+            console.log("Products Currently Empty");
             this.props.getProducts().then(data => {
                 console.log("Success");
+                console.log("Fetched Products : ", this.props.products);
+                this.props.getDetails(this.props.match.params.id);
             });
-            console.log("error", this.props.products);
-            // this.props.getDetails(this.props.products[this.props.match.params.id - 1].id);
 
         }
         else {
-            console.log("error", this.props.products);
-            // this.props.getDetails(this.props.products[this.props.match.params.id - 1].id);
+            console.log("Products Already There : ", this.props.products);
+            this.props.getDetails(this.props.match.params.id);
         }
-        console.log("testing", this.props);
     }
 
     handleSaveClick(e) {
@@ -74,20 +74,13 @@ class Details extends React.Component {
     }
 
     render() {
+        console.log("Details : ", this.props.details);
         if (!this.state.visible) {
             return <Redirect to="/"/>;
         }
         return (
-            <Modal
-                visible={this.state.visible}
-                footer={null}
-                onCancel={this.handleCancel}
-                width="60%"
-                bodyStyle={{height: '800px'}}
-                style={{margin: '0 20%'}}
-                id="myModal"
-            >
-                <div className="product">
+            <div className="product">
+                <div className="product__container">
                     <Row>
                         <Col span={14}>
                             <div className="product__image"
@@ -198,15 +191,46 @@ class Details extends React.Component {
                         </Col>
                     </Row>
                 </div>
-            </Modal>
+            </div>
 
         );
     }
 }
 
-const DetailsContainer = connect(
-    state => state,
-    actions
-)(Details);
+function mapStateToProps(state) {
+    return {
+        products: state.products,
+        details: state.details
+    };
+}
+
+
+{/*<Modal*/
+}
+{/*visible={this.state.visible}*/
+}
+{/*footer={null}*/
+}
+{/*onCancel={this.handleCancel}*/
+}
+{/*width="60%"*/
+}
+{/*bodyStyle={{height: '800px'}}*/
+}
+{/*style={{margin: '0 20%'}}*/
+}
+{/*id="myModal"*/
+}
+{/*>*/
+}
+{/*</Modal>*/
+}
+
+
+const DetailsContainer = connect(mapStateToProps, {
+    getDetails,
+    getProducts,
+    addToCart
+})(Details);
 
 export default DetailsContainer;

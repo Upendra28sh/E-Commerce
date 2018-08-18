@@ -11,7 +11,14 @@ module.exports = {
             return User.create({
                 name: args.name,
                 image: args.image,
-                about: args.about
+                about: args.about,
+                email:args.email,
+                order:args.order,
+                City:args.City,
+                Latest:args.Latest,
+                Contact:args.Contact,
+                Total:args.Total,
+                Password:args.Password
             }).then(
                 data => data
             )

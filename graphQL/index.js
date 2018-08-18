@@ -9,10 +9,10 @@ const resolvers = require('./resolvers/index');
 const Product = require('./models/product');
 const Seller = require('./models/seller');
 const User = require('./models/user');
-
 // Mongoose configuration
+
 const url = "mongodb://localhost:27017/ecomm";
-mongoose.connect(url, { useNewUrlParser: true })
+mongoose.connect(url, {useNewUrlParser: true});
 
 // require('./seeds')();
 

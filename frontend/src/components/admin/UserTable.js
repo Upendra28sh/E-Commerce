@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { Table } from "antd";
-
+import * as actions from '../../actions/admin';
+import { connect } from 'react-redux';
 
 const columns = [
   {
@@ -99,13 +100,21 @@ const source = [
 ];
 
 class UserTable extends Component {
+  componentDidMount()
+  {
+    this.props.allUsers();
+  }
   render() {
     return (
       <div>
-        <Table dataSource={source} columns={columns} />
+        <Table dataSource={this.props.users} columns={columns} />
       </div>
     );
   }
 }
 
-export default UserTable;
+export default connect(
+  state => state,
+  actions
+)(UserTable);
+

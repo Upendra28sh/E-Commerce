@@ -2,6 +2,7 @@
 .product {
 
   font-family: 'Lato', sans-serif;
+  //padding: 20px;
 
   .ant-row {
     margin: 10px 0 10px 0;
@@ -17,6 +18,10 @@
     color: #aaaaaa !important;
   }
 
+
+  &__container {
+    padding: 20px;
+  }
 
   &__image {
     width: 90%;

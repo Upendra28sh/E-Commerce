@@ -1,14 +1,13 @@
 import React from 'react';
 import {Link, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {Carousel} from 'antd' ;
-import * as actions from '../../../actions/shop';
+import {getProducts} from '../../../actions/shop';
 import ProductRouter from '../ProductRouter';
+import {ModalRoute} from 'react-router-modal';
+import Details from '../Details';
 
 class Home extends React.Component {
-    componentDidMount() {
-
-        console.log("Fetching Products");
+    componentWillMount() {
         this.props.getProducts().then(() => {
             console.log("fetched products");
             console.log("test", this.props.products);
@@ -16,34 +15,42 @@ class Home extends React.Component {
     }
 
     render() {
+        const {match} = this.props;
+        // console.log(ModalRoute);
         return (
-
             <div>
                 <div className="container_40">
                     <div className="products">
-                        {this.props.products.map((image, index) =>
+                        {this.props.products.map((product, index) =>
                             <div key={index} className={'product'}>
                                 <div className='image-container'>
-                                    <Link to={"/shop/" + (index + 1)}>
+                                    <Link to={match.url + "/" + (product.id)}>
                                         <img className="img_fluid" // each_product
-                                             alt={image.description} key={index}
-                                             src={`product_images/${image.image}`}/>
+                                             alt={product.description} key={index}
+                                             src={`product_images/${product.image}`}/>
                                     </Link>
                                 </div>
                             </div>
                         )}
                     </div>
                 </div>
-                <ProductRouter/>
+                {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
+                <ModalRoute path={`${match.url}/:id`} parentPath={match.url} component={Details}/>
+
             </div>
 
         );
     }
 }
 
-const HomeContainer = connect(
-    state => state,
-    actions
-)(Home);
+function mapStateToProps(state) {
+    return {
+        products: state.products
+    };
+}
+
+const HomeContainer = connect(mapStateToProps, {
+    getProducts
+})(Home);
 
 export default HomeContainer;
