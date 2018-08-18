@@ -1,27 +1,54 @@
-module.exports = {
-    Query: `
+const {gql} = require('apollo-server');
+export default gql`    
+
+    input AddProductInput {
+        name: String!,
+        price: Int!,
+        image: String!,
+        size : [String] ,
+        codAccepted : Boolean ,
+        returnAccepted : Boolean ,
+        description: String!,
+        keywords:[String!]
+    }
+    
+    type AddProductPayload {
+        product : Product
+    }
+    
+    input UpdateProductInput {
+        productID: ID!,
+        name: String,
+        price: Int,
+        image: String,
+        size : [String] ,
+        codAccepted : Boolean ,
+        returnAccepted : Boolean ,
+        description: String!,
+        keywords:[String!]   
+    }
+    
+    type UpdateProductPayload {
+        product : Product
+    }
+    
+
+
+    extend type Query {
         allProducts: [Product],
         Product(id: ID!): Product
-    `,
-    Mutation: `
+    }
+
+    extend type Mutation {
         addProduct(
-            name: String!,
-            price: Int!,
-            image: String!,
-            description: String!,
-            sellerID: ID! 
-        ): Product,
+            input: AddProductInput
+        ): AddProductPayload,
 
         updateProduct(
-            productID: ID!,
-            name: String!,
-            price: Int!,
-            image: String!,
-            description: String!
-        ): Product,
+            input : UpdateProductInput
+        ): UpdateProductPayload,
 
         removeProduct(
             productID: ID!,
         ): Product
-    `
-}
+    }`;

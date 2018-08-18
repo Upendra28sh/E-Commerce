@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const {gql} = require('apollo-server');
+const {merge} = require('lodash');
 
-const products = require('./products');
-const sellers = require('./sellers');
+import productTypeDef from './products';
+import sellerTypeDef from './sellers';
+
 const orders = require('./orders');
 const users = require('./users');
 const auth = require('./auth');
@@ -15,15 +17,11 @@ const auth = require('./auth');
 
 const typeDefs = gql`
     type Query {
-        ${products.Query},
-        ${sellers.Query},
         ${orders.Query},
         ${users.Query},
     }
 
     type Mutation {
-        ${products.Mutation},
-        ${sellers.Mutation},
         ${orders.Mutation},
         ${users.Mutation},
         ${auth.Mutation}
@@ -34,7 +32,14 @@ const typeDefs = gql`
         name: String,
         price: Int,
         image: String,
+        size : [String] ,
+
+        codAccepted : Boolean ,
+        returnAccepted : Boolean ,
+
         description: String,
+
+        keywords:[String],
         seller: Seller
     }
 
@@ -43,6 +48,13 @@ const typeDefs = gql`
         name: String,
         image: String,
         about: String
+    }
+
+    type Post {
+        id: ID,
+        user: User,
+        product : Product,
+        timestamp : String
     }
 
     type Order {
@@ -81,4 +93,4 @@ const typeDefs = gql`
     }
 `;
 
-module.exports = typeDefs;
+module.exports = [typeDefs, productTypeDef, sellerTypeDef];

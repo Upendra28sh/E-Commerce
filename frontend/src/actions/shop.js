@@ -50,7 +50,6 @@ export function getProducts() {
 
 // Show details of individual product when the image is clicked
 export function getDetails(id) {
-
     return dispatch => {
         return client.query({
             query: gql`
