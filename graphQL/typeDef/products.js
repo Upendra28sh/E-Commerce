@@ -5,11 +5,11 @@ export default gql`
         name: String!,
         price: Int!,
         image: String!,
-        size : [String] ,
+        sizes : [String] ,
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
         description: String!,
-        keywords:[String!]
+        keywords:[String!]!
     }
     
     type AddProductPayload {
@@ -32,8 +32,7 @@ export default gql`
         product : Product
     }
     
-
-
+    # TODO : Change AllProducts to Custom Payload for Support with Paginiation and Infinite Scrolling.
     extend type Query {
         allProducts: [Product],
         Product(id: ID!): Product

@@ -11,16 +11,29 @@ const orderSchema = new mongoose.Schema({
         ref: 'User'
     },
     discount: Number,
-    shipping: Number,
-    Total:Number,
-    paymode:String,
-    city:String,
-    Confirmed:Boolean,
-    Packed:Boolean,
-    Shipped:Boolean,
-    Delivered:Boolean,
-    date:Number,
-    PayStatus:String
-}, { versionKey: false });
+    total: Number,
+    date: Date,
+    shipping: {
+        status: String,
+        address: {
+            address: String,
+            street: String,
+            city: String,
+            state: String,
+            zipcode: Number
+        }
+    },
+    payment: {
+        status: String,
+        mode: String
+    },
+    status: {
+        confirmed: Boolean,
+        packed: Boolean,
+        shipped: Boolean,
+        delivered: Boolean,
+    }
+
+}, {versionKey: false});
 
 module.exports = mongoose.model('Order', transformSchema(orderSchema));

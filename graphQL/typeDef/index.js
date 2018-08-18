@@ -4,8 +4,8 @@ const {merge} = require('lodash');
 
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
+import orderTypeDef from './orders';
 
-const orders = require('./orders');
 const users = require('./users');
 const auth = require('./auth');
 
@@ -17,12 +17,10 @@ const auth = require('./auth');
 
 const typeDefs = gql`
     type Query {
-        ${orders.Query},
         ${users.Query},
     }
 
     type Mutation {
-        ${orders.Mutation},
         ${users.Mutation},
         ${auth.Mutation}
     }
@@ -33,12 +31,9 @@ const typeDefs = gql`
         price: Int,
         image: String,
         size : [String] ,
-
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
-
         description: String,
-
         keywords:[String],
         seller: Seller
     }
@@ -61,17 +56,37 @@ const typeDefs = gql`
         id: ID,
         user: User,
         products: [Product],
-        shipping: Int,
         discount: Int,
-        date:Int,
-        Total:Int,
-        paymode:String,
-        city:String,
-        Confirmed:Boolean,
-        Packed:Boolean,
-        Shipped:Boolean,
-        Delivered:Boolean,
-        PayStatus:String
+        total: Int,
+        date: Date,
+        shipping : ShippingStatus
+        status: OrderStatus
+        payment: PaymentStatus
+    }
+
+    type ShippingStatus {
+        status : String
+        address : Address
+    }
+
+    type Address {
+        address : String ,
+        street : String ,
+        city : String ,
+        state : String ,
+        zipcode : Int
+    }
+
+    type PaymentStatus {
+        status : String ,
+        mode : String
+    }
+
+    type OrderStatus {
+        confirmed:Boolean,
+        packed:Boolean,
+        shipped:Boolean,
+        delivered:Boolean,
     }
 
     type User {
@@ -79,18 +94,15 @@ const typeDefs = gql`
         name: String,
         image: String,
         about: String,
-        City:String,
-        Latest:Int,
-        order:Int,
         email:String,
-        Contact:String,
-        Total:Int
     }
 
     type Token {
         code: Int,
         content: String
     }
+
+    scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef];

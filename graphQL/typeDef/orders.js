@@ -1,27 +1,27 @@
-module.exports = {
-    Query: `
+import gql from 'graphql-tag';
+
+export default gql`
+    extend type Query {
         allOrders: [Order],
         Order(id: ID!): Order
-    `,
-    Mutation: `
+    }
+
+    input AddOrderInput {
+        products : [ID!]! ,
+        coupon : String ,
+    }
+
+    type AddOrderPayload {
+        order : Order
+    }
+
+    extend type Mutation {
         addOrder(
-            userID: ID!,
-            productIDs: [ID]!,
-            discount: Int!,
-            shipping: Int!,
-            date:Int!,
-            PayStatus:String!,
-            Total:Int!,
-            paymode:String!,
-            city:String!,
-            Confirmed:Boolean!,
-            Packed:Boolean!,
-            Shipped:Boolean!,
-            Delivered:Boolean!,
-        ): Order,
+            input : AddOrderInput
+        ): AddOrderPayload,
 
         removeOrder(
             orderID: ID
         ): Order
-    `
-}
+    }
+`;

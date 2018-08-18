@@ -2,8 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Carousel} from 'antd' ;
-import * as actions from '../../actions/shop';
-import ProductRouter from './ProductRouter';
+import * as actions from '../../../actions/shop';
+import ProductRouter from '../ProductRouter';
 
 class Home extends React.Component {
     componentDidMount() {
