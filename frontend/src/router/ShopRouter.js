@@ -15,10 +15,8 @@ import Confirm from '../components/shop/Confirm';
 import Thanks from '../components/shop/Thanks';
 import Feed from '../components/shop/Feed/Feed';
 import Trending from '../components/shop/Trending/Trending';
-import Details from '../components/shop/Details';
 
-const Router = ({match}) => {
-    // console.log(match);
+const Router = () => {
     return (
         <div>
             <Switch>
@@ -34,12 +32,9 @@ const Router = ({match}) => {
                 <Route exact path="/saved" component={Saved}/>
                 <Route exact path="/confirm" component={Confirm}/>
                 <Route exact path="/thanks" component={Thanks}/>
-                {/*<Route exact path='/shop/:id' component={Details}/>*/}
                 <Route path="/feed/" component={Feed}/>
                 <Route path="/trending" component={Trending}/>
-
             </Switch>
-            {/*<ModalRoute path='/shop/:id' component={Details} parentPath={match.url}/>*/}
 
         </div>
 

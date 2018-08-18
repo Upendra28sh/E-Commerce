@@ -5,12 +5,18 @@ const productSchema = new mongoose.Schema({
     name: String,
     price: Number,
     image: String,
+    sizes: [String],
+
+    codAccepted: Boolean,
+    returnAccepted: Boolean,
+
     description: String,
-    seller: 
-    {
+
+    keywords: [String],
+    sellerID : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Seller'
     }
-}, { versionKey: false });
+}, {versionKey: false});
 
 module.exports = mongoose.model('Product', transformSchema(productSchema));

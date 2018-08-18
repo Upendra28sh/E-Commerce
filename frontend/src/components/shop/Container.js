@@ -18,9 +18,4 @@ class Container extends React.Component {
     }
 }
 
-const ContainerContainer = connect(
-    state => state,
-    actions
-)(Container);
-
-export default ContainerContainer;
+export default Container;

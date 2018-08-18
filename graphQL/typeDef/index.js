@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const {gql} = require('apollo-server');
+const {merge} = require('lodash');
 
-const products = require('./products');
-const sellers = require('./sellers');
-const orders = require('./orders');
+import productTypeDef from './products';
+import sellerTypeDef from './sellers';
+import orderTypeDef from './orders';
+
 const users = require('./users');
 const auth = require('./auth');
 
@@ -15,16 +17,10 @@ const auth = require('./auth');
 
 const typeDefs = gql`
     type Query {
-        ${products.Query},
-        ${sellers.Query},
-        ${orders.Query},
         ${users.Query},
     }
 
     type Mutation {
-        ${products.Mutation},
-        ${sellers.Mutation},
-        ${orders.Mutation},
         ${users.Mutation},
         ${auth.Mutation}
     }
@@ -34,7 +30,11 @@ const typeDefs = gql`
         name: String,
         price: Int,
         image: String,
+        size : [String] ,
+        codAccepted : Boolean ,
+        returnAccepted : Boolean ,
         description: String,
+        keywords:[String],
         seller: Seller
     }
 
@@ -45,21 +45,48 @@ const typeDefs = gql`
         about: String
     }
 
+    type Post {
+        id: ID,
+        user: User,
+        product : Product,
+        timestamp : String
+    }
+
     type Order {
         id: ID,
         user: User,
         products: [Product],
-        shipping: Int,
         discount: Int,
-        date:Int,
-        Total:Int,
-        paymode:String,
-        city:String,
-        Confirmed:Boolean,
-        Packed:Boolean,
-        Shipped:Boolean,
-        Delivered:Boolean,
-        PayStatus:String
+        total: Int,
+        date: Date,
+        shipping : ShippingStatus
+        status: OrderStatus
+        payment: PaymentStatus
+    }
+
+    type ShippingStatus {
+        status : String
+        address : Address
+    }
+
+    type Address {
+        address : String ,
+        street : String ,
+        city : String ,
+        state : String ,
+        zipcode : Int
+    }
+
+    type PaymentStatus {
+        status : String ,
+        mode : String
+    }
+
+    type OrderStatus {
+        confirmed:Boolean,
+        packed:Boolean,
+        shipped:Boolean,
+        delivered:Boolean,
     }
 
     type User {
@@ -67,18 +94,15 @@ const typeDefs = gql`
         name: String,
         image: String,
         about: String,
-        City:String,
-        Latest:Int,
-        order:Int,
         email:String,
-        Contact:String,
-        Total:Int
     }
 
     type Token {
         code: Int,
         content: String
     }
+
+    scalar Date
 `;
 
-module.exports = typeDefs;
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef];

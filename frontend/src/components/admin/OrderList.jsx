@@ -1,29 +1,46 @@
 import React, {Component} from 'react';
-import OrderCard from "./OrderCard";
+import OrderCard from "./_deprecated/OrderCard";
 import OrderTable from "./OrderTable";
 
+import {Query} from 'react-apollo' ;
+import gql from 'graphql-tag';
+
+const GET_ORDERS = gql`
+    {
+        allOrders {
+            id,
+            user {
+                name
+            }
+            shipping,
+            discount,
+            date,
+            Total,
+            paymode,
+            city,
+            Confirmed,
+            Packed,
+            Shipped,
+            Delivered,
+            PayStatus
+        }
+    }
+`;
 
 
 class OrderList extends Component {
-    
-        render() {
+
+    render() {
         return (
-            <div>
-                <OrderTable/>
-                {/* 
-                <div className='container'>
-                    <h3>Order List</h3>
-                    <OrderCard/>
-                    <br/>
-                    <OrderCard/>
-                    <br/>
-                    <OrderCard/>
-                    <br/>
-                    <OrderCard/>
-                </div>
-                
-                */console.log(this.props)}
-            </div>
+            <Query query={GET_ORDERS}>
+                {({loading, error, data}) => {
+                    if (loading) return <h2>Loading</h2>;
+                    if (error) return <h2>Err.</h2>;
+
+                    return <OrderTable orders={data.allOrders}/>;
+                }}
+
+            </Query>
         );
     }
 }

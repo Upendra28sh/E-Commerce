@@ -13,30 +13,38 @@ import reducer from './reducers/shop';
 import './main.css' ;
 import Details from "./components/shop/Details";
 
-const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(ReduxThunk)
-);
+import {ApolloProvider} from "react-apollo";
+import ApolloClient from "apollo-boost/lib/index";
 
-let name = Cookies.get('name');
-if (name !== undefined) {
-    store.dispatch({
-        type: 'read-cookie-name',
-        first_name: name
-    });
-}
-let token = Cookies.get('token');
-if (token !== undefined) {
-    store.dispatch({
-        type: 'read-cookie-token',
-        token: token.token
-    });
-}
+const client = new ApolloClient({
+    uri: "http://localhost:4000"
+});
+
+// const store = createStore(
+//     reducer,
+//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+//     applyMiddleware(ReduxThunk)
+// );
+
+// let name = Cookies.get('name');
+// if (name !== undefined) {
+//     store.dispatch({
+//         type: 'read-cookie-name',
+//         first_name: name
+//     });
+// }
+// let token = Cookies.get('token');
+// if (token !== undefined) {
+//     store.dispatch({
+//         type: 'read-cookie-token',
+//         token: token.token
+//     });
+// }
 // console.log(ModalContainer);
 
 ReactDOM.render(
-    <Provider store={store}>
+    <ApolloProvider client={client}>
+        {/*<Provider store={store}>*/}
         <BrowserRouter>
             <div>
                 <Switch>
@@ -50,6 +58,6 @@ ReactDOM.render(
                 <ModalContainer modalClassName={'react-router-modal__modal container'}/>
             </div>
         </BrowserRouter>
-    </Provider>,
+    </ApolloProvider>,
     document.getElementById('root')
 );

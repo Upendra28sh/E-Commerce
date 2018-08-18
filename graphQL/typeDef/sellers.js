@@ -1,10 +1,13 @@
-module.exports = {
-    Query: `
+import {gql} from 'apollo-server';
+
+export default gql`
+    extend type Query {
         allSellers: [Seller],
         Seller(id: ID!): Seller,
         getSellers(ids : [ID]): [Seller]
-    `,
-    Mutation: `
+    }
+
+    extend type Mutation {
         addSeller(
             name: String!,
             image: String!,
@@ -15,11 +18,11 @@ module.exports = {
             sellerID: ID!,
             name: String!,
             image: String!,
-            about: String! 
+            about: String!
         ): Seller,
-        
+
         removeSeller(
             sellerID: ID!
-        ): Seller      
-    `
-}
+        ): Seller
+    }
+`;
