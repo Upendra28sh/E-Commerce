@@ -18,6 +18,6 @@ mongoose.connect(url, { useNewUrlParser: true })
 
 const server = new ApolloServer({typeDefs, resolvers});
 
-server.listen().then(({url}) => {
+server.listen('0.0.0.0').then(({url}) => {
     console.log(`Server ready at ${url}`);
 });
