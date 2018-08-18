@@ -79,16 +79,8 @@ class Details extends React.Component {
             return <Redirect to="/"/>;
         }
         return (
-            <Modal
-                visible={this.state.visible}
-                footer={null}
-                onCancel={this.handleCancel}
-                width="60%"
-                bodyStyle={{height: '800px'}}
-                style={{margin: '0 20%'}}
-                id="myModal"
-            >
-                <div className="product">
+            <div className="product">
+                <div className="product__container">
                     <Row>
                         <Col span={14}>
                             <div className="product__image"
@@ -199,7 +191,7 @@ class Details extends React.Component {
                         </Col>
                     </Row>
                 </div>
-            </Modal>
+            </div>
 
         );
     }
@@ -211,6 +203,29 @@ function mapStateToProps(state) {
         details: state.details
     };
 }
+
+
+{/*<Modal*/
+}
+{/*visible={this.state.visible}*/
+}
+{/*footer={null}*/
+}
+{/*onCancel={this.handleCancel}*/
+}
+{/*width="60%"*/
+}
+{/*bodyStyle={{height: '800px'}}*/
+}
+{/*style={{margin: '0 20%'}}*/
+}
+{/*id="myModal"*/
+}
+{/*>*/
+}
+{/*</Modal>*/
+}
+
 
 const DetailsContainer = connect(mapStateToProps, {
     getDetails,

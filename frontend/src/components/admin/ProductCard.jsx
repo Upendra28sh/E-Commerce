@@ -29,15 +29,15 @@ class ProductCard extends Component {
                     <div className="product-card__front">
                         <div className="product-card__shadow"/>
                         <div className='product-card__image'>
-                            {/* <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/t-shirt.png"/> */}
+                     <img src={`product_images/${this.props.data.image}`}/>
                         </div>
                         <div className="product-card__overlay"/>
                         <Link to="/admin/listing/1234"><div className="product-card__view-details">View details</div></Link>
                         <div className="product-card__stats">
                             <div className="stats-container">
                                 <span className="product-card__price">$39</span>
-                                <span className="product-card__name">Adidas Originals</span>
-                                <p>Men's running shirt</p>
+                                <span className="product-card__name">{this.props.data.name}</span>
+                                <p>{this.props.data.description}</p>
                                 <div className="product-card__options">
                                     <strong>SIZES</strong>
                                     <span>XS, S, M, L, XL, XXL</span>

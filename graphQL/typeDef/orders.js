@@ -8,7 +8,16 @@ module.exports = {
             userID: ID!,
             productIDs: [ID]!,
             discount: Int!,
-            shipping: Int!
+            shipping: Int!,
+            date:Int!,
+            PayStatus:String!,
+            Total:Int!,
+            paymode:String!,
+            city:String!,
+            Confirmed:Boolean!,
+            Packed:Boolean!,
+            Shipped:Boolean!,
+            Delivered:Boolean!,
         ): Order,
 
         removeOrder(

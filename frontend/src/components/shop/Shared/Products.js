@@ -3,6 +3,8 @@ import {Link, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getProducts} from '../../../actions/shop';
 import ProductRouter from '../ProductRouter';
+import {ModalRoute} from 'react-router-modal';
+import Details from '../Details';
 
 class Home extends React.Component {
     componentWillMount() {
@@ -13,6 +15,8 @@ class Home extends React.Component {
     }
 
     render() {
+        const {match} = this.props;
+        // console.log(ModalRoute);
         return (
             <div>
                 <div className="container_40">
@@ -20,7 +24,7 @@ class Home extends React.Component {
                         {this.props.products.map((product, index) =>
                             <div key={index} className={'product'}>
                                 <div className='image-container'>
-                                    <Link to={"/shop/" +  (product.id) }>
+                                    <Link to={match.url + "/" + (product.id)}>
                                         <img className="img_fluid" // each_product
                                              alt={product.description} key={index}
                                              src={`product_images/${product.image}`}/>
@@ -30,7 +34,9 @@ class Home extends React.Component {
                         )}
                     </div>
                 </div>
-                <ProductRouter/>
+                {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
+                <ModalRoute path={`${match.url}/:id`} parentPath={match.url} component={Details}/>
+
             </div>
 
         );

@@ -67,7 +67,7 @@ class Container extends React.Component {
                     )
                 }
                 <Switch>
-                    <Route exact path="/" component={() => <Redirect to="/trending/posts"/>}/>
+                    <Route exact path="/trending" component={() => <Redirect to="/trending/posts"/>}/>
                     <Route path="/trending/posts" component={Posts}/>
                     <Route path="/trending/products" component={Products}/>
                 </Switch>

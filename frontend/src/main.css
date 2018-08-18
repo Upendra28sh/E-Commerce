@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,600");
 @import url(../node_modules/bootstrap/dist/css/bootstrap.min.css);
+@import url(../node_modules/react-router-modal/css/react-router-modal.css);
 @import url(../node_modules/antd/dist/antd.css);
 .categories {
   width: 500px;
@@ -47,6 +48,8 @@
     color: #777777 !important; }
   .product .ant-tabs-nav {
     color: #aaaaaa !important; }
+  .product__container {
+    padding: 20px; }
   .product__image {
     width: 90%;
     margin: auto;

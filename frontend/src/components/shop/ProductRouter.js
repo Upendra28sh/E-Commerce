@@ -3,9 +3,7 @@ import {Route,Switch } from 'react-router-dom';
 import Details from './Details';
 
 const RouterComponent = () => (
-    <Switch>
-    <Route exact path='/shop/:id' component={Details} />
-    </Switch>
-);
+    <div/>
+    );
 
 export default RouterComponent;
