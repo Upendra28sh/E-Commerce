@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as actions from '../../actions/admin';
+import { connect } from 'react-redux';
 import { Card, Row, Col, Dropdown, Steps } from 'antd';
 
 const Step = Steps.Step;
@@ -7,29 +9,76 @@ const Step = Steps.Step;
 const item = {
     date: "09-09-2018",
     id: "1004239",
-    name: "Dhruv Ramdev",
+    user: "Dhruv Ramdev",
     city: "Delhi",
-    total: "Rs. 37000",
-    status: "PrePaid",
+    Total: "Rs. 37000",
+    PayStatus: "PrePaid",
     age: "1d 12h",
-    payment: "COD",
-    product: "Laptop",
+    paymode: "COD",
+    products: "Laptop",
 }
 
-const status = (
-    <div style={{backgroundColor: 'white', marginTop: '20px'}}>
-        <Steps current={3}>
+ class OrderDetails extends Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    status(){
+        let cureentstep = 0;
+    console.log("gyg",this.props.orderdetail)
+        if(this.props.orderdetail.Delivered===true)
+        {
+             cureentstep = 3;
+        }
+        else if(this.props.orderdetail.Shipped===true)
+        {
+             cureentstep = 2;
+        }
+        else if(this.props.orderdetail.Packed===true)
+        {
+             cureentstep = 1;
+             console.log("hjh");
+        }
+        else if(this.props.orderdetail.Confirmed===true)
+        {
+             cureentstep = 0;
+        }
+
+    return (<div style={{backgroundColor: 'white', marginTop: '20px'}}>
+        <Steps current={cureentstep}>
             <Step title="Confirmed" description="This is a description." />
             <Step title="Packed" description="This is a description." />
             <Step title="Shipped" description="This is a description." />
             <Step title="Delivered" description="This is a description." />
         </Steps>
-    </div>
-);
+    </div>)
+};
 
-export default class OrderDetails extends Component {
-    constructor(props) {
-        super(props);
+    value(prop,data){
+            if(data==undefined)
+                {
+                    return null;
+                }
+                else if(prop=='user'){
+                    return data.name
+                }
+                else if(prop=='products')
+                {
+                    let temp ="";
+                    for(let i in data)
+                    {
+                        temp = temp+data[i].name+',';
+                    }
+                    return temp
+                }
+                else
+                {
+                    return data.toString()
+                }
+        }
+    componentDidMount(){
+        this.props.getOrder(this.props.match.params.id);
+        
     }
 
     render() {
@@ -42,7 +91,7 @@ export default class OrderDetails extends Component {
 
         return (
             <div>
-                {console.log(this.props)}
+                {console.log("orderdetail",this.props)}
                 <Card title={header} style={{ width: '50%', margin: 'auto' }}>
                     <div className="order">
                         <Row>
@@ -54,7 +103,7 @@ export default class OrderDetails extends Component {
                                                 prop => (
                                                     <tr>
                                                         <th>{prop.toUpperCase()}</th>
-                                                        <td>{item[prop]}</td>
+                                                        <td>{this.value(prop,this.props.orderdetail[prop])}</td>
                                                     </tr>
                                                 )
                                             )
@@ -68,7 +117,7 @@ export default class OrderDetails extends Component {
                             {/* <Dropdown overlay={status} trigger={['click']}>
                                 <span className="order-status">Order Status</span>
                             </Dropdown> */}
-                            {status}
+                            {this.status()}
                         </Row>
                     </div>
                 </Card>
@@ -76,3 +125,9 @@ export default class OrderDetails extends Component {
         )
     }
 }
+
+export default connect(
+    state => state,
+    actions
+  )(OrderDetails);
+  
