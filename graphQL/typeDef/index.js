@@ -5,9 +5,9 @@ const {merge} = require('lodash');
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
 import orderTypeDef from './orders';
+import authTypeDef from './auth';
+import userTypeDef from './users';
 
-const users = require('./users');
-const auth = require('./auth');
 
 // Token code
 // 1 -> Successful signin/signup
@@ -17,12 +17,11 @@ const auth = require('./auth');
 
 const typeDefs = gql`
     type Query {
-        ${users.Query},
+        _empty: String
     }
 
     type Mutation {
-        ${users.Mutation},
-        ${auth.Mutation}
+        _empty: String
     }
 
     type Product {
@@ -30,12 +29,12 @@ const typeDefs = gql`
         name: String,
         price: Int,
         image: String,
-        size : [String] ,
+        sizes : [String] ,
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
         description: String,
         keywords:[String],
-        seller: Seller
+        sellerID: Seller
     }
 
     type Seller {
@@ -95,6 +94,7 @@ const typeDefs = gql`
         image: String,
         about: String,
         email:String,
+        password: String
     }
 
     type Token {
@@ -105,4 +105,8 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef];
+
+// DOUBT
+// Change User type to remove ID
+// OR create a new type with no ID

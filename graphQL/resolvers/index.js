@@ -23,8 +23,8 @@ const resolvers = {
         ...products.Mutation,
         ...sellers.Mutation,        
         ...orders.Mutation,        
-        ...users.Mutation,
-        ...auth.Mutation
+        ...auth.Mutation,
+        // ...users.Mutation,
     } ,
 
     Date: new GraphQLScalarType({

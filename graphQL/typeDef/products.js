@@ -9,7 +9,7 @@ export default gql`
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
         description: String!,
-        keywords:[String!]!
+        keywords:[String!]!,
     }
     
     type AddProductPayload {
@@ -21,11 +21,11 @@ export default gql`
         name: String,
         price: Int,
         image: String,
-        size : [String] ,
+        sizes : [String] ,
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
         description: String!,
-        keywords:[String!]   
+        keywords:[String!]
     }
     
     type UpdateProductPayload {

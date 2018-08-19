@@ -13,7 +13,7 @@ fs.readdirSync(path.resolve(__dirname, 'node_modules'))
 
 module.exports = {
     mode: "development",
-    entry: ['babel-polyfill' , 'server.js'],
+    entry: ['babel-polyfill' , './index.js'],
     target: 'node',
     externals: nodeModules,
     output: {

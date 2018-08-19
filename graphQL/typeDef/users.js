@@ -1,18 +1,27 @@
-module.exports = {
-    Query: `
-        allUsers: [User]
-    `,
-    Mutation: `
-        addUser(
-            name: String,
-            image: String,
-            about: String,
-            order:Int,
-            City:String,
-            email:String,
-            Latest:Int,
-            Contact:String,
-            Total:Int
-        ): User
-    `
-}
+const { gql } = require('apollo-server');
+
+export default gql`
+    extend type Query {
+        allUsers: [User],
+        User(token: String!): User
+    }
+`
+
+// module.exports = {
+//     Query: `
+//         
+//     `,
+//     Mutation: `
+//         addUser(
+//             name: String,
+//             image: String,
+//             about: String,
+//             order:Int,
+//             City:String,
+//             email:String,
+//             Latest:Int,
+//             Contact:String,
+//             Total:Int
+//         ): User
+//     `
+// }
