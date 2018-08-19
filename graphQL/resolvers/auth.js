@@ -3,32 +3,32 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config');
 
-const response = {
-    code: undefined,
-    content: ''
-};
-
 module.exports = {
     Mutation: {
-        signup: (parent, args, context, info) => {
+        signup: (parent, { input, details }, context, info) => {
 
-            return User.findOne({email: args.email}).exec()
+            let { email, password } = input;
+            let { name, image, about } = details;
+            
+            return User.findOne({email: email}).exec()
             .then(
                 foundUser => {
                     if (foundUser) {
                         return {
-                            code: 2,
-                            content: "Email already registered"
+                            token: {
+                                code: 2,
+                                content: "Email already registered"
+                            }
                         }
                     } else {
-                        const hashedPassword = bcrypt.hashSync(args.password);
+                        const hashedPassword = bcrypt.hashSync(password);
 
                         return User.create({
-                            email: args.email,
+                            email: email,
                             password: hashedPassword,
-                            name: '',
-                            image: '',
-                            about: ''
+                            name: name,
+                            image: image,
+                            about: about
                         }).then(
                             createdUser => {
                                 const token = jwt.sign(
@@ -37,28 +37,34 @@ module.exports = {
                                     {expiresIn: 86400}
                                 );
                                 return {
-                                    code: 1,
-                                    content: token
+                                    token: {
+                                        code: 1,
+                                        content: token
+                                    }
                                 }
                             }
                         )
                     }
-                    return response;
                 }
             )
             
         },
 
-        login: (parent, args, context, info) => {
-            return User.findOne({email: args.email}).exec()
+        login: (parent, { input }, context, info) => {
+
+            let { email, password } = input;
+
+            return User.findOne({email: email}).exec()
             .then(
                 foundUser => {
                     if (foundUser) {
-                        const passwordIsValid = bcrypt.compareSync(args.password, foundUser.password);
+                        const passwordIsValid = bcrypt.compareSync(password, foundUser.password);
                         if (!passwordIsValid) {
                             return {
-                                code: 3,
-                                content: "Invalid Password"
+                                token: {
+                                    code: 3,
+                                    content: "Invalid Password"
+                                }
                             }
                         } else {
                             const token = jwt.sign(
@@ -67,14 +73,18 @@ module.exports = {
                                 {expiresIn: 86400}
                             );
                             return {
-                                code: 1,
-                                content: token
+                                token: {
+                                    code: 1,
+                                    content: token
+                                }
                             }
                         }
                     } else {
                         return {
-                            code: 4,
-                            content: "Email not registered"
+                            token: {
+                                code: 4,
+                                content: "Email not registered"
+                            }
                         }
                     }
                     return response;

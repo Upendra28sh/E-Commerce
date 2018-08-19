@@ -40,20 +40,28 @@ module.exports = {
                 sellerID: "5b65ec564299f042002ef1e9"
             }).then(
                 createdProduct => {
-                    return {
-                        product: createdProduct
-                    };
+                    return createdProduct.populate('sellerID').execPopulate().then(
+                        data => ({
+                            product: data.toJSON()
+                        })
+                    )
                 }
             );
         },
 
-        updateProduct: (parents, args, context, info) => {
-            return Product.findOneAndUpdate({_id: args.productID}, {
+        updateProduct: (parents, {input, ...args}, context, info) => {
+            
+
+            return Product.findOneAndUpdate({_id: input.productID}, {
                 $set: {
-                    name: args.name,
-                    price: args.price,
-                    image: args.image,
-                    description: args.description
+                    name: input.name,
+                    price: input.price,
+                    image: input.image,
+                    description: input.description,
+                    sizes: input.sizes || [],
+                    codAccepted: input.codAccepted || false,
+                    returnAccepted: input.returnAccepted || false,
+                    keywords: normalizeKeywords(input.keywords)
                 }
             }, {new: true}).populate('seller').exec().then(
                 data => data

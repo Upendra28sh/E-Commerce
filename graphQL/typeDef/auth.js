@@ -1,13 +1,33 @@
-module.exports = {
-    Mutation: `
-        signup (
-            email: String,
-            password: String
-        ) : Token,
+const {gql} = require('apollo-server');
 
-        login (
-            email: String,
-            password: String
-        ) : Token
-    `
-}
+export default gql`
+
+    input AuthInput {
+        email: String!,
+        password: String!
+    }
+
+    input UserDetailsInput {
+        name: String!,
+        image: String!,
+        about: String!
+    }
+
+    type AuthPayload {
+        token: Token
+    }
+
+    extend type Mutation {
+        signup(
+            input: AuthInput,
+            details: UserDetailsInput
+        ) : AuthPayload
+
+        login(
+            input: AuthInput
+        ) : AuthPayload
+    }
+`;
+
+// Signup and Login both return only token
+// For user details, use getUser query with the token

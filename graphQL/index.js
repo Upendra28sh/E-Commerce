@@ -18,6 +18,3 @@ mongoose.connect(url, {useNewUrlParser: true}).then(() => {
     console.log(err.message);
 });
 
-// require('./seeds')();
-
-
