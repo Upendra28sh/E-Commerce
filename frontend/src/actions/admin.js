@@ -9,7 +9,13 @@ const client = new ApolloClient({
 });
 
 // Add a product to DB
-export function addProduct({name, price, description, image, seller}) {
+export function addProduct({
+    name,
+    price,
+    description,
+    image,
+    seller
+}) {
     console.log(name, price, description, image, seller);
     const temp = () => {
         client.mutate({
@@ -43,45 +49,14 @@ export function addProduct({name, price, description, image, seller}) {
     temp();
 }
 
-   
-export function allOrders() {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
-    
-        query{ 
-                allOrders{
-                        id
-                        date
-                        user {
-                             name
-                                }
-                        city
-                        Shipped
-                        Confirmed
-                        Delivered
-                        Packed
-                        Total
-                        PayStatus
-                        }
-            }
-    `
-  })
-  .then(result => dispatch({
-    type: 'get-orders',
-    payload: result.data.allOrders
-   })) ;
-    }
-    return asyncAction;
-}
+
 export function getOrder(id) {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
+
+    let asyncAction = function (dispatch) {
+        client.query({
+                query: gql `
     
     query {
         Order(id: "${id}") {
@@ -105,16 +80,16 @@ export function getOrder(id) {
         }
       }
     `
-  })
-  .then(result => dispatch({
-    type: 'get-order',
-    payload: result.data.Order
-   })) ;
+            })
+            .then(result => dispatch({
+                type: 'get-order',
+                payload: result.data.Order
+            }));
     }
     return asyncAction;
 }
-export function addOrder(userid,productids,discount,shipping,Confirmed,Delivered,Shipped,Packed,paymode,PayStatus,city,Total) {
-    
+export function addOrder(userid, productids, discount, shipping, Confirmed, Delivered, Shipped, Packed, paymode, PayStatus, city, Total) {
+
 
     const temp = () => {
         client.mutate({
@@ -129,7 +104,7 @@ export function addOrder(userid,productids,discount,shipping,Confirmed,Delivered
                   Delivered: ${Delivered}
                   Shipped:${Shipped}
                   Packed : ${Packed}
-                  date: ${Date.now()/1000}
+                  date: ${Date.now() / 1000}
                   paymode:"${paymode}"
                   PayStatus:"${PayStatus}"
                   city:"${city}"
@@ -155,17 +130,17 @@ export function addOrder(userid,productids,discount,shipping,Confirmed,Delivered
               
       
               `
-            }).then(
-                result => console.log(result)
-            ).catch(
-                error => console.log(error)
-            )
-        }
-        temp();
+        }).then(
+            result => console.log(result)
+        ).catch(
+            error => console.log(error)
+        )
+    }
+    temp();
 }
 
 export function removeOrder(id) {
-    
+
 
     const temp = () => {
         client.mutate({
@@ -179,18 +154,18 @@ export function removeOrder(id) {
           }
           
         `
-        
-    }).then(
-        result => console.log(result)
-    ).catch(
-        error => console.log(error)
-    )
-}
-temp();
+
+        }).then(
+            result => console.log(result)
+        ).catch(
+            error => console.log(error)
+        )
+    }
+    temp();
 }
 //Sellers action
-export function addSeller(name,image,about) {
-    
+export function addSeller(name, image, about) {
+
 
     const temp = () => {
         client.mutate({
@@ -205,20 +180,20 @@ export function addSeller(name,image,about) {
         }
       }
         `
-    }).then(
-        result => console.log(result)
-    ).catch(
-        error => console.log(error)
-    )
-}
-temp()
+        }).then(
+            result => console.log(result)
+        ).catch(
+            error => console.log(error)
+        )
+    }
+    temp()
 }
 export function allSeller() {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
+
+    let asyncAction = function (dispatch) {
+        client.query({
+                query: gql `
     {
         allSellers{
           id
@@ -228,16 +203,16 @@ export function allSeller() {
         }
       }
         `
-     })
-  .then(result => dispatch({
-    type: 'get-sellers',
-    payload: result.data.allSellers
-   })) ;
+            })
+            .then(result => dispatch({
+                type: 'get-sellers',
+                payload: result.data.allSellers
+            }));
     }
     return asyncAction;
 }
 export function removeSeller(id) {
-    
+
 
     const temp = () => {
         client.mutate({
@@ -251,21 +226,21 @@ export function removeSeller(id) {
               }
           
         `
-        
-    }).then(
-        result => console.log(result)
-    ).catch(
-        error => console.log(error)
-    )
-}
-temp();
+
+        }).then(
+            result => console.log(result)
+        ).catch(
+            error => console.log(error)
+        )
+    }
+    temp();
 }
 export function getSeller(id) {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
+
+    let asyncAction = function (dispatch) {
+        client.query({
+                query: gql `
         
     {
         Seller(id:"${id}"){
@@ -277,21 +252,21 @@ export function getSeller(id) {
       }
           
         `
-     })
-  .then(result => dispatch({
-    type: 'get-sellerdetail',
-    payload: result.data.Seller
-   })) ;
+            })
+            .then(result => dispatch({
+                type: 'get-sellerdetail',
+                payload: result.data.Seller
+            }));
     }
     return asyncAction;
 }
 //User action
 export function allUsers() {
-    
 
-    let asyncAction = function(dispatch) {
-    client.query({
-    query: gql`
+
+    let asyncAction = function (dispatch) {
+        client.query({
+                query: gql `
         
     query {
         allUsers{
@@ -308,11 +283,11 @@ export function allUsers() {
       }
           
         `
-     })
-  .then(result => dispatch({
-    type: 'get-users',
-    payload: result.data.allUsers
-   })) ;
+            })
+            .then(result => dispatch({
+                type: 'get-users',
+                payload: result.data.allUsers
+            }));
     }
     return asyncAction;
 }

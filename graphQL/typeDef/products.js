@@ -9,7 +9,7 @@ export default gql`
         codAccepted : Boolean ,
         returnAccepted : Boolean ,
         description: String!,
-        keywords:[String!]!,
+        keywords:[String],
     }
     
     type AddProductPayload {

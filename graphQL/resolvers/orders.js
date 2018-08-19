@@ -4,8 +4,7 @@ const Order = require('../models/order');
 module.exports = {
     Query: {
         allOrders: (parent, args, context, info) => {
-            return 
-            Order.find({}).populate({
+            return Order.find({}).populate({
                 path: 'products',
                 populate: {
                     path: 'seller'
@@ -29,7 +28,9 @@ module.exports = {
     },
 
     Mutation: {
-        addOrder: (parent, { input }, context, info) => {
+        addOrder: (parent, {
+            input
+        }, context, info) => {
             return Order.create({
                 user: input.userID,
                 discount: input.discount,

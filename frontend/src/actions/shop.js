@@ -41,10 +41,10 @@ export function getProducts() {
             });
 
 
-        }).catch(err => {
-            console.log("Errrrrrrr");
-            throw new Error("Some Error");
-        });
+            }).catch(err => {
+                console.log("Errrrrrrr");
+                throw new Error("Some Error");
+            });
     };
 }
 
@@ -289,7 +289,7 @@ export function chargeCard(amount, cookieToken, email) {
                         amount: amount
                     })
                 })
-                // After payment is processed in the back end send another request to update the database and set state
+                    // After payment is processed in the back end send another request to update the database and set state
                     .then(response => {
                         $.ajax({
                             type: 'POST',
