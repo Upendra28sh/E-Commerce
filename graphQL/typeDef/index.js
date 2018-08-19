@@ -7,6 +7,7 @@ import sellerTypeDef from './sellers';
 import orderTypeDef from './orders';
 import authTypeDef from './auth';
 import userTypeDef from './users';
+import cartTypeDef from './cart';
 
 
 // Token code
@@ -63,6 +64,18 @@ const typeDefs = gql`
         payment: PaymentStatus
     }
 
+    type Cart {
+        id: ID,
+        items: [Item],
+        user: User
+    }
+
+    type Item {
+        item: Product,
+        itemCount: Int,
+        selectedSize: String
+    }
+
     type ShippingStatus {
         status : String
         address : Address
@@ -105,7 +118,7 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef];
 
 // DOUBT
 // Change User type to remove ID

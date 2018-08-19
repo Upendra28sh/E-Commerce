@@ -10,13 +10,15 @@ const sellers = require('./sellers');
 const orders = require('./orders');
 const users = require('./users');
 const auth = require('./auth');
+const cart = require('./cart');
 
 const resolvers = {
     Query: {
         ...products.Query,
         ...sellers.Query,
         ...orders.Query,
-        ...users.Query
+        ...users.Query,
+        ...cart.Query
     },
 
     Mutation: {
@@ -24,6 +26,7 @@ const resolvers = {
         ...sellers.Mutation,        
         ...orders.Mutation,        
         ...auth.Mutation,
+        ...cart.Mutation
         // ...users.Mutation,
     } ,
 
