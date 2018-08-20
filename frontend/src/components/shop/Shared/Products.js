@@ -16,7 +16,7 @@ const GET_PRODUCTS = gql`
 `;
 
 class Home extends React.Component {
-    componentWillMount() {
+    componentWillMount() {        
         // this.props.getProducts().then(() => {
         //     console.log("fetched products");
         //     console.log("test", this.props.products);
