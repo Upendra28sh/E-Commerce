@@ -3,6 +3,13 @@ import { Card } from 'antd';
 import DetailsForm from './ProductDetailsForm';
 
 export default class ProductDetails extends Component {
+  constructor(props)
+  {
+    super(props);
+  }
+  componentDidMount(){
+    console.log(this.props)
+  }
   render() {
     const header = (
         <div className="order_header">
@@ -12,7 +19,7 @@ export default class ProductDetails extends Component {
 
     return (
       <div>
-        <DetailsForm />        
+        <DetailsForm {...this.props}/>        
       </div>
     )
   }
