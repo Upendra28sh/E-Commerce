@@ -9,7 +9,7 @@ import {Query} from 'react-apollo';
 const GET_CART = gql`
     {
         getCart(
-            id:"5b79495957b3413063e7be4c"
+            userID:"5b79495957b3413063e7be4c"
         ) {
             id
             items {
@@ -55,10 +55,21 @@ class Cart extends React.Component {
             <Query query={GET_CART}>
                 {({loading, error, data}) => {
                     console.log(loading, error, data);
+                    
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error :(</p>;
                     
                     data = data.getCart;
+
+                    if (!data) return (
+                        <div className="bg-grey">
+                            <div className="container_160">
+                                <div className="cart_title">
+                                    <h2>Cart Empty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    )
                     console.log(data);
 
                     return (
@@ -109,55 +120,9 @@ class Cart extends React.Component {
                         </div>
                     );
                 }}
-
             </Query>
 
         );
-        // return (
-        //     <div className="bg-grey">
-        //         <div className="container_160">
-        //             <div className="cart_title">
-        //                 <h2>{this.props.shopping_cart.length} item{this.props.shopping_cart.length > 1 ? 's': ''} in your cart</h2>
-        //             </div>
-        //             <div className="cart_content">
-        //                 <Row>
-        //                     <Col span={16} className="left_part">
-        //                         {
-        //                             this.props.shopping_cart.map((item, index) => {
-        //                                 return(
-        //                                   <div className="item" key={index}>
-        //                                       <Row>
-        //                                           <Col span={8}>
-        //                                               <img src={item.image_url} alt={item.name}/>
-        //                                           </Col>
-        //                                           <Col span={16}>
-        //                                               <div className="item_title">
-        //                                                   <Link to={"shop/" + item.id}>
-        //                                                       <span id="name">{item.name}</span>
-        //                                                   </Link>
-        //                                                   <span id="price">₹ {item.price}</span>
-        //                                               </div>
-        //                                               <p>{item.description}</p>
-        //                                           </Col>
-        //                                       </Row>
-        //                                   </div>
-        //                                 );
-        //                             })
-        //                         }
-        //                     </Col>
-        //                     <Col className="checkout" style={{paddingLeft: '10px'}} span={8}>
-        //                         <div className="total">
-        //                             <p>Item(s) total</p>
-        //                             <span>₹ {this.getCartTotal()}</span>
-        //                         </div>
-        //                         <button onClick={this.handleCheckout}>Checkout</button>
-        //                     </Col>
-        //                 </Row>
-        //             </div>
-        //             <p style={{paddingBottom: '10px', textAlign: 'center'}}>For help, contact us.</p>
-        //         </div>
-        //     </div>
-        // );
     }
 }
 

@@ -27,6 +27,9 @@ module.exports = {
         }
     },
 
+    // Change addOrder according to the changes made in model
+    // Instead of pushing the productID, an object with productID, selectedSize and itemCount has to be pushed.
+
     Mutation: {
         addOrder: (parent, {
             input

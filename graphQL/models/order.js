@@ -2,10 +2,16 @@ const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
 
 const orderSchema = new mongoose.Schema({
-    products: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    }],
+    products: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product' 
+            },
+            itemCount: Number,
+            selectedSize: String
+        }
+    ],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

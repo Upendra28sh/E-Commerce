@@ -1,5 +1,7 @@
 import gql from 'graphql-tag';
 
+// Changed order model to store product, itemCount and selectedSize instead of only productID.
+
 export default gql`
     extend type Query {
         allOrders: [Order],

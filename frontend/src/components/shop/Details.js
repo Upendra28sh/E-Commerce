@@ -2,9 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, NavLink} from 'react-router-dom';
 import {Modal, Row, Col, Tabs, Icon, Divider, Button, InputNumber, Alert, Select, Tag} from 'antd';
-import {getProducts, getDetails, addToCart} from '../../actions/shop';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+
+// import {getProducts, getDetails, addToCart} from '../../actions/shop';
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -17,6 +19,7 @@ class Details extends React.Component {
         this.state = {
             visible: true
         };
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
     showModal = () => {
@@ -47,7 +50,11 @@ class Details extends React.Component {
     // }
 
     componentWillMount() {
-        const id = this.props.location.pathname.slice(15);
+        // const id = this.props.location.pathname.slice(15);
+
+        const path = this.props.location.pathname;
+        const id = path.substr(path.length - 24);
+        console.log(id);
 
         GET_PRODUCT = gql`
             {
@@ -88,23 +95,66 @@ class Details extends React.Component {
         // }
     }
 
-    handleSaveClick(e) {
-        let index = this.containsObject(this.props.details, this.props.saved);
-        console.log(index);
-        if (index > -1) {
-            e.target.className = "anticon anticon-heart-o";
-            this.props.saved.splice(index, 1);
-        } else {
-            e.target.className = "anticon anticon-heart";
-            this.props.saved.push(this.props.details);
-        }
+    handleAddToCart(data, selectedSize, itemCount) {
+        console.log(data,selectedSize, itemCount);
+        const client = new ApolloClient({
+            uri: "http://localhost:4000"
+        });
+
+        const ADD_CART =  gql`
+            mutation {
+                addToCart(
+                    input: {
+                        userID: "5b79495957b3413063e7be4c",
+                        productID: "${data.id}",
+                        itemCount: ${itemCount}
+                        selectedSize: "${selectedSize}"
+                    }
+                ) {
+                    user {
+                        name
+                    }
+                    items {
+                        item {
+                            name
+                            id
+                        }
+                        itemCount
+                        selectedSize
+                    }
+                    }
+                }
+            `;
+
+        console.log(ADD_CART);
+
+        client.mutate({ mutation: ADD_CART }).then(
+            data => console.log(data)
+        ).catch(
+            error => console.error(error)
+        )
     }
+
+    // handleSaveClick(e) {
+    //     let index = this.containsObject(this.props.details, this.props.saved);
+    //     console.log(index);
+    //     if (index > -1) {
+    //         e.target.className = "anticon anticon-heart-o";
+    //         this.props.saved.splice(index, 1);
+    //     } else {
+    //         e.target.className = "anticon anticon-heart";
+    //         this.props.saved.push(this.props.details);
+    //     }
+    // }
 
     render() {
         // console.log("Details : ", this.props.details);
         // if (!this.state.visible) {
         //     return <Redirect to="/"/>;
         // }
+
+        let selectedSize = undefined;
+        let itemCount = undefined;
 
         return (
             <Query query={GET_PRODUCT}>
@@ -164,17 +214,23 @@ class Details extends React.Component {
                                                     // showSearch
                                                     placeholder="Select Size"
                                                     optionFilterProp="children"
+                                                    onChange={(e) => selectedSize = e}
                                                 >
                                                     {
                                                         data.sizes.map(
-                                                            size => <Option value={size}>{size}</Option>
+                                                            size => <Option value={size} key={size}>{size}</Option>
                                                         )
                                                     }
                                                 </Select>
                                             </div>
                                             <div className='my-2'>
                                                 <div>Quantity:</div>
-                                                <InputNumber style={{width: '100%'}} min={1} max={10} defaultValue={1}/>
+                                                <InputNumber 
+                                                    style={{width: '100%'}} 
+                                                    min={1} 
+                                                    max={10} 
+                                                    onChange={(e) => itemCount = e}
+                                                />
                                             </div>
                                         </div>
             
@@ -188,7 +244,7 @@ class Details extends React.Component {
                                                 </li>
                                                 <li>
                                                     Return
-                                                    &nbsp;{ !data.codAccepted ? 'Not' : '' }
+                                                    &nbsp;{ !data.returnAccepted ? 'Not' : '' }
                                                     Accepted
                                                 </li>
                                             </ul>
@@ -201,13 +257,15 @@ class Details extends React.Component {
                                         <Row>
                                             <Col span={12}>
                                                 <Button type="primary" size="large" className="product__add-to-cart"
-                                                        onClick={() => this.checkUser()}>Add To
-                                                    Cart</Button>
-                                                {
+                                                        onClick={() => this.handleAddToCart(data, selectedSize, itemCount)}
+                                                >
+                                                    Add To Cart
+                                                </Button>
+                                                {/* {
                                                     this.props.empty_fields ?
                                                         <p className="message">Please log in or sign up</p> :
                                                         <p></p>
-                                                }
+                                                } */}
                                             </Col>
                                             <Col span={12}>
                                                 <Button type="primary" size="large" className="product__share">Share</Button>

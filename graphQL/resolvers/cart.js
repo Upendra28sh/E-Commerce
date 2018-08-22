@@ -3,8 +3,8 @@ const Cart = require('../models/cart');
 
 module.exports = {
     Query: {
-        getCart: (parent, { id }, context, info) => {
-            return Cart.findOne({user: id})
+        getCart: (parent, { userID }, context, info) => {
+            return Cart.findOne({user: userID})
                 .populate('items.item')
                 .populate('user')
                 .exec()

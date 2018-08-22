@@ -15,7 +15,7 @@ export default gql`
     }
 
     extend type Query {
-        getCart(id: ID!) : Cart
+        getCart(userID: ID!) : Cart
     }
 
     extend type Mutation {
