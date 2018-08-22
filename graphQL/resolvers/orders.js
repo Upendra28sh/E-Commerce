@@ -36,9 +36,7 @@ module.exports = {
     },
 
     Mutation: {
-        addOrder: (parent, {
-            input
-        }, context, info) => {
+        addOrder: (parent, { input }, context, info) => {
             return Order.create({
                 user: input.userID,
                 discount: input.discount,
@@ -73,7 +71,6 @@ module.exports = {
         },
         
         addOrderFromCart: (parent, { input }, context, info) => {
-            
             return Cart.findOne({user: input.userID}).then(
                 foundCart => {
                     console.log(foundCart);
