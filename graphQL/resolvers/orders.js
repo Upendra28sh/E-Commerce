@@ -4,31 +4,36 @@ const Order = require('../models/order');
 module.exports = {
     Query: {
         allOrders: (parent, args, context, info) => {
-            return Order.find({}).populate({
-                path: 'products',
-                populate: {
-                    path: 'seller'
-                }
-            }).populate('user').exec().then(
-                data => data
-            )
+            return Order.find({})
+                .populate({
+                    path: 'products.product',
+                    populate: {
+                        path: 'sellerID'
+                    }
+                })
+                .populate('user')
+                .exec()
+                .then(
+                    data => data
+                )
         },
         Order: (parent, args, context, info) => {
             return Order.findOne({
                 _id: args.id
-            }).populate({
-                path: 'products',
+            })
+            .populate({
+                path: 'products.product',
                 populate: {
-                    path: 'seller'
+                    path: 'sellerID'
                 }
-            }).populate('user').exec().then(
+            })
+            .populate('user')
+            .exec()
+            .then(
                 data => data
             )
         }
     },
-
-    // Change addOrder according to the changes made in model
-    // Instead of pushing the productID, an object with productID, selectedSize and itemCount has to be pushed.
 
     Mutation: {
         addOrder: (parent, {
@@ -44,11 +49,19 @@ module.exports = {
                 status: input.status
             }).then(
                 createdOrder => {
-                    input.products.forEach(function (id) {
-                        createdOrder.products.push(id);
+                    input.products.forEach(function (prod) {
+                        createdOrder.products.push(prod);
                     })
                     createdOrder.save();
-                    return createdOrder.populate('products').populate('user').execPopulate().then(
+                    return createdOrder
+                    .populate({
+                        path: 'products.product',
+                        populate: {
+                            path: 'sellerID'
+                        }
+                    })
+                    .populate('user')
+                    .execPopulate().then(
                         data => {
                             return {
                                 order: data.toJSON()

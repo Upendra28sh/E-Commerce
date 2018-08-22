@@ -1,11 +1,15 @@
 import gql from 'graphql-tag';
 
-// Changed order model to store product, itemCount and selectedSize instead of only productID.
-
 export default gql`
     extend type Query {
         allOrders: [Order],
         Order(id: ID!): Order
+    }
+
+    input AddItemInput {
+        product: ID,
+        itemCount: Int,
+        selectedSize: String
     }
 
     input AddAddressInput {
@@ -35,7 +39,7 @@ export default gql`
 
     input AddOrderInput {
         userID: ID!,
-        products: [ID!]!,
+        products: [AddItemInput]!,
         discount: Int,
         total: Int,
         date: Date,
