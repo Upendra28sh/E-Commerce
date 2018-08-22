@@ -407,7 +407,8 @@ q:after {
 .form_content {
   border: solid 1px #dcdcdc;
   padding: 30px;
-  background-color: white; }
+  background-color: white;
+  margin-bottom: 20px; }
 
 .form_title {
   text-align: center;
@@ -420,7 +421,6 @@ q:after {
   border: none;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 20px;
   height: 36px;
   font-size: 18px;
   background: black;
