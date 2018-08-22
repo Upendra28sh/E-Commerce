@@ -12,13 +12,13 @@ module.exports = {
         // TODO : Implement Pagination and Filters...
         // Consult with Apollo Client for Requirements
         allProducts: (parent, args, context, info) => {
-            return Product.find({}).populate('seller').exec().then(
+            return Product.find({}).populate('sellerID').exec().then(
                 data => data
             );
         },
 
         Product: (parent, args, context, info) => {
-            return Product.findById(args.id).populate('seller').exec().then(
+            return Product.findById(args.id).populate('sellerID').exec().then(
                 data => data
             );
         },

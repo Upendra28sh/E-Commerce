@@ -9,7 +9,6 @@ import authTypeDef from './auth';
 import userTypeDef from './users';
 import cartTypeDef from './cart';
 
-
 // Token code
 // 1 -> Successful signin/signup
 // 2 -> Email already registered
@@ -55,7 +54,7 @@ const typeDefs = gql`
     type Order {
         id: ID,
         user: User,
-        products: [Product],
+        products: [OrderItem],
         discount: Int,
         total: Int,
         date: Date,
@@ -68,6 +67,12 @@ const typeDefs = gql`
         id: ID,
         items: [Item],
         user: User
+    }
+
+    type OrderItem {
+        product: Product,
+        itemCount: Int,
+        selectedSize: String
     }
 
     type Item {

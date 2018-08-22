@@ -13,7 +13,7 @@ const Posts = () => {
                             <span className="photo__location">Best seller </span>
                         </div>
                     </header>
-                    <img src="product_images/NYC.jpg"/>
+                    <img src="product_images/product1.jpg"/>
                     <div className="photo__info">
                         <div className="photo__actions">
                             <span className="photo__action">
@@ -57,7 +57,7 @@ const Posts = () => {
                             <span className="photo__location">Best seller </span>
                         </div>
                     </header>
-                    <img src="product_images/NYC.jpg"/>
+                    <img src="product_images/product1.jpg"/>
                     <div className="photo__info">
                         <div className="photo__actions">
                             <span className="photo__action">
@@ -101,7 +101,7 @@ const Posts = () => {
                             <span className="photo__location">Best seller </span>
                         </div>
                     </header>
-                    <img src="product_images/NYC.jpg"/>
+                    <img src="product_images/product1.jpg"/>
                     <div className="photo__info">
                         <div className="photo__actions">
                             <span className="photo__action">

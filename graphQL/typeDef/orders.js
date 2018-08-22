@@ -6,6 +6,12 @@ export default gql`
         Order(id: ID!): Order
     }
 
+    input AddItemInput {
+        product: ID,
+        itemCount: Int,
+        selectedSize: String
+    }
+
     input AddAddressInput {
         address : String,
         street : String,
@@ -33,7 +39,7 @@ export default gql`
 
     input AddOrderInput {
         userID: ID!,
-        products: [ID!]!,
+        products: [AddItemInput]!,
         discount: Int,
         total: Int,
         date: Date,
@@ -42,6 +48,15 @@ export default gql`
         payment: AddPaymentInput
     }
 
+    input AddOrderFromCartInput {
+        userID: ID!,
+        discount: Int,
+        total: Int,
+        date: Date,
+        shipping : AddShippingInput,
+        status: AddStatusInput,
+        payment: AddPaymentInput
+    }
     
     type AddOrderPayload {
         order : Order
@@ -51,6 +66,10 @@ export default gql`
         addOrder(
             input : AddOrderInput
         ): AddOrderPayload,
+
+        addOrderFromCart(
+            input: AddOrderFromCartInput
+        ) : AddOrderPayload
 
         removeOrder(
             orderID: ID

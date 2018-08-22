@@ -3,14 +3,19 @@ const Cart = require('../models/cart');
 
 module.exports = {
     Query: {
-        getCart: (parent, { id }, context, info) => {
-            return Cart.findOne({user: id})
-                .populate('items.item')
+        getCart: (parent, { userID }, context, info) => {
+            return Cart.findOne({user: userID})
+                .populate({
+                    path: 'items.item',
+                    populate: {
+                        path: 'sellerID'
+                    }
+                })
                 .populate('user')
                 .exec()
                 .then(
                     data => {
-                        console.log(data)
+                        // console.log(data)
                         return data;
                     }
                 )
@@ -37,7 +42,12 @@ module.exports = {
                                 );
                                 createdCart.save();
                                 return createdCart
-                                    .populate('items.item')
+                                    .populate({
+                                        path: 'items.item',
+                                        populate: {
+                                            path: 'sellerID'
+                                        }
+                                    })
                                     .populate('user')
                                     .execPopulate()
                                     .then(data => data.toJSON())
@@ -53,7 +63,12 @@ module.exports = {
                         );
                         foundCart.save();
                         return foundCart
-                            .populate('items.item')
+                            .populate({
+                                path: 'items.item',
+                                populate: {
+                                    path: 'sellerID'
+                                }
+                            })
                             .populate('user')
                             .execPopulate()
                             .then(data => data.toJSON())
@@ -68,7 +83,7 @@ module.exports = {
                 foundCart => {
                     foundCart.items.splice(index, 1);
                     foundCart.save();
-                    console.log(foundCart);
+                    // console.log(foundCart);
                     return foundCart
                         .populate('items.item')
                         .populate('user')
