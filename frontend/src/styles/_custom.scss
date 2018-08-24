@@ -12,7 +12,13 @@
 }
 
 .container_160 {
-  padding: 0 26rem;
+  padding: 0 30%;
+}
+
+.max_width_980 {
+  width: 95%;
+  margin: auto;
+  max-width: 980px;
 }
 
 .container_80 {
@@ -36,27 +42,11 @@
   margin-top: 10px;
 }
 
-
 // Utility Classes
 .bg-grey {
   background-color: #fafafa !important;
   padding-top: 10px
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .search-result {
 
@@ -95,11 +85,9 @@
 
 }
 
-
 .ant-cascader-menu {
   height: 100%;
 }
-
 
 div#search_result {
   margin-top: 10%;

@@ -38,6 +38,19 @@
   margin: 0 20px 10px 0;
   border-bottom: solid 1px #1513131c;
 
+  &_seller {
+    padding: 10px 20px;
+    display: block;
+    clear: both;
+
+    &_image {
+      //float: left;
+      width: 40px;
+      display: inline-block;
+    }
+
+  }
+
   img {
     width: 80%;
     margin: 0 10% 0 10%;
@@ -49,13 +62,14 @@
     justify-content: space-between;
     font-size: 18px;
 
-    #name {
+    &_name {
       color: black;
       font-weight: 500;
       letter-spacing: 0;
     }
-    #price {
+    &_price {
       display: inline;
+      font-weight: 500;
     }
   }
 }
