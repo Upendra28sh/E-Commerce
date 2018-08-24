@@ -11,6 +11,7 @@ export default gql`
         name: String!,
         image: String!,
         about: String!,
+        username: String!
     }
 
     type AuthPayload {

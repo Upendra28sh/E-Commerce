@@ -5,6 +5,8 @@ import {GET_USER} from "../query";
 import {Query} from 'react-apollo';
 import NotFound from './NotFound';
 
+import UserPosts from './UserPosts';
+
 const {TabPane} = Tabs;
 
 const User = (props) => {
@@ -57,7 +59,9 @@ const User = (props) => {
                                     <Col span={24}>
                                         <Tabs defaultActiveKey="1" size="default" style={{textAlign: 'center'}}>
                                             <TabPane tab="WishList" key="1">Content of tab 1</TabPane>
-                                            <TabPane tab="Posts" key="2"><Feed/></TabPane>
+                                            <TabPane tab="Posts" key="2">
+                                                <UserPosts username={username}/>
+                                            </TabPane>
                                             <TabPane tab="Shops" key="3">Content of tab 3</TabPane>
                                         </Tabs>
                                     </Col>

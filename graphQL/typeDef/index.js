@@ -8,6 +8,7 @@ import orderTypeDef from './orders';
 import authTypeDef from './auth';
 import userTypeDef from './users';
 import cartTypeDef from './cart';
+import postTypeDef from './posts';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -124,7 +125,7 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef];
 
 // DOUBT
 // Change User type to remove ID

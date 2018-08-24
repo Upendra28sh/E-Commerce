@@ -20,7 +20,7 @@ export const SET_AUTH = gql`
 `;
 
 export const GET_USER = gql`
-    
+
         query user($username : String!) {
             User(username : $username){
                 id ,
@@ -32,4 +32,26 @@ export const GET_USER = gql`
             }
         }
     
-`
+`;
+
+export const GET_POST = gql`
+    query post($username : String!) {
+        Posts(username : $username) {
+            id
+            product {
+              name
+              image
+              description
+              keywords
+              sellerID {
+                id
+                name
+              }
+            }
+            user {
+              username
+            }
+            timestamp
+        }
+    }
+`;
