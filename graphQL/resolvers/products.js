@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Seller = require('../models/seller');
+var _ = require('lodash');
 
 const normalizeKeywords = (keywords) => {
     // TODO : Implement it to normalize keywords entered by user.
@@ -22,11 +23,45 @@ module.exports = {
                 data => data
             );
         },
+        getProducts: (parent, args, context, info) => {
+            return Product.find({}).populate('sellerID').exec().then(
+                data => {
+                    let temp = [];
+                    for (let i of data) {
+                        if (i.name.toLowerCase() == args.filter.toLowerCase()) {
+                            temp.push(i);
+                            data.splice(i, 1)
+                            continue;
+                        }
+                    }
+                    for (let i of data) {
+                        if (i.name.toLowerCase().includes(args.filter.toLowerCase())) {
+                            temp.push(i);
+                            continue;
+                        }
+                        if (i.name.toLowerCase().includes(args.filter.toLowerCase())) {
+                            temp.push(i);
+                            continue;
+                        }
+                        for (let j in i.keywords) {
+                            if (j.toLowerCase().includes(args.filter.toLowerCase())) {
+                                temp.push(i);
+                                break;
+                            }
+                        }
+                    }
+                    return temp;
+                }
+            );
+        },
     },
 
     Mutation: {
         // TODO : Add Seller Field from Token
-        addProduct: (parents, {input, ...args}, context, info) => {
+        addProduct: (parents, {
+            input,
+            ...args
+        }, context, info) => {
             // console.log(input, args);
             return Product.create({
                 name: input.name,
@@ -49,10 +84,15 @@ module.exports = {
             );
         },
 
-        updateProduct: (parents, {input, ...args}, context, info) => {
-            
+        updateProduct: (parents, {
+            input,
+            ...args
+        }, context, info) => {
 
-            return Product.findOneAndUpdate({_id: input.productID}, {
+
+            return Product.findOneAndUpdate({
+                _id: input.productID
+            }, {
                 $set: {
                     name: input.name,
                     price: input.price,
@@ -63,13 +103,17 @@ module.exports = {
                     returnAccepted: input.returnAccepted || false,
                     keywords: normalizeKeywords(input.keywords)
                 }
-            }, {new: true}).populate('seller').exec().then(
+            }, {
+                new: true
+            }).populate('seller').exec().then(
                 data => data
             );
         },
 
         removeProduct: (parents, args, context, info) => {
-            return Product.findOneAndDelete({_id: args.productID}).populate('seller').exec().then(
+            return Product.findOneAndDelete({
+                _id: args.productID
+            }).populate('seller').exec().then(
                 data => data
             );
         }

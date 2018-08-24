@@ -1,5 +1,7 @@
-const {gql} = require('apollo-server');
-export default gql`    
+const {
+    gql
+} = require('apollo-server');
+export default gql `    
 
     input AddProductInput {
         name: String!,
@@ -35,7 +37,8 @@ export default gql`
     # TODO : Change AllProducts to Custom Payload for Support with Paginiation and Infinite Scrolling.
     extend type Query {
         allProducts: [Product],
-        Product(id: ID!): Product
+        Product(id: ID!): Product,
+        getProducts(filter : String!): [Seller]
     }
 
     extend type Mutation {
