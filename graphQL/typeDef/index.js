@@ -42,7 +42,11 @@ const typeDefs = gql`
         id: ID,
         name: String,
         image: String,
-        about: String
+        about: String,
+        shopname: String,
+        address: Address,
+        legalInfo: LegalInfo,
+        policy: SellerPolicy
     }
 
     type Post {
@@ -59,8 +63,8 @@ const typeDefs = gql`
         discount: Int,
         total: Int,
         date: Date,
-        shipping : ShippingStatus
-        status: OrderStatus
+        shipping : ShippingStatus,
+        status: OrderStatus,
         payment: PaymentStatus
     }
 
@@ -115,6 +119,18 @@ const typeDefs = gql`
         about: String,
         email:String,
         password: String
+    }
+
+    type LegalInfo {
+        aadhar: String,
+        pan: String,
+        gst: String,
+        bank: String
+    }
+
+    type SellerPolicy {
+        store: String,
+        return: String
     }
 
     type Token {

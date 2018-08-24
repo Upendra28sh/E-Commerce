@@ -34,8 +34,6 @@ const server = new ApolloServer({
 
 });
 
-import User from './models/user';
-
 mongoose.connect(url, {useNewUrlParser: true}).then(() => {
     console.log("Connected to DB");
     server.listen().then(({url}) => {
