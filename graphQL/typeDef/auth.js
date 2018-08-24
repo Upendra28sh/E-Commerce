@@ -3,14 +3,14 @@ const {gql} = require('apollo-server');
 export default gql`
 
     input AuthInput {
-        email: String!,
+        email: String!
         password: String!
     }
 
     input UserDetailsInput {
         name: String!,
         image: String!,
-        about: String!
+        about: String!,
     }
 
     type AuthPayload {
@@ -18,12 +18,12 @@ export default gql`
     }
 
     extend type Mutation {
-        signup(
+        UserSignup(
             input: AuthInput,
             details: UserDetailsInput
         ) : AuthPayload
 
-        login(
+        UserLogin(
             input: AuthInput
         ) : AuthPayload
     }

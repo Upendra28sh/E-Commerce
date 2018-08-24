@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Menu, Icon, Divider} from 'antd';
 import {Link} from 'react-router-dom';
 
-import Router from '../../router/AdminRouter';
+import Router from '../router/AdminRouter';
 // import '../../styles/admin/_index.css';
 
 const {Header, Content, Footer, Sider} = Layout;

@@ -1,29 +1,32 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 
-import Landing from '../components/shop/Landing';
-import Search from '../components/shop/Search';
-import SignUp from '../components/shop/SignUp';
-import SignIn from '../components/shop/SignIn';
-import User from '../components/shop/User';
-import Seller from '../components/shop/Seller';
-import AddSeller from '../components/shop/AddSeller/index';
-import Cart from '../components/shop/Cart';
-import Checkout from '../components/shop/Checkout';
-import Saved from '../components/shop/Saved';
-import Confirm from '../components/shop/Confirm';
-import Thanks from '../components/shop/Thanks';
-import Feed from '../components/shop/Feed/Feed';
-import Trending from '../components/shop/Trending/Trending';
+import Landing from '../shop/Landing';
+import Search from '../shop/Search';
+import SignUp from '../shop/SignUp';
+import SignIn from '../shop/Login';
+import User from '../shop/User';
+import Seller from '../shop/Seller';
+import AddSeller from '../shop/AddSeller/index';
+import Cart from '../shop/Cart';
+import Checkout from '../shop/Checkout';
+import Saved from '../shop/Saved';
+import Confirm from '../shop/Confirm';
+import Thanks from '../shop/Thanks';
+import Feed from '../shop/Feed/Feed';
+import Trending from '../shop/Trending/Trending';
+
+import RequireAuth from '../utils/RequireAuth';
 
 const Router = () => {
     return (
         <div>
             <Switch>
                 <Route exact path="/" component={Landing}/>
-                <Route exact path="/search/:query" component={Search}/>
                 <Route exact path="/signup" component={SignUp}/>
-                <Route exact path="/signin" component={SignIn}/>
+                <Route exact path="/login" component={SignIn}/>
+
+                <Route exact path="/search/:query" component={Search}/>
                 <Route exact path="/user/:id" component={User}/>
                 <Route exact path="/seller/new" component={AddSeller}/>
                 <Route exact path="/seller/:id" component={Seller}/>

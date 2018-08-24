@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../../actions/shop';
 
 class SignUp extends React.Component {
@@ -17,43 +17,53 @@ class SignUp extends React.Component {
             <div className="signUp">
                 <div className="form-group">
                     <label>First Name</label>
-                    <input onChange={(event)=> this.props.typing(event, 'first-name')}className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'first-name')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>Last Name</label>
-                    <input onChange={(event)=> this.props.typing(event, 'last-name')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'last-name')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>Address 1</label>
-                    <input onChange={(event)=> this.props.typing(event, 'address-1')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'address-1')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>Address 2</label>
-                    <input onChange={(event)=> this.props.typing(event, 'address-2')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'address-2')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>City</label>
-                    <input onChange={(event)=> this.props.typing(event, 'city')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'city')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>State</label>
-                    <input onChange={(event)=> this.props.typing(event, 'state')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'state')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>Zip Code</label>
-                    <input onChange={(event)=> this.props.typing(event, 'zip')} className="form-control" type="text"></input>
+                    <input onChange={(event) => this.props.typing(event, 'zip')} className="form-control"
+                           type="text"></input>
                 </div>
                 <div className="form-group">
                     <label>Email</label>
-                    <input onChange={(event)=> this.props.typing(event, 'email')} className="form-control" type="email"></input>
+                    <input onChange={(event) => this.props.typing(event, 'email')} className="form-control"
+                           type="email"></input>
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    <input onChange={(event)=> this.props.typing(event, 'password')} className="form-control" type="password"></input>
+                    <input onChange={(event) => this.props.typing(event, 'password')} className="form-control"
+                           type="password"></input>
                 </div>
                 <div className="form-group">
                     <label>Confirm Password</label>
-                    <input onChange={(event)=> this.props.typing(event, 'password-confirm')} className="form-control" type="password"></input>
+                    <input onChange={(event) => this.props.typing(event, 'password-confirm')} className="form-control"
+                           type="password"></input>
 
                     {this.props.passwords_match ?
                         <p></p> :
@@ -65,15 +75,10 @@ class SignUp extends React.Component {
                     }
 
                 </div>
-                <button disabled={!this.props.passwords_match} onClick={()=>this.checkForm()}>Submit</button>
+                <button disabled={!this.props.passwords_match} onClick={() => this.checkForm()}>Submit</button>
             </div>
         );
     }
 }
 
-const SignUpContainer = connect(
-    state => state,
-    actions
-)(SignUp);
-
-export default SignUpContainer;
+export default SignUp;

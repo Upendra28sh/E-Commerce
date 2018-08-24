@@ -4,6 +4,7 @@ const transformSchema = require('./utils/schemaTransform');
 const userSchema = new mongoose.Schema({
     email: String,
     password: String,
+    username: {type: String},
     name: String,
     image: String,
     about: String

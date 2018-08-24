@@ -1,11 +1,11 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import ProductList from "../components/admin/ProductList.jsx";
-import ProductDetails from "../components/admin/ProductDetails";
-import ProductNew from "../components/admin/ProductNew";
-import OrderList from "../components/admin/OrderList";
-import OrderDetails from "../components/admin/OrderDetails";
-import UserTable from '../components/admin/UserTable';
+import ProductList from "../admin/ProductList.jsx";
+import ProductDetails from "../admin/ProductDetails";
+import ProductNew from "../admin/ProductNew";
+import OrderList from "../admin/OrderList";
+import OrderDetails from "../admin/OrderDetails";
+import UserTable from '../admin/UserTable';
 
 const temp = () => <p>Welcome to Seller Dashboard</p>
 const login = () => <p>Login</p>
