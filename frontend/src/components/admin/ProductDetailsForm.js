@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Avatar, Input } from "antd";
 import { addProduct } from "../../actions/admin";
+import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 import { Mutation } from "react-apollo";
@@ -28,8 +29,7 @@ class ProductDetailsForm extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.match.params.id);
-    if (this.props.match.params.id != "new") {
+    if (this.props.match != undefined) {
       ADD_PRODUCT = gql`
         mutation updateProduct($input: UpdateProductInput!) {
           updateProduct(input: $input) {
@@ -182,13 +182,15 @@ class ProductDetailsForm extends React.Component {
                       />
                     </Col>
                   </Row>
+
                   <button
                     type="button"
-                    onClick={() =>
-                      addProduct({ variables: { input: this.state } })
-                    }
+                    onClick={() => {
+                      addProduct({ variables: { input: this.state } });
+                      window.location = "http://localhost:3000/admin/listings";
+                    }}
                   >
-                    Add
+                    {this.state.productID == undefined ? "Add" : "Update"}
                   </button>
                 </form>
               </Row>
