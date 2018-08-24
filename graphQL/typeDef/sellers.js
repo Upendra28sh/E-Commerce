@@ -4,7 +4,8 @@ export default gql`
     extend type Query {
         allSellers: [Seller],
         Seller(shopname: String!): Seller,
-        getSellers(ids : [ID]): [Seller]
+        getSellers(ids : [ID]): [Seller],
+        checkShopnameAvailability(shopname: String): Boolean
     }
 
     input SellerInput {

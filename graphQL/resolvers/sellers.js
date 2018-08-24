@@ -18,6 +18,11 @@ module.exports = {
             return Seller.find({
                 '_id' : { $in : args.ids }
             }).exec().then(data => data);
+        },
+        checkShopnameAvailability: (parent , {shopname}, context, info) => {
+            return Seller.findOne({shopname: shopname}).exec().then(
+                data => !data
+            )
         }
     },
 

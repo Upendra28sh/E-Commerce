@@ -142,7 +142,3 @@ const typeDefs = gql`
 `;
 
 module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef];
-
-// DOUBT
-// Change User type to remove ID
-// OR create a new type with no ID
