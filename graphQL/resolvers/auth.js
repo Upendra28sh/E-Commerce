@@ -8,7 +8,7 @@ module.exports = {
         UserSignup: (parent, {input, details}, context, info) => {
 
             let {email, password} = input;
-            let {name, image, about} = details;
+            let {name, image, about, username} = details;
 
             return User.findOne({email: email}).exec()
                 .then(
@@ -28,7 +28,8 @@ module.exports = {
                                 password: hashedPassword,
                                 name: name,
                                 image: image,
-                                about: about
+                                about: about,
+                                username: username
                             }).then(
                                 createdUser => {
                                     const token = jwt.sign(

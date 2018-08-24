@@ -150,7 +150,7 @@ class Header extends React.Component {
                                             paddingBottom: '0px',
                                             marginLeft: '10px'
                                         }}>
-                                            Hi, {data.auth.user.name}
+                                            Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}
                                         </li>
 
                                         <li style={{

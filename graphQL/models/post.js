@@ -13,4 +13,4 @@ const PostSchema = new mongoose.Schema({
     timestamp: String
 }, {versionKey: false});
 
-module.exports = mongoose.model('Product', transformSchema(PostSchema));
+module.exports = mongoose.model('Post', transformSchema(PostSchema));

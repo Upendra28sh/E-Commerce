@@ -7,12 +7,13 @@ export default gql`
     }
     
     extend type Query {
-        getPosts() : [Post]
+        getPosts : [Post]
+        Posts(username: String!) : [Post]
     }
 
     extend type Mutation {
         addPost(
             input: AddPostInput
-        ) : Cart,
+        ) : Post,
     }
 `;
