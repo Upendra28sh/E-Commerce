@@ -9,8 +9,8 @@ module.exports = {
             )
         },
 
-        Seller: (parent, args, context, info) => {
-            return Seller.findById(args.id).exec().then(
+        Seller: (parent, {shopname}, context, info) => {
+            return Seller.findOne({"shopname": shopname}).exec().then(
                 data => data
             )
         } ,

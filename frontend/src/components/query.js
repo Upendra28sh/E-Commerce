@@ -55,3 +55,48 @@ export const GET_POST = gql`
         }
     }
 `;
+
+export const GET_SELLER = gql`
+    query getSeller($shopname: String!) {
+        Seller (shopname: $shopname) {
+            name
+            image
+            id
+            about
+            shopname
+            address {
+                address
+                street
+                city
+                state
+                zipcode
+            }
+            legalInfo {
+                pan
+                aadhar
+                gst
+                bank
+            }
+            policy {
+                store
+                return
+            }
+        }
+    }
+`
+export const GET_PRODUCTS_BY_SELLER = gql `
+    query getProductsBySeller($sellerID: ID!) {
+        getProductBySeller(sellerID: $sellerID) {
+            id
+            name
+            image
+            sizes
+            keywords
+            description
+            sellerID {
+                id
+                name
+            }
+        }
+    }
+`;

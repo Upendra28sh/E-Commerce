@@ -35,7 +35,8 @@ export default gql`
     # TODO : Change AllProducts to Custom Payload for Support with Paginiation and Infinite Scrolling.
     extend type Query {
         allProducts: [Product],
-        Product(id: ID!): Product
+        Product(id: ID!): Product,
+        getProductBySeller(sellerID: ID!): [Product]
     }
 
     extend type Mutation {

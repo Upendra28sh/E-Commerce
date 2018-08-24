@@ -3,7 +3,7 @@ import {gql} from 'apollo-server';
 export default gql`
     extend type Query {
         allSellers: [Seller],
-        Seller(id: ID!): Seller,
+        Seller(shopname: String!): Seller,
         getSellers(ids : [ID]): [Seller]
     }
 

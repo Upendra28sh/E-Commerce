@@ -22,6 +22,12 @@ module.exports = {
                 data => data
             );
         },
+
+        getProductBySeller: (parent, { sellerID }, context, info) => {
+            return Product.find({sellerID: sellerID}).populate('sellerID').exec().then(
+                data => data
+            );
+        }
     },
 
     Mutation: {
