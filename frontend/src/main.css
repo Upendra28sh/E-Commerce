@@ -221,6 +221,13 @@
   padding: 20px 0;
   margin: 0 20px 10px 0;
   border-bottom: solid 1px #1513131c; }
+  .item_seller {
+    padding: 10px 20px;
+    display: block;
+    clear: both; }
+    .item_seller_image {
+      width: 40px;
+      display: inline-block; }
   .item img {
     width: 80%;
     margin: 0 10% 0 10%; }
@@ -228,12 +235,13 @@
     display: flex;
     justify-content: space-between;
     font-size: 18px; }
-    .item .item_title #name {
+    .item .item_title_name {
       color: black;
       font-weight: 500;
       letter-spacing: 0; }
-    .item .item_title #price {
-      display: inline; }
+    .item .item_title_price {
+      display: inline;
+      font-weight: 500; }
 
 .left_part {
   border-right: solid 1px #1513131c; }
@@ -436,7 +444,12 @@ q:after {
   padding: 0 40%; }
 
 .container_160 {
-  padding: 0 26rem; }
+  padding: 0 30%; }
+
+.max_width_980 {
+  width: 95%;
+  margin: auto;
+  max-width: 980px; }
 
 .container_80 {
   padding: 0 13rem; }
