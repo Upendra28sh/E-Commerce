@@ -1,5 +1,7 @@
-const {gql} = require('apollo-server');
-export default gql`    
+const {
+    gql
+} = require('apollo-server');
+export default gql `    
 
     input AddProductInput {
         name: String!,
@@ -37,6 +39,8 @@ export default gql`
         allProducts: [Product],
         Product(id: ID!): Product,
         getProductBySeller(sellerID: ID!): [Product]
+        getProducts(filter : String!): [Seller]
+
     }
 
     extend type Mutation {
