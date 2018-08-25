@@ -1,9 +1,25 @@
-const { gql } = require('apollo-server');
+const {
+    gql
+} = require('apollo-server');
 
-export default gql`
+export default gql `
     extend type Query {
         allUsers: [User],
         User(username: String!): User
+    }
+    extend type Mutation {
+        followUser(
+            FollowingID : ID!
+        ): User,
+        unFollowUser(
+            FollowingID : ID!
+        ): User,
+        followShop(
+            FollowingID : ID!
+        ): Seller,
+        unFollowShop(
+            FollowingID : ID!
+        ): Seller
     }
 `
 
