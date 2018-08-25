@@ -22,6 +22,7 @@ const GET_CART = gql`
                     image
                     description
                     sellerID {
+                        id ,
                         image ,
                         name
                     }
@@ -56,7 +57,7 @@ class Cart extends React.Component {
 
     render() {
         return (
-            <Query query={GET_CART}>
+            <Query query={GET_CART} fetchPolicy={'cache-and-network'}>
                 {({loading, error, data}) => {
                     console.log(loading, error, data);
 
