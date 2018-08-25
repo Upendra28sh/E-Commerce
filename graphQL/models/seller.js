@@ -23,7 +23,13 @@ const sellerSchema = new mongoose.Schema({
     policy: {
         store: String,
         return: String
-    }
-}, { versionKey: false });
+    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+}, {
+    versionKey: false
+});
 
 module.exports = mongoose.model('Seller', transformSchema(sellerSchema));

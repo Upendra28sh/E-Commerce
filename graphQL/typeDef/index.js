@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-const {gql} = require('apollo-server');
-const {merge} = require('lodash');
+const {
+    gql
+} = require('apollo-server');
+const {
+    merge
+} = require('lodash');
 
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
@@ -16,7 +20,7 @@ import postTypeDef from './posts';
 // 3 -> Invalid password
 // 4 -> Email not registered
 
-const typeDefs = gql`
+const typeDefs = gql `
     type Query {
         _empty: String
     }
@@ -35,7 +39,8 @@ const typeDefs = gql`
         returnAccepted : Boolean ,
         description: String,
         keywords:[String],
-        sellerID: Seller
+        sellerID: Seller,
+        followers : [User]
     }
 
     type Seller {
@@ -47,6 +52,7 @@ const typeDefs = gql`
         address: Address,
         legalInfo: LegalInfo,
         policy: SellerPolicy
+        followers : [User]
     }
 
     type Post {
@@ -118,7 +124,10 @@ const typeDefs = gql`
         image: String,
         about: String,
         email:String,
-        password: String
+        password: String,
+        following: [User],
+        followers: [User],
+        followingShop: [Seller]
     }
 
     type LegalInfo {

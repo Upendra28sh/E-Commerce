@@ -25,11 +25,16 @@ module.exports = {
         },
 
 
-        getProductBySeller: (parent, { sellerID }, context, info) => {
-            return Product.find({sellerID: sellerID}).populate('sellerID').exec().then(
+        getProductBySeller: (parent, {
+            sellerID
+        }, context, info) => {
+            return Product.find({
+                sellerID: sellerID
+            }).populate('sellerID').exec().then(
                 data => data
             );
-        } ,
+
+        },
 
         getProducts: (parent, args, context, info) => {
             return Product.find({}).populate('sellerID').exec().then(
@@ -38,7 +43,7 @@ module.exports = {
                     for (let i of data) {
                         if (i.name.toLowerCase() == args.filter.toLowerCase()) {
                             temp.push(i);
-                            data.splice(i, 1)
+                            data.splice(i, 1);
                             continue;
                         }
                     }
@@ -87,7 +92,7 @@ module.exports = {
                         data => ({
                             product: data.toJSON()
                         })
-                    )
+                    );
                 }
             );
         },
