@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const Product = require('../models/product');
 const Seller = require('../models/seller');
 
-import { GraphQLScalarType } from 'graphql';
-import { Kind } from 'graphql/language';
+import {
+    GraphQLScalarType
+} from 'graphql';
+import {
+    Kind
+} from 'graphql/language';
 
 const products = require('./products');
 const sellers = require('./sellers');
@@ -25,13 +29,13 @@ const resolvers = {
 
     Mutation: {
         ...products.Mutation,
-        ...sellers.Mutation,        
-        ...orders.Mutation,        
+        ...sellers.Mutation,
+        ...orders.Mutation,
         ...auth.Mutation,
         ...cart.Mutation,
-        // ...users.Mutation,
+        ...users.Mutation,
         ...post.Mutation
-    } ,
+    },
 
     Date: new GraphQLScalarType({
         name: 'Date',

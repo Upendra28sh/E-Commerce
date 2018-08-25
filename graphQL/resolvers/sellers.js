@@ -4,32 +4,52 @@ const Seller = require('../models/seller');
 module.exports = {
     Query: {
         allSellers: (parent, args, context, info) => {
-            return Seller.find({}).exec().then(
+            return Seller.find({}).populate('followers').exec().then(
                 data => data
             )
         },
 
-        Seller: (parent, {shopname}, context, info) => {
-            return Seller.findOne({"shopname": shopname}).exec().then(
+        Seller: (parent, {
+            shopname
+        }, context, info) => {
+            return Seller.findOne({
+                "shopname": shopname
+            }).populate('followers').exec().then(
                 data => data
             )
-        } ,
-        getSellers: (parent , args, context, info) => {
-            return Seller.find({
-                '_id' : { $in : args.ids }
-            }).exec().then(data => data);
         },
-        checkShopnameAvailability: (parent , {shopname}, context, info) => {
-            return Seller.findOne({shopname: shopname}).exec().then(
+        getSellers: (parent, args, context, info) => {
+            return Seller.find({
+                '_id': {
+                    $in: args.ids
+                }
+            }).populate('followers').exec().then(data => data);
+        },
+        checkShopnameAvailability: (parent, {
+            shopname
+        }, context, info) => {
+            return Seller.findOne({
+                shopname: shopname
+            }).exec().then(
                 data => !data
             )
         }
     },
 
     Mutation: {
-        addSeller: (parents, { input }, context, info) => {
+        addSeller: (parents, {
+            input
+        }, context, info) => {
 
-            let { name, image, about, shopname, address, legalInfo, policy } = input;
+            let {
+                name,
+                image,
+                about,
+                shopname,
+                address,
+                legalInfo,
+                policy
+            } = input;
 
             return Seller.create({
                 name: name,
@@ -38,17 +58,30 @@ module.exports = {
                 shopname: shopname,
                 address: address,
                 legalInfo: legalInfo,
-                policy: policy 
+                policy: policy
             }).then(
                 data => data
             );
         },
 
-        updateSeller: (parents, {sellerID, input}, context, info) => {
+        updateSeller: (parents, {
+            sellerID,
+            input
+        }, context, info) => {
 
-            let { shopname, name, image, about, address, legalInfo, policy } = input;
+            let {
+                shopname,
+                name,
+                image,
+                about,
+                address,
+                legalInfo,
+                policy
+            } = input;
 
-            return Seller.findOneAndUpdate({_id: sellerID}, {
+            return Seller.findOneAndUpdate({
+                _id: sellerID
+            }, {
                 $set: {
                     name: name,
                     image: image,
@@ -56,9 +89,11 @@ module.exports = {
                     shopname: shopname,
                     address: address,
                     legalInfo: legalInfo,
-                    policy: policy 
+                    policy: policy
                 }
-            }, {new: true}).exec().then(
+            }, {
+                new: true
+            }).exec().then(
                 data => {
                     // console.log(data);
                     return data;
@@ -67,7 +102,9 @@ module.exports = {
         },
 
         removeSeller: (parents, args, context, info) => {
-            return Seller.findOneAndDelete({_id: args.sellerID}).exec().then(
+            return Seller.findOneAndDelete({
+                _id: args.sellerID
+            }).exec().then(
                 data => data
             );
         }
