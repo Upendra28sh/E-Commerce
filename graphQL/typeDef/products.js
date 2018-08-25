@@ -38,7 +38,9 @@ export default gql `
     extend type Query {
         allProducts: [Product],
         Product(id: ID!): Product,
+        getProductBySeller(sellerID: ID!): [Product]
         getProducts(filter : String!): [Seller]
+
     }
 
     extend type Mutation {

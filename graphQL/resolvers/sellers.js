@@ -9,8 +9,8 @@ module.exports = {
             )
         },
 
-        Seller: (parent, args, context, info) => {
-            return Seller.findById(args.id).exec().then(
+        Seller: (parent, {shopname}, context, info) => {
+            return Seller.findOne({"shopname": shopname}).exec().then(
                 data => data
             )
         } ,
@@ -18,29 +18,51 @@ module.exports = {
             return Seller.find({
                 '_id' : { $in : args.ids }
             }).exec().then(data => data);
+        },
+        checkShopnameAvailability: (parent , {shopname}, context, info) => {
+            return Seller.findOne({shopname: shopname}).exec().then(
+                data => !data
+            )
         }
     },
 
     Mutation: {
-        addSeller: (parents, args, context, info) => {
+        addSeller: (parents, { input }, context, info) => {
+
+            let { name, image, about, shopname, address, legalInfo, policy } = input;
+
             return Seller.create({
-                name: args.name,
-                image: args.image,
-                about: args.about
+                name: name,
+                image: image,
+                about: about,
+                shopname: shopname,
+                address: address,
+                legalInfo: legalInfo,
+                policy: policy 
             }).then(
                 data => data
             );
         },
 
-        updateSeller: (parents, args, context, info) => {
-            return Seller.findOneAndUpdate({_id: args.sellerID}, {
+        updateSeller: (parents, {sellerID, input}, context, info) => {
+
+            let { shopname, name, image, about, address, legalInfo, policy } = input;
+
+            return Seller.findOneAndUpdate({_id: sellerID}, {
                 $set: {
-                    name: args.name,
-                    image: args.image,
-                    about: args.about
+                    name: name,
+                    image: image,
+                    about: about,
+                    shopname: shopname,
+                    address: address,
+                    legalInfo: legalInfo,
+                    policy: policy 
                 }
             }, {new: true}).exec().then(
-                data => data
+                data => {
+                    // console.log(data);
+                    return data;
+                }
             );
         },
 

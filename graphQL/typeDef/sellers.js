@@ -3,22 +3,49 @@ import {gql} from 'apollo-server';
 export default gql`
     extend type Query {
         allSellers: [Seller],
-        Seller(id: ID!): Seller,
-        getSellers(ids : [ID]): [Seller]
+        Seller(shopname: String!): Seller,
+        getSellers(ids : [ID]): [Seller],
+        checkShopnameAvailability(shopname: String): Boolean
+    }
+
+    input SellerInput {
+        shopname: String,
+        name: String,
+        image: String,
+        about: String,
+        address: AddressInput,
+        legalInfo: InfoInput,
+        policy: PolicyInput
+    }
+
+    input AddressInput {
+        address: String,
+        street: String,
+        city: String,
+        state: String,
+        zipcode: Int
+    }
+
+    input InfoInput {
+        aadhar: String,
+        pan: String,
+        gst: String,
+        bank: String
+    }
+
+    input PolicyInput {
+        store: String!,
+        return: String!
     }
 
     extend type Mutation {
         addSeller(
-            name: String!,
-            image: String!,
-            about: String!
+            input: SellerInput
         ): Seller,
 
         updateSeller(
             sellerID: ID!,
-            name: String!,
-            image: String!,
-            about: String!
+            input: SellerInput!
         ): Seller,
 
         removeSeller(
