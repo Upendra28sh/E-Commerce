@@ -1,10 +1,9 @@
 .navbar_container {
   //box-shadow: 5px 10px;
+  //height: 64px;
+  background: white !important;
   border-bottom: 1px solid #c8c8c8;
-
-  ul.nav_bar {
-    margin: 0.8rem 0;
-  }
+  padding: 0.8rem;
 }
 
 .container_320 {
@@ -40,12 +39,6 @@
 
 .information {
   margin-top: 10px;
-}
-
-// Utility Classes
-.bg-grey {
-  background-color: #fafafa !important;
-  padding-top: 10px
 }
 
 .search-result {

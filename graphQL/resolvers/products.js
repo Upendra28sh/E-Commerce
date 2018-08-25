@@ -29,7 +29,7 @@ module.exports = {
             return Product.find({sellerID: sellerID}).populate('sellerID').exec().then(
                 data => data
             );
-        }
+        } ,
 
         getProducts: (parent, args, context, info) => {
             return Product.find({}).populate('sellerID').exec().then(

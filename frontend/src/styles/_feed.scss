@@ -1,3 +1,56 @@
+
+.navigate {
+  text-align: center;
+  font-size: 22px;
+  width: 100%;
+  margin: 10px auto 15px auto;
+
+  &--sticky {
+    position: fixed;
+    top: 0;
+  }
+
+  &__items {
+
+    background: white;
+    padding: 0;
+
+    div >  a:first-child > div {
+      border-right: #fafafa 2px solid;
+      //:10px solid black;
+    }
+    div >  a:nth-child(2) > div {
+      border-left: #fafafa 2px solid;
+      //:10px solid black;
+    }
+
+
+    div > a > div {
+      cursor: pointer;
+      padding: 8px;
+      border-bottom: solid 2px white;
+      color: black;
+
+      &:hover {
+        border-bottom: solid 2px gray;
+      }
+    }
+  }
+}
+
+ol,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+
+
 #feed {
   display: flex;
   align-items: center;
@@ -98,92 +151,4 @@
 
 .photo__comments .photo__comment-author {
   font-weight: 600;
-}
-
-.navigate {
-  text-align: center;
-  font-size: 22px;
-  width: 100%;
-  margin: 10px auto 15px auto;
-
-  &--sticky {
-    position: fixed;
-    top: 0;
-  }
-
-  &__items {
-
-    background: rgba(255, 255, 255, 0.97);
-    padding: 0;
-
-    div >  a:first-child > div {
-      border-right: #fafafa 2px solid;
-      //:10px solid black;
-    }
-    div >  a:nth-child(2) > div {
-      border-left: #fafafa 2px solid;
-      //:10px solid black;
-    }
-
-
-    div > a > div {
-      cursor: pointer;
-      padding: 8px;
-      border-bottom: solid 2px white;
-      color: black;
-
-      &:hover {
-        border-bottom: solid 2px gray;
-      }
-    }
-  }
-}
-
-ol,
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
 }

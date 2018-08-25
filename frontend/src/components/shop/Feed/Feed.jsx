@@ -54,7 +54,7 @@ class Feed extends React.Component {
 
     render() {
         return (
-            <div className='bg-grey'>
+            <div>
                 {
                     this.state.fixedHeader ? (
                         <div className="navigate navigate--sticky">
