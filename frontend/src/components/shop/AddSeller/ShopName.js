@@ -16,7 +16,6 @@ class ShopName extends React.Component {
             shopname: ""
         }
         this.handleCheck = this.handleCheck.bind(this);
-        this.handleDone = this.handleDone.bind(this);
     }
 
     handleCheck(shopname) {
@@ -41,7 +40,7 @@ class ShopName extends React.Component {
         )
     }
 
-    handleDone() {
+    componentWillUnmount() {
         this.props.onNext(this.state.shopname)
     }
 
@@ -59,8 +58,8 @@ class ShopName extends React.Component {
                             enterButton="Check"
                             size="large"
                             onSearch={value => this.handleCheck(value)}
+                            defaultValue={this.props.shopname}
                         />
-                        {this.state.available ? <button onClick={this.handleDone}>Done</button> : <div></div>}
                         <p id="message">{this.state.available === undefined ? "" : this.state.available ? "Available" : "Not Available"}</p>
                         <p>Shop names must have 4–20 characters and should not contain spaces.</p>
                     </div>

@@ -1,67 +1,219 @@
 import React from 'react';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+
+const FormItem = Form.Item;
 
 class SellerDetails extends React.Component {
+    state = {
+        confirmDirty: false,
+    };
+
+    componentDidMount() {
+        const { setFieldsValue } = this.props.form;
+        setFieldsValue({
+            'Name': this.props.name,
+            'Image': this.props.image,
+            'About': this.props.about,
+            'Address': this.props.address,
+            'Street': this.props.street,
+            'City': this.props.city,
+            'State': this.props.state,
+            'Zipcode': this.props.zipcode,
+        });      
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+          if (!err) {
+            let data = e.target;
+                this.props.onNext(
+                    data[0].value,
+                    data[1].value,
+                    data[2].value,
+                    data[3].value,
+                    data[4].value,
+                    data[5].value,
+                    data[6].value,
+                    data[7].value
+                );
+            }
+        });
+    }
+
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
 
     render() {
+        const { getFieldDecorator } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 18 },
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
+                },
+            },
+        };
+
         return (
-            <div>
-                <div className="page_title">
-                    <h2>Seller Details</h2>
-                </div>
-
-                <div className="form_content">
-                    <div className="container_160">
-                        <form 
-                            className="checkout_form" 
-                            onSubmit={
-                                e => {
-                                    e.preventDefault();
-                                    let data = e.target;
-                                    // console.log(data);
-                                    this.props.onNext(
-                                        data[0].value,
-                                        data[1].value,
-                                        data[2].value,
-                                        data[3].value,
-                                        data[4].value,
-                                        data[5].value,
-                                        data[6].value,
-                                        data[7].value
-                                    );
-                                }
-                            }
+            <div className="form_content">
+                <div className="container_80">
+                    <Form onSubmit={this.handleSubmit}>
+                        
+                        <FormItem
+                            {...formItemLayout}
+                            label="Name"
                         >
-                            <label htmlFor="name">Seller Name</label>
-                            <input type="text" id="name" name="name"/>
+                            {
+                                getFieldDecorator('Name',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Name'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="name">Image</label>
-                            <input type="text" id="image" name="image"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Image"
+                        >
+                            {
+                                getFieldDecorator('Image',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Upload an Image'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="name">About</label>
-                            <input type="text" id="about" name="about"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="About"
+                        >
+                            {
+                                getFieldDecorator('About',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Tell something about yourself'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="address">Address</label>
-                            <input type="text" id="address" name="address"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Address"
+                        >
+                            {
+                                getFieldDecorator('Address',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Address'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="street">Street</label>
-                            <input type="text" id="street" name="street"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Street"
+                        >
+                            {
+                                getFieldDecorator('Street',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input the Street'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+                
+                        <FormItem
+                            {...formItemLayout}
+                            label="City"
+                        >
+                            {
+                                getFieldDecorator('City',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input the City'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+    
+                        <FormItem
+                            {...formItemLayout}
+                            label="State"
+                        >
+                            {
+                                getFieldDecorator('State',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input the State'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="city">City</label>
-                            <input type="text" id="city" name="city"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Zipcode"
+                        >
+                            {
+                                getFieldDecorator('Zipcode',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Zipcode'}
+                                    ]
+                                }) (
+                                    <Input type="number"/>
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="state">State</label>
-                            <input type="text" id="state" name="state"/>
-
-                            <label htmlFor="zipcode">Address</label>
-                            <input type="number" id="zipcode" name="zipcode"/>    
-
-                            <button className="submit_btn">Submit</button>
-                        </form>
-                    </div>
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">Register</Button>
+                        </FormItem>
+                    </Form>
                 </div>
             </div>
         );
     }
 }
 
-export default SellerDetails;
+const WrappedSellerDetails = Form.create()(SellerDetails);
+
+export default WrappedSellerDetails;

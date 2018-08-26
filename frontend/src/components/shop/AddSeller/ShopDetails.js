@@ -1,81 +1,147 @@
 import React from 'react';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+
+const FormItem = Form.Item;
 
 class ShopDetails extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.showGSTInput = this.showGSTInput.bind(this);
-
-        this.state = {
-            show: false
-        }
-    }
-
-    showGSTInput = (e) => {
-        if (e.target.value === "true")
-            this.setState(
-                (prevState) => {
-                    return {
-                        show: !prevState.show
-                    }
-                }
-            );
+    state = {
+        confirmDirty: false,
     };
 
+    componentDidMount() {
+        const { setFieldsValue } = this.props.form;
+        setFieldsValue({
+            'Aadhar': this.props.aadhar,
+            'PAN': this.props.pan,
+            'GST': this.props.gst,
+            'Bank Account': this.props.account
+        });      
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+          if (!err) {
+            let data = e.target;
+                this.props.onNext(
+                    data[0].value,
+                    data[1].value,
+                    data[2].value,
+                    data[3].value,
+                );
+            }
+        });
+    }
+
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+
     render() {
+        const { getFieldDecorator, setFieldsValue } = this.props.form;
+
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 18 },
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
+                },
+            },
+        };
+
         return (
-            <div>
-                <div className="page_title">
-                    <h2>Details</h2>
-                </div>
-
-                <div className="form_content">
-                    <div className="container_160">
-                        <form 
-                            className="checkout_form"
-                            onSubmit={
-                                e => {
-                                    e.preventDefault();
-                                    let data = e.target;
-                                    this.props.onNext(
-                                        data[0].value,
-                                        data[1].value,
-                                        data[2].value,
-                                        data[4].value,
-                                    );
-                                }
-                            }    
+            <div className="form_content">
+                <div className="container_80">
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Aadhar Number"
                         >
-                            <label htmlFor="name">Aadhar Number</label>
-                            <input type="number" id="aadhar" name="aadhar"/>
-
-                            <label htmlFor="pan">PAN Number</label>
-                            <input type="number" id="pan" name="pan"/>
-
-                            <label htmlFor="account">Account Number</label>
-                            <input type="number" id="account" name="account"/>
-
-                            <div className="gst">
-                                <label htmlFor="gst">GST Registration</label>
-                                <input type="checkbox" name="gst" value="true" onClick={this.showGSTInput}/> GST
-
+                            {
+                                getFieldDecorator('Aadhar',
                                 {
-                                    this.state.show ?
-                                        (
-                                            <div>
-                                                <label htmlFor="gstNo">GST Number</label>
-                                                <input type="number" id="gstNo" name="gstNo"/>
-                                            </div>
-                                        ) : <div></div>
-                                }
-                            </div>
-                            <button className="submit_btn">Submit</button>
-                        </form>
-                    </div>
+                                    rules: [
+                                        { required: true, message: 'Please input your Aadhar Number'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem
+                            {...formItemLayout}
+                            label="PAN Number"
+                        >
+                            {
+                                getFieldDecorator('PAN',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your PAN Number'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem
+                            {...formItemLayout}
+                            label="GST Number"
+                        >
+                            {
+                                getFieldDecorator('GST',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your GST Number'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem
+                            {...formItemLayout}
+                            label="Bank Accont"
+                        >
+                            {
+                                getFieldDecorator('Bank Account',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Bank Account Number'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">Register</Button>
+                        </FormItem>
+                    </Form>
                 </div>
             </div>
         );
     }
 }
 
-export default ShopDetails;
+const WrappedShopDetails = Form.create()(ShopDetails);
+
+export default WrappedShopDetails;

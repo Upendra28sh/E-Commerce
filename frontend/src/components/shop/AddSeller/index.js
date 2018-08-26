@@ -90,7 +90,9 @@ class AddSeller extends React.Component {
                         }
                     }         
             `
-        });
+        }).then(
+            data => this.props.history.push(`/seller/${this.state.shopname}`)
+        )
     }
 
     onContinue = () => {
@@ -103,19 +105,24 @@ class AddSeller extends React.Component {
                     }
             }
         );
+
+        if (this.state.percent === 100)
+        {
+            this.submitDetails();
+        }    
     };
 
-    // onBack = () => {
-    //     this.setState(
-    //         (prevState) => {
-    //             if (prevState.percent > 25)
-    //                 return {
-    //                     percent: prevState.percent -= 25,
-    //                     page: prevState.page -= 1
-    //                 }
-    //         }
-    //     );
-    // };
+    onBack = () => {
+        this.setState(
+            (prevState) => {
+                if (prevState.percent > 25)
+                    return {
+                        percent: prevState.percent -= 25,
+                        page: prevState.page -= 1
+                    }
+            }
+        );
+    };
 
     onSetShopName = (shopname) => {
         this.setState(
@@ -123,7 +130,6 @@ class AddSeller extends React.Component {
                 shopname: shopname
             })
         );
-        this.onContinue();
     }
 
     onSetSellerDetails = (name, image, about, address, street, city, state, zipcode) => {
@@ -163,16 +169,12 @@ class AddSeller extends React.Component {
         );
     }
 
-    componentWillUnmount() {
-        this.submitDetails();
-    }
-
     render() {
         const pages = [
-            <ShopName onNext={this.onSetShopName}/>,
-            <SellerDetails onNext={this.onSetSellerDetails}/>,
-            <ShopDetails onNext={this.onSetShopDetails}/>,
-            <ShopPolicy onNext={this.onSetShopPolicy}/>
+            <ShopName onNext={this.onSetShopName} {...this.state}/>,
+            <SellerDetails onNext={this.onSetSellerDetails} {...this.state}/>,
+            <ShopDetails onNext={this.onSetShopDetails} {...this.state}/>,
+            <ShopPolicy onNext={this.onSetShopPolicy} {...this.state}/>
         ];
         
         return (
@@ -188,8 +190,8 @@ class AddSeller extends React.Component {
                         {pages[this.state.page]}
                         <p style={{paddingTop: '20px', paddingBottom: '10px', textAlign: 'center'}}>For help, contact us.</p>
                         <div id="footer">
-                            {/* <button onClick={this.onBack}>Back</button> */}
-                            {/* <button onClick={this.onContinue}>Save and Continue</button> */}
+                            <button onClick={this.onBack}>Back</button>
+                            <button onClick={this.onContinue}>Save and Continue</button>
                         </div>
                     </div>
                 </div>
