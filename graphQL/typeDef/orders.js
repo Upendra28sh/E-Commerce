@@ -3,7 +3,8 @@ import gql from 'graphql-tag';
 export default gql`
     extend type Query {
         allOrders: [Order],
-        Order(id: ID!): Order
+        Order(id: ID!): Order,
+        getOrdersByUser(userID: ID!): [Order]
     }
 
     input AddItemInput {

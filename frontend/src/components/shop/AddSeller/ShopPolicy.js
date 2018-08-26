@@ -1,43 +1,103 @@
 import React from 'react';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+
+const FormItem = Form.Item;
 
 class ShopPolicy extends React.Component {
+    state = {
+        confirmDirty: false,
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+          if (!err) {
+            let data = e.target;
+                this.props.onNext(
+                    data[0].value,
+                    data[1].value,
+                );
+            }
+        });
+    }
+
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
 
     render() {
+        const { getFieldDecorator } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 18 },
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
+                },
+            },
+        };
+
         return (
-            <div>
-                <div className="page_title">
-                    <h2>Shop Policy</h2>
-                </div>
-
-                <div className="form_content">
-                    <div className="container_160">
-                        <form 
-                            className="checkout_form"
-                            onSubmit={
-                                e => {
-                                    e.preventDefault();
-                                    let data = e.target;
-                                    // console.log(data);
-                                    this.props.onNext(
-                                        data[0].value,
-                                        data[1].value
-                                    );
-                                }
-                            }    
+            <div className="form_content">
+                <div className="container_80">
+                    <Form onSubmit={this.handleSubmit}>
+                        
+                        <FormItem
+                            {...formItemLayout}
+                            label="Store Policy"
                         >
-                            <label htmlFor="return_policy">Return Policy</label>
-                            <textarea id="return_policy" name="return_policy"/>
+                            {
+                                getFieldDecorator('Store',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Store Policy'}
+                                    ]
+                                }) (
+                                    <Input.TextArea placeholder="Store Policy" rows={6} />
+                                )
+                            }
+                        </FormItem>
 
-                            <label htmlFor="store_policy">Store Policy</label>
-                            <textarea id="store_policy" name="store_policy"/>
+                        <FormItem
+                            {...formItemLayout}
+                            label="Return Policy"
+                        >
+                            {
+                                getFieldDecorator('Return',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Return Policy'}
+                                    ]
+                                }) (
+                                    <Input.TextArea placeholder="Return Policy" rows={6} />
+                                )
+                            }
+                        </FormItem>
 
-                            <button className="submit_btn">Submit</button>
-                        </form>
-                    </div>
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">Save</Button>
+                        </FormItem>
+                    </Form>
                 </div>
             </div>
         );
     }
 }
 
-export default ShopPolicy;
+const WrappedShopPolicy = Form.create()(ShopPolicy);
+
+export default WrappedShopPolicy;

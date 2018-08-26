@@ -12,8 +12,8 @@ const navGroup = () => {
         <div className="container" style={{maxWidth: 630}}>
             <div className="navigate__items">
                 <Row>
-                    <Link to="/trending/products"><Col span={12}>Products</Col></Link>
                     <Link to="/trending/posts"><Col span={12}>Posts</Col></Link>
+                    <Link to="/trending/products"><Col span={12}>Products</Col></Link>
                 </Row>
             </div>
         </div>

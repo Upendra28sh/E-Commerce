@@ -32,6 +32,22 @@ module.exports = {
             .then(
                 data => data
             )
+        },
+        getOrdersByUser: (parent, { userID }, context, info) => {
+            return Order.find({
+                user: userID
+            })
+            .populate({
+                path: 'products.product',
+                populate: {
+                    path: 'sellerID'
+                }
+            })
+            .populate('user')
+            .exec()
+            .then(
+                data => data
+            )
         }
     },
 

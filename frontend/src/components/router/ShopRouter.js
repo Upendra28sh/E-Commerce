@@ -15,6 +15,7 @@ import Confirm from "../shop/Confirm";
 import Thanks from "../shop/Thanks";
 import Feed from "../shop/Feed/Feed";
 import Trending from "../shop/Trending/Trending";
+import Order from "../shop/Order";
 import RequireAuth from "../utils/RequireAuth";
 
 const Router = () => {
@@ -34,6 +35,7 @@ const Router = () => {
         <Route exact path="/saved" component={Saved} />
         <Route exact path="/confirm" component={Confirm} />
         <Route exact path="/thanks" component={Thanks} />
+        <Route exact path="/order" component={Order} />
         <Route path="/feed/" component={Feed} />
         <Route path="/trending" component={Trending} />
       </Switch>
