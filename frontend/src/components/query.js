@@ -1,25 +1,59 @@
-import {gql} from "apollo-boost";
+import {
+    gql
+} from "apollo-boost";
 
-export const GET_AUTH = gql`
+export const GET_AUTH = gql `
     {
         auth @client {
             isAuthenticated ,
             user {
+                id ,
                 name ,
-                username
+                username,
             }
         }
     }
 `;
 
-export const SET_AUTH = gql`
+export const SET_AUTH = gql `
     mutation setAuth {
         updateAuth @client
     }
 
 `;
-
-export const GET_USER = gql`
+export const FOLLOW_USER = gql `
+mutation followuser($FollowingID: ID!) {
+  followUser( FollowingID: $FollowingID) {
+    id
+    name
+  }
+}
+`;
+export const UNFOLLOW_USER = gql `
+mutation unfollowuser($FollowingID: ID!) {
+  unFollowUser( FollowingID: $FollowingID) {
+    id
+    name
+  }
+}
+`;
+export const FOLLOW_SHOP = gql `
+mutation followshop($FollowingID: ID!) {
+  followShop( FollowingID: $FollowingID) {
+    id
+    name
+  }
+}
+`;
+export const UNFOLLOW_SHOP = gql `
+mutation unfollowshop($FollowingID: ID!) {
+  unFollowShop( FollowingID: $FollowingID) {
+    id
+    name
+  }
+}
+`;
+export const GET_USER = gql `
 
         query user($username : String!) {
             User(username : $username){
@@ -28,13 +62,23 @@ export const GET_USER = gql`
                 about ,
                 username ,
                 image ,
-                email
+                email,
+                following{
+                    id
+                    name
+                  }
+                  followers{
+                    id
+                  }
+                  followingShop{
+                    id
+                  }
             }
         }
     
 `;
 
-export const GET_POST = gql`
+export const GET_POST = gql `
     query post($username : String!) {
         Posts(username : $username) {
             id
@@ -56,7 +100,7 @@ export const GET_POST = gql`
     }
 `;
 
-export const GET_SELLER = gql`
+export const GET_SELLER = gql `
     query getSeller($shopname: String!) {
         Seller (shopname: $shopname) {
             name
@@ -81,6 +125,9 @@ export const GET_SELLER = gql`
                 store
                 return
             }
+            followers{
+                id
+              }
         }
     }
 `

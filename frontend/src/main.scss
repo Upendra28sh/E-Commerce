@@ -3,16 +3,16 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/react-router-modal/css/react-router-modal.css';
 @import '../node_modules/antd/dist/antd.css';
-@import "styles/header";
-@import "styles/landing";
-@import "styles/product";
+@import 'styles/header';
+@import 'styles/landing';
+@import 'styles/product';
 @import 'styles/profile';
-@import "styles/sellerNew";
-@import "styles/cart";
-@import "styles/feed";
-@import "styles/checkout";
+@import 'styles/sellerNew';
+@import 'styles/cart';
+@import 'styles/feed';
+@import 'styles/checkout';
 @import 'styles/custom';
-@import "styles/admin/index";
+@import 'styles/admin/index';
 
 //html {
 //  font-size: 62.5%;
@@ -23,21 +23,25 @@ body {
   padding: 0;
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
+  background: #fafafa !important;
+}
+
+body {
+  height: 100vh;
+}
+body {
+  min-height: 100vh;
 }
 
 .main {
-  min-height: 500px;
+  min-height: calc(100vh - 64px)
 }
 
 .nav_bar {
-  //position: fixed;
-  //top: 0;
-  //width: 100%;
-  //background: white;
-  //margin-bottom: 60px !important;
-  // text-align: center;
   padding: 0;
   font-family: 'Work Sans';
+  margin: 0;
+
 }
 
 .userName {
