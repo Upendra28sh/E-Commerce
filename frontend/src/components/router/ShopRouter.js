@@ -26,18 +26,18 @@ const Router = () => {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
 
-        <Route path="/search/:query/" component={Search} />
-        <Route exact path="/user/:id" component={User} />
-        <Route exact path="/seller/new" component={AddSeller} />
-        <Route exact path="/seller/:id" component={Seller} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/saved" component={Saved} />
-        <Route exact path="/confirm" component={Confirm} />
-        <Route exact path="/thanks" component={Thanks} />
-        <Route exact path="/order" component={Order} />
-        <Route path="/feed/" component={Feed} />
-        <Route path="/trending" component={Trending} />
+        <Route path="/search/:query/" component={RequireAuth(Search)} />
+        <Route exact path="/user/:id" component={RequireAuth(User)} />
+        <Route exact path="/seller/new" component={RequireAuth(AddSeller)} />
+        <Route exact path="/seller/:id" component={RequireAuth(Seller)} />
+        <Route exact path="/cart" component={RequireAuth(Cart)} />
+        <Route exact path="/checkout" component={RequireAuth(Checkout)} />
+        <Route exact path="/saved" component={RequireAuth(Saved)} />
+        <Route exact path="/confirm" component={RequireAuth(Confirm)} />
+        <Route exact path="/thanks" component={RequireAuth(Thanks)} />
+        <Route exact path="/order" component={RequireAuth(Order)} />
+        <Route path="/feed/" component={RequireAuth(Feed)} />
+        <Route path="/trending" component={RequireAuth(Trending)} />
       </Switch>
     </div>
   );
