@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/shop';
 
 class Saved extends React.Component {
 
@@ -53,9 +51,4 @@ class Saved extends React.Component {
     }
 }
 
-const SavedContainer = connect(
-    state => state,
-    actions
-)(Saved);
-
-export default SavedContainer;
+export default Saved;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import OrderCard from "./_deprecated/OrderCard";
 import { Link } from "react-router-dom";
 import OrderTable from "./OrderTable";
 import { Spin, Table } from "antd";

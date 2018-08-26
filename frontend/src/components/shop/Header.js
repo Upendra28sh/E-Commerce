@@ -7,12 +7,11 @@ import {GET_AUTH} from '../query';
 const Search = Input.Search;
 
 const MenuI = (props) => {
-
     return (
         <Menu>
-            <Menu.Item key="1">Your Profile</Menu.Item>
-            <Menu.Item key="2">Your Order</Menu.Item>
-            <Menu.Item key="3"><NavLink to="/saved">Saved Products</NavLink></Menu.Item>
+            <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
+            <Menu.Item key="2"><NavLink to="/order">Your Order</NavLink></Menu.Item>
+            <Menu.Item key="3">Saved Products</Menu.Item>
             <Menu.Item key="4">Log Out</Menu.Item>
         </Menu>
     );
@@ -159,7 +158,7 @@ class Header extends React.Component {
                                             paddingBottom: '0px',
                                             marginLeft: '10px'
                                         }}>
-                                            <Dropdown overlay={<MenuI/>} trigger={['click']}
+                                            <Dropdown overlay={<MenuI user={data.auth.user}/>} trigger={['click']}
                                                       placement='bottomRight'>
                                                 <a className="ant-dropdown-link">
                                                     <Icon type="down"/>
