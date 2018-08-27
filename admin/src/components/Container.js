@@ -11,33 +11,32 @@ class Container extends React.Component {
             <Layout className={'admin-panel'}>
                 <Sider style={{overflow: 'auto', height: '100vh', position: 'fixed', left: 0}}>
                     <div className="logo"/>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1">
+                            <Link to={'/'}>
+                                <Icon type="user"/>
+                                <span className="nav-text">Dashboard</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="2">
                             <Link to={'/sellers'}>
                                 <Icon type="user"/>
                                 <span className="nav-text">Sellers</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <Link to={'/admin/orders'}>
+                        <Menu.Item key="3">
+                            <Link to={'/orders'}>
                                 <Icon type="shopping-cart"/>
                                 <span className="nav-text">Orders</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="3">
-                            <Link to={'/admin/users'}>
+                        <Menu.Item key="4">
+                            <Link to={'/users'}>
                                 <Icon type="user"/>
                                 <span className="nav-text">Users</span>
                             </Link>
                         </Menu.Item>
                         <Divider/>
-                        <Menu.Item key="4">
-                            <Link to={'/'}>
-                                <Icon type="user"/>
-                                <span className="nav-text">Return to Site</span>
-                            </Link>
-                        </Menu.Item>
-
                     </Menu>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>

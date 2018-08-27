@@ -14,6 +14,15 @@
   background-color: transparent;
   font-size: 32px; }
 
+.status {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: solid 0.5px black;
+  margin: auto; }
+  .status--success {
+    background-color: #2dcc2d; }
+
 body {
   margin: 0;
   padding: 0;
