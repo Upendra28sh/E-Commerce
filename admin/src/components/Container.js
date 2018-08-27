@@ -36,6 +36,12 @@ class Container extends React.Component {
                                 <span className="nav-text">Users</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="5">
+                            <Link to={'/products'}>
+                                <Icon type="user"/>
+                                <span className="nav-text">Products</span>
+                            </Link>
+                        </Menu.Item>
                         <Divider/>
                     </Menu>
                 </Sider>

@@ -82,3 +82,20 @@ export const GET_ALL_ORDERS = gql`
         }
     }
 `;
+
+export const GET_ALL_PRODUCTS = gql`
+    query {
+        allProducts {
+            id
+            name
+            image
+            description
+            price
+            sizes
+            sellerID {
+                name
+                shopname
+            }
+        }
+    }
+`;
