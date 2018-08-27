@@ -11,6 +11,7 @@ const statusSymbol = value =>
   ) : (
     <div className="status" />
   );
+
 const columns = [
   {
     title: "Order Date",
