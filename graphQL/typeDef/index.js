@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
-const {
-    gql
-} = require('apollo-server');
-const {
-    merge
-} = require('lodash');
+const { gql } = require('apollo-server');
+const { merge } = require('lodash');
 
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
@@ -59,6 +55,7 @@ const typeDefs = gql `
         id: ID,
         user: User,
         product : Product,
+        caption: String,
         timestamp : String
     }
 

@@ -41,10 +41,14 @@ module.exports = {
         }
     },
     Mutation: {
-        addPost: (parent, { input }, context, info) => {
+        addPost: (parent, input, context, info) => {
+
+            let data = input.input;
+
             return Post.create({
-                product: input.productID,
-                user: "5b7ffea577b51d4220dd83f3"
+                product: data.productID,
+                user: "5b7ffe9577b51d4220dd83f2",
+                caption: data.caption
             }).then(
                 createdPost => {
                     createdPost.timestamp = Date.now();

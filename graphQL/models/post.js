@@ -10,6 +10,7 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
     },
+    caption: String,
     timestamp: String
 }, {versionKey: false});
 

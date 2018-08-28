@@ -117,7 +117,7 @@ class Header extends React.Component {
                 <Query query={GET_AUTH}>
                     {({data}) => (
                         <div className="navbar_container">
-                            {console.log("Data: : ", data)}
+                            {/* {console.log("Data: : ", data)} */}
                             <div className='container_40'>
                                 <ul className="nav_bar">
                                     {left_section}

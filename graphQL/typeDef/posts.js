@@ -3,7 +3,8 @@ const { gql } = require('apollo-server');
 export default gql`
 
     input AddPostInput {
-        productID : ID!
+        productID : ID!,
+        caption: String!
     }
     
     extend type Query {
