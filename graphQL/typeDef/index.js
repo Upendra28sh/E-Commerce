@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
-const {
-    gql
-} = require('apollo-server');
-const {
-    merge
-} = require('lodash');
+const { gql } = require('apollo-server');
+const { merge } = require('lodash');
 
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
@@ -13,6 +9,7 @@ import authTypeDef from './auth';
 import userTypeDef from './users';
 import cartTypeDef from './cart';
 import postTypeDef from './posts';
+import sellerpostTypeDef from './sellerpost';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -59,7 +56,18 @@ const typeDefs = gql `
         id: ID,
         user: User,
         product : Product,
+        caption: String,
         timestamp : String
+    }
+
+    type Sellerpost {
+        id: ID,
+        seller: Seller,
+        product : Product,
+        caption: String,
+        timestamp : String,
+        image: String,
+        type: String
     }
 
     type Order {
@@ -155,4 +163,4 @@ const typeDefs = gql `
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, sellerpostTypeDef];

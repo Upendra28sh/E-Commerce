@@ -16,6 +16,7 @@ const users = require('./users');
 const auth = require('./auth');
 const cart = require('./cart');
 const post = require('./posts');
+const sellerpost = require('./sellerpost');
 
 const resolvers = {
     Query: {
@@ -24,7 +25,8 @@ const resolvers = {
         ...orders.Query,
         ...users.Query,
         ...cart.Query,
-        ...post.Query
+        ...post.Query,
+        ...sellerpost.Query
     },
 
     Mutation: {
@@ -34,7 +36,8 @@ const resolvers = {
         ...auth.Mutation,
         ...cart.Mutation,
         ...users.Mutation,
-        ...post.Mutation
+        ...post.Mutation,
+        ...sellerpost.Mutation
     },
 
     Date: new GraphQLScalarType({
