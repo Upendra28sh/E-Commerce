@@ -47,7 +47,7 @@ module.exports = {
 
             return Post.create({
                 product: data.productID,
-                user: "5b7ffe9577b51d4220dd83f2",
+                user: data.userID,
                 caption: data.caption
             }).then(
                 createdPost => {

@@ -4,6 +4,7 @@ export default gql`
 
     input AddPostInput {
         productID : ID!,
+        userID: String!,
         caption: String!
     }
     
