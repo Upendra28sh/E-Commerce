@@ -14,6 +14,7 @@ import {ApolloProvider} from "react-apollo";
 import ApolloClient from "apollo-boost";
 import {SET_AUTH} from "./components/query";
 
+import registerServiceWorker from './registerServiceWorker';
 let token = localStorage.getItem("token");
 
 let found = false;
@@ -92,7 +93,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        {/*<Provider store={store}>*/}
+        {registerServiceWorker()}
         <BrowserRouter>
             <div>
                 <Switch>
@@ -106,4 +107,6 @@ ReactDOM.render(
         </BrowserRouter>
     </ApolloProvider>,
     document.getElementById("root")
+  
 );
+

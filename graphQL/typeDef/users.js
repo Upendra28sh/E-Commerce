@@ -5,7 +5,8 @@ const {
 export default gql `
     extend type Query {
         allUsers: [User],
-        User(username: String!): User
+        User(username: String!): User,
+        getFeedProducts(username: String!): [Product]
     }
     extend type Mutation {
         followUser(
