@@ -1,38 +1,48 @@
 const User = require('../models/user');
 const Seller = require('../models/seller');
 const config = require('../config');
+var _ = require('lodash');
 const jwt = require('jsonwebtoken');
+var ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
     Query: {
         allUsers: (parent, args, context, info) => {
-            return User.find({}).populate('following').populate('followers').populate('followingShop').exec();
+            return User.find({}).populate('following').populate('followers').populate('followingShop').populate('followNotify.User').exec();
         },
         User: (parent, args, context, info) => {
             return User.findOne({
                 username: args.username
-            }).populate('followers').populate('following').populate('followingShop').exec();
+            }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec();
         }
     },
 
     Mutation: {
         followUser: (parents, args, context, info) => {
-            return User.findOneAndUpdate({
+            return User.findOne({
                 _id: context.user.id
-            }, {
-                $addToSet: {
-                    following: args.FollowingID
+            }, ).populate('following').exec().then((user) => {
+                if (_.find(user.following, {
+                        id: args.FollowingID
+                    }) == null) {
+                    user.following.push(args.FollowingID);
+                    user.save();
                 }
 
-            }).populate('following').exec().then((data) => {
-                User.findOneAndUpdate({
+
+                User.findOne({
                     _id: args.FollowingID
-                }, {
-                    $addToSet: {
-                        followers: args.UserID
+                }).populate('followers').exec().then(user => {
+                    if (_.find(user.followers, {
+                            id: context.user.id
+                        }) == null) {
+                        user.followers.push(context.user.id);
+                        user.followNotify.push({
+                            User: context.user.id,
+                            read: false
+                        });
+                        user.save();
                     }
-                }).populate('followers').exec().then(data => {
-                    data
                 })
             });
         },
@@ -49,7 +59,7 @@ module.exports = {
                     _id: args.FollowingID
                 }, {
                     $pull: {
-                        followers: args.UserID
+                        followers: context.user.id
                     }
                 }).populate('followers').exec().then(data => data)
             });
@@ -67,7 +77,7 @@ module.exports = {
                     _id: args.FollowingID
                 }, {
                     $addToSet: {
-                        followers: args.UserID
+                        followers: context.user.id
                     }
                 }).populate('followers').exec().then(data => data)
             });
@@ -85,7 +95,7 @@ module.exports = {
                     _id: args.FollowingID
                 }, {
                     $pull: {
-                        followers: args.UserID
+                        followers: context.user.id
                     }
                 }).populate('followers').exec().then(data => data)
             });

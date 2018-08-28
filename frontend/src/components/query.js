@@ -15,7 +15,7 @@ export const GET_AUTH = gql `
     }
 `;
 
-export const GET_LOGIN_STATUS = gql`
+export const GET_LOGIN_STATUS = gql `
     {
         auth @client {
             isAuthenticated
@@ -65,22 +65,28 @@ export const GET_USER = gql `
 
         query user($username : String!) {
             User(username : $username){
-                id ,
-                name , 
-                about ,
-                username ,
-                image ,
-                email,
+                id
+                username
+                email
+                password
                 following{
+                  id
+                  name
+                }
+                followers{
+                  id
+                }
+                followingShop{
+                  id
+                }
+                followNotify{
+                  
+                  User{
                     id
                     name
                   }
-                  followers{
-                    id
-                  }
-                  followingShop{
-                    id
-                  }
+                 
+                }
             }
         }
     

@@ -14,6 +14,7 @@ import {ApolloProvider} from "react-apollo";
 import ApolloClient from "apollo-boost";
 import {SET_AUTH} from "./components/query";
 
+
 let token = localStorage.getItem("token");
 
 let found = false;

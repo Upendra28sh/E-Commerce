@@ -116,7 +116,11 @@ const typeDefs = gql `
         shipped:Boolean,
         delivered:Boolean,
     }
-
+    type followNotify{
+        id : ID,
+        User : User,
+        read : Boolean
+    }
     type User {
         id: ID,
         name: String,
@@ -127,9 +131,10 @@ const typeDefs = gql `
         password: String,
         following: [User],
         followers: [User],
-        followingShop: [Seller]
+        followingShop: [Seller],
+        followNotify : [followNotify]
     }
-
+  
     type LegalInfo {
         aadhar: String,
         pan: String,
