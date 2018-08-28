@@ -1,10 +1,41 @@
 import React, {Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {Cascader, Input, Dropdown, Menu, Icon, Button, Row, Col} from 'antd';
-import {Query} from 'react-apollo';
-import {GET_AUTH} from '../query';
+import {Cascader, Input, Dropdown, Menu, Icon, Button, Row, Col,Popover} from 'antd';
+import {Query,Mutation} from 'react-apollo';
+import {GET_AUTH,GET_USER,FOLLOW_USER} from '../query';
 
 const Search = Input.Search;
+const text = <span>Notifications</span>;
+const content = (data) => {
+    if(data==undefined)
+    {
+        return<p>No Notifications</p>
+    }
+
+    return <div>
+      {
+          data.map((i)=>{
+              return <div>{i.User.name} is following You <Mutation mutation={FOLLOW_USER}>
+              {(followuser, { data }) => (
+                <button
+                  onClick={() =>
+                    followuser({
+                      variables: {
+                        FollowingID: i.User.id
+                      },
+                      refetchQueries: ["user"]
+                    })
+                  }
+                >
+                  <Icon type="heart" />
+                  &nbsp;&nbsp;Follow
+                </button>
+              )}
+            </Mutation></div>
+          })
+      }
+    </div>
+};
 
 const MenuI = (props) => {
     return (
@@ -117,7 +148,8 @@ class Header extends React.Component {
                 <Query query={GET_AUTH}>
                     {({data}) => (
                         <div className="navbar_container">
-                            {console.log("Data: : ", data)}
+                            {/* {console.log("Data: : ", data)} */}
+
                             <div className='container_40'>
                                 <ul className="nav_bar">
                                     {left_section}
@@ -125,7 +157,23 @@ class Header extends React.Component {
                                     {data.auth.isAuthenticated && (
                                         <div className="float-right">
                                             <li>
-                                                <Icon type='bell' style={{fontSize: 18}}/>
+                                            <Query
+                                        query={GET_USER}
+                                        variables={{
+                                            username: data.auth.user.username
+                                        }}
+                                        >
+                                        {({ loading, data }) => {
+                                            console.log("f",data);
+                                            if(loading) return<Popover placement="bottomRight" title={text} content={content(data.User)} trigger="click">
+                                            <Icon type='bell' style={{fontSize: 18}}/>
+                                    </Popover>
+                                            
+                                            return <Popover placement="bottomRight" title={text} content={content(data.User.followNotify)} trigger="click">
+                                                    <Icon type='bell' style={{fontSize: 18}}/>
+                                            </Popover>
+                                        }}
+                                        </Query>
                                             </li>
 
                                             {

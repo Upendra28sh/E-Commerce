@@ -18,6 +18,8 @@ const cart = require('./cart');
 const post = require('./posts');
 import feed from './feed'
 
+const sellerpost = require('./sellerpost');
+
 const resolvers = {
     Query: {
         ...products.Query,
@@ -26,7 +28,8 @@ const resolvers = {
         ...users.Query,
         ...cart.Query,
         ...post.Query,
-        ...feed.Query
+        ...feed.Query,
+        ...sellerpost.Query
     },
 
     Mutation: {
@@ -36,7 +39,8 @@ const resolvers = {
         ...auth.Mutation,
         ...cart.Mutation,
         ...users.Mutation,
-        ...post.Mutation
+        ...post.Mutation,
+        ...sellerpost.Mutation
     },
 
     Date: new GraphQLScalarType({
