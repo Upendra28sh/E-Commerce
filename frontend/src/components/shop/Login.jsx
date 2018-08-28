@@ -36,6 +36,7 @@ class Login extends React.Component {
                         localStorage.setItem('token', data.UserLogin.token.content);
                         message.success("Login Successful");
                         this.props.history.push('/feed/');
+                        
                         // setAuthHeader(data.UserLogin.token.content);
                         // dispatch(setCurrentUser(jwtDecode(token.token)))
                         // client.mutate();

@@ -22,6 +22,13 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Seller'
     }],
+    followNotify: [{
+        User: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        read: Boolean
+    }]
 }, {
     versionKey: false
 });
