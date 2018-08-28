@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {Cascader, Input, Dropdown, Menu, Icon, Button, Row, Col} from 'antd';
 import {Query} from 'react-apollo';
@@ -16,8 +16,6 @@ const MenuI = (props) => {
         </Menu>
     );
 };
-
-
 const menu = (
     <div className="categories">
         <Row>
@@ -73,6 +71,22 @@ const menu = (
     </div>
 );
 
+const left_section = (
+    <Fragment>
+        <li>
+            <Dropdown overlay={menu} trigger={["click"]}>
+                <span>Categories</span>
+            </Dropdown>
+        </li>
+        <li>
+            <Link to="/feed">My Feed</Link>
+        </li>
+        <li>
+            <Link to="/trending">Trending</Link>
+        </li>
+    </Fragment>
+);
+
 class Header extends React.Component {
 
     constructor(props) {
@@ -101,71 +115,77 @@ class Header extends React.Component {
         else
             return (
                 <Query query={GET_AUTH}>
-                    {({data, client}) => (
+                    {({data}) => (
                         <div className="navbar_container">
                             {console.log("Data: : ", data)}
                             <div className='container_40'>
                                 <ul className="nav_bar">
-                                    <li>
-                                        <Dropdown overlay={menu} trigger={["click"]}>
-                                            <span>Categories</span>
-                                        </Dropdown>
-                                    </li>
-                                    <li>
-                                        <Link to="/feed">My Feed</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/trending">Trending</Link>
-                                    </li>
-                                    <div className="float-right">
-                                        <li>
-                                            <Icon type='bell' style={{fontSize: 18}}/>
-                                        </li>
+                                    {left_section}
 
-                                        {
-                                            this.state.search ? (
-                                                <li>
-                                                    <Search
-                                                        placeholder="Search Text"
-                                                        onSearch={value => this.props.history.push(`/search/${value}`)}
-                                                        style={{width: '200px', border: 'none', borderRadius: '5%'}}
-                                                    />
-                                                </li>
-                                            ) : (
-                                                <li onClick={this.handleSearch}>
-                                                    <Icon type='search' style={{fontSize: 18}}/>
-                                                </li>
-                                            )
-                                        }
+                                    {data.auth.isAuthenticated && (
+                                        <div className="float-right">
+                                            <li>
+                                                <Icon type='bell' style={{fontSize: 18}}/>
+                                            </li>
 
-                                        <li>
-                                            <Link to="/cart"><Icon type='shopping-cart' style={{fontSize: 18}}/></Link>
-                                            {/* <div>{this.props.shopping_cart.length}</div> */}
-                                        </li>
+                                            {
+                                                this.state.search ? (
+                                                    <li>
+                                                        <Search
+                                                            placeholder="Search Text"
+                                                            onSearch={value => this.props.history.push(`/search/${value}`)}
+                                                            style={{width: '200px', border: 'none', borderRadius: '5%'}}
+                                                        />
+                                                    </li>
+                                                ) : (
+                                                    <li onClick={this.handleSearch}>
+                                                        <Icon type='search' style={{fontSize: 18}}/>
+                                                    </li>
+                                                )
+                                            }
 
-                                        <li style={{
-                                            border: 'solid 2px gray',
-                                            paddingTop: '0px',
-                                            paddingBottom: '0px',
-                                            marginLeft: '10px'
-                                        }}>
-                                            Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}
-                                        </li>
+                                            <li>
+                                                <Link to="/cart"><Icon type='shopping-cart'
+                                                                       style={{fontSize: 18}}/></Link>
+                                                {/* <div>{this.props.shopping_cart.length}</div> */}
+                                            </li>
 
-                                        <li style={{
-                                            border: 'solid 2px gray',
-                                            paddingTop: '0px',
-                                            paddingBottom: '0px',
-                                            marginLeft: '10px'
-                                        }}>
-                                            <Dropdown overlay={<MenuI user={data.auth.user}/>} trigger={['click']}
-                                                      placement='bottomRight'>
-                                                <a className="ant-dropdown-link">
-                                                    <Icon type="down"/>
-                                                </a>
-                                            </Dropdown>
-                                        </li>
-                                    </div>
+                                            <li style={{
+                                                border: 'solid 2px gray',
+                                                paddingTop: '0px',
+                                                paddingBottom: '0px',
+                                                marginLeft: '10px'
+                                            }}>
+                                                Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}
+                                            </li>
+
+                                            <li style={{
+                                                border: 'solid 2px gray',
+                                                paddingTop: '0px',
+                                                paddingBottom: '0px',
+                                                marginLeft: '10px'
+                                            }}>
+                                                <Dropdown overlay={<MenuI user={data.auth.user}/>} trigger={['click']}
+                                                          placement='bottomRight'>
+                                                    <a className="ant-dropdown-link">
+                                                        <Icon type="down"/>
+                                                    </a>
+                                                </Dropdown>
+                                            </li>
+                                        </div>)}
+
+                                    {!data.auth.isAuthenticated && (
+                                        <div className="float-right">
+                                            <li>
+                                                <Link to="/login">Login</Link>
+                                                {/* <div>{this.props.shopping_cart.length}</div> */}
+                                            </li>
+                                            <li>
+                                                <Link to="/signup">Register</Link>
+                                                {/* <div>{this.props.shopping_cart.length}</div> */}
+                                            </li>
+                                        </div>
+                                    )}
                                 </ul>
                             </div>
                         </div>

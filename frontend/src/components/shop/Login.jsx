@@ -1,7 +1,9 @@
 import React from 'react';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
 import gql from 'graphql-tag';
 import {Mutation} from 'react-apollo';
+import jwt from "jsonwebtoken";
+import {GET_AUTH} from "../query";
 
 const FormItem = Form.Item;
 
@@ -24,7 +26,7 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit = (loginMutation) => {
+    handleSubmit = (loginMutation, client) => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
@@ -32,8 +34,11 @@ class Login extends React.Component {
                     if (data.UserLogin.token.code === 1) {
                         console.log(data.UserLogin.token.content);
                         localStorage.setItem('token', data.UserLogin.token.content);
+                        message.success("Login Successful");
+                        this.props.history.push('/feed/');
                         // setAuthHeader(data.UserLogin.token.content);
                         // dispatch(setCurrentUser(jwtDecode(token.token)))
+                        // client.mutate();
                     }
                 });
             }
@@ -43,8 +48,30 @@ class Login extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
-            <Mutation mutation={LOGIN_MUTATION}>
-                {(loginMutation) => (
+            <Mutation
+                mutation={LOGIN_MUTATION}
+                update={(cache, {data: {UserLogin}}) => {
+                    console.log(UserLogin);
+                    let auth = {
+                        isAuthenticated: UserLogin.token.code === 1,
+                        user: {
+                            id: "",
+                            name: "",
+                            username: "",
+                            ...jwt.decode(UserLogin.token.content),
+                            __typename: "AuthUser"
+                        },
+                        __typename: "Auth"
+                    };
+
+
+                    cache.writeQuery({
+                        query: GET_AUTH,
+                        data: {auth}
+                    });
+                }}
+            >
+                {(loginMutation, {data, client}) => (
                     <div className="bg-grey">
                         <div className="container_320">
                             <div className="form_title">
@@ -53,7 +80,7 @@ class Login extends React.Component {
                             <div className="form_content">
                                 <Form onSubmit={(e) => {
                                     e.preventDefault();
-                                    this.handleSubmit(loginMutation);
+                                    this.handleSubmit(loginMutation, client);
                                 }}>
                                     <FormItem>
                                         {getFieldDecorator('email', {

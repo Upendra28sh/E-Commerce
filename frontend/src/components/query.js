@@ -15,6 +15,14 @@ export const GET_AUTH = gql `
     }
 `;
 
+export const GET_LOGIN_STATUS = gql`
+    {
+        auth @client {
+            isAuthenticated
+        }
+    }
+`;
+
 export const SET_AUTH = gql `
     mutation setAuth {
         updateAuth @client
@@ -130,7 +138,7 @@ export const GET_SELLER = gql `
               }
         }
     }
-`
+`;
 export const GET_PRODUCTS_BY_SELLER = gql `
     query getProductsBySeller($sellerID: ID!) {
         getProductBySeller(sellerID: $sellerID) {
