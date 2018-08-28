@@ -25,7 +25,7 @@ const server = new ApolloServer({
 
         // try to retrieve a user with the token
         let decoded = jwt.verify(token, config.secret);
-        console.log(decoded);
+        // console.log(decoded);
         // const user = getUser(token);
 
         // add the user to the context

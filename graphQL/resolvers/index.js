@@ -16,6 +16,7 @@ const users = require('./users');
 const auth = require('./auth');
 const cart = require('./cart');
 const post = require('./posts');
+import feed from './feed'
 
 const resolvers = {
     Query: {
@@ -24,7 +25,8 @@ const resolvers = {
         ...orders.Query,
         ...users.Query,
         ...cart.Query,
-        ...post.Query
+        ...post.Query,
+        ...feed.Query
     },
 
     Mutation: {
