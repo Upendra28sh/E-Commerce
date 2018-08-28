@@ -72,9 +72,13 @@ export const GET_USER = gql `
                 following{
                   id
                   name
+                  followingShop{
+                    id
+                  }
                 }
                 followers{
                   id
+                  
                 }
                 followingShop{
                   id
