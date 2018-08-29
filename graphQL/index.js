@@ -2,7 +2,7 @@ const {ApolloServer, gql} = require('apollo-server');
 const mongoose = require('mongoose');
 var express = require('express');
 const app = express();
-app.use('/push', require('./push'));
+// app.use('/push', require('./push'));
  //Public Key:
 // BImBf1MZPoA5x-HrDlQoODpFY0mmshS9t_dGTLfHNBZNt8WsxcquRsYnr9J61Fu44MxKUQyaXUBdz9yJlzElVyM
 
@@ -34,7 +34,7 @@ const server = new ApolloServer({
 
         // try to retrieve a user with the token
         let decoded = jwt.verify(token, config.secret);
-        console.log(decoded);
+        // console.log(decoded);
         // const user = getUser(token);
 
         // add the user to the context

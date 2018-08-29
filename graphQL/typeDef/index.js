@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const { gql } = require('apollo-server');
-const { merge } = require('lodash');
+
+import {gql} from 'apollo-server';
+import {merge} from 'lodash';
 
 import productTypeDef from './products';
 import sellerTypeDef from './sellers';
@@ -9,6 +10,7 @@ import authTypeDef from './auth';
 import userTypeDef from './users';
 import cartTypeDef from './cart';
 import postTypeDef from './posts';
+import feedTypeDef from './feed';
 import sellerpostTypeDef from './sellerpost';
 
 // Token code
@@ -163,4 +165,4 @@ const typeDefs = gql `
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, sellerpostTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef];
