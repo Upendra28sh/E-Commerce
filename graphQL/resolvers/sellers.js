@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Address = require('../models/address');
 const Seller = require('../models/seller');
 
 module.exports = {
@@ -37,9 +38,7 @@ module.exports = {
     },
 
     Mutation: {
-        addSeller: (parents, {
-            input
-        }, context, info) => {
+        addSeller: (parents, { input }, context, info) => {
 
             let {
                 name,
@@ -56,13 +55,28 @@ module.exports = {
                 image: image,
                 about: about,
                 shopname: shopname,
-                address: address,
                 legalInfo: legalInfo,
                 policy: policy
             }).then(
-                data => data
+                createdSeller => {
+                    return Address.create({
+                        address: address.address,
+                        street: address.street,
+                        city: address.city,
+                        state: address.state,
+                        zipcode: address.zipcode
+                    }).then(
+                        createdAddress => {
+                            createdSeller.address = createdAddress;
+                            createdSeller.save();
+                            return createdSeller;
+                        }
+                    )
+                }
             );
         },
+
+        // Modify update seller to update address
 
         updateSeller: (parents, {
             sellerID,
