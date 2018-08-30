@@ -16,27 +16,27 @@ module.exports = {
                 username: args.username
             }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec();
         },
-        getFeedProducts:(parent, args, context, info)=>{
-            let products=[];
-            User.findOne({
-                username: args.username
-            }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec().then(
-                data =>{
-                     data.followingShop.forEach((seller)=>{
-                        Product.find({
-                            sellerID: seller._id
-                        }).exec().then(data=>{
-                            
-                            products = data.concat(products)
-                            }).then(console.log(products));
-                            
-                    })
-                    console.log(products);
-                
-                }
-            );
-            return products;
-        }
+        // getFeedProducts:(parent, args, context, info)=>{
+        //     let products=[];
+        //     User.findOne({
+        //         username: args.username
+        //     }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec().then(
+        //         data =>{
+        //              data.followingShop.forEach((seller)=>{
+        //                 Product.find({
+        //                     sellerID: seller._id
+        //                 }).exec().then(data=>{
+        //
+        //                     products = data.concat(products)
+        //                     }).then(console.log(products));
+        //
+        //             })
+        //             console.log(products);
+        //
+        //         }
+        //     );
+        //     return products;
+        // }
     },
 
     Mutation: {

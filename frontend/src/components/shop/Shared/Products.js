@@ -1,104 +1,89 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ModalRoute } from "react-router-modal";
+import {Link} from "react-router-dom";
+import {ModalRoute} from "react-router-modal";
 import Details from "../Details";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
-import { GET_AUTH, GET_USER, GET_PRODUCTS_BY_SELLER } from "../../query";
+import {Query} from "react-apollo";
+import {GET_AUTH, GET_USER, GET_PRODUCTS_BY_SELLER} from "../../query";
 
 const GET_PRODUCTS = gql`
-  {
-    allProducts {
-      id
-      name
-      image
+    {
+        allProducts {
+            id
+            name
+            image
+        }
     }
-  }
+`;
+
+const GET_FEED_PRODUTS = gql`
+    {
+        getFeedProducts {
+            id
+            name
+            image
+            sizes
+            keywords
+            description
+            sellerID {
+                id
+                name
+            }
+        }
+    }
 `;
 
 class Home extends React.Component {
-  componentWillMount() {
-    // this.props.getProducts().then(() => {
-    //     console.log("fetched products");
-    //     console.log("test", this.props.products);
-    // });
-  }
+    render() {
+        const {match} = this.props;
+        // console.log(ModalRoute);
+        return (
 
-  render() {
-    const { match } = this.props;
-    // console.log(ModalRoute);
-    return (
-      <Query query={GET_AUTH}>
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          return (
             <Query
-              query={GET_USER}
-              variables={{
-                username: data.auth.user.username
-              }}
+                query={GET_FEED_PRODUTS}
             >
-              {({ loading, error, data }) => {
-                console.log(loading, error, data);
-                if (loading) return <p>Loading...</p>;
-                if (error) return <p>Error :(</p>;
+                {({loading, error, data}) => {
+                    console.log("Data GET FEED PRODUCTS : ", data);
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <p>Error :(</p>;
 
-                return (
-                  <div>
-                    <div className="container_40">
-                      {data.User.followingShop.map((shop, index) => (
-                        <Query
-                          key={index}
-                          query={GET_PRODUCTS_BY_SELLER}
-                          variables={{
-                            sellerID: shop.id
-                          }}
-                        >
-                          {({ loading, error, data }) => {
-                            if (loading) return <p>Loading...</p>;
-                            if (error) return <p>error</p>;
-                            data = data.getProductBySeller;
-                            return (
-                              <div className="products">
-                                {data.map((product, index) => (
-                                  <div key={index} className={"product"}>
-                                    <div className="image-container">
-                                      <Link to={match.url + "/" + product.id}>
-                                        <img
-                                          className="img_fluid" // each_product
-                                          alt={product.description}
-                                          key={index}
-                                          src={`product_images/${
-                                            product.image
-                                          }`}
-                                        />
-                                      </Link>
-                                    </div>
-                                  </div>
-                                ))}
-                                
-                              </div>
-                            );
-                          }}
-                        </Query>
-                      ))}
-                    </div>
-                    {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
-                    <ModalRoute
-                      path={`${match.url}/:id`}
-                      parentPath={match.url}
-                      component={Details}
-                    />
-                  </div>
-                );
-              }}
+                    return (
+                        <div>
+                            <div className="container_40">
+
+                                <div className="products">
+                                    {data.getFeedProducts.map((product, index) => (
+                                        <div key={index} className={"product"}>
+                                            <div className="image-container">
+                                                <Link to={match.url + "/" + product.id}>
+                                                    <img
+                                                        className="img_fluid" // each_product
+                                                        alt={product.description}
+                                                        key={index}
+                                                        src={`product_images/${
+                                                            product.image
+                                                            }`}
+                                                    />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                </div>
+                                {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
+                                <ModalRoute
+                                    path={`${match.url}/:id`}
+                                    parentPath={match.url}
+                                    component={Details}
+                                />
+                            </div>
+                        </div>
+                    );
+                }}
             </Query>
-          );
-        }}
-      </Query>
-    );
-  }
+
+        );
+    }
 }
 
 //

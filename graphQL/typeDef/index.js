@@ -19,7 +19,7 @@ import sellerpostTypeDef from './sellerpost';
 // 3 -> Invalid password
 // 4 -> Email not registered
 
-const typeDefs = gql `
+const typeDefs = gql`
     type Query {
         _empty: String
     }
