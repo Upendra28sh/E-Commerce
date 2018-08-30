@@ -92,7 +92,6 @@
       -moz-transition: all 200ms ease-out;
       -o-transition: all 200ms ease-out;
       transition: all 200ms ease-out;
-
     }
 
   }
@@ -116,7 +115,7 @@
       width: 100%;
       //width:265px;
       height: 300px;
-      padding: 27px 35px 35px;
+      padding: 27px 35px;
       -webkit-transition: all 200ms ease-out;
       -moz-transition: all 200ms ease-out;
       -o-transition: all 200ms ease-out;
@@ -240,7 +239,6 @@
       cursor: pointer;
 
     }
-
   }
 
   &__shadow {
