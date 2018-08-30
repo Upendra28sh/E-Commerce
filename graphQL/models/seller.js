@@ -8,11 +8,8 @@ const sellerSchema = new mongoose.Schema({
     image: String,
     about: String,
     address: {
-        address: String,
-        street: String,
-        city: String,
-        state: String,
-        zipcode: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address'
     },
     legalInfo: {
         aadhar: String,

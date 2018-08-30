@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     name: String,
     image: String,
     about: String,
+    address: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address'
+    },
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

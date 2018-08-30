@@ -13,17 +13,9 @@ export default gql`
         selectedSize: String
     }
 
-    input AddAddressInput {
-        address : String,
-        street : String,
-        city : String,
-        state : String,
-        zipcode : Int
-    }
-
     input AddShippingInput {
         status: String,
-        address: AddAddressInput
+        address: AddressInput
     }
     
     input AddStatusInput {
