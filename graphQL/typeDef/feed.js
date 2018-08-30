@@ -5,6 +5,7 @@ export default gql`
 
     extend type Query {
         getFeedPosts : [Post]
+        getFeedProducts : [Product]
     }
     
 `;

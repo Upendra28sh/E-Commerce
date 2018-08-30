@@ -156,25 +156,7 @@ class Header extends React.Component {
 
                                     {data.auth.isAuthenticated && (
                                         <div className="float-right">
-                                            <li>
-                                            <Query
-                                        query={GET_USER}
-                                        variables={{
-                                            username: data.auth.user.username
-                                        }}
-                                        >
-                                        {({ loading, data }) => {
-                                            console.log("f",data);
-                                            if(loading) return<Popover placement="bottomRight" title={text} content={content(data.User)} trigger="click">
-                                            <Icon type='bell' style={{fontSize: 18}}/>
-                                    </Popover>
-                                            
-                                            return <Popover placement="bottomRight" title={text} content={content(data.User.followNotify)} trigger="click">
-                                                    <Icon type='bell' style={{fontSize: 18}}/>
-                                            </Popover>
-                                        }}
-                                        </Query>
-                                            </li>
+
 
                                             {
                                                 this.state.search ? (
@@ -191,6 +173,25 @@ class Header extends React.Component {
                                                     </li>
                                                 )
                                             }
+                                            <li>
+                                                <Query
+                                                    query={GET_USER}
+                                                    variables={{
+                                                        username: data.auth.user.username
+                                                    }}
+                                                >
+                                                    {({ loading, data }) => {
+                                                        console.log("f",data);
+                                                        if(loading) return<Popover placement="bottomRight" title={text} content={content(data.User)} trigger="click">
+                                                            <Icon type='bell' style={{fontSize: 18}}/>
+                                                        </Popover>
+
+                                                        return <Popover placement="bottomRight" title={text} content={content(data.User.followNotify)} trigger="click">
+                                                            <Icon type='bell' style={{fontSize: 18}}/>
+                                                        </Popover>
+                                                    }}
+                                                </Query>
+                                            </li>
 
                                             <li>
                                                 <Link to="/cart"><Icon type='shopping-cart'
