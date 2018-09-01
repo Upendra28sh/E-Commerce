@@ -13,7 +13,7 @@ import Checkout from "../shop/Checkout";
 import Saved from "../shop/Saved";
 import Confirm from "../shop/Confirm";
 import Thanks from "../shop/Thanks";
-import Feed from "../shop/Feed/Feed";
+import Feed from "../shop/Feed/CombinedFeed";
 import Trending from "../shop/Trending/Trending";
 import Order from "../shop/Order";
 import RequireAuth from "../utils/RequireAuth";

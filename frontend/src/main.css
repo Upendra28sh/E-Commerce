@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,600");
 @import url(../node_modules/bootstrap/dist/css/bootstrap.min.css);
+@import url(../node_modules/font-awesome/css/font-awesome.min.css);
 @import url(../node_modules/react-router-modal/css/react-router-modal.css);
 @import url(../node_modules/antd/dist/antd.css);
 .categories {
@@ -280,9 +281,13 @@ li {
   vertical-align: baseline; }
 
 #feed {
+  clear: both;
+  padding-top: 40px;
   display: flex;
   align-items: center;
   flex-direction: column; }
+  #feed ul, #feed ol {
+    list-style: none; }
 
 #feed .photo {
   background-color: white;
@@ -291,6 +296,115 @@ li {
   width: 100%;
   max-width: 600px;
   margin-bottom: 65px; }
+
+.photo__icon {
+  margin-left: 5px;
+  margin-right: 5px; }
+
+.photo__image {
+  background-image: url("https://pbs.twimg.com/profile_images/717306100312383488/f38LU5Cu.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  padding-top: 100%;
+  /* 1:1 Aspect Ratio */
+  position: relative; }
+  .photo__image__layer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-top: 100%;
+    opacity: 0;
+    background: #48daa1; }
+  .photo__image__view-details {
+    position: absolute;
+    top: 112px;
+    left: 50%;
+    margin-left: -85px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 19px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 0;
+    width: 172px;
+    opacity: 0;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    transition: all 200ms ease-out; }
+    .photo__image__view-details:hover {
+      background: #fff;
+      color: #48cfad;
+      cursor: pointer; }
+  .photo__image__overlay {
+    transition: all 200ms ease-out;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    padding: 27px 35px 35px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95); }
+    .photo__image__overlay__name {
+      font-size: 22px;
+      color: #393c45; }
+    .photo__image__overlay__price {
+      float: right;
+      color: #48cfad;
+      font-size: 22px;
+      font-weight: 600; }
+    .photo__image__overlay__colors div {
+      margin-top: 3px;
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      float: left; }
+    .photo__image__overlay__colors div span {
+      width: 15px;
+      height: 15px;
+      display: block;
+      border-radius: 50%; }
+    .photo__image__overlay__colors div span:hover {
+      width: 17px;
+      height: 17px;
+      margin: -1px 0 0 -1px; }
+    .photo__image__overlay__colors div.c-blue span {
+      background: #6e8cd5; }
+    .photo__image__overlay__colors div.c-red span {
+      background: #f56060; }
+    .photo__image__overlay__colors div.c-green span {
+      background: #44c28d; }
+    .photo__image__overlay__colors div.c-white span {
+      background: #fff;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #e8e9eb; }
+    .photo__image__overlay__options {
+      padding: 2px 0 0; }
+      .photo__image__overlay__options strong {
+        font-weight: 700;
+        color: #393c45;
+        font-size: 14px; }
+      .photo__image__overlay__options span {
+        color: #969699;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 8px; }
+
+.photo .animate .photo__image__overlay {
+  height: 220px; }
+
+.photo .animate .photo__image__layer {
+  opacity: 0.7; }
+
+.photo .animate .photo__image__view-details {
+  opacity: 1;
+  width: 152px;
+  font-size: 15px;
+  top: 30%; }
 
 .photo .photo__header {
   padding: 15px;
@@ -306,9 +420,6 @@ li {
   display: block;
   font-weight: 600;
   margin-bottom: 5px; }
-
-.photo > img {
-  max-width: 100%; }
 
 .photo .photo__info {
   padding: 15px 20px; }
@@ -357,11 +468,8 @@ li {
   margin-top: 10px;
   display: block; }
 
-.photo__comment {
-  margin-bottom: 10px; }
-
 .photo__comments .photo__comment-author {
-  font-weight: 600; }
+  font-weight: 500; }
 
 .checkout_form {
   padding: 0 20px; }
@@ -531,7 +639,7 @@ div#search_result {
     left: 0;
     width: 100%;
     height: 300px;
-    padding: 27px 35px 35px;
+    padding: 27px 35px;
     -webkit-transition: all 200ms ease-out;
     -moz-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
