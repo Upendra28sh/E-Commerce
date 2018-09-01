@@ -46,6 +46,7 @@ module.exports = {
                 about,
                 shopname,
                 address,
+                intro,
                 legalInfo,
                 policy
             } = input;
@@ -53,6 +54,7 @@ module.exports = {
             return Seller.create({
                 name: name,
                 image: image,
+                intro : intro,
                 about: about,
                 shopname: shopname,
                 legalInfo: legalInfo,
@@ -88,6 +90,7 @@ module.exports = {
                 name,
                 image,
                 about,
+                intro,
                 address,
                 legalInfo,
                 policy
@@ -100,6 +103,7 @@ module.exports = {
                     name: name,
                     image: image,
                     about: about,
+                    intro : intro,
                     shopname: shopname,
                     address: address,
                     legalInfo: legalInfo,

@@ -29,7 +29,7 @@ const Router = () => {
         <Route path="/search/:query/" component={RequireAuth(Search)} />
         <Route exact path="/user/:id" component={RequireAuth(User)} />
         <Route exact path="/seller/new" component={RequireAuth(AddSeller)} />
-        <Route exact path="/seller/:id" component={RequireAuth(Seller)} />
+        <Route  path="/seller/:id/" component={RequireAuth(Seller)} />
         <Route exact path="/cart" component={RequireAuth(Cart)} />
         <Route exact path="/checkout" component={RequireAuth(Checkout)} />
         <Route exact path="/saved" component={RequireAuth(Saved)} />

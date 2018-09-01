@@ -53,7 +53,7 @@ class Seller extends React.Component {
                         <strong>@</strong>
                         {data.shopname}
                       </p>
-                      <p className="tagline">{data.about}</p>
+                      <p className="tagline">{data.intro}</p>
                       <div className="button_group">
                         <Mutation mutation={FOLLOW_SHOP}>
                           {(followuser, { datas }) => (
@@ -119,11 +119,11 @@ class Seller extends React.Component {
                         <TabPane tab="Store Policy" key="4">
                           <div>
                             <h3>Store Policy</h3>
-                            <p>{data.policy.store}</p>
+                            <div dangerouslySetInnerHTML={{ __html: data.policy.store }} />
                           </div>
                           <div>
                             <h3>Return Policy</h3>
-                            <p>{data.policy.return}</p>
+                            <div dangerouslySetInnerHTML={{ __html: data.policy.return }} />
                           </div>
                         </TabPane>
                       </Tabs>

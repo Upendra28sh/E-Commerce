@@ -13,6 +13,7 @@ export default gql`
         name: String,
         image: String,
         about: String,
+        intro : String,
         address: AddressInput,
         legalInfo: InfoInput,
         policy: PolicyInput

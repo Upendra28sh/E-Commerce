@@ -125,6 +125,7 @@ export const GET_SELLER = gql `
             image
             id
             about
+            intro
             shopname
             address {
                 address

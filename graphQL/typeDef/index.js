@@ -48,6 +48,7 @@ const typeDefs = gql`
         image: String,
         about: String,
         shopname: String,
+        intro : String,
         address: Address,
         legalInfo: LegalInfo,
         policy: SellerPolicy
