@@ -182,3 +182,15 @@ export const ADD_TO_WISHLIST = gql`
         }
     }
 `;
+
+export const GET_FOLLOW_SELLER = gql `
+    query ($ids: [ID]!){
+        getSellers (ids:$ids) {
+            id
+            name
+            image
+            about
+            shopname
+        }
+    }
+`;
