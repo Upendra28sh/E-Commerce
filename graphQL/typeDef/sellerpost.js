@@ -10,20 +10,10 @@ export default gql`
         image: String,
         caption: String!
     }
-    
-    input SharedPostSeller {
-        sellerID: ID!,
-        productID: ID!,
-        caption: String!,
-    }
 
     extend type Mutation {
         addNewPostSeller(
             input: NewPostSeller
-        ) : Sellerpost
-
-        addSharePostSeller(
-            input: SharedPostSeller
         ) : Sellerpost
     }
 `;

@@ -65,11 +65,9 @@ const typeDefs = gql`
     type Sellerpost {
         id: ID,
         seller: Seller,
-        product : Product,
         caption: String,
         timestamp : String,
         image: String,
-        type: String
     }
 
     type Order {
