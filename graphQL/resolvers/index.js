@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Product = require('../models/product');
-const Seller = require('../models/seller');
+import mongoose from'mongoose';
+import Product from'../models/product';
+import Seller from'../models/seller';
 
 import {
     GraphQLScalarType
@@ -9,16 +9,16 @@ import {
     Kind
 } from 'graphql/language';
 
-const products = require('./products');
-const sellers = require('./sellers');
-const orders = require('./orders');
-const users = require('./users');
-const auth = require('./auth');
-const cart = require('./cart');
-const post = require('./posts');
+import products from'./products';
+import sellers from'./sellers';
+import orders from'./orders';
+import users from'./users';
+import auth from'./auth';
+import cart from'./cart';
+import post from'./posts';
 import feed from './feed'
-
-const sellerpost = require('./sellerpost');
+import sellerpost from './sellerpost';
+import wishlist from './wishlist';
 
 const resolvers = {
     Query: {
@@ -29,7 +29,8 @@ const resolvers = {
         ...cart.Query,
         ...post.Query,
         ...feed.Query,
-        ...sellerpost.Query
+        ...sellerpost.Query,
+        ...wishlist.Query
     },
 
     Mutation: {
@@ -40,7 +41,8 @@ const resolvers = {
         ...cart.Mutation,
         ...users.Mutation,
         ...post.Mutation,
-        ...sellerpost.Mutation
+        ...sellerpost.Mutation,
+        ...wishlist.Mutation
     },
 
     Date: new GraphQLScalarType({
