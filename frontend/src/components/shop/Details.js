@@ -14,26 +14,24 @@ import {
   Select,
   Tag
 } from "antd";
+
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
-import ApolloClient from "apollo-boost";
-
-// import {getProducts, getDetails, addToCart} from '../../actions/shop';
-
-const client = new ApolloClient({
-	uri: "http://localhost:4000"
-});
+import { Query, Mutation, withApollo } from "react-apollo";
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } from '../query';
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
 
+const decideQuery = bool => bool ? REMOVE_FROM_WISHLIST : ADD_TO_WISHLIST
+
 let GET_PRODUCT = undefined;
+
 
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true
+      visible: undefined
     };
 	this.handleAddToCart = this.handleAddToCart.bind(this);
   }
@@ -67,7 +65,24 @@ class Details extends React.Component {
 
   componentWillMount() {
     const path = this.props.location.pathname;
-    const id = path.substr(path.length - 24);
+	const id = path.substr(path.length - 24);
+	
+	const query = gql`
+		query {
+			checkInWishlist(productID: "${id}")
+		}
+	`;
+	
+	this.props.client.query({
+		query: query
+	}).then(
+		data => {
+			let ans = data.checkInWishlist ? true : false;
+			this.setState(() => ({
+				visible: ans
+			}));
+		}
+	)
 
     GET_PRODUCT = gql`
     	query {
@@ -88,7 +103,6 @@ class Details extends React.Component {
 					about
 				}
           	}
-          	checkInWishlist(productID: "${id}")
     	}
 	`;
     // console.log(this.props.products);
@@ -112,7 +126,6 @@ class Details extends React.Component {
   handleAddToCart(data, selectedSize, itemCount) {
     console.log(data, selectedSize, itemCount);
     
-
     const ADD_CART = gql`
     	mutation {
         	addToCart(
@@ -143,16 +156,24 @@ class Details extends React.Component {
         }
     `;
 
-    client
+    this.props.client
       .mutate({ mutation: ADD_CART })
       .then(data => console.log(data))
       .catch(error => console.error(error));
   }
 
-	handleSaveClick(e, inWishlist, id) {
-		console.log(e);
-		console.log(inWishlist);
-		console.log(id);
+	handleSaveClick(e, id) {
+		this.props.client.mutate({
+			mutation: decideQuery(this.state.visible),
+			variables: {id: id}
+		}).then(
+			data => {
+				console.log(data)
+				this.setState(prevState => ({
+					visible: !prevState.visible
+				}));
+			}
+		);
 	}
 
   	render() {
@@ -163,7 +184,6 @@ class Details extends React.Component {
 
     let selectedSize = undefined;
     let itemCount = undefined;
-    let inWishlist = undefined;
 
     	return (
 			<Query query={GET_PRODUCT}>
@@ -173,11 +193,8 @@ class Details extends React.Component {
 				if (loading) return <p>Loading...</p>;
 				if (error) return <p>Error :(</p>;
 			
-				console.log(data);
-				
-				inWishlist = data.checkInWishlist;
 				data = data.Product;
-			
+				
 				return (
 					<div className="product">
 						<div className="product__container">
@@ -190,11 +207,10 @@ class Details extends React.Component {
 										<div 
 											className="product__heart"
 											onClick={e => {
-												this.handleSaveClick(e, inWishlist, data.id)
-												inWishlist = !inWishlist;
+												this.handleSaveClick(e,data.id);
 											}}
 										>
-											{ inWishlist ? <Icon type="heart"/> : <Icon type="heart-o"/> }
+											{ this.state.visible  ? <Icon type="heart"/> : <Icon type="heart-o"/> }
 										</div>
 									</div>
 								</Col>
@@ -337,4 +353,4 @@ class Details extends React.Component {
 	}
 }
 
-export default Details;
+export default withApollo(Details);

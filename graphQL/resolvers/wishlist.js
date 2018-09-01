@@ -16,7 +16,6 @@ module.exports = {
                 .exec()
         },
         checkInWishlist: (parent, {productID}, context, info) => {
-            console.log(context);
             const userID = context.user.id;
             return Wishlist.findOne({user: userID}).then(
                 foundWishlist => {
@@ -75,29 +74,26 @@ module.exports = {
         },
         removeFromWishlist: (parent, { productID }, context, info) => {   
             const userID = context.user.id;
-            console.log(context);
-            console.log(productID);
-            return null;
-            // return Wishlist.findOne({user: userID}).exec().then(
-            //     foundWishlist => {
-            //         console.log(foundWishlist);
-            //         foundWishlist.products = foundWishlist.products.filter(
-            //             product => product !== productID
-            //         );
+            console.log("REMOVE FROM WISH LIST", userID, productID);
+            return Wishlist.findOne({user: userID}).exec().then(
+                foundWishlist => {
+                    foundWishlist.products = foundWishlist.products.filter(
+                        product => product != productID
+                    );
     
-            //         foundWishlist.save();
-            //         return foundWishlist
-            //             .populate({
-            //                 path: 'products',
-            //                 populate: {
-            //                     path: 'sellerID'
-            //                 }
-            //             })
-            //             .populate('user')
-            //             .execPopulate()
-            //             .then(data => data.toJSON());
-            //     }
-            // )
+                    foundWishlist.save();
+                    return foundWishlist
+                        .populate({
+                            path: 'products',
+                            populate: {
+                                path: 'sellerID'
+                            }
+                        })
+                        .populate('user')
+                        .execPopulate()
+                        .then(data => data.toJSON());
+                }
+            )
         }
     }
 }
