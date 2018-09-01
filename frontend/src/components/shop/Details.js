@@ -77,7 +77,13 @@ class Details extends React.Component {
 		query: query
 	}).then(
 		data => {
-			let ans = data.checkInWishlist ? true : false;
+			data = data.data.checkInWishlist;
+			let ans;
+			if (data == true) {
+				ans = true;
+			} else {
+				ans = false;
+			}
 			this.setState(() => ({
 				visible: ans
 			}));
