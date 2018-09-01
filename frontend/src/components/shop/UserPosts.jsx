@@ -33,7 +33,8 @@ class UserPosts extends Component {
                                                         <span className="photo__location">by {post.product.sellerID.name}</span>
                                                     </div>
                                                 </header>
-                                                <img src={`product_images/${post.product.image}`}/>
+                                                <div className="photo__image" style={{backgroundImage: `url("product_images/${post.product.image}")`}}></div>
+                                                {/* <img src={`product_images/${post.product.image}`}/> */}
                                                 <div className="photo__info">
                                                     <div className="photo__actions">
                                                         {post.product.description}

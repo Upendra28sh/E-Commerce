@@ -42,7 +42,7 @@ const MenuI = (props) => {
         <Menu>
             <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
             <Menu.Item key="2"><NavLink to="/order">Your Order</NavLink></Menu.Item>
-            <Menu.Item key="3">Saved Products</Menu.Item>
+            <Menu.Item key="3"><NavLink to="/wishlist">Your Wishlist</NavLink></Menu.Item>
             <Menu.Item key="4">Log Out</Menu.Item>
         </Menu>
     );
@@ -205,7 +205,7 @@ class Header extends React.Component {
                                                 paddingBottom: '0px',
                                                 marginLeft: '10px'
                                             }}>
-                                                Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}
+                                                <Link to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
                                             </li>
 
                                             <li style={{

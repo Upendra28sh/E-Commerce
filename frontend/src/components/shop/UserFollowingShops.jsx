@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-
+import { Link } from 'react-router-dom';
+import { Card, Row, Col } from 'antd';
 import { GET_FOLLOW_SELLER } from '../query';
+
+const { Meta } = Card;
 
 class UserPosts extends Component {
     constructor(props) {
@@ -25,16 +28,31 @@ class UserPosts extends Component {
                         data = data.getSellers;
                         console.log(data);
                         
-                        return data.map(
-                            (seller, index) => {
-                                return (
-                                    <div key={index}>
-                                        <p>{seller.name}</p>
-                                        <p>{seller.shopname}</p>
-                                        <p>{seller.about}</p>
-                                    </div>
-                                )
-                            }
+                        return (
+                            <Row>
+                                {data.map(
+                                        (seller, index) => {
+                                            return (
+                                                <Col span={8}>
+                                                    <Link to={`/seller/${seller.shopname}`}>
+                                                        <Card
+                                                            key={index}
+                                                            hoverable
+                                                            style={{ width: 300 }}
+                                                            cover={<img alt={seller.shopname} src={`product_images/${seller.image}`} />}
+                                                        >
+                                                            <Meta
+                                                                title={seller.name}
+                                                                description={seller.shopname}
+                                                            />
+                                                        </Card>            
+                                                    </Link>
+                                                </Col>
+                                            );
+                                        }
+                                    )
+                                }
+                            </Row>
                         )
                     }}
                 </Query>
