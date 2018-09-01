@@ -8,7 +8,6 @@ export default gql `
     extend type Query {
         allUsers: [User],
         User(username: String!): User,
-         
     }
     extend type Mutation {
         followUser(
@@ -22,7 +21,11 @@ export default gql `
         ): Seller,
         unFollowShop(
             FollowingID : ID!
-        ): Seller
+        ): Seller,
+        Notify(
+            UserToken : String!,
+            Email : String!
+        ):User
     }
 `
 
