@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
             ref: 'User'
         },
         read: Boolean
-    }]
+    }],
+    UserToken : String,
 }, {
     versionKey: false
 });

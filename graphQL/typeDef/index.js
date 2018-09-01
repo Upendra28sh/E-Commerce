@@ -141,7 +141,8 @@ const typeDefs = gql`
         following: [User],
         followers: [User],
         followingShop: [Seller],
-        followNotify : [followNotify]
+        followNotify : [followNotify],
+        UserToken : String
     }
   
     type LegalInfo {
