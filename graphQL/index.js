@@ -1,7 +1,9 @@
 const {ApolloServer, gql} = require('apollo-server');
 const mongoose = require('mongoose');
 var express = require('express');
+var cors = require('cors');
 const app = express();
+app.use(cors());
 // app.use('/push', require('./push'));
  //Public Key:
 // BImBf1MZPoA5x-HrDlQoODpFY0mmshS9t_dGTLfHNBZNt8WsxcquRsYnr9J61Fu44MxKUQyaXUBdz9yJlzElVyM

@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const axios = require('axios');
 const Seller = require('../models/seller');
 const Product = require('../models/product')
 const config = require('../config');
@@ -54,13 +55,14 @@ module.exports = {
     Mutation: {
         followUser: (parents, args, context, info) => {
             return User.findOne({
-                _id: context.user.id
+                _id: "5b7ffe9577b51d4220dd83f2"
             }, ).populate('following').exec().then((user) => {
                 if (_.find(user.following, {
                         id: args.FollowingID
                     }) == null) {
                     user.following.push(args.FollowingID);
                     user.save();
+
                 }
 
 
@@ -68,14 +70,39 @@ module.exports = {
                     _id: args.FollowingID
                 }).populate('followers').exec().then(user => {
                     if (_.find(user.followers, {
-                            id: context.user.id
+                            id: "5b7ffe9577b51d4220dd83f2"
                         }) == null) {
-                        user.followers.push(context.user.id);
+                        user.followers.push("5b7ffe9577b51d4220dd83f2");
                         user.followNotify.push({
-                            User: context.user.id,
+                            User: "5b7ffe9577b51d4220dd83f2",
                             read: false
                         });
-                        user.save();
+                        let config = {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'key=AAAA7LYsFxY:APA91bHwbibSzEi2itJ_VlvRtaIvVr4FBNGag7qLqEGR-0LmWAdXnaBfuoxEMr86VwxUbvdSlAyKcLtp4IkPc6pmOUirGFJK4L0fSaj9GCweKOd0DzSQQULWldSsw0rHQiukNt63rZWm'
+                            }
+                        }
+
+                        let data = {
+                            "notification": {
+                                "title": "E-commerce",
+                                "body": ` ${user.username} has followed you`,
+                                "click_action": `http://localhost:3000/user/${user.username}`,
+                                "icon": "http://localhost:3000/favicon.ico"
+                            },
+                            "to": user.UserToken
+                        }
+
+                        axios.post("https://fcm.googleapis.com/fcm/send", data, config).then(({
+                            data
+                        }) => {
+                            console.log(data);
+                            user.save();
+                        }).catch((err) => {
+                            console.log(err)
+                        });
+
                     }
                 })
             });
@@ -134,5 +161,18 @@ module.exports = {
                 }).populate('followers').exec().then(data => data)
             });
         },
+        Notify: (parents, args, context, info) => {
+            return User.findOne({
+                email: args.Email
+            }).exec().then((user) => {
+                console.log(context.user);
+                user.UserToken = args.UserToken;
+                console.log(user.UserToken);
+                user.save();
+
+            });
+
+        }
+
     }
 };

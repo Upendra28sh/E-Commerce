@@ -1,21 +1,43 @@
-import React, {Fragment} from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import {Cascader, Input, Dropdown, Menu, Icon, Button, Row, Col,Popover} from 'antd';
-import {Query,Mutation} from 'react-apollo';
-import {GET_AUTH,GET_USER,FOLLOW_USER} from '../query';
+import React, { Fragment } from "react";
+import { Link, NavLink } from "react-router-dom";
+import {
+  Cascader,
+  Input,
+  Dropdown,
+  Menu,
+  Icon,
+  Button,
+  Row,
+  Col,
+  Popover
+} from "antd";
+import { Query, Mutation } from "react-apollo";
+import { GET_AUTH, GET_USER, FOLLOW_USER } from "../query";
+import gql from "graphql-tag";
+import { askForPermissionToReceiveNotifications } from "../../push-notification";
+
+const NOTIFY = gql`
+  mutation Notify($input: String!) {
+    Notify(UserToken: $input) {
+      id
+    }
+  }
+`;
 
 const Search = Input.Search;
 const text = <span>Notifications</span>;
-const content = (data) => {
-    if(data==undefined)
-    {
-        return<p>No Notifications</p>
-    }
+const content = data => {
+  if (data == undefined) {
+    return <p>No Notifications</p>;
+  }
 
-    return <div>
-      {
-          data.map((i)=>{
-              return <div>{i.User.name} is following You <Mutation mutation={FOLLOW_USER}>
+  return (
+    <div>
+      {data.map(i => {
+        return (
+          <div>
+            {i.User.name} is following You{" "}
+            <Mutation mutation={FOLLOW_USER}>
               {(followuser, { data }) => (
                 <button
                   onClick={() =>
@@ -31,10 +53,12 @@ const content = (data) => {
                   &nbsp;&nbsp;Follow
                 </button>
               )}
-            </Mutation></div>
-          })
-      }
+            </Mutation>
+          </div>
+        );
+      })}
     </div>
+  );
 };
 
 const MenuI = (props) => {
@@ -48,97 +72,94 @@ const MenuI = (props) => {
     );
 };
 const menu = (
-    <div className="categories">
-        <Row>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Men</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Women</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Kids</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Electronics</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-        </Row>
-    </div>
+  <div className="categories">
+    <Row>
+      <Col span={6}>
+        <ul className="categories__list">
+          <strong>
+            <li>Menu</li>
+          </strong>
+          <li>Shoes</li>
+          <li>Pants</li>
+          <li>Clothes</li>
+          <li>Shoes</li>
+          <li>Pants</li>
+        </ul>
+      </Col>
+      <Col span={6}>
+        <ul className="categories__list">
+          <strong>
+            <li>Women</li>
+          </strong>
+          <li>Shoes</li>
+          <li>Pants</li>
+          <li>Clothes</li>
+          <li>Shoes</li>
+          <li>Pants</li>
+        </ul>
+      </Col>
+      <Col span={6}>
+        <ul className="categories__list">
+          <strong>
+            <li>Kids</li>
+          </strong>
+          <li>Shoes</li>
+          <li>Pants</li>
+          <li>Clothes</li>
+          <li>Shoes</li>
+          <li>Pants</li>
+        </ul>
+      </Col>
+      <Col span={6}>
+        <ul className="categories__list">
+          <strong>
+            <li>Electronics</li>
+          </strong>
+          <li>Shoes</li>
+          <li>Pants</li>
+          <li>Clothes</li>
+          <li>Shoes</li>
+          <li>Pants</li>
+        </ul>
+      </Col>
+    </Row>
+  </div>
 );
 
 const left_section = (
-    <Fragment>
-        <li>
-            <Dropdown overlay={menu} trigger={["click"]}>
-                <span>Categories</span>
-            </Dropdown>
-        </li>
-        <li>
-            <Link to="/feed">My Feed</Link>
-        </li>
-        <li>
-            <Link to="/trending">Trending</Link>
-        </li>
-    </Fragment>
+  <Fragment>
+    <li>
+      <Dropdown overlay={menu} trigger={["click"]}>
+        <span>Categories</span>
+      </Dropdown>
+    </li>
+    <li>
+      <Link to="/feed">My Feed</Link>
+    </li>
+    <li>
+      <Link to="/trending">Trending</Link>
+    </li>
+  </Fragment>
 );
 
 class Header extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.handleSearch = this.handleSearch.bind(this);
-        this.state = {
-            search: false
-        };
-    }
-
-    handleSearch = () => {
-        this.setState(
-            prevState => {
-                return {
-                    search: !prevState.search
-                };
-            }
-        );
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.state = {
+      search: false
     };
+  }
 
-    render() {
+  handleSearch = () => {
+    this.setState(prevState => {
+      return {
+        search: !prevState.search
+      };
+    });
+  };
+
+render() {
 
         if (this.props.history.location.pathname === "/") {
             return <div></div>;
