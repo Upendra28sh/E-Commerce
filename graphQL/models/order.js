@@ -22,11 +22,8 @@ const orderSchema = new mongoose.Schema({
     shipping: {
         status: String,
         address: {
-            address: String,
-            street: String,
-            city: String,
-            state: String,
-            zipcode: Number
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Address'
         }
     },
     payment: {

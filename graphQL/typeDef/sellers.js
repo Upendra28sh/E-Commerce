@@ -18,14 +18,6 @@ export default gql`
         policy: PolicyInput
     }
 
-    input AddressInput {
-        address: String,
-        street: String,
-        city: String,
-        state: String,
-        zipcode: Int
-    }
-
     input InfoInput {
         aadhar: String,
         pan: String,

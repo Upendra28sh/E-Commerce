@@ -9,12 +9,24 @@ var ObjectId = require('mongodb').ObjectId;
 module.exports = {
     Query: {
         allUsers: (parent, args, context, info) => {
-            return User.find({}).populate('following').populate('followers').populate('followingShop').populate('followNotify.User').exec();
+            return User.find({})
+                .populate('address')
+                .populate('following')
+                .populate('followers')
+                .populate('followingShop')
+                .populate('followNotify.User')
+                .exec();
         },
         User: (parent, args, context, info) => {
             return User.findOne({
                 username: args.username
-            }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec();
+            })
+                .populate('address')
+                .populate('followers')
+                .populate('following')
+                .populate('followingShop')
+                .populate('followNotify.User')
+                .exec();
         },
         // getFeedProducts:(parent, args, context, info)=>{
         //     let products=[];

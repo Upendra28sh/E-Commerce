@@ -65,11 +65,9 @@ const typeDefs = gql`
     type Sellerpost {
         id: ID,
         seller: Seller,
-        product : Product,
         caption: String,
         timestamp : String,
         image: String,
-        type: String
     }
 
     type Order {
@@ -137,6 +135,7 @@ const typeDefs = gql`
         username : String,
         image: String,
         about: String,
+        address: Address,
         email:String,
         password: String,
         following: [User],
@@ -160,6 +159,14 @@ const typeDefs = gql`
     type Token {
         code: Int,
         content: String
+    }
+
+    input AddressInput {
+        address: String,
+        street: String,
+        city: String,
+        state: String,
+        zipcode: Int
     }
 
     scalar Date

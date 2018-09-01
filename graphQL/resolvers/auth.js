@@ -1,14 +1,16 @@
 const User = require('../models/user');
+const Address = require('../models/address');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config');
 
 module.exports = {
     Mutation: {
-        UserSignup: (parent, {input, details}, context, info) => {
+        UserSignup: (parent, {input, details, address}, context, info) => {
 
             let {email, password} = input;
             let {name, image, about, username} = details;
+            let {street, city, state, zipcode} = address;
 
             return User.findOne({email: email}).exec()
                 .then(
@@ -32,24 +34,38 @@ module.exports = {
                                 username: username
                             }).then(
                                 createdUser => {
-                                    const token = jwt.sign(
-                                        {
-                                            id: createdUser._id,
-                                            name: createdUser.name,
-                                            image: createdUser.image,
-                                            email: createdUser.email,
-                                            about: createdUser.about,
-                                            username: createdUser.username
-                                        },
-                                        config.secret,
-                                        {expiresIn: 86400}
-                                    );
-                                    return {
-                                        token: {
-                                            code: 1,
-                                            content: token
+                                    return Address.create({
+                                        address: address.address,
+                                        street: street,
+                                        city: city,
+                                        state: state,
+                                        zipcode: zipcode
+                                    }).then(
+                                        createdAddress => {
+                                            createdUser.address = createdAddress;
+                                            createdUser.save();
+                                        
+                                            const token = jwt.sign(
+                                                {
+                                                    id: createdUser._id,
+                                                    name: createdUser.name,
+                                                    image: createdUser.image,
+                                                    email: createdUser.email,
+                                                    about: createdUser.about,
+                                                    username: createdUser.username
+                                                },
+                                                config.secret,
+                                                {expiresIn: 86400}
+                                            );
+                                            return {
+                                                token: {
+                                                    code: 1,
+                                                    content: token
+                                                }
+                                            };
                                         }
-                                    };
+                                    )
+                                    
                                 }
                             );
                         }
