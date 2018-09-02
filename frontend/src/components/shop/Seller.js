@@ -150,7 +150,7 @@ class Seller extends React.Component {
                         <TabPane tab="Posts" key="1">
                           <div className="container_80">
                             <div style={{ position: "relative" }}>
-                              <Input.TextArea rows={7} />{" "}
+                              <Input.TextArea rows={7} placeholder="Add Post Here .... " />{" "}
                               <Button
                                 style={{
                                   position: "absolute",
