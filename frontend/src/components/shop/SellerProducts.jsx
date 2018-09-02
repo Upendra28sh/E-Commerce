@@ -38,6 +38,7 @@ class SellerProducts extends Component {
                                                          src={`product_images/${product.image}`}/>
                                                 </Link>
                                             </div>
+                                            {product.name}
                                         </div>
                                     )}
                                 </div>
