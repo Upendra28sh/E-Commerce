@@ -3,8 +3,9 @@ const Cart = require('../models/cart');
 
 module.exports = {
     Query: {
-        getCart: (parent, {userID}, context, info) => {
-            return Cart.findOne({user: userID})
+        getCart: (parent, args, context, info) => {
+            const userId = context.user.id;
+            return Cart.findOne({user: userId})
                 .populate({
                     path: 'items.item',
                     populate: {
@@ -24,9 +25,10 @@ module.exports = {
     Mutation: {
         addToCart: (parent, {input}, context, info) => {
 
-            let {userID, productID, itemCount, selectedSize} = input;
+            let {productID, itemCount, selectedSize} = input;
+            let userId = context.user.id;
 
-            return Cart.findOne({user: userID}).exec().then(
+            return Cart.findOne({user: userId}).exec().then(
                 foundCart => {
                     if (!foundCart) {
                         return Cart.create({
@@ -42,7 +44,7 @@ module.exports = {
                                     .populate({
                                         path: 'items.item',
                                         populate: {
-                                            path: 'sellerID'
+                                            path: 'seller'
                                         }
                                     })
                                     .populate('user')
@@ -58,7 +60,7 @@ module.exports = {
                         foundCart.items.forEach(item => {
                             if (item.item == productID && item.selectedSize === selectedSize) {
                                 itemInCart = true;
-                                item.itemCount += itemCount
+                                item.itemCount += itemCount;
                                 // newItems.push();
                             }
                         });
@@ -92,9 +94,10 @@ module.exports = {
             );
         },
         removeFromCart: (parent, {input}, context, info) => {
-            let {userID, index} = input;
+            let {index} = input;
+            let userId = context.user.id;
 
-            return Cart.findOne({user: userID}).exec().then(
+            return Cart.findOne({user: userId}).exec().then(
                 foundCart => {
                     foundCart.items.splice(index, 1);
                     foundCart.save();

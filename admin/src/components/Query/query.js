@@ -47,9 +47,9 @@ export const GET_ALL_ORDERS = gql`
                     name
                     image
                     description
-                    sellerID {
+                    seller {
                         id
-                        shopname
+                        shopName
                         name
                     }
                 }
@@ -92,9 +92,9 @@ export const GET_ALL_PRODUCTS = gql`
             description
             price
             sizes
-            sellerID {
+            seller {
                 name
-                shopname
+                shopName
             }
         }
     }

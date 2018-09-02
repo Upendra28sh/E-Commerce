@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Table } from "antd";
-import * as actions from "../../actions/admin";
-import { connect } from "react-redux";
 import { Spin } from "antd";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";

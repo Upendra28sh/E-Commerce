@@ -8,7 +8,7 @@ module.exports = {
                 .populate({
                     path: 'products.product',
                     populate: {
-                        path: 'sellerID'
+                        path: 'seller'
                     }
                 })
                 .populate('user')
@@ -24,7 +24,7 @@ module.exports = {
             .populate({
                 path: 'products.product',
                 populate: {
-                    path: 'sellerID'
+                    path: 'seller'
                 }
             })
             .populate('user')
@@ -40,7 +40,7 @@ module.exports = {
             .populate({
                 path: 'products.product',
                 populate: {
-                    path: 'sellerID'
+                    path: 'seller'
                 }
             })
             .populate('user')
@@ -71,7 +71,7 @@ module.exports = {
                     .populate({
                         path: 'products.product',
                         populate: {
-                            path: 'sellerID'
+                            path: 'seller'
                         }
                     })
                     .populate('user')
@@ -115,7 +115,7 @@ module.exports = {
                             .populate({
                                 path: 'products.product',
                                 populate: {
-                                    path: 'sellerID'
+                                    path: 'seller'
                                 }
                             })
                             .populate('user')

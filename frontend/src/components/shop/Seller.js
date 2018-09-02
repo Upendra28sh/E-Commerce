@@ -5,12 +5,8 @@ import {
   Tabs,
   Icon,
   Input,
-  Form,
-  Divider,
-  Menu,
   Button,
   message,
-  Upload
 } from "antd";
 import { Query, Mutation } from "react-apollo";
 import SellerProducts from "./SellerProducts";

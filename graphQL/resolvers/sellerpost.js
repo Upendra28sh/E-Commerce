@@ -7,7 +7,7 @@ module.exports = {
                 .populate({
                     path: 'product',
                     populate: {
-                        path: 'sellerID'
+                        path: 'seller'
                     }
                 })
                 .populate('seller')

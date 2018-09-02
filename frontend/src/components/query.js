@@ -68,7 +68,6 @@ export const GET_USER = gql `
                 id
                 username
                 email
-                password
                 following{
                   id
                   name
@@ -82,14 +81,6 @@ export const GET_USER = gql `
                 }
                 followingShop{
                   id
-                }
-                followNotify{
-                  
-                  User{
-                    id
-                    name
-                  }
-                 
                 }
             }
         }
@@ -105,7 +96,7 @@ export const GET_POST = gql `
               image
               description
               keywords
-              sellerID {
+              seller {
                 id
                 name
               }
@@ -113,7 +104,6 @@ export const GET_POST = gql `
             user {
               username
             }
-            timestamp
         }
     }
 `;
@@ -126,7 +116,7 @@ export const GET_SELLER = gql `
             id
             about
             intro
-            shopname
+            shopName
             address {
                 address
                 street
@@ -160,7 +150,7 @@ export const GET_PRODUCTS_BY_SELLER = gql `
             sizes
             keywords
             description
-            sellerID {
+            seller {
                 id
                 name
             }
@@ -174,7 +164,7 @@ export const REMOVE_FROM_WISHLIST = gql`
             id
         }
     }
-`; 
+`;
 
 export const ADD_TO_WISHLIST = gql`
     mutation add($id: ID) {
@@ -191,7 +181,7 @@ export const GET_FOLLOW_SELLER = gql `
             name
             image
             about
-            shopname
+            shopName
         }
     }
 `;
@@ -202,22 +192,21 @@ export const GET_POST_BY_SELLER = gql`
             id
             image
             caption
-            timestamp
-            Comments{
-              user{
-                name
-              }
-              text
+            comments{
+                user{
+                    name
+                }
+                text
             }
-          }
+        }
     }
 
-`
+`;
 
 export const ADD_SELLER_COMMENT = gql`
-mutation($PostID : ID!,$text : String!){
-    addSellerComment(PostID:$PostID,text:$text){
-      id
+    mutation($PostID : ID!,$text : String!){
+        addSellerComment(PostID:$PostID,text:$text){
+            id
+        }
     }
-  }
-  `
+`;

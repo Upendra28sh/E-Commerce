@@ -37,7 +37,7 @@ const columns = [
     },
     {
         title: "Seller",
-        dataIndex: "sellerID.shopname",
+        dataIndex: "seller.shopName",
         key: "seller",
         align: "center"
     }

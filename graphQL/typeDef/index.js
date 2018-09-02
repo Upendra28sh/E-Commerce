@@ -44,19 +44,18 @@ const typeDefs = gql`
         returnAccepted : Boolean ,
         description: String,
         keywords:[String],
-        sellerID: Seller,
-        followers : [User]
+        seller: Seller
     }
 
     type Seller {
         id: ID,
         name: String,
         image: String,
-        about: String,
-        shopname: String,
+        shopName: String,
         intro : String,
-        address: Address,
-        legalInfo: LegalInfo,
+        about: String,
+        address: [Address],
+        legal: LegalDetails,
         policy: SellerPolicy
         followers : [User]
     }
@@ -66,17 +65,15 @@ const typeDefs = gql`
         user: User,
         product : Product,
         caption: String,
-        timestamp : String,
-        Comments :[Comment]
+        comments :[Comment]
     }
 
     type Sellerpost {
         id: ID,
         seller: Seller,
         caption: String,
-        timestamp : String,
         image: String,
-        Comments :[Comment]
+        comments :[Comment]
     }
 
     type Order {
@@ -93,7 +90,7 @@ const typeDefs = gql`
 
     type Cart {
         id: ID,
-        items: [Item],
+        items: [CartItem],
         user: User
     }
 
@@ -103,7 +100,7 @@ const typeDefs = gql`
         selectedSize: String
     }
 
-    type Item {
+    type CartItem {
         item: Product,
         itemCount: Int,
         selectedSize: String
@@ -133,34 +130,34 @@ const typeDefs = gql`
         shipped:Boolean,
         delivered:Boolean,
     }
-    type followNotify{
-        id : ID,
-        User : User,
-        read : Boolean
-    }
+    
     type User {
         id: ID,
         name: String,
+        email:String,
         username : String,
         image: String,
         about: String,
-        address: Address,
-        email:String,
-        password: String,
+        address: [Address],
         following: [User],
         followers: [User],
-        followingShop: [Seller],
-        followNotify : [followNotify],
+        followingShop: [Seller]
         UserToken : String
     }
   
-    type LegalInfo {
+    type LegalDetails {
         aadhar: String,
         pan: String,
         gst: String,
-        bank: String
+        bank: BankDetails
     }
-
+        
+    type BankDetails {
+        name : String ,
+        accountNumber : Int ,
+        ifscCode : String
+    }
+    
     type SellerPolicy {
         store: String,
         return: String

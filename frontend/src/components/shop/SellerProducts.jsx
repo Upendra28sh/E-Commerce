@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Query} from 'react-apollo';
 import {Link} from 'react-router-dom';
-import {ModalRoute} from 'react-router-modal';
-
-import Details from './Details';
+// import {ModalRoute} from 'react-router-modal';
+//
+// import Details from './Details';
 import { GET_PRODUCTS_BY_SELLER } from '../query';
 
 class SellerProducts extends Component {

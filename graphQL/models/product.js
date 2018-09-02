@@ -13,10 +13,16 @@ const productSchema = new mongoose.Schema({
     description: String,
 
     keywords: [String],
-    sellerID : {
+    seller: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Seller'
     }
-}, {versionKey: false});
+}, {
+    versionKey: false,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
+});
 
 module.exports = mongoose.model('Product', transformSchema(productSchema));

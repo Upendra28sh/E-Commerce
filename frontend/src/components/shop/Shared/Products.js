@@ -4,17 +4,17 @@ import {ModalRoute} from "react-router-modal";
 import Details from "../Details";
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
-import {GET_AUTH, GET_USER, GET_PRODUCTS_BY_SELLER} from "../../query";
+// import {GET_AUTH, GET_USER, GET_PRODUCTS_BY_SELLER} from "../../query";
 
-const GET_PRODUCTS = gql`
-    {
-        allProducts {
-            id
-            name
-            image
-        }
-    }
-`;
+// const GET_PRODUCTS = gql`
+//     {
+//         allProducts {
+//             id
+//             name
+//             image
+//         }
+//     }
+// `;
 
 const GET_FEED_PRODUTS = gql`
     {
@@ -25,7 +25,7 @@ const GET_FEED_PRODUTS = gql`
             sizes
             keywords
             description
-            sellerID {
+            seller {
                 id
                 name
             }

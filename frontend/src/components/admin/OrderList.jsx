@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import OrderTable from "./OrderTable";
 import { Spin, Table } from "antd";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";

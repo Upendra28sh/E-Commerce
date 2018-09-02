@@ -1,6 +1,4 @@
 import React from 'react';
-import {Button, Card, Menu, Row, Col} from 'antd';
-import {Switch, Route, Link, Redirect} from 'react-router-dom';
 import SellerPost from './SellerPost';
 import UserPost from './UserPost';
 import ProductFeed from './ProductFeed'

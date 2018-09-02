@@ -1,10 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import * as actions from '../../actions/shop';
 
 class SignUp extends React.Component {
 
     checkForm() {
+        console.log("ABC");
         if (this.props.first_name === '' || this.props.last_name === '' || this.props.address_1 === '' || this.props.city === '' || this.props.state === '' || this.props.email === '' || this.props.password === '') {
             this.props.emptyFields();
         } else {

@@ -3,20 +3,29 @@ const transformSchema = require('./utils/schemaTransform');
 
 
 const sellerSchema = new mongoose.Schema({
-    shopname: String,
     name: String,
     image: String,
-    intro : String,
+
+    shopName: String,
+    password : String,
+
+    intro: String,
     about: String,
-    address: {
+
+    address: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address'
-    },
-    legalInfo: {
+    }],
+
+    legal: {
         aadhar: String,
         pan: String,
         gst: String,
-        bank: String
+        bank: {
+            name: String,
+            accountNumber : Number,
+            ifscCode : String
+        }
     },
     policy: {
         store: String,

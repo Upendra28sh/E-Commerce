@@ -7,7 +7,6 @@ const config = require('../config');
 module.exports = {
     Mutation: {
         UserSignup: (parent, {input, details, address}, context, info) => {
-
             let {email, password} = input;
             let {name, image, about, username} = details;
             let {street, city, state, zipcode} = address;
@@ -44,7 +43,7 @@ module.exports = {
                                         createdAddress => {
                                             createdUser.address = createdAddress;
                                             createdUser.save();
-                                        
+
                                             const token = jwt.sign(
                                                 {
                                                     id: createdUser._id,
@@ -64,8 +63,8 @@ module.exports = {
                                                 }
                                             };
                                         }
-                                    )
-                                    
+                                    );
+
                                 }
                             );
                         }

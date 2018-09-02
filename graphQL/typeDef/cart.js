@@ -3,19 +3,17 @@ const { gql } = require('apollo-server');
 export default gql`
 
     input AddToCartInput {
-        userID: ID!,
         productID: ID!,
         itemCount: Int!,
         selectedSize: String
     }
 
     input RemoveFromCartInput {
-        userID: ID!,
         index: Int      
     }
 
     extend type Query {
-        getCart(userID: ID!) : Cart
+        getCart : Cart
     }
 
     extend type Mutation {

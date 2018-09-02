@@ -1,7 +1,7 @@
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 
-const BASEURL = 'http://localhost:4000';
+// const BASEURL = 'http://localhost:4000';
 // const BASEURL = 'http://192.168.0.104:4000';
 
 const client = new ApolloClient({

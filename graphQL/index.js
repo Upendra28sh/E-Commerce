@@ -5,7 +5,7 @@ var cors = require('cors');
 const app = express();
 app.use(cors());
 // app.use('/push', require('./push'));
- //Public Key:
+//Public Key:
 // BImBf1MZPoA5x-HrDlQoODpFY0mmshS9t_dGTLfHNBZNt8WsxcquRsYnr9J61Fu44MxKUQyaXUBdz9yJlzElVyM
 
 // Private Key:
@@ -27,10 +27,10 @@ const server = new ApolloServer({
     context: ({req}) => {
         // get the user token from the headers
         let token = req.headers.authorization || '';
-        if(!token){
+        if (!token) {
             return {
-                user : {}
-            }
+                user: {}
+            };
         }
         token = token.split(" ")[1];
 
@@ -42,7 +42,12 @@ const server = new ApolloServer({
         // add the user to the context
         return {user: decoded};
     },
-
+    playground: {
+        settings: {
+            'editor.theme': 'light',
+            'editor.cursorShape': 'line',
+        },
+    }
 });
 
 mongoose.connect(url, {useNewUrlParser: true}).then(() => {

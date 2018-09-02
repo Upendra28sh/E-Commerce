@@ -1,16 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Row, Col} from 'antd';
-import {connect} from 'react-redux';
-import * as actions from '../../actions/shop';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 
 const GET_CART = gql`
     {
-        getCart(
-            userID:"5b79495957b3413063e7be4c"
-        ) {
+        getCart {
             id
             items {
                 itemCount
@@ -21,7 +17,7 @@ const GET_CART = gql`
                     price
                     image
                     description
-                    sellerID {
+                    seller {
                         id ,
                         image ,
                         name
@@ -93,6 +89,7 @@ class Cart extends React.Component {
                                                             <div className='item_seller'>
                                                                 <div className='item_seller_image'>
                                                                     <img src={cartItem.item.sellerID.image}
+                                                                         alt=''
                                                                          style={{width: 32, height: 32}}/>
                                                                 </div>
                                                                 <span>{cartItem.item.sellerID.name}</span>

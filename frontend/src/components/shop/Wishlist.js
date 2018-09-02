@@ -17,7 +17,7 @@ const GET_WISHLIST = gql`
                 image
                 price
                 description
-                sellerID {
+                seller {
                     name
                     image
                     about
@@ -67,6 +67,7 @@ class Wishlist extends React.Component {
                                                             <div className='item_seller'>
                                                                 <div className='item_seller_image'>
                                                                     <img src={product.sellerID.image}
+                                                                         alt=''
                                                                          style={{width: 32, height: 32}}/>
                                                                 </div>
                                                                 <span>{product.sellerID.name}</span>

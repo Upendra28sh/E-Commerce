@@ -1,65 +1,21 @@
 import React, { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
-  Cascader,
   Input,
   Dropdown,
   Menu,
   Icon,
-  Button,
   Row,
   Col,
   Popover
 } from "antd";
-import { Query, Mutation } from "react-apollo";
-import { GET_AUTH, GET_USER, FOLLOW_USER } from "../query";
-import gql from "graphql-tag";
-import { askForPermissionToReceiveNotifications } from "../../push-notification";
+import { Query } from "react-apollo";
+import { GET_AUTH } from "../query";
 
-const NOTIFY = gql`
-  mutation Notify($input: String!) {
-    Notify(UserToken: $input) {
-      id
-    }
-  }
-`;
+// TODO: Add User Notifications
 
 const Search = Input.Search;
 const text = <span>Notifications</span>;
-const content = data => {
-  if (data == undefined) {
-    return <p>No Notifications</p>;
-  }
-
-  return (
-    <div>
-      {data.map(i => {
-        return (
-          <div>
-            {i.User.name} is following You{" "}
-            <Mutation mutation={FOLLOW_USER}>
-              {(followuser, { data }) => (
-                <button
-                  onClick={() =>
-                    followuser({
-                      variables: {
-                        FollowingID: i.User.id
-                      },
-                      refetchQueries: ["user"]
-                    })
-                  }
-                >
-                  <Icon type="heart" />
-                  &nbsp;&nbsp;Follow
-                </button>
-              )}
-            </Mutation>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
 
 const MenuI = (props) => {
     return (
@@ -71,6 +27,7 @@ const MenuI = (props) => {
         </Menu>
     );
 };
+
 const menu = (
   <div className="categories">
     <Row>
@@ -195,23 +152,9 @@ render() {
                                                 )
                                             }
                                             <li>
-                                                <Query
-                                                    query={GET_USER}
-                                                    variables={{
-                                                        username: data.auth.user.username
-                                                    }}
-                                                >
-                                                    {({ loading, data }) => {
-                                                        console.log("f",data);
-                                                        if(loading) return<Popover placement="bottomRight" title={text} content={content(data.User)} trigger="click">
-                                                            <Icon type='bell' style={{fontSize: 18}}/>
-                                                        </Popover>
-
-                                                        return <Popover placement="bottomRight" title={text} content={content(data.User.followNotify)} trigger="click">
-                                                            <Icon type='bell' style={{fontSize: 18}}/>
-                                                        </Popover>
-                                                    }}
-                                                </Query>
+                                                <Popover placement="bottomRight" title={text} content={"No Notifications Yet."} trigger="click">
+                                                    <Icon type='bell' style={{fontSize: 18}}/>
+                                                </Popover>
                                             </li>
 
                                             <li>

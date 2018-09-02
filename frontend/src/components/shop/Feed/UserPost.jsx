@@ -6,6 +6,7 @@ class SellerPost extends Component {
             <div className="photo feed-product">
                 <header className="photo__header">
                     <img src="http://www.cloudsellerpro.com/wp-content/uploads/2017/01/avatar-3.png"
+                         alt=''
                          className="photo__avatar"/>
                     <div className="photo__user-info">
                         <span className="photo__author">Rahul jain</span>
