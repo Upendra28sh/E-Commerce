@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Query,Mutation} from 'react-apollo';
 import {GET_POST_BY_SELLER,ADD_SELLER_COMMENT} from '../query'
-import {Input,Icon} from 'antd'
+import {Input,Button} from 'antd'
 class SellerPost extends Component {
     render() {
         return (
@@ -49,7 +49,7 @@ class SellerPost extends Component {
                     <Input name="comment" id={`${index}`} placeholder="Add a comment..."/>
                     <Mutation mutation={ADD_SELLER_COMMENT}>
                     {(addSellerComment)=>(
-                        <i class="fa fa-send-o" onClick={() =>
+                       <Button type="primary" shape="circle" onClick={() =>
                             addSellerComment({
                               variables: {
                                 PostID: post.id,
@@ -58,7 +58,8 @@ class SellerPost extends Component {
                               refetchQueries: ["sellerpost"],
                               update :()=>{document.getElementById(`${index}`).value =''}
                             })
-                          }/>
+                          }><i class="fa fa-send-o"></i>
+                          </Button>
                     )}
                     </Mutation>
                     </div>
