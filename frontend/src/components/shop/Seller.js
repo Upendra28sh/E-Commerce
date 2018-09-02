@@ -3,7 +3,9 @@ import { Row, Col, Tabs, Icon } from "antd";
 import { Query, Mutation } from "react-apollo";
 import SellerProducts from "./SellerProducts";
 import { GET_SELLER, FOLLOW_SHOP, UNFOLLOW_SHOP } from "../query";
-
+import {ModalRoute} from 'react-router-modal';
+import SellerPost from './SellerPost'
+import Details from './Details';
 const { TabPane } = Tabs;
 
 class Seller extends React.Component {
@@ -108,7 +110,7 @@ class Seller extends React.Component {
                         style={{ textAlign: "center" }}
                       >
                         <TabPane tab="Posts" key="1">
-                          Content of tab 2
+                          <SellerPost shopname={shopname} />
                         </TabPane>
                         <TabPane tab="Products" key="2">
                           <SellerProducts sellerID={data.id} {...this.props} />
@@ -131,6 +133,7 @@ class Seller extends React.Component {
                   </Row>
                 </div>
               </div>
+              <ModalRoute path={`${this.props.match.url}/:id`} parentPath={this.props.match.url} component={Details}/>
             </div>
           );
         }}
