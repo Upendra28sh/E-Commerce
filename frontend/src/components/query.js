@@ -150,6 +150,7 @@ export const GET_SELLER = gql `
         }
     }
 `;
+
 export const GET_PRODUCTS_BY_SELLER = gql `
     query getProductsBySeller($sellerID: ID!) {
         getProductBySeller(sellerID: $sellerID) {
@@ -163,6 +164,34 @@ export const GET_PRODUCTS_BY_SELLER = gql `
                 id
                 name
             }
+        }
+    }
+`;
+
+export const REMOVE_FROM_WISHLIST = gql`
+    mutation remove($id: ID) {
+        removeFromWishlist(productID: $id) {
+            id
+        }
+    }
+`; 
+
+export const ADD_TO_WISHLIST = gql`
+    mutation add($id: ID) {
+        addToWishlist(productID: $id) {
+            id
+        }
+    }
+`;
+
+export const GET_FOLLOW_SELLER = gql `
+    query ($ids: [ID]!){
+        getSellers (ids:$ids) {
+            id
+            name
+            image
+            about
+            shopname
         }
     }
 `;

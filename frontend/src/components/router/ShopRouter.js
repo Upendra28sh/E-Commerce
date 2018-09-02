@@ -10,7 +10,7 @@ import Seller from "../shop/Seller";
 import AddSeller from "../shop/AddSeller/index";
 import Cart from "../shop/Cart";
 import Checkout from "../shop/Checkout";
-import Saved from "../shop/Saved";
+import Wishlist from "../shop/Wishlist";
 import Confirm from "../shop/Confirm";
 import Thanks from "../shop/Thanks";
 import Feed from "../shop/Feed/CombinedFeed";
@@ -32,7 +32,7 @@ const Router = () => {
         <Route  path="/seller/:id/" component={RequireAuth(Seller)} />
         <Route exact path="/cart" component={RequireAuth(Cart)} />
         <Route exact path="/checkout" component={RequireAuth(Checkout)} />
-        <Route exact path="/saved" component={RequireAuth(Saved)} />
+        <Route exact path="/wishlist" component={RequireAuth(Wishlist)} />
         <Route exact path="/confirm" component={RequireAuth(Confirm)} />
         <Route exact path="/thanks" component={RequireAuth(Thanks)} />
         <Route exact path="/order" component={RequireAuth(Order)} />

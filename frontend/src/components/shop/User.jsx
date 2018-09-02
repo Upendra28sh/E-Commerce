@@ -7,6 +7,7 @@ import { Query, Mutation } from "react-apollo";
 import NotFound from "./NotFound";
 
 import UserPosts from "./UserPosts";
+import UserFollowingShops from "./UserFollowingShops";
 
 const { TabPane } = Tabs;
 
@@ -27,6 +28,7 @@ const User = props => {
         }
         console.log("Profile Data : ", data);
         const user = data.User;
+        console.log(user);
         if (user === null) {
           return <NotFound />;
         }
@@ -125,7 +127,7 @@ const User = props => {
                         <UserPosts username={username} />
                       </TabPane>
                       <TabPane tab="Shops" key="3">
-                        Content of tab 3
+                        <UserFollowingShops ids={user.followingShop} />
                       </TabPane>
                     </Tabs>
                   </Col>

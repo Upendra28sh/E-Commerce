@@ -12,6 +12,7 @@ import cartTypeDef from './cart';
 import postTypeDef from './posts';
 import feedTypeDef from './feed';
 import sellerpostTypeDef from './sellerpost';
+import wishlistTypeDef from './wishlist';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -163,6 +164,12 @@ const typeDefs = gql`
         content: String
     }
 
+    type Wishlist {
+        id: ID,
+        user: User,
+        products: [Product]
+    }
+
     input AddressInput {
         address: String,
         street: String,
@@ -174,4 +181,4 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef];
