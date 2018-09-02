@@ -1,11 +1,51 @@
 import React from "react";
-import { Row, Col, Tabs, Icon } from "antd";
+import {
+  Row,
+  Col,
+  Tabs,
+  Icon,
+  Input,
+  Form,
+  Divider,
+  Menu,
+  Button,
+  message,
+  Upload
+} from "antd";
 import { Query, Mutation } from "react-apollo";
 import SellerProducts from "./SellerProducts";
 import { GET_SELLER, FOLLOW_SHOP, UNFOLLOW_SHOP } from "../query";
-
+import { ModalRoute } from "react-router-modal";
+import SellerPost from "./SellerPost";
+import Details from "./Details";
 const { TabPane } = Tabs;
-
+const props = {
+  name: "file",
+  action: "//jsonplaceholder.typicode.com/posts/",
+  headers: {
+    authorization: "authorization-text"
+  },
+  onChange(info) {
+    if (info.file.status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === "done") {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  }
+};
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 12 }
+  }
+};
 class Seller extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +93,7 @@ class Seller extends React.Component {
                         <strong>@</strong>
                         {data.shopname}
                       </p>
-                      <p className="tagline">{data.about}</p>
+                      <p className="tagline">{data.intro}</p>
                       <div className="button_group">
                         <Mutation mutation={FOLLOW_SHOP}>
                           {(followuser, { datas }) => (
@@ -108,7 +148,36 @@ class Seller extends React.Component {
                         style={{ textAlign: "center" }}
                       >
                         <TabPane tab="Posts" key="1">
-                          Content of tab 2
+                          <div className="container_80">
+                            <div style={{ position: "relative" }}>
+                              <Input.TextArea rows={7} placeholder="Add Post Here .... " />{" "}
+                              <Button
+                                style={{
+                                  position: "absolute",
+                                  bottom: "10px",
+                                  right: "10px"
+                                }}
+                                type="primary"
+                                shape="circle"
+                              >
+                                {" "}
+                                <i className="fa fa-send-o" />
+                              </Button>
+                             
+                                <Button
+                                  style={{
+                                    position: "absolute",
+                                    bottom: "10px",
+                                    left: "10px"
+                                  }}
+                                >
+                                  <Icon type="upload" /> Upload
+                                </Button>
+                               
+                            </div>
+                          </div>
+
+                          <SellerPost shopname={shopname} />
                         </TabPane>
                         <TabPane tab="Products" key="2">
                           <SellerProducts sellerID={data.id} {...this.props} />
@@ -119,11 +188,19 @@ class Seller extends React.Component {
                         <TabPane tab="Store Policy" key="4">
                           <div>
                             <h3>Store Policy</h3>
-                            <p>{data.policy.store}</p>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: data.policy.store
+                              }}
+                            />
                           </div>
                           <div>
                             <h3>Return Policy</h3>
-                            <p>{data.policy.return}</p>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: data.policy.return
+                              }}
+                            />
                           </div>
                         </TabPane>
                       </Tabs>
@@ -131,6 +208,11 @@ class Seller extends React.Component {
                   </Row>
                 </div>
               </div>
+              <ModalRoute
+                path={`${this.props.match.url}/:id`}
+                parentPath={this.props.match.url}
+                component={Details}
+              />
             </div>
           );
         }}

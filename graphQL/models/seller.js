@@ -6,6 +6,7 @@ const sellerSchema = new mongoose.Schema({
     shopname: String,
     name: String,
     image: String,
+    intro : String,
     about: String,
     address: {
         type: mongoose.Schema.Types.ObjectId,

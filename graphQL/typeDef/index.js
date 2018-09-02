@@ -29,6 +29,11 @@ const typeDefs = gql`
         _empty: String
     }
 
+    type Comment {
+        id: ID,
+        text: String,
+        user : User
+    }
     type Product {
         id: ID,
         name: String,
@@ -49,6 +54,7 @@ const typeDefs = gql`
         image: String,
         about: String,
         shopname: String,
+        intro : String,
         address: Address,
         legalInfo: LegalInfo,
         policy: SellerPolicy
@@ -60,7 +66,8 @@ const typeDefs = gql`
         user: User,
         product : Product,
         caption: String,
-        timestamp : String
+        timestamp : String,
+        Comments :[Comment]
     }
 
     type Sellerpost {
@@ -69,6 +76,7 @@ const typeDefs = gql`
         caption: String,
         timestamp : String,
         image: String,
+        Comments :[Comment]
     }
 
     type Order {

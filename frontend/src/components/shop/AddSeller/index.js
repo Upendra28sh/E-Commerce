@@ -21,6 +21,7 @@ class AddSeller extends React.Component {
             name: "",
             image: "",
             about: "",
+            intro:"",
             address: "",
             street: "",
             city: "",
@@ -37,7 +38,7 @@ class AddSeller extends React.Component {
 
     submitDetails = () => {
         console.log(this.state);
-        let {shopname, name, image, about, address, street, city, state, zipcode, aadhar, pan, account, gst, returnPolicy, storePolicy} = this.state;
+        let {shopname, name, image, about, address, street, city, state, zipcode, aadhar, pan, account, gst, returnPolicy, storePolicy,intro} = this.state;
         client.mutate({
             mutation: gql `
                 mutation {
@@ -47,6 +48,7 @@ class AddSeller extends React.Component {
                             shopname: "${shopname}",
                             image: "${image}",
                             about: "${about}",
+                            intro: "${intro}"
                             address:{
                                 address: "${address}",
                                 street: "${street}",
@@ -132,12 +134,12 @@ class AddSeller extends React.Component {
         );
     }
 
-    onSetSellerDetails = (name, image, about, address, street, city, state, zipcode) => {
+    onSetSellerDetails = (name, image, intro, address, street, city, state, zipcode) => {
         this.setState(
             () => ({
                 name: name,
                 image: image,
-                about: about,
+                intro: intro,
                 address: address,
                 street: street,
                 city: city,
@@ -160,11 +162,12 @@ class AddSeller extends React.Component {
         this.onContinue();
     }
 
-    onSetShopPolicy = (returnPolicy, storePolicy) => {
+    onSetShopPolicy = (returnPolicy, storePolicy,about) => {
         this.setState(
             () => ({
                returnPolicy: returnPolicy,
-               storePolicy: storePolicy
+               storePolicy: storePolicy,
+               about : about
             })
         );
     }

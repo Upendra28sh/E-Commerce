@@ -12,10 +12,14 @@ export default gql`
         getPosts : [Post]
         Posts(username: String!) : [Post]
     }
-
+    
     extend type Mutation {
         addPost(
             input: AddPostInput
         ) : Post,
+        addComment(
+            PostID : ID!,
+            text : String
+        ):Post
     }
 `;

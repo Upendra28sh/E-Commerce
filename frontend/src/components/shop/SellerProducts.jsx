@@ -38,12 +38,13 @@ class SellerProducts extends Component {
                                                          src={`product_images/${product.image}`}/>
                                                 </Link>
                                             </div>
+                                            {product.name}
                                         </div>
                                     )}
                                 </div>
                             </div>
                             {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
-                            <ModalRoute path={`${match.url}/:id`} parentPath={match.url} component={Details}/>
+                            
                         </div>
                     );
                 }}

@@ -125,6 +125,7 @@ export const GET_SELLER = gql `
             image
             id
             about
+            intro
             shopname
             address {
                 address
@@ -194,3 +195,29 @@ export const GET_FOLLOW_SELLER = gql `
         }
     }
 `;
+
+export const GET_POST_BY_SELLER = gql`
+    query sellerpost($shopname : String!){
+        SellerPosts(shopname:$shopname){
+            id
+            image
+            caption
+            timestamp
+            Comments{
+              user{
+                name
+              }
+              text
+            }
+          }
+    }
+
+`
+
+export const ADD_SELLER_COMMENT = gql`
+mutation($PostID : ID!,$text : String!){
+    addSellerComment(PostID:$PostID,text:$text){
+      id
+    }
+  }
+  `

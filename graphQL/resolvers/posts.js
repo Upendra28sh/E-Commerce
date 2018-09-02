@@ -70,6 +70,12 @@ module.exports = {
                         )
                 }
             )
+        },
+        addComment: (parent, args, context, info) => {
+            return Post.findOne({_id : args.PostID }).exec().then(post=>{
+                post.Comments({text : args.text,user:context.user.id});
+                post.save();
+            })
         }
     }
 }

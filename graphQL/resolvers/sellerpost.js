@@ -1,5 +1,5 @@
 import Sellerpost from '../models/sellerpost';
-
+import Seller from '../models/seller';
 module.exports = {
     Query: {
         allSellerpost: (parent, args, context, info) => {
@@ -16,8 +16,27 @@ module.exports = {
                     // console.log(data);
                     return data;
                 })
+        },
+        SellerPosts : (parent, { shopname }, context, info) => {
+            return Seller.findOne({ shopname: shopname }).exec().then(
+                foundShop => {
+                    return Sellerpost.find({seller: foundShop._id})
+                    .populate({
+                        path: 'Comments.user',
+                    })
+                    .populate('seller')
+                    .exec()
+                    .then(
+                        data => {
+                            // console.log(data);
+                            return data;
+                        }
+                    )
+                }
+            )
         }
     },
+    
 
     Mutation: {
         addNewPostSeller: (parent, { input }, context, info) => {
@@ -44,6 +63,13 @@ module.exports = {
                         )
                 }
             )
-        }
+        },
+
+        addSellerComment: (parent, args, context, info) => {
+            return Sellerpost.findOne({_id : args.PostID }).exec().then(post=>{
+                post.Comments.push({text : args.text,user:context.user.id});
+                post.save();
+            })
+        }   
     }
 }

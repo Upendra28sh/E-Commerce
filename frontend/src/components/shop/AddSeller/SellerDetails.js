@@ -13,7 +13,7 @@ class SellerDetails extends React.Component {
         setFieldsValue({
             'Name': this.props.name,
             'Image': this.props.image,
-            'About': this.props.about,
+            'intro': this.props.intro,
             'Address': this.props.address,
             'Street': this.props.street,
             'City': this.props.city,
@@ -110,10 +110,10 @@ class SellerDetails extends React.Component {
 
                         <FormItem
                             {...formItemLayout}
-                            label="About"
+                            label="Intro"
                         >
                             {
-                                getFieldDecorator('About',
+                                getFieldDecorator('intro',
                                 {
                                     rules: [
                                         { required: true, message: 'Tell something about yourself'}

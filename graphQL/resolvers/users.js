@@ -55,7 +55,7 @@ module.exports = {
     Mutation: {
         followUser: (parents, args, context, info) => {
             return User.findOne({
-                _id: "5b7ffe9577b51d4220dd83f2"
+                _id: context.user.id
             }, ).populate('following').exec().then((user) => {
                 if (_.find(user.following, {
                         id: args.FollowingID
@@ -70,11 +70,11 @@ module.exports = {
                     _id: args.FollowingID
                 }).populate('followers').exec().then(user => {
                     if (_.find(user.followers, {
-                            id: "5b7ffe9577b51d4220dd83f2"
+                            id: context.user.id
                         }) == null) {
-                        user.followers.push("5b7ffe9577b51d4220dd83f2");
+                        user.followers.push(context.user.id);
                         user.followNotify.push({
-                            User: "5b7ffe9577b51d4220dd83f2",
+                            User: context.user.id,
                             read: false
                         });
                         let config = {
