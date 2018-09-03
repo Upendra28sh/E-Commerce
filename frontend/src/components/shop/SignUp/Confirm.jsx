@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Icon } from 'antd';
+import { Form, Input, Button, Icon,message } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -11,7 +11,13 @@ class PasswordDetails extends React.Component {
             'password': this.props.password,
         });     
     }
-    
+    handlenext(e)
+    {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {if(!err){this.props.onNext();
+            message.success('Registration Done')}})
+        
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -41,6 +47,7 @@ class PasswordDetails extends React.Component {
             <div className="form_content" style={{position:'relative'}}>
                 <div className="container_80">
                     <Form >
+                    <Icon onClick={(e)=>{this.handlenext(e)} }  type="right" theme="outlined" style={{left:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
 
                         <FormItem
                             {...formItemLayout}
