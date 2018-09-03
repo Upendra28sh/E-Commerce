@@ -44,7 +44,7 @@ class PasswordDetails extends React.Component {
 
                         <FormItem
                             {...formItemLayout}
-                            label="Confirm Password"
+                            label="Password"
                         >
                             {
                                 getFieldDecorator('Confirm Password',
@@ -66,7 +66,7 @@ class PasswordDetails extends React.Component {
                                 getFieldDecorator('Name',
                                 {
                                     rules: [
-                                        { required: true, message: 'Please Confirm master'}
+                                        { required: true, message: 'Please Confirm password'}
                                     ]
                                 }) (
                                     <Input />
