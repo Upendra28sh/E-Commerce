@@ -9,26 +9,38 @@ export default gql`
     }
 
     input SellerInput {
-        shopname: String,
         name: String,
         image: String,
+        shopName : String,
+        password : String,
         about: String,
         intro : String,
         address: AddressInput,
-        legalInfo: InfoInput,
-        policy: PolicyInput
+        legal: LegalDetailsInput,
+        policy: SellerPolicyInput
     }
 
-    input InfoInput {
+    input LegalDetailsInput {
         aadhar: String,
         pan: String,
         gst: String,
-        bank: String
+        bank: BankDetailsInput
     }
-
-    input PolicyInput {
+    
+    input BankDetailsInput {
+        name : String ,
+        accountNumber : Int ,
+        ifscCode : String 
+    }
+    
+    input SellerPolicyInput {
         store: String!,
         return: String!
+    }
+
+    input SellerAuthInput {
+        shopName: String!
+        password: String!
     }
 
     extend type Mutation {
@@ -44,5 +56,10 @@ export default gql`
         removeSeller(
             sellerID: ID!
         ): Seller
+
+        SellerLogin(
+            input: SellerAuthInput
+        ) : AuthPayload
+        
     }
 `;

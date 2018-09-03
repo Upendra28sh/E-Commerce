@@ -2,6 +2,19 @@ import {
     gql
 } from "apollo-boost";
 
+
+export const USER_SIGNUP = gql`
+    mutation($input : AuthInput , $details : UserDetailsInput , $address : AddressInput ) {
+        UserSignup(input : $input , details :$details , address :$address  ) {
+            token {
+                code ,
+                content
+            }
+        }
+    }
+`;
+
+
 export const GET_AUTH = gql `
     {
         auth @client {

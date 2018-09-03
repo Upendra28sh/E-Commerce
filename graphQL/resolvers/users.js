@@ -1,15 +1,13 @@
 const User = require('../models/user');
 const axios = require('axios');
 const Seller = require('../models/seller');
-const Product = require('../models/product')
-const config = require('../config');
-var _ = require('lodash');
-const jwt = require('jsonwebtoken');
-var ObjectId = require('mongodb').ObjectId;
+const _ = require('lodash');
+
 
 module.exports = {
     Query: {
         allUsers: (parent, args, context, info) => {
+            console.log(context.seller);
             return User.find({})
                 .populate('address')
                 .populate('following')
@@ -28,38 +26,17 @@ module.exports = {
                 .populate('followingShop')
                 .populate('followNotify.User')
                 .exec();
-        },
-        // getFeedProducts:(parent, args, context, info)=>{
-        //     let products=[];
-        //     User.findOne({
-        //         username: args.username
-        //     }).populate('followers').populate('following').populate('followingShop').populate('followNotify.User').exec().then(
-        //         data =>{
-        //              data.followingShop.forEach((seller)=>{
-        //                 Product.find({
-        //                     sellerID: seller._id
-        //                 }).exec().then(data=>{
-        //
-        //                     products = data.concat(products)
-        //                     }).then(console.log(products));
-        //
-        //             })
-        //             console.log(products);
-        //
-        //         }
-        //     );
-        //     return products;
-        // }
+        }
     },
 
     Mutation: {
         followUser: (parents, args, context, info) => {
             return User.findOne({
                 _id: context.user.id
-            }, ).populate('following').exec().then((user) => {
+            },).populate('following').exec().then((user) => {
                 if (_.find(user.following, {
-                        id: args.FollowingID
-                    }) == null) {
+                    id: args.FollowingID
+                }) == null) {
                     user.following.push(args.FollowingID);
                     user.save();
 
@@ -70,8 +47,8 @@ module.exports = {
                     _id: args.FollowingID
                 }).populate('followers').exec().then(user => {
                     if (_.find(user.followers, {
-                            id: context.user.id
-                        }) == null) {
+                        id: context.user.id
+                    }) == null) {
                         user.followers.push(context.user.id);
                         user.followNotify.push({
                             User: context.user.id,
@@ -82,7 +59,7 @@ module.exports = {
                                 'Content-Type': 'application/json',
                                 'Authorization': 'key=AAAA7LYsFxY:APA91bHwbibSzEi2itJ_VlvRtaIvVr4FBNGag7qLqEGR-0LmWAdXnaBfuoxEMr86VwxUbvdSlAyKcLtp4IkPc6pmOUirGFJK4L0fSaj9GCweKOd0DzSQQULWldSsw0rHQiukNt63rZWm'
                             }
-                        }
+                        };
 
                         let data = {
                             "notification": {
@@ -92,19 +69,19 @@ module.exports = {
                                 "icon": "http://localhost:3000/favicon.ico"
                             },
                             "to": user.UserToken
-                        }
+                        };
 
                         axios.post("https://fcm.googleapis.com/fcm/send", data, config).then(({
-                            data
-                        }) => {
+                                                                                                  data
+                                                                                              }) => {
                             console.log(data);
                             user.save();
                         }).catch((err) => {
-                            console.log(err)
+                            console.log(err);
                         });
 
                     }
-                })
+                });
             });
         },
         unFollowUser: (parents, args, context, info) => {
@@ -122,7 +99,7 @@ module.exports = {
                     $pull: {
                         followers: context.user.id
                     }
-                }).populate('followers').exec().then(data => data)
+                }).populate('followers').exec().then(data => data);
             });
         },
         followShop: (parents, args, context, info) => {
@@ -140,7 +117,7 @@ module.exports = {
                     $addToSet: {
                         followers: context.user.id
                     }
-                }).populate('followers').exec().then(data => data)
+                }).populate('followers').exec().then(data => data);
             });
         },
         unFollowShop: (parents, args, context, info) => {
@@ -158,7 +135,7 @@ module.exports = {
                     $pull: {
                         followers: context.user.id
                     }
-                }).populate('followers').exec().then(data => data)
+                }).populate('followers').exec().then(data => data);
             });
         },
         Notify: (parents, args, context, info) => {

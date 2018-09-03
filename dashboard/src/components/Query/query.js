@@ -2,6 +2,28 @@ import { gql } from 'apollo-boost';
 
 // sellerID = "5b883a829a14eb330b094d8b"
 
+export const GET_AUTH = gql `
+    {
+        auth @client {
+            isAuthenticated ,
+            user {
+                id ,
+                name ,
+                shopName,
+            }
+        }
+    }
+`;
+
+export const GET_LOGIN_STATUS = gql `
+    {
+        auth @client {
+            isAuthenticated
+        }
+    }
+`;
+
+
 export const GET_ALL_USERS = gql`
     query {
         allUsers {

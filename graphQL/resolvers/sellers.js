@@ -1,13 +1,15 @@
 const Product = require('../models/product');
 const Address = require('../models/address');
 const Seller = require('../models/seller');
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 module.exports = {
     Query: {
         allSellers: (parent, args, context, info) => {
             return Seller.find({}).populate('followers').exec().then(
                 data => data
-            )
+            );
         },
 
         Seller: (parent, {
@@ -17,7 +19,7 @@ module.exports = {
                 "shopname": shopname
             }).populate('followers').exec().then(
                 data => data
-            )
+            );
         },
         getSellers: (parent, args, context, info) => {
             return Seller.find({
@@ -33,32 +35,19 @@ module.exports = {
                 shopname: shopname
             }).exec().then(
                 data => !data
-            )
+            );
         }
     },
 
     Mutation: {
-        addSeller: (parents, { input }, context, info) => {
+        addSeller: (parents, {input}, context, info) => {
 
-            let {
-                name,
-                image,
-                about,
-                shopname,
-                address,
-                intro,
-                legalInfo,
-                policy
-            } = input;
+            console.log(input);
+            let {address} = input;
+            delete input.address;
 
             return Seller.create({
-                name: name,
-                image: image,
-                intro : intro,
-                about: about,
-                shopname: shopname,
-                legalInfo: legalInfo,
-                policy: policy
+                ...input
             }).then(
                 createdSeller => {
                     return Address.create({
@@ -69,17 +58,16 @@ module.exports = {
                         zipcode: address.zipcode
                     }).then(
                         createdAddress => {
-                            createdSeller.address = createdAddress;
+                            createdSeller.address = [createdAddress];
                             createdSeller.save();
                             return createdSeller;
                         }
-                    )
+                    );
                 }
             );
         },
 
         // Modify update seller to update address
-
         updateSeller: (parents, {
             sellerID,
             input
@@ -103,7 +91,7 @@ module.exports = {
                     name: name,
                     image: image,
                     about: about,
-                    intro : intro,
+                    intro: intro,
                     shopname: shopname,
                     address: address,
                     legalInfo: legalInfo,
@@ -125,6 +113,53 @@ module.exports = {
             }).exec().then(
                 data => data
             );
+        },
+        SellerLogin: (parent, {input}, context, info) => {
+            console.log(input);
+            let {shopName, password} = input;
+
+            return Seller.findOne({shopName}).exec()
+                .then(
+                    foundSeller => {
+                        if (foundSeller) {
+                            const passwordIsValid = foundSeller.comparePassword(password);
+                            if (!passwordIsValid) {
+                                return {
+                                    token: {
+                                        code: 3,
+                                        content: "Invalid Password"
+                                    }
+                                };
+                            } else {
+                                const token = jwt.sign(
+                                    {
+                                        id: foundSeller._id,
+                                        name: foundSeller.name,
+                                        image: foundSeller.image,
+                                        about: foundSeller.about,
+                                        shopName: foundSeller.shopName,
+                                        seller : true
+                                    },
+                                    config.secret,
+                                    {expiresIn: 86400}
+                                );
+                                return {
+                                    token: {
+                                        code: 1,
+                                        content: token
+                                    }
+                                };
+                            }
+                        } else {
+                            return {
+                                token: {
+                                    code: 4,
+                                    content: "Shop not Found"
+                                }
+                            };
+                        }
+                    }
+                );
         }
     }
-}
+};

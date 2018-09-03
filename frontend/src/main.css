@@ -40,6 +40,12 @@
     text-align: center;
     margin-top: 344px; }
 
+.sign_up__card {
+  margin-top: 50px !important;
+  padding-top: 50px !important; }
+  .sign_up__card .form_content {
+    border: none; }
+
 .product {
   font-family: 'Lato', sans-serif; }
   .product .ant-row {

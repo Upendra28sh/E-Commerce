@@ -7,6 +7,8 @@ export default gql`
         password: String!
     }
 
+
+
     input UserDetailsInput {
         name: String!,
         image: String!,
@@ -28,6 +30,8 @@ export default gql`
         UserLogin(
             input: AuthInput
         ) : AuthPayload
+        
+        
     }
 `;
 

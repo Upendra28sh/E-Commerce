@@ -33,21 +33,21 @@ class Login extends React.Component {
           if (data.UserLogin.token.code === 1) {
             console.log(data.UserLogin.token.content);
             localStorage.setItem("token", data.UserLogin.token.content);
-            askForPermissionToReceiveNotifications().then(token => {
-              client.mutate({
-                mutation: gql`
-                                  mutation {
-                                      Notify(
-                                        Email:"${values.email}"
-                                        UserToken: "${token}"
-                                      ) {
-                                        id
-                                      }
-                                    }
-      
-                                  `
-              });
-            });
+            // askForPermissionToReceiveNotifications().then(token => {
+            //   client.mutate({
+            //     mutation: gql`
+            //                       mutation {
+            //                           Notify(
+            //                             Email:"${values.email}"
+            //                             UserToken: "${token}"
+            //                           ) {
+            //                             id
+            //                           }
+            //                         }
+            //
+            //                       `
+            //   });
+            // });
 
             message.success("Login Successful");
             this.props.history.push("/feed/");
