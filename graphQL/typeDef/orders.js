@@ -4,7 +4,8 @@ export default gql`
     extend type Query {
         allOrders: [Order],
         Order(id: ID!): Order,
-        getOrdersByUser(userID: ID!): [Order]
+        getOrdersByUser(userID: ID!): [Order],
+        getOrdersBySeller(sellerID: ID!): [Order]
     }
 
     input AddItemInput {

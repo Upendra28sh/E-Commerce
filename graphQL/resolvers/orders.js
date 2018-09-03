@@ -1,5 +1,6 @@
 const Order = require('../models/order');
 const Cart = require('../models/cart');
+const Address = require('../models/address.js');
 
 module.exports = {
     Query: {
@@ -12,6 +13,7 @@ module.exports = {
                     }
                 })
                 .populate('user')
+                .populate('shipping.address')                
                 .exec()
                 .then(
                     data => data
@@ -28,6 +30,7 @@ module.exports = {
                 }
             })
             .populate('user')
+            .populate('shipping.address')
             .exec()
             .then(
                 data => data
@@ -44,10 +47,46 @@ module.exports = {
                 }
             })
             .populate('user')
+            .populate('shipping.address')
             .exec()
             .then(
                 data => data
             )
+        },
+        getOrdersBySeller: (parent, { sellerID }, context, info) => {
+            let result = [];
+            return Order.find({})
+                .populate({
+                    path: 'products.product',
+                    populate: {
+                        path: 'seller'
+                    }
+                })
+                .populate('user')
+                .populate('shipping.address')
+                .exec()
+                .then(
+                    data => {
+                        data.forEach(
+                            order => {
+                                order.products.forEach(
+                                    it => {
+                                        if (it.product.seller.id == sellerID) 
+                                        {    
+                                            result.push(order);
+                                            return;
+                                        }
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+                .then(
+                    data => {
+                        return result;
+                    }
+                )
         }
     },
 
@@ -58,30 +97,41 @@ module.exports = {
                 discount: input.discount,
                 total: input.total,
                 date: input.date,
-                shipping: input.shipping,
                 payment: input.payment,
+                shipping: {status: null, address: null},
                 status: input.status
             }).then(
                 createdOrder => {
                     input.products.forEach(function (prod) {
                         createdOrder.products.push(prod);
                     })
+                    Address
+                        .create(input.shipping.address)
+                        .then(
+                            createdAddress => {
+                                createdAddress.shipping = {
+                                    status: input.shipping.status,
+                                    address: createdAddress
+                                }
+                            }
+                        )
                     createdOrder.save();
                     return createdOrder
-                    .populate({
-                        path: 'products.product',
-                        populate: {
-                            path: 'seller'
-                        }
-                    })
-                    .populate('user')
-                    .execPopulate().then(
-                        data => {
-                            return {
-                                order: data.toJSON()
+                        .populate({
+                            path: 'products.product',
+                            populate: {
+                                path: 'seller'
                             }
-                        }
-                    )
+                        })
+                        .populate('user')
+                        .populate('shipping.address')
+                        .execPopulate().then(
+                            data => {
+                                return {
+                                    order: data.toJSON()
+                                }
+                            }
+                        )
                 }
             )
         },
@@ -89,13 +139,13 @@ module.exports = {
         addOrderFromCart: (parent, { input }, context, info) => {
             return Cart.findOne({user: input.userID}).then(
                 foundCart => {
-                    console.log(foundCart);
+                    // console.log(foundCart);
                     return Order.create({
                         user: input.userID,
                         discount: input.discount,
                         total: input.total,
                         date: input.date,
-                        shipping: input.shipping,
+                        shipping: {status: null, address: null},
                         payment: input.payment,
                         status: input.status
                     }).then(
@@ -109,23 +159,33 @@ module.exports = {
                                     })
                                 }
                             )
-                            createdOrder.save();
-                            // console.log(createdOrder);
-                            return createdOrder
-                            .populate({
-                                path: 'products.product',
-                                populate: {
-                                    path: 'seller'
-                                }
-                            })
-                            .populate('user')
-                            .execPopulate().then(
-                                data => {
-                                    return {
-                                        order: data.toJSON()
+                            Address
+                                .create(input.shipping.address)
+                                .then(
+                                    createdAddress => {
+                                        createdOrder.shipping = {
+                                            status: input.shipping.status,
+                                            address: createdAddress
+                                        }   
+                                        createdOrder.save()
                                     }
-                                }
-                            )
+                                )
+                            return createdOrder
+                                .populate({
+                                    path: 'products.product',
+                                    populate: {
+                                        path: 'seller'
+                                    }
+                                })
+                                .populate('user')
+                                .populate('shipping.address')
+                                .execPopulate().then(
+                                    data => {
+                                        return {
+                                            order: data.toJSON()
+                                        }
+                                    }
+                                )
                         }
                     )
                 }
