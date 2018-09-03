@@ -15,7 +15,11 @@ class AddressDetails extends React.Component {
             'street': this.props.street,
         });     
     }
-
+    handlenext(e)
+    {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {if(!err){this.props.onNext()}})
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -45,7 +49,7 @@ class AddressDetails extends React.Component {
             <div className="form_content" style={{position:'relative'}}>
                 <div className="container_80">
                     <Form >
-                    <Icon onClick={this.props.onNext.bind(this) }  type="right" theme="outlined" style={{left:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
+                    <Icon onClick={(e)=>{this.handlenext(e)} }  type="right" theme="outlined" style={{left:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
 
                         <FormItem
                             {...formItemLayout}
@@ -58,7 +62,7 @@ class AddressDetails extends React.Component {
                                         { required: true, message: 'Please input your Address'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -74,7 +78,7 @@ class AddressDetails extends React.Component {
                                         { required: true, message: 'Please fill the Street'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -90,7 +94,7 @@ class AddressDetails extends React.Component {
                                         { required: true, message: 'Please tell about city'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -106,7 +110,7 @@ class AddressDetails extends React.Component {
                                         { required: true, message: 'Please input your State'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -122,7 +126,7 @@ class AddressDetails extends React.Component {
                                         { required: true, message: 'Please tell the Zip Code'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>

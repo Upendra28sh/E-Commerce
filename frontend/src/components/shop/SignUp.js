@@ -22,6 +22,7 @@ class SignUp extends React.Component {
       city:'',
       state:'',
       zipcode:'',
+      confirmpassword:''
     };
   }
 
@@ -29,14 +30,20 @@ class SignUp extends React.Component {
   getContent() {
     switch (this.state.current) {
       case 0:
-        return <BasicDetails onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state}/>;
+        return <BasicDetails onChange={this.onChange.bind(this)} onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state}/>;
       case 1:
-        return <AddressDetails  onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)}  {...this.state}/>;
+        return <AddressDetails  onChange={this.onChange.bind(this)} onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)}  {...this.state}/>;
       case 2:
-        return <PasswordDetails  onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state} />;
+        return <PasswordDetails onChange={this.onChange.bind(this)} onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state} />;
     }
   }
 
+  onChange(e)
+  {
+      this.setState({
+          [e.target.id] : e.target.value
+      })
+  }
   onNext() {
     let current = this.state.current;
     this.setState({
