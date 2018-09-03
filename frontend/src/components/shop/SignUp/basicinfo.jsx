@@ -6,17 +6,19 @@ const FormItem = Form.Item;
 class BasicDetails extends React.Component {
     
     componentDidMount() {
-        const { setFieldsValue } = this.props.form;
-        setFieldsValue({
+        this.props.form.setFieldsValue({
             'name': this.props.name,
             'image': this.props.image,
             'about': this.props.about,
             'username': this.props.username,
             'image': this.props.image,
         });     
-       
     }
-   
+   handlenext(e)
+   {
+       e.preventDefault();
+       this.props.form.validateFieldsAndScroll((err, values) => {if(!err){this.props.onNext()}})
+   }
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -48,7 +50,7 @@ class BasicDetails extends React.Component {
                 <div className="container_80">
                 
                     <Form>
-                    <Icon onClick={this.props.onNext.bind(this) }  type="right" theme="outlined" style={{left:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
+                    <Icon onClick={(e)=>{this.handlenext(e)} }  type="right" theme="outlined" style={{left:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
 
                         <FormItem
                             {...formItemLayout}
@@ -61,7 +63,7 @@ class BasicDetails extends React.Component {
                                         { required: true, message: 'Please input your Name'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}onChange={(e)=>this.props.onChange(e)} />
                                 )
                             }
                         </FormItem>
@@ -77,7 +79,7 @@ class BasicDetails extends React.Component {
                                         { required: true, message: 'Please provide with email'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -93,7 +95,7 @@ class BasicDetails extends React.Component {
                                         { required: true, message: 'Tell something about yourself'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -109,7 +111,7 @@ class BasicDetails extends React.Component {
                                         { required: true, message: 'Please input your Username'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -125,7 +127,7 @@ class BasicDetails extends React.Component {
                                         { required: true, message: 'Please upload you image'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>

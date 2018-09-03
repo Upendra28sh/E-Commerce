@@ -47,13 +47,13 @@ class PasswordDetails extends React.Component {
                             label="Password"
                         >
                             {
-                                getFieldDecorator('Confirm Password',
+                                getFieldDecorator('password',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Password'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
@@ -63,13 +63,13 @@ class PasswordDetails extends React.Component {
                             label="Confirm Password"
                         >
                             {
-                                getFieldDecorator('Name',
+                                getFieldDecorator('confirmpassword',
                                 {
                                     rules: [
                                         { required: true, message: 'Please Confirm password'}
                                     ]
                                 }) (
-                                    <Input />
+                                    <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
                         </FormItem>
