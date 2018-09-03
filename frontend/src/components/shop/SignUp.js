@@ -1,83 +1,91 @@
-import React from 'react';
+import React from "react";
+import { Steps, Icon, Button } from "antd";
+import BasicDetails from "./SignUp/basicinfo";
+import AddressDetails from "./SignUp/adressInfo";
+import PasswordDetails from "./SignUp/Confirm";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+const Step = Steps.Step;
 
 class SignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: 0,
+      name:'',
+      email:'',
+      image:'',
+      about:'',
+      password:'',
+      username:'',
+      address:'',
+      street:'',
+      city:'',
+      state:'',
+      zipcode:'',
+    };
+  }
 
-    checkForm() {
-        console.log("ABC");
-        if (this.props.first_name === '' || this.props.last_name === '' || this.props.address_1 === '' || this.props.city === '' || this.props.state === '' || this.props.email === '' || this.props.password === '') {
-            this.props.emptyFields();
-        } else {
-            this.props.submitSignUp(this.props.first_name, this.props.last_name, this.props.address_1, this.props.address_2, this.props.city, this.props.state, this.props.zip, this.props.email, this.props.password);
-        }
+ 
+  getContent() {
+    switch (this.state.current) {
+      case 0:
+        return <BasicDetails onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state}/>;
+      case 1:
+        return <AddressDetails  onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)}  {...this.state}/>;
+      case 2:
+        return <PasswordDetails  onNext={this.onNext.bind(this)} onPrev={this.onPrev.bind(this)} {...this.state} />;
     }
+  }
 
-    render() {
-        return (
-            <div className="signUp">
-                <div className="form-group">
-                    <label>First Name</label>
-                    <input onChange={(event) => this.props.typing(event, 'first-name')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>Last Name</label>
-                    <input onChange={(event) => this.props.typing(event, 'last-name')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>Address 1</label>
-                    <input onChange={(event) => this.props.typing(event, 'address-1')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>Address 2</label>
-                    <input onChange={(event) => this.props.typing(event, 'address-2')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>City</label>
-                    <input onChange={(event) => this.props.typing(event, 'city')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>State</label>
-                    <input onChange={(event) => this.props.typing(event, 'state')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>Zip Code</label>
-                    <input onChange={(event) => this.props.typing(event, 'zip')} className="form-control"
-                           type="text"></input>
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input onChange={(event) => this.props.typing(event, 'email')} className="form-control"
-                           type="email"></input>
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input onChange={(event) => this.props.typing(event, 'password')} className="form-control"
-                           type="password"></input>
-                </div>
-                <div className="form-group">
-                    <label>Confirm Password</label>
-                    <input onChange={(event) => this.props.typing(event, 'password-confirm')} className="form-control"
-                           type="password"></input>
+  onNext() {
+    let current = this.state.current;
+    this.setState({
+      current: current + 1
+    });
+  }
 
-                    {this.props.passwords_match ?
-                        <p></p> :
-                        <p className="message">Passwords don't match</p>}
-
-                    {this.props.empty_fields ?
-                        <p className="message">Please fill out all the fields</p> :
-                        <p></p>
-                    }
-
+  onPrev() {
+    let current = this.state.current;
+    this.setState({
+      current: current - 1
+    });
+  }
+  render() {
+    return (
+      <div>
+        <div className="container_40">
+          <div id="progress">
+            <div>
+              {console.log(this.state)}
+              <div className="container_40">
+                <div id="progress">
+                  <Steps progressDot current={this.state.current}>
+                    <Step
+                      title="Basic Info"
+                      description="This is a description."
+                    />
+                    <Step
+                      title="Address Info"
+                      description="This is a description."
+                    />
+                    <Step
+                      title="Password info"
+                      description="This is a description."
+                    />
+                  </Steps>
                 </div>
-                <button disabled={!this.props.passwords_match} onClick={() => this.checkForm()}>Submit</button>
+              </div>
+              <div className="bg-grey">
+                <div className="container_40">
+                    {this.getContent()}
+                </div>
+              </div>
             </div>
-        );
-    }
+          </div>
+        </div>
+        </div>
+    );
+  }
 }
 
 export default SignUp;
