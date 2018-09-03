@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Icon } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -73,8 +73,7 @@ class PasswordDetails extends React.Component {
                                 )
                             }
                         </FormItem>
-                        <Button onClick={this.props.onPrev.bind(this) } type="primary" shape="circle" icon="double-left" style={{right:'90%',position :'absolute',top:'45%'}} size='large' />
-
+                        <Icon onClick={this.props.onPrev.bind(this) }  type="left" theme="outlined" style={{right:'90%',position :'absolute',top:'45%',fontSize:'35px',fontWeight:'25px'}} />
                     </Form>
                 </div>
             </div>
