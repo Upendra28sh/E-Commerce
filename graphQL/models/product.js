@@ -13,6 +13,12 @@ const productSchema = new mongoose.Schema({
     description: String,
 
     keywords: [String],
+
+    approval: {
+        approved: Boolean,
+        comment: String
+    }, // To Be Used For Product Approval By Admin
+
     seller: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Seller'
