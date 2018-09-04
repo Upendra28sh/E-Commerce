@@ -15,7 +15,10 @@ const productSchema = new mongoose.Schema({
     keywords: [String],
 
     approval: {
-        approved: Boolean,
+        approved: {
+            type: Boolean,
+            default: false
+        },
         comment: String
     }, // To Be Used For Product Approval By Admin
 

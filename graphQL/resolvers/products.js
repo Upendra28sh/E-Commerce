@@ -13,31 +13,31 @@ module.exports = {
         // TODO : Implement Pagination and Filters...
         // Consult with Apollo Client for Requirements
         allProducts: (parent, args, context, info) => {
-            return Product.find({}).populate('sellerID').exec().then(
+            return Product.find({}).populate('seller').exec().then(
                 data => data
             );
         },
 
         Product: (parent, args, context, info) => {
-            return Product.findById(args.id).populate('sellerID').exec().then(
+            return Product.findById(args.id).populate('seller').exec().then(
                 data => data
             );
         },
 
 
         getProductBySeller: (parent, {
-            sellerID
+            seller
         }, context, info) => {
             return Product.find({
-                sellerID: sellerID
-            }).populate('sellerID').exec().then(
+                seller: seller
+            }).populate('seller').exec().then(
                 data => data
             );
 
         },
 
         getProducts: (parent, args, context, info) => {
-            return Product.find({}).populate('sellerID').exec().then(
+            return Product.find({}).populate('seller').exec().then(
                 data => {
                     let temp = [];
                     for (let i of data) {
@@ -76,6 +76,8 @@ module.exports = {
             ...args
         }, context, info) => {
             // console.log(input, args);
+
+
             return Product.create({
                 name: input.name,
                 price: input.price,
@@ -85,7 +87,7 @@ module.exports = {
                 codAccepted: input.codAccepted || false,
                 returnAccepted: input.returnAccepted || false,
                 keywords: normalizeKeywords(input.keywords),
-                sellerID: "5b65ec564299f042002ef1e9"
+                seller: "5b65ec564299f042002ef1e9"
             }).then(
                 createdProduct => {
                     return createdProduct.populate('sellerID').execPopulate().then(
