@@ -18,10 +18,16 @@ class Container extends React.Component {
                                 <span className="nav-text">Dashboard</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <Link to={'/sellers'}>
+                        {/*<Menu.Item key="2">*/}
+                            {/*<Link to={'/sellers'}>*/}
+                                {/*<Icon type="user"/>*/}
+                                {/*<span className="nav-text">Sellers</span>*/}
+                            {/*</Link>*/}
+                        {/*</Menu.Item>*/}
+                        <Menu.Item key="5">
+                            <Link to={'/products'}>
                                 <Icon type="user"/>
-                                <span className="nav-text">Sellers</span>
+                                <span className="nav-text">Products</span>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="3">
@@ -34,12 +40,6 @@ class Container extends React.Component {
                             <Link to={'/users'}>
                                 <Icon type="user"/>
                                 <span className="nav-text">Users</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="5">
-                            <Link to={'/products'}>
-                                <Icon type="user"/>
-                                <span className="nav-text">Products</span>
                             </Link>
                         </Menu.Item>
                     </Menu>

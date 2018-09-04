@@ -5,11 +5,18 @@ const productSchema = new mongoose.Schema({
     name: String,
     price: Number,
     image: String,
-    sizes: [String],
-
-    codAccepted: Boolean,
-    returnAccepted: Boolean,
-
+    sizes: {
+        type : [String] ,
+        default : []
+    },
+    codAccepted: {
+        type : Boolean ,
+        default: false
+    },
+    returnAccepted:{
+        type : Boolean ,
+        default: false
+    },
     description: String,
 
     keywords: [String],

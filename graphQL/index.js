@@ -29,14 +29,15 @@ const server = new ApolloServer({
         let token = req.headers.authorization || '';
         if (!token) {
             return {
-                user: {}
+                user: {} ,
+                seller: {}
             };
         }
         token = token.split(" ")[1];
 
         // try to retrieve a user with the token
         let decoded = jwt.verify(token, config.secret);
-        // console.log(decoded);
+        console.log(decoded);
         // const user = getUser(token);
         if(decoded.seller) {
             return {seller : decoded}

@@ -37,8 +37,8 @@ export default gql `
     # TODO : Change AllProducts to Custom Payload for Support with Paginiation and Infinite Scrolling.
     extend type Query {
         allProducts: [Product],
+        getProductBySeller: [Product]
         Product(id: ID!): Product,
-        getProductBySeller(sellerID: ID!): [Product]
         getProducts(filter : String!): [Seller]
 
     }
@@ -55,4 +55,5 @@ export default gql `
         removeProduct(
             productID: ID!,
         ): Product
-    }`;
+    }`
+;

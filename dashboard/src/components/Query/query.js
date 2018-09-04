@@ -109,13 +109,15 @@ export const GET_ALL_ORDERS = gql`
 
 export const GET_ALL_PRODUCTS = gql`
     query {
-        getProductBySeller(sellerID: "5b883a829a14eb330b094d8b") {
+        getProductBySeller {
             id
             name
             image
             description
             price
             sizes
+            codAccepted
+            returnAccepted
             seller {
                 name
                 shopName

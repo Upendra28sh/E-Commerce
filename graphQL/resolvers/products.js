@@ -25,11 +25,9 @@ module.exports = {
         },
 
 
-        getProductBySeller: (parent, {
-            seller
-        }, context, info) => {
+        getProductBySeller: (parent, args , {seller}, info) => {
             return Product.find({
-                seller: seller
+                seller: seller.id
             }).populate('seller').exec().then(
                 data => data
             );
@@ -76,21 +74,17 @@ module.exports = {
             ...args
         }, context, info) => {
             // console.log(input, args);
-
+            if(!context.seller){
+                throw new Error("Seller Not Specified")
+            }
 
             return Product.create({
-                name: input.name,
-                price: input.price,
-                image: input.image,
-                description: input.description,
-                sizes: input.sizes || [],
-                codAccepted: input.codAccepted || false,
-                returnAccepted: input.returnAccepted || false,
+                ...input ,
                 keywords: normalizeKeywords(input.keywords),
-                seller: "5b65ec564299f042002ef1e9"
+                seller: context.seller.id
             }).then(
                 createdProduct => {
-                    return createdProduct.populate('sellerID').execPopulate().then(
+                    return createdProduct.populate('seller').execPopulate().then(
                         data => ({
                             product: data.toJSON()
                         })
