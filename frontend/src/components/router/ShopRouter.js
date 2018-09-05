@@ -17,6 +17,8 @@ import Feed from "../shop/Feed/CombinedFeed";
 import Trending from "../shop/Trending/Trending";
 import Order from "../shop/Order";
 import RequireAuth from "../utils/RequireAuth";
+import TrendingFeed from "../shop/TrendingFeed";
+import addPost from "../shop/addpost"
 
 const Router = () => {
   return (
@@ -25,7 +27,8 @@ const Router = () => {
         <Route exact path="/" component={Landing} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
-
+        <Route exact path="/addPost" component={addPost}/>
+        <Route exact path="/trendingfeed" component={TrendingFeed}/>
         <Route path="/search/:query/" component={RequireAuth(Search)} />
         <Route exact path="/user/:id" component={RequireAuth(User)} />
         <Route exact path="/seller/new" component={RequireAuth(AddSeller)} />
