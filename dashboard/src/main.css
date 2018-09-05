@@ -19,7 +19,11 @@
 .new_product_form .label-container {
   display: inline-block;
   text-align: left;
-  position: relative; }
+  position: relative;
+  margin-bottom: 15px; }
+  .new_product_form .label-container div {
+    margin-left: 7px;
+    font-weight: 700; }
   .new_product_form .label-container small {
     word-wrap: normal; }
 

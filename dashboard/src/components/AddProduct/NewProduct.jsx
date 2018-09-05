@@ -174,15 +174,15 @@ class AddProduct extends React.Component {
                 <div className="form_content new_product_form">
                     <Form onSubmit={this.handleSubmit}>
                         <Row>
-                            <Col span={6}>
+                            <Col span={5}>
                                 <div className='label-container'>
                                     <div>Title</div>
                                     <small>
-                                        Include keywords that buyers would use to search for your item.
+                                        Include keywords that buyers would use to search for your item
                                     </small>
                                 </div>
                             </Col>
-                            <Col span={18}>
+                            <Col offset={1} span={18}>
                                 <FormItem>
                                     {
                                         getFieldDecorator('name',
@@ -198,102 +198,165 @@ class AddProduct extends React.Component {
                             </Col>
                         </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Image"
-                        >
-                            {
-                                getFieldDecorator('image',
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Image</div>
+                                    <small>
+                                        Add as many as you can so buyers can see every detail.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
                                     {
-                                        rules: [
-                                            {required: true, message: 'Add an image'}
-                                        ]
-                                    })(
-                                    <Input/>
-                                )
-                            }
-                        </FormItem>
+                                        getFieldDecorator('image',
+                                            {
+                                                rules: [
+                                                    {required: true, message: 'Add an image'}
+                                                ]
+                                            })(
+                                            <Input/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Price"
-                        >
-                            {
-                                getFieldDecorator('price',
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Price</div>
+                                    <small>
+                                        Factor in the costs of materials and labour, plus any related business expenses.Consider the total price buyers will pay too — including shipping.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
                                     {
-                                        rules: [
-                                            {required: true, message: 'Enter the price'}
-                                        ]
-                                    })(
-                                    <Input type="number"/>
-                                )
-                            }
-                        </FormItem>
+                                        getFieldDecorator('price',
+                                            {
+                                                rules: [
+                                                    {required: true, message: 'Enter the price'}
+                                                ]
+                                            })(
+                                            <Input type="number"/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Description"
-                        >
-                            {
-                                getFieldDecorator('description',
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>About this listing</div>
+                                    <small>
+                                        Start with a brief overview that describes your item's finest features.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
                                     {
-                                        rules: [
-                                            {required: true, message: 'Enter a description'}
-                                        ]
-                                    })(
-                                    <Input/>
-                                )
-                            }
-                        </FormItem>
+                                        getFieldDecorator('description',
+                                            {
+                                                rules: [
+                                                    {required: true, message: 'Enter a description'}
+                                                ]
+                                            })(
+                                            <Input/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Keywords"
-                        >
-                            {
-                                getFieldDecorator('keywords',
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Keywords</div>
+                                    <small>
+                                        What words might someone use to search for your listings?
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
                                     {
-                                        rules: [
-                                            {required: true, message: 'Enter some keywords'}
-                                        ]
-                                    })(
-                                    <Input/>
-                                )
-                            }
-                        </FormItem>
+                                        getFieldDecorator('keywords',
+                                            {
+                                                rules: [
+                                                    {required: true, message: 'Enter some keywords'}
+                                                ]
+                                            })(
+                                            <Input/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="COD Accepted"
-                        >
-                            {
-                                getFieldDecorator('cod', {required: true, valuePropName: 'checked'})
-                                (
-                                    <Switch/>
-                                )
-                            }
-                        </FormItem>
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Cash On Delivery</div>
+                                    <small>
+                                        Can user buy using Cash On Delivery.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
+                                    {
+                                        getFieldDecorator('cod', {required: true, valuePropName: 'checked'})
+                                        (
+                                            <Switch/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Return Accepted"
-                        >
-                            {
-                                getFieldDecorator('returnAcc', {required: true, valuePropName: 'checked'})
-                                (
-                                    <Switch/>
-                                )
-                            }
-                        </FormItem>
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Return</div>
+                                    <small>
+                                        Can user return the product.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
+                                    {
+                                        getFieldDecorator('returnAcc', {required: true, valuePropName: 'checked'})
+                                        (
+                                            <Switch/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Sizes"
-                        >
-                            <Button type="dashed" onClick={this.add} style={{width: "80%"}}>
-                                <Icon type="plus"/> Add Size
-                            </Button>
-                        </FormItem>
+                        <Row>
+                            <Col span={5}>
+                                <div className='label-container'>
+                                    <div>Sizes</div>
+                                    <small>
+                                        Enter the sizes your product is available in.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col offset={1} span={18}>
+                                <FormItem>
+                                    <Button type="dashed" onClick={this.add} style={{width: "80%"}}>
+                                        <Icon type="plus"/> Add Size
+                                    </Button>
+                                </FormItem>
+                            </Col>
+                        </Row>
 
                         {formItems}
 
