@@ -1,4 +1,5 @@
 @import url(../node_modules/antd/dist/antd.css);
+@import url(../node_modules/react-quill/dist/quill.snow.css);
 .admin-panel .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);

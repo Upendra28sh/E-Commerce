@@ -125,3 +125,36 @@ export const GET_ALL_PRODUCTS = gql`
         }
     }
 `;
+
+export const ADD_SELLER = gql `
+    mutation($input: SellerInput) {
+        addSeller(input: $input) {
+            name
+            image
+            id
+            about
+            shopName
+            address {
+                address
+                street
+                city
+                state
+                zipcode
+            }
+            legal {
+                pan
+                aadhar
+                gst
+                bank {
+                    name
+                    accountNumber
+                    ifscCode
+                }
+            }
+            policy {
+                store
+                return
+            }
+        }
+    }
+`;

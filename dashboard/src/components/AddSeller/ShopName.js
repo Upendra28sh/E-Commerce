@@ -29,12 +29,10 @@ class ShopName extends React.Component {
         }).then(
             data => {
                 this.setState(
-                    () => {
-                        return {
+                    () => ({
                             shopname: shopname,
                             available: data.data.checkShopnameAvailability
-                        }
-                    }
+                    })
                 )
             }
         )

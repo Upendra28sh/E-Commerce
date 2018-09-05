@@ -1,6 +1,7 @@
 import React from 'react';
 import {Progress, Input} from 'antd';
 import ApolloClient, {gql} from 'apollo-boost';
+import { ADD_SELLER } from '../Query/query';
 
 import ShopName from "./ShopName";
 import SellerDetails from './SellerDetails';
@@ -29,72 +30,60 @@ class AddSeller extends React.Component {
             zipcode: "",
             aadhar: null,
             pan: null,
-            account: null,
             gst: null,
+            accountNo: null,
+            bankName: "",
+            bankIFSC: "",
             returnPolicy: "",
             storePolicy: ""
         }
     }
 
+    prepareInput() {
+        return {
+            "input" : {
+                "name": this.state.name,
+                "shopName": this.state.shopname,
+                "image": this.state.image,
+                "about": this.state.about,
+                "intro": this.state.intro,
+                "address":{
+                    "address": this.state.address,
+                    "street": this.state.street,
+                    "city": this.state.city,
+                    "state": this.state.state,
+                    "zipcode": this.state.zipcode
+                },
+                "legal":{
+                    "pan": this.state.pan,
+                    "aadhar": this.state.aadhar,
+                    "gst": this.state.gst,
+                    "bank": {
+                        "name": this.state.bankName,
+                        "accountNumber": this.state.accountNo,
+                        "ifscCode": this.state.bankIFSC
+                    }
+                },
+                "policy":{
+                    "store": this.state.storePolicy,
+                    "return": this.state.returnPolicy
+                }
+            }
+        }
+    }
+
     submitDetails = () => {
-        console.log(this.state);
-        let {shopname, name, image, about, address, street, city, state, zipcode, aadhar, pan, account, gst, returnPolicy, storePolicy,intro} = this.state;
+        let inputToGraph = this.prepareInput();
+        console.log(inputToGraph);
         client.mutate({
-            mutation: gql `
-                mutation {
-                    addSeller(
-                        input:{
-                            name: "${name}",
-                            shopname: "${shopname}",
-                            image: "${image}",
-                            about: "${about}",
-                            intro: "${intro}"
-                            address:{
-                                address: "${address}",
-                                street: "${street}",
-                                city: "${city}",
-                                state: "${state}",
-                                zipcode: ${zipcode}
-                            },
-                            legalInfo:{
-                                pan: "${pan}",
-                                aadhar: "${aadhar}",
-                                gst: "${gst}",
-                                bank: "${account}"
-                            },
-                            policy:{
-                                store: "${storePolicy}",
-                                return: "${returnPolicy}"
-                            }
-                        }) {
-                            name
-                            image
-                            id
-                            about
-                            shopname
-                            address {
-                                address
-                                street
-                                city
-                                state
-                                zipcode
-                            }
-                            legalInfo {
-                                pan
-                                aadhar
-                                gst
-                                bank
-                            }
-                            policy {
-                                store
-                                return
-                            }
-                        }
-                    }         
-            `
+            mutation: ADD_SELLER,
+            variables: inputToGraph
         }).then(
-            data => this.props.history.push(`/seller/${this.state.shopname}`)
-        )
+            data => {
+                console.log(data);
+                this.props.history.push(`/seller/${this.state.shopname}`);
+            }
+        );
     }
 
     onContinue = () => {
@@ -135,6 +124,7 @@ class AddSeller extends React.Component {
     }
 
     onSetSellerDetails = (name, image, intro, address, street, city, state, zipcode) => {
+        console.log(name,image,intro);
         this.setState(
             () => ({
                 name: name,
@@ -150,13 +140,15 @@ class AddSeller extends React.Component {
         this.onContinue();
     }
 
-    onSetShopDetails = (aadhar, pan, account, gst) => {
+    onSetShopDetails = (aadhar, pan, gst, bankName, accountNo, bankIFSC) => {
         this.setState(
             () => ({
                 aadhar: aadhar,
                 pan: pan,
-                account: account,
-                gst: gst
+                gst: gst,
+                bankName: bankName,
+                accountNo: accountNo,
+                bankIFSC: bankIFSC
             })
         );
         this.onContinue();

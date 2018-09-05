@@ -28,11 +28,10 @@ module.exports = {
                 }
             }).populate('followers').exec().then(data => data);
         },
-        checkShopnameAvailability: (parent, {
-            shopname
-        }, context, info) => {
+
+        checkShopnameAvailability: (parent, { shopname }, context, info) => {
             return Seller.findOne({
-                shopname: shopname
+                shopName: shopname
             }).exec().then(
                 data => !data
             );
