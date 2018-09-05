@@ -22,7 +22,8 @@
   font-weight: 600;
   padding: 20px; }
   .page_title h2 {
-    margin-bottom: 6px; }
+    margin-bottom: 6px;
+    font-size: 32px; }
 
 .page_content {
   border: solid 1px #dcdcdc;
@@ -72,12 +73,67 @@
   .status--success {
     background-color: #2dcc2d; }
 
+.header {
+  width: 100%;
+  background: white;
+  margin-bottom: 10px;
+  padding: 12px 40px; }
+  .header__brand {
+    display: inline;
+    font-weight: 600; }
+    .header__brand img {
+      height: 36px; }
+  .header__item {
+    float: right;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 20px;
+    margin: 0 10px;
+    color: rgba(0, 0, 0, 0.781); }
+
+.login_form {
+  padding: 0 20px;
+  margin: 60px 32% 10px 32%; }
+  .login_form input {
+    border: solid 1px #b4b4b4;
+    box-shadow: none;
+    width: 100%;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 5px; }
+
+.form_content {
+  border: solid 1px #dcdcdc;
+  padding: 30px;
+  background-color: white;
+  margin-bottom: 20px; }
+
+.form_title {
+  text-align: center; }
+  .form_title h1 {
+    margin-bottom: 20px;
+    font-size: 38px;
+    font-weight: 800; }
+
+.submit_btn {
+  border: none;
+  width: 100%;
+  height: 36px;
+  font-size: 18px;
+  background: black;
+  color: white;
+  font-weight: 600; }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  background: #fafafa; }
 
 main {
   padding-top: 50px;
   padding-left: 40px;
   padding-right: 40px; }
+
+.container_80 {
+  padding: 0 13rem; }

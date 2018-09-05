@@ -2,15 +2,22 @@
 @import './styles/container';
 @import './styles/sellerNew';
 @import './styles/order';
+@import './styles/header';
+@import './styles/_login';
 
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background: #fafafa
 }
 
 main {
     padding-top: 50px;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.container_80 {
+    padding: 0 13rem;
 }
