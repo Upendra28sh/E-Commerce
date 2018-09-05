@@ -5,7 +5,7 @@ export default gql`
         allOrders: [Order],
         Order(id: ID!): Order,
         getOrdersByUser(userID: ID!): [Order],
-        getOrdersBySeller(sellerID: ID!): [Order]
+        getOrdersBySeller: [Order]
     }
 
     input AddItemInput {

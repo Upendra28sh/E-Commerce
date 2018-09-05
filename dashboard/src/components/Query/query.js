@@ -59,7 +59,7 @@ export const GET_ALL_SELLERS = gql `
 
 export const GET_ALL_ORDERS = gql`
     query {
-        getOrdersBySeller(sellerID: "5b883a829a14eb330b094d8b") {
+        getOrdersBySeller {
             id
             user {
                 name

@@ -53,7 +53,7 @@ module.exports = {
                 data => data
             )
         },
-        getOrdersBySeller: (parent, { sellerID }, context, info) => {
+        getOrdersBySeller: (parent, args, {seller}, info) => {
             let result = [];
             return Order.find({})
                 .populate({
@@ -71,7 +71,7 @@ module.exports = {
                             order => {
                                 order.products.forEach(
                                     it => {
-                                        if (it.product.seller.id == sellerID) 
+                                        if (it.product.seller.id == seller.id) 
                                         {    
                                             result.push(order);
                                             return;

@@ -1,5 +1,4 @@
 @import '../node_modules/antd/dist/antd.css';
-
 @import './styles/container';
 @import './styles/sellerNew';
 @import './styles/order';
@@ -8,4 +7,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+}
+
+main {
+    padding-top: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
 }

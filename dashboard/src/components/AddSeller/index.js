@@ -181,7 +181,7 @@ class AddSeller extends React.Component {
         ];
         
         return (
-            <div>
+            <main>
                 {console.log(this.state)}
                 <div className="container_40">
                     <div id="progress">
@@ -198,7 +198,7 @@ class AddSeller extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         );
     }
 };

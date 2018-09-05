@@ -24,7 +24,7 @@ let auth = {
     user: {
         id: "",
         name: "",
-        username: "",
+        shopName: "",
         ...jwt.decode(token),
         __typename: "AuthUser"
     },
