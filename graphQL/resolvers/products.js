@@ -84,6 +84,8 @@ module.exports = {
                 seller: context.seller.id
             }).then(
                 createdProduct => {
+                    // TODO : Add Verification Request to Admin.
+
                     return createdProduct.populate('seller').execPopulate().then(
                         data => ({
                             product: data.toJSON()

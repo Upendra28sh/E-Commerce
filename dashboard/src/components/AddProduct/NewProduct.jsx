@@ -1,34 +1,32 @@
-import React from 'react';
-import { Form, Input, Switch, Button, Icon } from 'antd';
-import { withApollo } from 'react-apollo';
+import React, {Fragment} from 'react';
+import {Form, Input, Switch, Button, Icon, Row ,Col} from 'antd';
+import {withApollo} from 'react-apollo';
 
-import { ADD_PRODUCT } from '../Query/query';
+import {ADD_PRODUCT} from '../Query/query';
 
 const FormItem = Form.Item;
 let uuid = 0;
 
 class AddProduct extends React.Component {
     state = {
-        confirmDirty: false,    
-    }
+        confirmDirty: false,
+    };
 
     prepareKeywordsFromString = (s) => {
         let result = [];
         let init = 0;
-        for(let i=0; i<s.length; i++)
-        {
-            if (s[i] === ",")
-            {
-                let key = s.slice(init,i).trim();
+        for (let i = 0; i < s.length; i++) {
+            if (s[i] === ",") {
+                let key = s.slice(init, i).trim();
                 if (key.length > 0)
                     result.push(key);
-                init = i+1;
+                init = i + 1;
             }
         }
         return result;
-    }
+    };
 
-    prepareInput(name,image,price,description,cod,returnAcc,keywords,sizes) {
+    prepareInput(name, image, price, description, cod, returnAcc, keywords, sizes) {
         return {
             "input": {
                 "name": name,
@@ -40,24 +38,24 @@ class AddProduct extends React.Component {
                 "returnAccepted": returnAcc ? true : false,
                 "keywords": this.prepareKeywordsFromString(keywords)
             }
-        }
+        };
     }
 
     remove = k => {
-        const { form } = this.props;
+        const {form} = this.props;
         const keys = form.getFieldValue("keys");
-    
+
         if (keys.length === 1) {
             return;
         }
 
         form.setFieldsValue({
-          keys: keys.filter(key => key !== k)
+            keys: keys.filter(key => key !== k)
         });
     };
 
     add = () => {
-        const { form } = this.props;
+        const {form} = this.props;
         const keys = form.getFieldValue("keys");
         const nextKeys = keys.concat(uuid);
         uuid++;
@@ -87,34 +85,34 @@ class AddProduct extends React.Component {
                     variables: variables
                 }).then(
                     data => console.log(data)
-                )
+                );
                 console.log(variables);
             }
         });
-    }
+    };
 
     handleConfirmBlur = (e) => {
         const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    }
+        this.setState({confirmDirty: this.state.confirmDirty || !!value});
+    };
 
     render() {
-        const { getFieldDecorator, getFieldValue, setFieldsValue } = this.props.form;
+        const {getFieldDecorator, getFieldValue, setFieldsValue} = this.props.form;
 
         const formItemLayout = {
             labelCol: {
-                xs: { span: 24 },
-                sm: { span: 6 },
+                xs: {span: 24},
+                sm: {span: 6},
             },
             wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 18 },
+                xs: {span: 24},
+                sm: {span: 18},
             },
         };
         const formItemLayoutWithOutLabel = {
             wrapperCol: {
-                xs: { span: 24, offset: 0 },
-                sm: { span: 18, offset: 6 }
+                xs: {span: 24, offset: 0},
+                sm: {span: 18, offset: 6}
             }
         };
         const tailFormItemLayout = {
@@ -130,8 +128,8 @@ class AddProduct extends React.Component {
             },
         };
 
-        getFieldDecorator("keys", { initialValue: [] });
-    
+        getFieldDecorator("keys", {initialValue: []});
+
         const keys = getFieldValue("keys");
         const formItems = keys.map((k, index) => {
             return (
@@ -153,7 +151,7 @@ class AddProduct extends React.Component {
                         })(
                             <Input
                                 placeholder="Size"
-                                style={{ width: "80%", marginRight: 8 }}
+                                style={{width: "80%", marginRight: 8}}
                             />
                         )
                     }
@@ -172,24 +170,33 @@ class AddProduct extends React.Component {
         });
 
         return (
-            <div className="form_content">
-                <div className="container_80">
+            <div className="container">
+                <div className="form_content new_product_form">
                     <Form onSubmit={this.handleSubmit}>
-                        <FormItem
-                            {...formItemLayout}
-                            label="Name"
-                        >
-                            {
-                                getFieldDecorator('name',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Enter the name'}
-                                    ]
-                                }) (
-                                    <Input />
-                                )
-                            }
-                        </FormItem>
+                        <Row>
+                            <Col span={6}>
+                                <div className='label-container'>
+                                    <div>Title</div>
+                                    <small>
+                                        Include keywords that buyers would use to search for your item.
+                                    </small>
+                                </div>
+                            </Col>
+                            <Col span={18}>
+                                <FormItem>
+                                    {
+                                        getFieldDecorator('name',
+                                            {
+                                                rules: [
+                                                    {required: true, message: 'Enter the name'}
+                                                ]
+                                            })(
+                                            <Input/>
+                                        )
+                                    }
+                                </FormItem>
+                            </Col>
+                        </Row>
 
                         <FormItem
                             {...formItemLayout}
@@ -197,12 +204,12 @@ class AddProduct extends React.Component {
                         >
                             {
                                 getFieldDecorator('image',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Add an image'}
-                                    ]
-                                }) (
-                                    <Input />
+                                    {
+                                        rules: [
+                                            {required: true, message: 'Add an image'}
+                                        ]
+                                    })(
+                                    <Input/>
                                 )
                             }
                         </FormItem>
@@ -213,11 +220,11 @@ class AddProduct extends React.Component {
                         >
                             {
                                 getFieldDecorator('price',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Enter the price'}
-                                    ]
-                                }) (
+                                    {
+                                        rules: [
+                                            {required: true, message: 'Enter the price'}
+                                        ]
+                                    })(
                                     <Input type="number"/>
                                 )
                             }
@@ -229,12 +236,12 @@ class AddProduct extends React.Component {
                         >
                             {
                                 getFieldDecorator('description',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Enter a description'}
-                                    ]
-                                }) (
-                                    <Input />
+                                    {
+                                        rules: [
+                                            {required: true, message: 'Enter a description'}
+                                        ]
+                                    })(
+                                    <Input/>
                                 )
                             }
                         </FormItem>
@@ -245,12 +252,12 @@ class AddProduct extends React.Component {
                         >
                             {
                                 getFieldDecorator('keywords',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Enter some keywords'}
-                                    ]
-                                }) (
-                                    <Input />
+                                    {
+                                        rules: [
+                                            {required: true, message: 'Enter some keywords'}
+                                        ]
+                                    })(
+                                    <Input/>
                                 )
                             }
                         </FormItem>
@@ -260,9 +267,9 @@ class AddProduct extends React.Component {
                             label="COD Accepted"
                         >
                             {
-                                getFieldDecorator('cod', { required: true, valuePropName: 'checked' })
+                                getFieldDecorator('cod', {required: true, valuePropName: 'checked'})
                                 (
-                                    <Switch />
+                                    <Switch/>
                                 )
                             }
                         </FormItem>
@@ -272,19 +279,19 @@ class AddProduct extends React.Component {
                             label="Return Accepted"
                         >
                             {
-                                getFieldDecorator('returnAcc', { required: true, valuePropName: 'checked' })
+                                getFieldDecorator('returnAcc', {required: true, valuePropName: 'checked'})
                                 (
-                                    <Switch />
+                                    <Switch/>
                                 )
                             }
                         </FormItem>
-                        
-                        <FormItem 
+
+                        <FormItem
                             {...formItemLayout}
-                            label="Sizes"    
+                            label="Sizes"
                         >
-                            <Button type="dashed" onClick={this.add} style={{ width: "80%" }}>
-                                <Icon type="plus" /> Add Size
+                            <Button type="dashed" onClick={this.add} style={{width: "80%"}}>
+                                <Icon type="plus"/> Add Size
                             </Button>
                         </FormItem>
 

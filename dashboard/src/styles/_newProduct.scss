@@ -1,0 +1,22 @@
+.new_product_form {
+  .label-container {
+    display: inline-block;
+    text-align: left;
+    position: relative;
+
+    small {
+      word-wrap: normal;
+    }
+  }
+
+  .label-container:before {
+    display: inline-block;
+    position: absolute;
+    left: -10cpx;
+    content: "*";
+    font-family: SimSun;
+    line-height: 1;
+    font-size: 14px;
+    color: #f5222d;
+  }
+}

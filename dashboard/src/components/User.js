@@ -8,7 +8,7 @@ const columns = [
         title: "Image",
         dataIndex: "image",
         key: "image",
-        render: value => <img style={{width: '80px'}} src={`/images/${value}`} />,      
+        render: value => <img style={{width: '80px'}} src={value} />,
         align: "center"
     },
     {

@@ -1,5 +1,6 @@
 @import url(../node_modules/antd/dist/antd.css);
 @import url(../node_modules/react-quill/dist/quill.snow.css);
+@import url(../node_modules/bootstrap/dist/css/bootstrap.min.css);
 .admin-panel .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
@@ -14,6 +15,23 @@
   padding: 1px 10px;
   background-color: transparent;
   font-size: 32px; }
+
+.new_product_form .label-container {
+  display: inline-block;
+  text-align: left;
+  position: relative; }
+  .new_product_form .label-container small {
+    word-wrap: normal; }
+
+.new_product_form .label-container:before {
+  display: inline-block;
+  position: absolute;
+  left: -10cpx;
+  content: "*";
+  font-family: SimSun;
+  line-height: 1;
+  font-size: 14px;
+  color: #f5222d; }
 
 #progress {
   padding: 30px 0 30px 0; }
