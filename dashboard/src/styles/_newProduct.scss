@@ -6,7 +6,7 @@
     margin-bottom: 15px;
 
     div {
-      margin-left: 7px;
+
       font-weight: 700;
     }
 
@@ -18,11 +18,19 @@
   .label-container:before {
     display: inline-block;
     position: absolute;
-    left: -10cpx;
+    left: -7px;
     content: "*";
     font-family: SimSun;
     line-height: 1;
     font-size: 14px;
     color: #f5222d;
   }
+
+  .custom_input {
+    .label {
+      margin-right: 10px;
+      text-align: right;
+    }
+  }
+
 }

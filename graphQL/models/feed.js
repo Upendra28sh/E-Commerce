@@ -19,4 +19,4 @@ const FeedSchema = new mongoose.Schema({
 );
 
 
-module.exports = mongoose.model('Post', transformSchema(FeedSchema));
+module.exports = mongoose.model('Feed', transformSchema(FeedSchema));

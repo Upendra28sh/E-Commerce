@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Spin, Table, Tag, Row, Col} from "antd";
+import {Spin, Table, Button ,Tag, Icon, Row, Col} from "antd";
+import {Link} from 'react-router-dom';
 import {Query} from 'react-apollo';
 import {GET_ALL_PRODUCTS} from './Query/query';
 
@@ -63,7 +64,8 @@ class User extends Component {
     render() {
         return (
             <div>
-                <h1>Products</h1>
+                <h1>Products </h1>
+                <Button type='primary' ghost><Link to={'/product/new'}>Add New Product <Icon type='plus'/></Link></Button>
                 <Query query={GET_ALL_PRODUCTS}>
                     {({loading, error, data}) => {
                         if (loading)

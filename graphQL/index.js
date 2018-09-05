@@ -1,9 +1,13 @@
 const {ApolloServer, gql} = require('apollo-server');
 const mongoose = require('mongoose');
-var express = require('express');
-var cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import upload from './middlewares/upload'
+
 const app = express();
+
 app.use(cors());
+
 // app.use('/push', require('./push'));
 //Public Key:
 // BImBf1MZPoA5x-HrDlQoODpFY0mmshS9t_dGTLfHNBZNt8WsxcquRsYnr9J61Fu44MxKUQyaXUBdz9yJlzElVyM
@@ -29,7 +33,7 @@ const server = new ApolloServer({
         let token = req.headers.authorization || '';
         if (!token) {
             return {
-                user: {} ,
+                user: {},
                 seller: {}
             };
         }
@@ -39,8 +43,8 @@ const server = new ApolloServer({
         let decoded = jwt.verify(token, config.secret);
         console.log(decoded);
         // const user = getUser(token);
-        if(decoded.seller) {
-            return {seller : decoded}
+        if (decoded.seller) {
+            return {seller: decoded};
         }
 
         // add the user to the context

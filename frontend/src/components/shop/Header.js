@@ -94,7 +94,8 @@ const left_section = (
       <Link to="/feed">My Feed</Link>
     </li>
     <li>
-      <Link to="/trending">Trending</Link>
+      {/*<Link to="/trending">Trending</Link>*/}
+      <Link to="/trendingFeed">Trending</Link>
     </li>
   </Fragment>
 );

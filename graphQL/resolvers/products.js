@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Seller = require('../models/seller');
 var _ = require('lodash');
+import {createApprovalRequest} from "./utils";
 
 const normalizeKeywords = (keywords) => {
     // TODO : Implement it to normalize keywords entered by user.
@@ -85,6 +86,8 @@ module.exports = {
             }).then(
                 createdProduct => {
                     // TODO : Add Verification Request to Admin.
+                    createApprovalRequest('product' , createdProduct.id);
+
 
                     return createdProduct.populate('seller').execPopulate().then(
                         data => ({
