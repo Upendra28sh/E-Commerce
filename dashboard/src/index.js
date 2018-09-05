@@ -7,8 +7,11 @@ import registerServiceWorker from './registerServiceWorker';
 import jwt from 'jsonwebtoken';
 
 import Container from './components/Container';
-import AddSeller from "./components/AddSeller";
-import WrappedLogin from "./components/Login";
+import DefaultContainer from './components/DefaultContainer';
+
+// import AddSeller from "./components/AddSeller";
+// import WrappedLogin from "./components/Login";
+
 import './main.css';
 import RequireAuth from "./components/Utils/RequireAuth";
 
@@ -24,7 +27,7 @@ let auth = {
     user: {
         id: "",
         name: "",
-        username: "",
+        shopName: "",
         ...jwt.decode(token),
         __typename: "AuthUser"
     },
@@ -71,8 +74,9 @@ ReactDOM.render(
     <ApolloProvider client={client}>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/login" component={WrappedLogin}/>
-                <Route exact path="/shop/create/" component={AddSeller}/>
+                <Route path="/shop" component={DefaultContainer} />
+                {/* <Route exact path="/login" component={WrappedLogin}/>
+                <Route exact path="/shop/create/" component={AddSeller}/> */}
                 <Route path="/" component={RequireAuth(Container)}/>
             </Switch>
         </BrowserRouter>

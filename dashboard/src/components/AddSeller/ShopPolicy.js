@@ -64,13 +64,16 @@ class ShopPolicy extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
-
     };
 
     handleConfirmBlur = e => {
         const value = e.target.value;
         this.setState({confirmDirty: this.state.confirmDirty || !!value});
     };
+
+    componentWillUnmount() {
+        this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
+    }
 
     render() {
         // const {getFieldDecorator} = this.props.form;

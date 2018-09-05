@@ -14,7 +14,9 @@ class ShopDetails extends React.Component {
             'Aadhar': this.props.aadhar,
             'PAN': this.props.pan,
             'GST': this.props.gst,
-            'Bank Account': this.props.account
+            'Bank Name': this.props.bankName,
+            'Account Number': this.props.accountNo,
+            'Bank IFSC Code': this.props.bankIFSC
         });      
     }
 
@@ -28,6 +30,8 @@ class ShopDetails extends React.Component {
                     data[1].value,
                     data[2].value,
                     data[3].value,
+                    data[4].value,
+                    data[5].value
                 );
             }
         });
@@ -118,13 +122,45 @@ class ShopDetails extends React.Component {
 
                         <FormItem
                             {...formItemLayout}
-                            label="Bank Accont"
+                            label="Bank Name"
                         >
                             {
-                                getFieldDecorator('Bank Account',
+                                getFieldDecorator('Bank Name',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Bank Name'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem
+                            {...formItemLayout}
+                            label="Accont Number"
+                        >
+                            {
+                                getFieldDecorator('Account Number',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Bank Account Number'}
+                                    ]
+                                }) (
+                                    <Input type="number"/>
+                                )
+                            }
+                        </FormItem>
+
+                        <FormItem
+                            {...formItemLayout}
+                            label="Bank IFSC Code"
+                        >
+                            {
+                                getFieldDecorator('Bank IFSC Code',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input your Bank IFSC Code'}
                                     ]
                                 }) (
                                     <Input />

@@ -59,7 +59,7 @@ export const GET_ALL_SELLERS = gql `
 
 export const GET_ALL_ORDERS = gql`
     query {
-        getOrdersBySeller(sellerID: "5b883a829a14eb330b094d8b") {
+        getOrdersBySeller {
             id
             user {
                 name
@@ -121,6 +121,49 @@ export const GET_ALL_PRODUCTS = gql`
             seller {
                 name
                 shopName
+            }
+        }
+    }
+`;
+
+export const ADD_SELLER = gql `
+    mutation($input: SellerInput) {
+        addSeller(input: $input) {
+            name
+            image
+            id
+            about
+            shopName
+            address {
+                address
+                street
+                city
+                state
+                zipcode
+            }
+            legal {
+                pan
+                aadhar
+                gst
+                bank {
+                    name
+                    accountNumber
+                    ifscCode
+                }
+            }
+            policy {
+                store
+                return
+            }
+        }
+    }
+`;
+
+export const ADD_PRODUCT = gql`
+    mutation($input: AddProductInput) {
+        addProduct(input: $input) {
+            product {
+                id
             }
         }
     }

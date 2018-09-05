@@ -15,7 +15,7 @@ export default function (ComposedComponent) {
                         if (!data.auth.isAuthenticated ) {
                             return <Redirect
                                 to={{
-                                    pathname: "/login",
+                                    pathname: "/shop/login",
                                     state: {from: this.props.location}
                                 }}
                             />;

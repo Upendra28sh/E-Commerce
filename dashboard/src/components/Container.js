@@ -43,7 +43,6 @@ class Container extends React.Component {
                             </Link>
                         </Menu.Item>
                     </Menu>
-                    <Divider/>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>
                     <Header style={{background: '#fff', padding: 0}}/>
