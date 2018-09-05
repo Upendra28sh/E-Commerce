@@ -158,3 +158,13 @@ export const ADD_SELLER = gql `
         }
     }
 `;
+
+export const ADD_PRODUCT = gql`
+    mutation($input: AddProductInput) {
+        addProduct(input: $input) {
+            product {
+                id
+            }
+        }
+    }
+`;
