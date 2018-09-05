@@ -138,11 +138,25 @@ render() {
 
                                             {
                                                 this.state.search ? (
-                                                    <li>
-                                                        <Search
+                                                    <li 
+                                                        style={{
+                                                            border: 'solid 2px gray',
+                                                            paddingTop: '0px',
+                                                            paddingBottom: '0px',
+                                                        }}
+                                                    >
+                                                        <input
                                                             placeholder="Search Text"
-                                                            onSearch={value => this.props.history.push(`/search/${value}`)}
-                                                            style={{width: '200px', border: 'none', borderRadius: '5%'}}
+                                                            type="text"
+                                                            onKeyPress = {
+                                                                e => {
+                                                                    if (e.key == 'Enter') {
+                                                                        this.props.history.push(`/search/${e.target.value}`)
+                                                                    }
+                                                                }
+                                                            }                                                            
+                                                            // onSearch={value => this.props.history.push(`/search/${value}`)}
+                                                            // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
                                                         />
                                                     </li>
                                                 ) : (

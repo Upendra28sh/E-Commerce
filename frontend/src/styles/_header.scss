@@ -6,9 +6,19 @@
 
     &__list {
         padding: 0 10px;
-        
+
         li {
             padding: 2px 0;
         }
     }
+}
+
+input {
+    width: 100%;
+    border: none;
+    outline-color: none;
+}
+
+input:focus {
+    outline: 0px solid white;
 }
