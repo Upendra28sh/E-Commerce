@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Menu, Icon, Divider} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import {Link} from 'react-router-dom';
 import Router from './Router/AppRouter';
 
@@ -42,7 +42,6 @@ class Container extends React.Component {
                                 <span className="nav-text">Products</span>
                             </Link>
                         </Menu.Item>
-                        <Divider/>
                     </Menu>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>

@@ -13,6 +13,8 @@ import postTypeDef from './posts';
 import feedTypeDef from './feed';
 import sellerpostTypeDef from './sellerpost';
 import wishlistTypeDef from './wishlist';
+import adminTypeDef from './admin';
+import approvalTypeDef from './approvals';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -185,4 +187,4 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef];

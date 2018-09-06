@@ -3,6 +3,7 @@ const Address = require('../models/address');
 const Seller = require('../models/seller');
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import {createApprovalRequest} from "./utils";
 
 module.exports = {
     Query: {
@@ -59,6 +60,8 @@ module.exports = {
                         createdAddress => {
                             createdSeller.address = [createdAddress];
                             createdSeller.save();
+                            createApprovalRequest('Seller', createdSeller.id);
+
                             return createdSeller;
                         }
                     );

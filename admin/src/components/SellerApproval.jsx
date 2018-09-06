@@ -1,69 +1,61 @@
-import React, { Component } from 'react';
-import { Spin, Table, Row, Col } from "antd";
+import React, { Component } from 'react'
+import { Spin, Table, Col, Row, Tag  } from "antd";
 import { Query } from 'react-apollo';
-import { GET_ALL_USERS } from './Query/query';
+import { GET_APPROVAL_SELELRS } from './Query/query';
 
 const columns = [
     {
         title: "Image",
-        dataIndex: "image",
+        dataIndex: "origin.image",
         key: "image",
-        render: value => <img style={{width: '80px'}} src={value} />,      
+        render: value => <img style={{width: '80px'}} src={value}/>,
         align: "center"
-    },
-    {
-        title: "Username",
-        dataIndex: "username",
-        key: "username",
-        align: "center",
     },
     {
         title: "Name",
-        dataIndex: "name",
+        dataIndex: "origin.name",
         key: "name",
-        align: "center"
+        align: "center",
     },
     {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
+        title: "Shopname",
+        dataIndex: "origin.shopName",
+        key: "price",
         align: "center"
-    },
+    },  
     {
         title: "About",
-        dataIndex: "about",
+        dataIndex: "origin.about",
         key: "about",
         align: "center"
     },
     {
-        title: "Followers",
-        dataIndex: "followers",
-        key: "followers",
-        render: value => <p>{value.length}</p>,
-        align: "center"
-    },
-    {
-        title: "Following",
-        dataIndex: "following",
-        key: "following",
-        render: value => <p>{value.length}</p>,
-        align: "center"
-    },
-    {
-        title: "Following Shop",
-        dataIndex: "followingShop",
-        key: "followingShop",
-        render: value => <p>{value.length}</p>,
+        title: "Approve",
+        dataIndex: "id",
+        key: "approve",
+        render: value => {
+            return (
+                <div>
+                    <div onClick={() => alert(`Approve ${value}`)}>✓</div>
+                    <div onClick={() => alert(`Fail ${value}`)}>x</div>
+                </div>
+            )
+        },
         align: "center"
     }
-]
-
-class User extends Component {
+];
+  
+class SellerApproval extends Component {
+    state = {
+        comment: '',
+        yesModal: false,
+        noModal: false
+    }
     render() {
         return (
             <div>
-                <h1>Users</h1>
-                <Query query={GET_ALL_USERS}>
+                <h1>Sellers</h1>
+                <Query query={GET_APPROVAL_SELELRS}>
                     {({ loading, error, data }) => {
                         if (loading)
                         return (
@@ -81,17 +73,19 @@ class User extends Component {
                                     columns={columns}
                                 />
                             );
+                        console.log(data);
                         return <Table 
-                            dataSource={data.allUsers} 
+                            dataSource={data.getSellerApproval} 
                             expandedRowRender={record => (
                                 <Row>
                                     <Col span={6} offset={2}>
-                                        <img src={record.image} alt=""
-                                             style={{width: '100%', padding: "0 20px 20px 20px"}}/>
+                                        <img
+                                            src={record.image} alt=""
+                                            style={{width: '100%', padding: "0 20px 20px 20px"}}/>
                                     </Col>
                                     <Col span={14}>
                                         <h2>{record.name}</h2>
-                                        <h3>@ {record.username}</h3>
+                                        <h3>{record.shopName}</h3>
                                         <p>{record.about}</p>
                                     </Col>
                                 </Row>
@@ -105,4 +99,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default SellerApproval;
