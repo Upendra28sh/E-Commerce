@@ -20,6 +20,7 @@ import feed from './feed'
 import sellerpost from './sellerpost';
 import wishlist from './wishlist';
 import admin from './admin';
+import approval from './approvals';
 
 const resolvers = {
     Query: {
@@ -31,7 +32,8 @@ const resolvers = {
         ...post.Query,
         ...feed.Query,
         ...sellerpost.Query,
-        ...wishlist.Query
+        ...wishlist.Query,
+        ...approval.Query
     },
 
     Mutation: {

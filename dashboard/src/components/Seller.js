@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Table } from "antd";
+import { Spin, Table, Row, Col } from "antd";
 import { Query } from 'react-apollo';
 import { GET_ALL_SELLERS } from './Query/query';
 
