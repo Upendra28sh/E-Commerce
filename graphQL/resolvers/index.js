@@ -19,6 +19,7 @@ import post from'./posts';
 import feed from './feed'
 import sellerpost from './sellerpost';
 import wishlist from './wishlist';
+import admin from './admin';
 
 const resolvers = {
     Query: {
@@ -42,7 +43,8 @@ const resolvers = {
         ...users.Mutation,
         ...post.Mutation,
         ...sellerpost.Mutation,
-        ...wishlist.Mutation
+        ...wishlist.Mutation,
+        ...admin.Mutation
     },
 
     Date: new GraphQLScalarType({

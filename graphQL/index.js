@@ -43,8 +43,11 @@ const server = new ApolloServer({
         let decoded = jwt.verify(token, config.secret);
         console.log(decoded);
         // const user = getUser(token);
+        
         if (decoded.seller) {
             return {seller: decoded};
+        } else if (decoded.admin) {
+            return {admin: decoded}
         }
 
         // add the user to the context

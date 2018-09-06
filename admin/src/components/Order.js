@@ -36,9 +36,9 @@ const columns = [
                     
                 {
                     products.map(
-                        item => {
+                        (item,index) => {
                             return (
-                                <Row style={{marginTop: '10px'}}>
+                                <Row style={{marginTop: '10px'}} key={index}>
                                     <Col span={7}><img style={{width: '80px'}} src={`/images/${item.product.image}`} /></Col>
                                     <Col span={7}>{item.product.name}</Col>
                                     <Col span={6}>{item.itemCount}</Col>

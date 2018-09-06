@@ -42,7 +42,6 @@ class Container extends React.Component {
                                 <span className="nav-text">Products</span>
                             </Link>
                         </Menu.Item>
-                        <Divider/>
                     </Menu>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>

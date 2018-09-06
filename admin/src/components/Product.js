@@ -58,7 +58,8 @@ class User extends Component {
                                 columns={columns}
                             />
                         );
-                        if (error)
+                        if (error) {
+                            // console.log(error);
                             return (
                                 <Table
                                     dataSource={[]}
@@ -66,7 +67,8 @@ class User extends Component {
                                     columns={columns}
                                 />
                             );
-                        console.log(data);
+                        }
+                        // console.log(data);
                         return <Table dataSource={data.allProducts} columns={columns} />;
                     }}
                 </Query>
