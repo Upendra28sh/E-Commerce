@@ -31,57 +31,21 @@ module.exports = {
 
     Mutation: {
         followUser: (parents, args, context, info) => {
-            return User.findOne({
+            return User.findOneAndUpdate({
                 _id: context.user.id
-            },).populate('following').exec().then((user) => {
-                if (_.find(user.following, {
-                    id: args.FollowingID
-                }) == null) {
-                    user.following.push(args.FollowingID);
-                    user.save();
-
+            }, {
+                $addToSet: {
+                    following: args.FollowingID
                 }
 
-
-                User.findOne({
+            }).populate('following').exec().then((data) => {
+                return User.findOneAndUpdate({
                     _id: args.FollowingID
-                }).populate('followers').exec().then(user => {
-                    if (_.find(user.followers, {
-                        id: context.user.id
-                    }) == null) {
-                        user.followers.push(context.user.id);
-                        user.followNotify.push({
-                            User: context.user.id,
-                            read: false
-                        });
-                        let config = {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': 'key=AAAA7LYsFxY:APA91bHwbibSzEi2itJ_VlvRtaIvVr4FBNGag7qLqEGR-0LmWAdXnaBfuoxEMr86VwxUbvdSlAyKcLtp4IkPc6pmOUirGFJK4L0fSaj9GCweKOd0DzSQQULWldSsw0rHQiukNt63rZWm'
-                            }
-                        };
-
-                        let data = {
-                            "notification": {
-                                "title": "E-commerce",
-                                "body": ` ${user.username} has followed you`,
-                                "click_action": `http://localhost:3000/user/${user.username}`,
-                                "icon": "http://localhost:3000/favicon.ico"
-                            },
-                            "to": user.UserToken
-                        };
-
-                        axios.post("https://fcm.googleapis.com/fcm/send", data, config).then(({
-                                                                                                  data
-                                                                                              }) => {
-                            console.log(data);
-                            user.save();
-                        }).catch((err) => {
-                            console.log(err);
-                        });
-
+                }, {
+                    $addToSet: {
+                        followers: context.user.id
                     }
-                });
+                }).populate('followers').exec().then(data => data);
             });
         },
         unFollowUser: (parents, args, context, info) => {
@@ -93,7 +57,7 @@ module.exports = {
                 }
 
             }).populate('following').exec().then((data) => {
-                User.findOneAndUpdate({
+                return User.findOneAndUpdate({
                     _id: args.FollowingID
                 }, {
                     $pull: {

@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 
 const GET_WISHLIST = gql`
-    query {
-        showWishlist {
+    query($user : ID) {
+        showWishlist(user : $user) {
             user {
                 name
                 id
@@ -31,7 +31,7 @@ class Wishlist extends React.Component {
 
     render() {
         return (
-            <Query query={GET_WISHLIST} fetchPolicy={'cache-and-network'}>
+            <Query query={GET_WISHLIST} variables={{user : this.props.user}} fetchPolicy={'cache-and-network'}>
                 {({loading, error, data}) => {
                     console.log(loading, error, data);
 
@@ -66,16 +66,16 @@ class Wishlist extends React.Component {
                                                         <div className="item" key={index}>
                                                             <div className='item_seller'>
                                                                 <div className='item_seller_image'>
-                                                                    <img src={product.sellerID.image}
+                                                                    <img src={product.seller.image}
                                                                          alt=''
                                                                          style={{width: 32, height: 32}}/>
                                                                 </div>
-                                                                <span>{product.sellerID.name}</span>
+                                                                <span>{product.seller.name}</span>
                                                             </div>
 
                                                             <Row>
                                                                 <Col span={8}>
-                                                                    <img src={`product_images/${product.image}`}
+                                                                    <img src={product.image}
                                                                          alt={product.name}/>
                                                                 </Col>
                                                                 <Col span={16}>

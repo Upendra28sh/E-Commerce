@@ -42,6 +42,18 @@ class Container extends React.Component {
                                 <span className="nav-text">Products</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="6">
+                            <Link to={'/approval/products'}>
+                                <Icon type="user"/>
+                                <span className="nav-text">Approval Products</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="7">
+                            <Link to={'/approval/sellers'}>
+                                <Icon type="user"/>
+                                <span className="nav-text">Approval Seller</span>
+                            </Link>
+                        </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout style={{marginLeft: 200}}>

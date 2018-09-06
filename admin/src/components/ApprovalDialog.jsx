@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Input } from 'antd';
+import { Modal, Input , Icon } from 'antd';
 
 class ApprovalDialog extends React.Component {
     constructor(props) {
@@ -39,8 +39,12 @@ class ApprovalDialog extends React.Component {
     render() {
         return (
             <div>
-                <div onClick={() => this.setState(prevState => ({yesModal: !prevState.yesModal}))}>✓</div>
-                <div onClick={() => this.setState(prevState => ({noModal: !prevState.noModal}))}>x</div>
+                <div onClick={() => this.setState(prevState => ({yesModal: !prevState.yesModal}))}>
+                    <Icon type='check'/>
+                </div>
+                <div onClick={() => this.setState(prevState => ({noModal: !prevState.noModal}))}>
+                    <Icon type='close'/>
+                </div>
                 <Modal 
                     visible={this.state.yesModal}
                     onCancel={this.handleCancelYesModal}

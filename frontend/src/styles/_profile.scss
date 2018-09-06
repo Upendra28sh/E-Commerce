@@ -73,3 +73,22 @@
   }
 
 }
+
+.account_private {
+  padding: 50px 0px;
+  margin-top: 30px;
+  background-color: white;
+  text-align: center;
+
+  &__header {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 20px 0;
+  }
+
+  &__content {
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+
+}

@@ -160,6 +160,19 @@ input:focus {
     .profile__details .ant-tabs-tab {
       color: #575757; }
 
+.account_private {
+  padding: 50px 0px;
+  margin-top: 30px;
+  background-color: white;
+  text-align: center; }
+  .account_private__header {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 20px 0; }
+  .account_private__content {
+    font-weight: 300;
+    font-size: 0.8rem; }
+
 #progress {
   padding: 30px 0 30px 0; }
 

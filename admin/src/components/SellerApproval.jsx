@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Spin, Table, Col, Row, Tag  } from "antd";
+import { Spin, Table, Col, Row, Tag , Icon  } from "antd";
 import { Query } from 'react-apollo';
 import { GET_APPROVAL_SELELRS } from './Query/query';
 
@@ -36,8 +36,12 @@ const columns = [
         render: value => {
             return (
                 <div>
-                    <div onClick={() => alert(`Approve ${value}`)}>✓</div>
-                    <div onClick={() => alert(`Fail ${value}`)}>x</div>
+                    <div onClick={() => alert(`Approve ${value}`)}>
+                        <Icon type='check'/>
+                    </div>
+                    <div onClick={() => alert(`Fail ${value}`)}>
+                        <Icon type='close'/>
+                    </div>
                 </div>
             )
         },
@@ -54,7 +58,7 @@ class SellerApproval extends Component {
     render() {
         return (
             <div>
-                <h1>Sellers</h1>
+                <h1>Seller Approvals</h1>
                 <Query query={GET_APPROVAL_SELELRS}>
                     {({ loading, error, data }) => {
                         if (loading)

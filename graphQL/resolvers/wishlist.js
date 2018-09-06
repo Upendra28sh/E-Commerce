@@ -3,17 +3,17 @@ const Wishlist = require('../models/wishlist');
 module.exports = {
     Query: {
         showWishlist: (parent, args, context, info) => {
-            const userID = context.user.id;
+            const userID = args.user || context.user.id;
 
             return Wishlist.findOne({user: userID})
                 .populate({
                     path: 'products',
                     populate: {
-                        path: 'sellerID'
+                        path: 'seller'
                     }
                 })
                 .populate('user')
-                .exec()
+                .exec();
         },
         checkInWishlist: (parent, {productID}, context, info) => {
             const userID = context.user.id;
@@ -27,13 +27,13 @@ module.exports = {
                         );
                     }
                 }
-            )
+            );
         }
     },
     Mutation: {
-        addToWishlist: (parent, { productID }, context, info) => {   
+        addToWishlist: (parent, {productID}, context, info) => {
             const userID = context.user.id;
-            
+
             return Wishlist.findOne({user: userID}).exec().then(
                 foundWishlist => {
                     if (!foundWishlist) {
@@ -47,14 +47,14 @@ module.exports = {
                                     .populate({
                                         path: 'products',
                                         populate: {
-                                            path: 'sellerID'
+                                            path: 'seller'
                                         }
                                     })
                                     .populate('user')
                                     .execPopulate()
                                     .then(data => data.toJSON());
                             }
-                        );        
+                        );
                     } else {
                         foundWishlist.products.push(productID);
                         foundWishlist.save();
@@ -62,7 +62,7 @@ module.exports = {
                             .populate({
                                 path: 'products',
                                 populate: {
-                                    path: 'sellerID'
+                                    path: 'seller'
                                 }
                             })
                             .populate('user')
@@ -72,7 +72,7 @@ module.exports = {
                 }
             );
         },
-        removeFromWishlist: (parent, { productID }, context, info) => {   
+        removeFromWishlist: (parent, {productID}, context, info) => {
             const userID = context.user.id;
             console.log("REMOVE FROM WISH LIST", userID, productID);
             return Wishlist.findOne({user: userID}).exec().then(
@@ -80,20 +80,20 @@ module.exports = {
                     foundWishlist.products = foundWishlist.products.filter(
                         product => product != productID
                     );
-    
+
                     foundWishlist.save();
                     return foundWishlist
                         .populate({
                             path: 'products',
                             populate: {
-                                path: 'sellerID'
+                                path: 'seller'
                             }
                         })
                         .populate('user')
                         .execPopulate()
                         .then(data => data.toJSON());
                 }
-            )
+            );
         }
     }
-}
+};

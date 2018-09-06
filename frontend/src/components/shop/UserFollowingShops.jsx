@@ -39,7 +39,7 @@ class UserPosts extends Component {
                                                             key={index}
                                                             hoverable
                                                             style={{ width: 300 }}
-                                                            cover={<img alt={seller.shopName} src={`product_images/${seller.image}`} />}
+                                                            cover={<img alt={seller.shopName} src={seller.image} />}
                                                         >
                                                             <Meta
                                                                 title={seller.name}

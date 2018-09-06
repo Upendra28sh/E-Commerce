@@ -74,7 +74,7 @@ class ProductApproval extends Component {
     render() {
         return (
             <div>
-                <h1>Sellers</h1>
+                <h1>Product Approvals</h1>
                 <Query query={GET_APPROVAL_PRODUCTS}>
                     {({ loading, error, data }) => {
                         if (loading)

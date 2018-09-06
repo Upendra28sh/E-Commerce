@@ -2,7 +2,7 @@ import {gql} from 'apollo-server';
 
 export default gql `
     extend type Query {
-        showWishlist: Wishlist,
+        showWishlist(user : ID): Wishlist,
         checkInWishlist(productID: ID): Boolean
     }
 
