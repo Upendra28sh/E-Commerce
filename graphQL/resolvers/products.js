@@ -86,7 +86,7 @@ module.exports = {
             }).then(
                 createdProduct => {
                     // TODO : Add Verification Request to Admin.
-                    createApprovalRequest('product' , createdProduct.id);
+                    createApprovalRequest('Product' , createdProduct.id);
 
 
                     return createdProduct.populate('seller').execPopulate().then(

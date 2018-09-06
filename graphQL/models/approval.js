@@ -16,7 +16,7 @@ const ApprovalSchema = new mongoose.Schema({
         comment : String ,
         origin: {
             type: mongoose.Schema.Types.ObjectId,
-            refPath: 'collection'
+            refPath: 'refString'
         },
         refString: String, // enum [ 'Seller' , 'Product']
     },

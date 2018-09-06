@@ -6,7 +6,8 @@ export function createApprovalRequest(approvalType, originId) {
     let approval = new Approval({
         approvalType,
         origin: originId,
-        refString: approvalType
+        refString: approvalType,
+        comment: ''
     });
 
     approval.save().then(data => {
@@ -24,7 +25,6 @@ export function createApprovalRequest(approvalType, originId) {
     });
 
 }
-
 
 // TODO : Send a MAIL TO DEV TEAM
 export function sendErrorReport(message , data) {

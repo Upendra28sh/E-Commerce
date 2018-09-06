@@ -1,5 +1,26 @@
 import { gql } from 'apollo-boost';
 
+export const GET_AUTH = gql `
+    {
+        auth @client {
+            isAuthenticated ,
+            user {
+                id ,
+                name ,
+                shopName,
+            }
+        }
+    }
+`;
+
+export const GET_LOGIN_STATUS = gql `
+    {
+        auth @client {
+            isAuthenticated
+        }
+    }
+`;
+
 export const GET_ALL_USERS = gql`
     query {
         allUsers {
@@ -25,7 +46,7 @@ export const GET_ALL_SELLERS = gql `
     query {
         allSellers {
             id
-            shopname
+            shopName
             image
             name
             about
@@ -98,4 +119,43 @@ export const GET_ALL_PRODUCTS = gql`
             }
         }
     }
+`;
+
+export const GET_APPROVAL_PRODUCTS = gql`
+    query {
+        getProductApproval{
+            origin {
+                id
+                name
+                price
+                image
+                seller {
+                    name
+                    shopName
+                }
+            }
+            id
+            approved
+            approvalType
+            reviewed
+        }
+    }
+`;
+
+export const GET_APPROVAL_SELELRS = gql`
+query {
+    getSellerApproval{
+        origin {
+            id
+            name
+            shopName
+            image
+            about
+        }
+        id
+        approved
+        approvalType
+        reviewed
+    }
+}  
 `;
