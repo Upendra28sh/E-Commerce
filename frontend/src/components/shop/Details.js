@@ -1,14 +1,5 @@
 import React from "react";
-import {
-    Row,
-    Col,
-    Tabs,
-    Icon,
-    Button,
-    InputNumber,
-    Select,
-    Tag
-} from "antd";
+import {Button, Col, Icon, InputNumber, Row, Select, Tabs, Tag} from "antd";
 
 import gql from "graphql-tag";
 import {Query, withApollo} from "react-apollo";
@@ -30,10 +21,6 @@ class Details extends React.Component {
         };
         this.handleAddToCart = this.handleAddToCart.bind(this);
     }
-
-//   showModal = () => {
-//     this.setState(() => ({ visible: true }));
-//   };
 
     // handleCancel = () => {
     //     this.setState(() => ({visible: false}));
@@ -183,7 +170,7 @@ class Details extends React.Component {
         // }
 
         let selectedSize = undefined;
-        let itemCount = undefined;
+        let itemCount = 1;
 
         return (
             <Query query={GET_PRODUCT}>
@@ -202,7 +189,7 @@ class Details extends React.Component {
                                     <Col span={14}>
                                         <div
                                             className="product__image"
-                                            style={{backgroundImage: `url("product_images/${data.image}")`}}
+                                            style={{backgroundImage: `url("${data.image}")`}}
                                         >
                                             <div
                                                 className="product__heart"
@@ -219,14 +206,14 @@ class Details extends React.Component {
                                         <Row className="product__seller">
                                             <Col span={4}>
                                                 <img
-                                                    src={`product_images/${data.sellerID.image}`}
+                                                    src={`${data.seller.image}`}
                                                     className="product__seller-image"
                                                     id="seller__image"
-                                                    alt={data.sellerID.name}
+                                                    alt={data.seller.name}
                                                 />
                                             </Col>
                                             <Col span={20} className="product__seller-name">
-                                                {data.sellerID.name}
+                                                {data.seller.name}
                                             </Col>
                                         </Row>
 
@@ -247,29 +234,31 @@ class Details extends React.Component {
                                                 </h2>
                                             </div>
 
-                                            <div className="my-2">
-                                                <div>Size:</div>
-                                                <Select
-                                                    style={{width: "100%"}}
-                                                    placeholder="Select Size"
-                                                    optionFilterProp="children"
-                                                    onChange={e => (selectedSize = e)}
-                                                >
-                                                    {data.sizes.map(size => (
-                                                        <Option value={size} key={size}>
-                                                            {size}
-                                                        </Option>
-                                                    ))}
-                                                </Select>
-                                            </div>
-
+                                            {data.sizes.length > 1 && (
+                                                <div className="my-2">
+                                                    <div>Size:</div>
+                                                    <Select
+                                                        style={{width: "100%"}}
+                                                        placeholder="Select Size"
+                                                        optionFilterProp="children"
+                                                        onChange={e => (selectedSize = e)}
+                                                    >
+                                                        {data.sizes.map(size => (
+                                                            <Option value={size} key={size}>
+                                                                {size}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+                                            )}
                                             <div className="my-2">
                                                 <div>Quantity:</div>
                                                 <InputNumber
                                                     style={{width: "100%"}}
                                                     min={1}
-                                                    max={10}
+                                                    max={5}
                                                     onChange={e => (itemCount = e)}
+                                                    defaultValue={1}
                                                 />
                                             </div>
                                         </div>

@@ -3,9 +3,9 @@ import {gql} from 'apollo-server';
 export default gql`
     extend type Query {
         allSellers: [Seller],
-        Seller(shopname: String!): Seller,
+        Seller(shopName: String!): Seller,
         getSellers(ids : [ID]): [Seller],
-        checkShopnameAvailability(shopname: String): Boolean
+        checkShopnameAvailability(shopName: String): Boolean
     }
 
     input SellerInput {

@@ -17,7 +17,7 @@ class AddSeller extends React.Component {
         this.state = {
             percent: 25,
             page: 0,
-            shopname: "",
+            shopName: "",
             name: "",
             image: "",
             about: "",
@@ -38,14 +38,14 @@ class AddSeller extends React.Component {
 
     submitDetails = () => {
         console.log(this.state);
-        let {shopname, name, image, about, address, street, city, state, zipcode, aadhar, pan, account, gst, returnPolicy, storePolicy,intro} = this.state;
+        let {shopName, name, image, about, address, street, city, state, zipcode, aadhar, pan, account, gst, returnPolicy, storePolicy,intro} = this.state;
         client.mutate({
             mutation: gql `
                 mutation {
                     addSeller(
                         input:{
                             name: "${name}",
-                            shopname: "${shopname}",
+                            shopName: "${shopName}",
                             image: "${image}",
                             about: "${about}",
                             intro: "${intro}"
@@ -71,7 +71,7 @@ class AddSeller extends React.Component {
                             image
                             id
                             about
-                            shopname
+                            shopName
                             address {
                                 address
                                 street
@@ -93,7 +93,7 @@ class AddSeller extends React.Component {
                     }         
             `
         }).then(
-            data => this.props.history.push(`/seller/${this.state.shopname}`)
+            data => this.props.history.push(`/seller/${this.state.shopName}`)
         )
     }
 
@@ -126,10 +126,10 @@ class AddSeller extends React.Component {
         );
     };
 
-    onSetShopName = (shopname) => {
+    onSetShopName = (shopName) => {
         this.setState(
             () => ({
-                shopname: shopname
+                shopName: shopName
             })
         );
     }

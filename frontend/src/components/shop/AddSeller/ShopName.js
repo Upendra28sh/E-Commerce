@@ -13,17 +13,17 @@ class ShopName extends React.Component {
         super(props);
         this.state = {
             available: undefined,
-            shopname: ""
+            shopName: ""
         }
         this.handleCheck = this.handleCheck.bind(this);
     }
 
-    handleCheck(shopname) {
-        console.log("Handle check called", shopname);
+    handleCheck(shopName) {
+        console.log("Handle check called", shopName);
         client.query({
             query: gql`
                 query {
-                    checkShopnameAvailability(shopname: "${shopname}")
+                    checkShopnameAvailability(shopName: "${shopName}")
                 }            
             `
         }).then(
@@ -31,7 +31,7 @@ class ShopName extends React.Component {
                 this.setState(
                     () => {
                         return {
-                            shopname: shopname,
+                            shopName: shopName,
                             available: data.data.checkShopnameAvailability
                         }
                     }
@@ -41,7 +41,7 @@ class ShopName extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.onNext(this.state.shopname)
+        this.props.onNext(this.state.shopName)
     }
 
     render() {
@@ -58,7 +58,7 @@ class ShopName extends React.Component {
                             enterButton="Check"
                             size="large"
                             onSearch={value => this.handleCheck(value)}
-                            defaultValue={this.props.shopname}
+                            defaultValue={this.props.shopName}
                         />
                         <p id="message">{this.state.available === undefined ? "" : this.state.available ? "Available" : "Not Available"}</p>
                         <p>Shop names must have 4–20 characters and should not contain spaces.</p>

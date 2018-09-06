@@ -13,10 +13,10 @@ module.exports = {
         },
 
         Seller: (parent, {
-            shopname
+            shopName
         }, context, info) => {
             return Seller.findOne({
-                "shopname": shopname
+                "shopName": shopName
             }).populate('followers').exec().then(
                 data => data
             );
@@ -29,9 +29,9 @@ module.exports = {
             }).populate('followers').exec().then(data => data);
         },
 
-        checkShopnameAvailability: (parent, { shopname }, context, info) => {
+        checkShopnameAvailability: (parent, { shopName }, context, info) => {
             return Seller.findOne({
-                shopName: shopname
+                shopName: shopName
             }).exec().then(
                 data => !data
             );
@@ -73,7 +73,7 @@ module.exports = {
         }, context, info) => {
 
             let {
-                shopname,
+                shopName,
                 name,
                 image,
                 about,
@@ -91,7 +91,7 @@ module.exports = {
                     image: image,
                     about: about,
                     intro: intro,
-                    shopname: shopname,
+                    shopName: shopName,
                     address: address,
                     legalInfo: legalInfo,
                     policy: policy

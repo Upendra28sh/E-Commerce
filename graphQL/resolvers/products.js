@@ -27,8 +27,13 @@ module.exports = {
 
 
         getProductBySeller: (parent, args , {seller}, info) => {
+            let id = args.id ;
+            if(seller){
+                id = seller.id
+            }
+
             return Product.find({
-                seller: seller.id
+                seller: id
             }).populate('seller').exec().then(
                 data => data
             );

@@ -3,12 +3,11 @@ const { gql } = require('apollo-server');
 export default gql`
     extend type Query {
         allSellerpost: [Sellerpost]
-        SellerPosts(shopname : String!) : [Sellerpost]
+        getSellerPostBySeller(id : ID!) : [Sellerpost]
     }
 
     input NewPostSeller {
-        sellerID: String!,
-        image: String,
+        image: String!,
         caption: String!
     }
 

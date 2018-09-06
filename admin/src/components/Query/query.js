@@ -25,7 +25,7 @@ export const GET_ALL_SELLERS = gql `
     query {
         allSellers {
             id
-            shopname
+            shopName
             image
             name
             about

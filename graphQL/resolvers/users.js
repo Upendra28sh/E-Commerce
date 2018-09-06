@@ -111,7 +111,7 @@ module.exports = {
                 }
 
             }).populate('followingShop').exec().then((data) => {
-                Seller.findOneAndUpdate({
+                return Seller.findOneAndUpdate({
                     _id: args.FollowingID
                 }, {
                     $addToSet: {
@@ -129,7 +129,7 @@ module.exports = {
                 }
 
             }).populate('followingShop').exec().then((data) => {
-                Seller.findOneAndUpdate({
+                return Seller.findOneAndUpdate({
                     _id: args.FollowingID
                 }, {
                     $pull: {

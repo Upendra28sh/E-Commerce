@@ -18,7 +18,7 @@ class AddSeller extends React.Component {
         this.state = {
             percent: 25,
             page: 0,
-            shopname: "",
+            shopName: "",
             name: "",
             image: "",
             about: "",
@@ -43,7 +43,7 @@ class AddSeller extends React.Component {
         return {
             "input" : {
                 "name": this.state.name,
-                "shopName": this.state.shopname,
+                "shopName": this.state.shopName,
                 "image": this.state.image,
                 "about": this.state.about,
                 "intro": this.state.intro,
@@ -81,7 +81,7 @@ class AddSeller extends React.Component {
         }).then(
             data => {
                 console.log(data);
-                this.props.history.push(`/seller/${this.state.shopname}`);
+                this.props.history.push(`/seller/${this.state.shopName}`);
             }
         );
     }
@@ -115,10 +115,10 @@ class AddSeller extends React.Component {
         );
     };
 
-    onSetShopName = (shopname) => {
+    onSetShopName = (shopName) => {
         this.setState(
             () => ({
-                shopname: shopname
+                shopName: shopName
             })
         );
     }

@@ -19,8 +19,8 @@ const columns = [
   },
   {
     title: "Shop Name",
-    dataIndex: "shopname",
-    key: "shopname",
+    dataIndex: "shopName",
+    key: "shopName",
     align: "center"
   },
   {

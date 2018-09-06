@@ -1,6 +1,4 @@
-import {
-    gql
-} from "apollo-boost";
+import {gql} from "apollo-boost";
 
 
 export const USER_SIGNUP = gql`
@@ -122,8 +120,8 @@ export const GET_POST = gql `
 `;
 
 export const GET_SELLER = gql `
-    query getSeller($shopname: String!) {
-        Seller (shopname: $shopname) {
+    query getSeller($shopName: String!) {
+        Seller (shopName: $shopName) {
             name
             image
             id
@@ -137,12 +135,6 @@ export const GET_SELLER = gql `
                 state
                 zipcode
             }
-            legalInfo {
-                pan
-                aadhar
-                gst
-                bank
-            }
             policy {
                 store
                 return
@@ -155,8 +147,8 @@ export const GET_SELLER = gql `
 `;
 
 export const GET_PRODUCTS_BY_SELLER = gql `
-    query getProductsBySeller($sellerID: ID!) {
-        getProductBySeller(sellerID: $sellerID) {
+    query getProductsBySeller($id: ID!) {
+        getProductBySeller(id: $id) {
             id
             name
             image
@@ -164,7 +156,6 @@ export const GET_PRODUCTS_BY_SELLER = gql `
             keywords
             description
             seller {
-                id
                 name
             }
         }
@@ -200,8 +191,8 @@ export const GET_FOLLOW_SELLER = gql `
 `;
 
 export const GET_POST_BY_SELLER = gql`
-    query sellerpost($shopname : String!){
-        SellerPosts(shopname:$shopname){
+    query sellerpost($id : ID!){
+        getSellerPostBySeller(id:$id){
             id
             image
             caption
