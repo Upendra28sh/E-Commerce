@@ -196,9 +196,15 @@ export const GET_POST_BY_SELLER = gql`
             id
             image
             caption
+            updated_at
+            seller {
+                name 
+                image 
+            }
             comments{
                 user{
                     name
+                    username
                 }
                 text
             }

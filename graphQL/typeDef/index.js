@@ -75,7 +75,8 @@ const typeDefs = gql`
         seller: Seller,
         caption: String,
         image: String,
-        comments :[Comment]
+        comments :[Comment],
+        updated_at : String
     }
 
     type Order {

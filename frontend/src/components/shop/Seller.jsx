@@ -4,7 +4,7 @@ import {Query, withApollo} from "react-apollo";
 import SellerProducts from "./SellerProducts";
 import {FOLLOW_SHOP, GET_AUTH, GET_SELLER, UNFOLLOW_SHOP} from "../query";
 import {ModalRoute} from "react-router-modal";
-import SellerPost from "./SellerPost";
+import SellerPostContainer from "./SellerPostContainer";
 import Details from "./Details";
 
 const {TabPane} = Tabs;
@@ -158,7 +158,7 @@ class Seller extends React.Component {
                                                             <SellerProducts seller={data.id} {...this.props} />
                                                         </TabPane>
                                                         <TabPane tab="Posts" key="2">
-                                                            <SellerPost seller={data.id}/>
+                                                            <SellerPostContainer shopName={data.name} seller={data.id}/>
                                                         </TabPane>
 
                                                         <TabPane tab="About" key="3">

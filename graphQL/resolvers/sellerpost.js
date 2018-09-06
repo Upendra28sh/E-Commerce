@@ -21,7 +21,7 @@ module.exports = {
         getSellerPostBySeller: (parent, {id}, context, info) => {
             return Sellerpost.find({seller: id})
                 .populate({
-                    path: 'Comments.user',
+                    path: 'comments.user',
                 })
                 .populate('seller')
                 .exec()
@@ -61,7 +61,7 @@ module.exports = {
 
         addSellerComment: (parent, args, context, info) => {
             return Sellerpost.findOne({_id: args.PostID}).exec().then(post => {
-                post.Comments.push({text: args.text, user: context.user.id});
+                post.comments.push({text: args.text, user: context.user.id});
                 post.save();
             });
         }
