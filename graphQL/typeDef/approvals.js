@@ -20,8 +20,18 @@ export default gql`
         origin: Seller
     }
 
+    input ApprovalInput {
+        id: ID!,
+        comment: String!
+    }
+
     extend type Query {
         getProductApproval: [ApprovalProduct]
         getSellerApproval: [ApprovalSeller]
     }
+
+    #extend type Mutation {
+    #    acceptApproval(input: ApprovalInput): 
+    #    acceptApproval(input: ApprovalInput): 
+    #}
 `;
