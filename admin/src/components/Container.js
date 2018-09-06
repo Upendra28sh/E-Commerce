@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Menu, Icon, Divider} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import {Link} from 'react-router-dom';
 import Router from './Router/AppRouter';
 

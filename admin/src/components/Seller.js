@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Table } from "antd";
+import { Spin, Table, Col, Row } from "antd";
 import { Query } from 'react-apollo';
 import { GET_ALL_SELLERS } from './Query/query';
 
@@ -15,7 +15,7 @@ const columns = [
     dataIndex: "image",
     key: "image",
     align: "center",
-    render: value => <img style={{width: '80px'}} src={`/images/${value}`} />
+    render: value => <img style={{width: '80px'}} src={value} />
   },
   {
     title: "Shop Name",
@@ -60,7 +60,24 @@ class Seller extends Component {
                                     columns={columns}
                                 />
                             );
-                        return <Table dataSource={data.allSellers} columns={columns} />;
+                        return <Table 
+                            dataSource={data.allSellers} 
+                            expandedRowRender={record => (
+                                <Row>
+                                    <Col span={6} offset={2}>
+                                        <img
+                                            src={record.image} alt=""
+                                            style={{width: '100%', padding: "0 20px 20px 20px"}}/>
+                                    </Col>
+                                    <Col span={14}>
+                                        <h2>{record.name}</h2>
+                                        <h3>{record.shopName}</h3>
+                                        <p>{record.about}</p>
+                                    </Col>
+                                </Row>
+                            )}
+                            columns={columns} 
+                        />;
                     }}
                 </Query>
             </div>

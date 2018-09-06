@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Table } from "antd";
+import { Spin, Table, Row, Col } from "antd";
 import { Query } from 'react-apollo';
 import { GET_ALL_USERS } from './Query/query';
 
@@ -8,7 +8,7 @@ const columns = [
         title: "Image",
         dataIndex: "image",
         key: "image",
-        render: value => <img style={{width: '80px'}} src={`/images/${value}`} />,      
+        render: value => <img style={{width: '80px'}} src={value} />,      
         align: "center"
     },
     {
@@ -81,7 +81,23 @@ class User extends Component {
                                     columns={columns}
                                 />
                             );
-                        return <Table dataSource={data.allUsers} columns={columns} />;
+                        return <Table 
+                            dataSource={data.allUsers} 
+                            expandedRowRender={record => (
+                                <Row>
+                                    <Col span={6} offset={2}>
+                                        <img src={record.image} alt=""
+                                             style={{width: '100%', padding: "0 20px 20px 20px"}}/>
+                                    </Col>
+                                    <Col span={14}>
+                                        <h2>{record.name}</h2>
+                                        <h3>@ {record.username}</h3>
+                                        <p>{record.about}</p>
+                                    </Col>
+                                </Row>
+                            )}
+                            columns={columns} 
+                        />;
                     }}
                 </Query>
             </div>

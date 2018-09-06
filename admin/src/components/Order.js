@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Table, Row, Col, Divider } from "antd";
+import { Spin, Table, Row, Col } from "antd";
 import { Query } from 'react-apollo';
 import { GET_ALL_ORDERS } from './Query/query';
 
@@ -38,8 +38,8 @@ const columns = [
                     products.map(
                         (item,index) => {
                             return (
-                                <Row style={{marginTop: '10px'}} key={index}>
-                                    <Col span={7}><img style={{width: '80px'}} src={`/images/${item.product.image}`} /></Col>
+                                <Row key={index} style={{marginTop: '10px'}}>
+                                    <Col span={7}><img style={{width: '80px'}} src={item.product.image} /></Col>
                                     <Col span={7}>{item.product.name}</Col>
                                     <Col span={6}>{item.itemCount}</Col>
                                     <Col span={4}>{item.selectedSize}</Col>
@@ -134,7 +134,10 @@ class User extends Component {
                                     columns={columns}
                                 />
                             );
-                        return <Table dataSource={data.allOrders} columns={columns} />;
+                        return <Table 
+                            dataSource={data.allOrders} 
+                            columns={columns} 
+                        />;
                     }}
                 </Query>
             </div>
