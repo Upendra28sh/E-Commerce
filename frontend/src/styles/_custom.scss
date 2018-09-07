@@ -1,9 +1,21 @@
 .navbar_container {
   //box-shadow: 5px 10px;
   //height: 64px;
-  background: white !important;
+  //background: white !important;
+  background-color: rgb(40,40,40) !important;
   border-bottom: 1px solid #c8c8c8;
   padding: 0.8rem;
+}
+
+@media (max-width: 1300px) {
+  .navbar_container {
+    padding : 0.4rem;
+    //font-size: smaller;
+
+    li {
+      font-size: 13px;
+    }
+  }
 }
 
 .container_320 {

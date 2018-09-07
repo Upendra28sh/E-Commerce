@@ -26,6 +26,16 @@ module.exports = {
                 .populate('followingShop')
                 .populate('followNotify.User')
                 .exec();
+        } ,
+        checkUserNameAvailability : (parent , args , context , info ) => {
+            return User.findOne({
+                username : args.username
+            }).then(data => {
+                if(data){
+                    return false;
+                }
+                return true ;
+            })
         }
     },
 

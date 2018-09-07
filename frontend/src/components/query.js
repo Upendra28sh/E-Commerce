@@ -29,6 +29,10 @@ export const GET_USER_FEED = gql`
                     description ,
                     codAccepted ,
                     returnAccepted
+                    seller {
+                        name ,
+                        image
+                    }
                 }
             },
             created_at ,
@@ -115,6 +119,8 @@ export const GET_USER = gql `
         query user($username : String!) {
             User(username : $username){
                 id
+                name
+                about
                 username
                 email
                 following{

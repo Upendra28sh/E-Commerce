@@ -9,7 +9,7 @@ module.exports = {
                 .populate({
                     path: 'items.item',
                     populate: {
-                        path: 'sellerID'
+                        path: 'seller'
                     }
                 })
                 .populate('user')
@@ -32,7 +32,7 @@ module.exports = {
                 foundCart => {
                     if (!foundCart) {
                         return Cart.create({
-                            user: userID,
+                            user: userId,
                             items: [{
                                 item: productID,
                                 itemCount: itemCount,

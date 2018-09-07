@@ -87,7 +87,9 @@ const left_section = (
   <Fragment>
     <li>
       <Dropdown overlay={menu} trigger={["click"]}>
-        <span>Categories</span>
+          <span className="box-shadow-menu">
+              {/*Menu*/}
+          </span>
       </Dropdown>
     </li>
     <li>

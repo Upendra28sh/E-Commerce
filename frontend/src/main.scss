@@ -19,6 +19,7 @@
 @import 'styles/trendingfeed';
 @import 'styles/addPost';
 @import 'styles/chat';
+
 body {
   margin: 0;
   padding: 0;
@@ -30,6 +31,7 @@ body {
 body {
   height: 100vh;
 }
+
 body {
   min-height: 100vh;
 }
@@ -42,6 +44,7 @@ body {
   padding: 0;
   font-family: 'Work Sans';
   margin: 0;
+  background-color: rgb(40, 40, 40);
 }
 
 .userName {
@@ -60,7 +63,7 @@ body {
 .nav_bar li a, .nav_bar li {
   text-decoration: none;
   text-transform: uppercase;
-  color: black;
+  color: white;
   font-size: 15px;
   letter-spacing: 0px;
 }
@@ -88,39 +91,21 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin: 60px auto;
+  margin: 0px auto;
   text-align: center;
 
   .product {
-    width: 20%;
+    width: 25%;
 
     .image-container {
       margin: 10px;
     }
 
     img {
-      //box-sizing: border-box;
-      //padding: 10px;
-      //padding-left  : 10px;
-      //padding-right : 10px;
       width: 100%;
     }
 
   }
-
-  //.product:nth-child(4n) {
-  //  img {
-  //    padding-right: 0;
-  //    padding-left: 20px;
-  //  }
-  //}
-  //
-  //.product:nth-child(4n+1) {
-  //  img {
-  //    padding-left: 0;
-  //    padding-right: 20px;
-  //  }
-  //}
 }
 
 .each_product {
@@ -168,10 +153,10 @@ body {
   letter-spacing: 1.2px;
 }
 
-.details p, li {
-  letter-spacing: 1.2px;
-  line-height: 30px;
-}
+//.details p, li {
+//  letter-spacing: 1.2px;
+//  line-height: 30px;
+//}
 
 .add-cart {
   margin-top: 30px;

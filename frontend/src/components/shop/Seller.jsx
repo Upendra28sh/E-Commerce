@@ -116,35 +116,37 @@ class Seller extends React.Component {
                                                          style={{backgroundImage: `url('${data.image}')`}}/>
                                                 </Col>
                                                 <Col className="profile__info" span={18}>
-                                                    <h1>{data.name}</h1>
-                                                    <p className="stats">
-                                                <span className="numbers">
-                                                  <Icon type="file"/>
-                                                  <span className="posts"> {this.state.total_posts}</span> posts
-                                                </span>
-                                                        <span className="numbers">
-                                                  <Icon type="user"/>
-                                                  <span className="followers">
-                                                    {data.followers.length}
-                                                  </span>
-                                                    followers
-                                                </span>
-                                                        <span className="numbers">
-                                                  <Icon type="user-add"/>
-                                                  <span className="connections">{this.state.total_products}</span> products
-                                                </span>
-                                                    </p>
-                                                    <p className="tagline">
-                                                        <strong>@</strong>{data.shopName}
-                                                    </p>
-                                                    <p className="tagline">{data.intro}</p>
-                                                    <div className="button_group">
-                                                        <button onClick={() => {
-                                                            this.handleFollowClick(isAFollower, data.id);
-                                                        }}>
-                                                            {button_text}
-                                                        </button>
+                                                    <div>
+                                                        <h1  style={{display : 'inline-block'}}>{data.name}</h1>
+                                                        <div className="button_group">
+                                                            <button onClick={() => {
+                                                                this.handleFollowClick(isAFollower, data.id);
+                                                            }}>
+                                                                {button_text}
+                                                            </button>
+                                                        </div>
                                                     </div>
+                                                    <p className="tagline">{data.intro}
+                                                    </p>
+                                                    <p className="stats">
+                                                        <span className="numbers">
+                                                          <Icon type="file"/>
+                                                          <span className="posts"> {this.state.total_posts}</span> posts
+                                                        </span>
+                                                        <span className="numbers">
+                                                          <Icon type="user"/>
+                                                          <span className="followers">
+                                                            {data.followers.length}
+                                                          </span>
+                                                            followers
+                                                        </span>
+                                                        <span className="numbers">
+                                                          <Icon type="user-add"/>
+                                                          <span
+                                                              className="connections">{this.state.total_products}</span> products
+                                                        </span>
+                                                    </p>
+
                                                 </Col>
                                             </Row>
                                             <Row className="profile__details">

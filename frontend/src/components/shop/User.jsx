@@ -93,42 +93,46 @@ class User extends React.Component {
                                                     <div className="profile__image"/>
                                                 </Col>
                                                 <Col className="profile__info" span={18}>
-                                                    <h1>{user.username}</h1>
-                                                    <p className="stats">
-                                          <span className="numbers">
-                                            <Icon type="file"/>
-                                            <span className="posts">0</span> posts
-                                          </span>
-                                                        <span className="numbers">
-                                            <Icon type="user"/>
-                                            <span className="connections">
-                                              {user.followers.length}
-                                            </span>{" "}
-                                                            follower
-                                          </span>
-                                                        <span className="numbers">
-                                            <Icon type="user-add"/>
-                                            <span className="connections">
-                                              {" "}
-                                                {user.following.length}
-                                            </span>{" "}
-                                                            following
-                                          </span>
-                                                    </p>
+                                                    <div>
+                                                        <h1 style={{display: 'inline-block'}}>{user.username}</h1>
+                                                        {!myProfile && (<div className="button_group">
+                                                            <button onClick={() => {
+                                                                this.handleFollowClick(isAFollower, user.id);
+                                                            }}>
+                                                                {button_text}
+                                                            </button>
+                                                        </div>)}
+                                                    </div>
                                                     <p className="tagline">
                                                         <strong>{user.name}</strong>
                                                     </p>
                                                     <p className="tagline">{user.about}</p>
-                                                    {!myProfile && (<div className="button_group">
-                                                        <button onClick={() => {
-                                                            this.handleFollowClick(isAFollower, user.id);
-                                                        }}>
-                                                            {button_text}
-                                                        </button>
-                                                    </div>)}
+
+                                                    <p className="stats">
+                                                      <span className="numbers">
+                                                        <Icon type="file"/>
+                                                        <span className="posts">0</span> posts
+                                                      </span>
+                                                        <span className="numbers">
+                                                        <Icon type="user"/>
+                                                        <span className="connections">
+                                                          {user.followers.length}
+                                                        </span>{" "}
+                                                            follower
+                                                      </span>
+                                                        <span className="numbers">
+                                                        <Icon type="user-add"/>
+                                                        <span className="connections">
+                                                          {" "}
+                                                            {user.following.length}
+                                                        </span>{" "}
+                                                            following
+                                                      </span>
+                                                    </p>
+
                                                 </Col>
                                             </Row>
-                                            { (isAFollower || myProfile) && (<Row className="profile__details">
+                                            {(isAFollower || myProfile) && (<Row className="profile__details">
                                                 <Col span={24}>
                                                     <Tabs
                                                         defaultActiveKey="1"

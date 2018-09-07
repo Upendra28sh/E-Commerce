@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Icon, InputNumber, Row, Select, Tabs, Tag} from "antd";
+import {Button, Col, Icon, InputNumber, Row, Select, Tabs} from "antd";
 
 import gql from "graphql-tag";
 import {Query, withApollo} from "react-apollo";
@@ -181,6 +181,7 @@ class Details extends React.Component {
                     if (error) return <p>Error :(</p>;
 
                     data = data.Product;
+                    console.log(data);
 
                     return (
                         <div className="product">
@@ -203,39 +204,25 @@ class Details extends React.Component {
                                     </Col>
 
                                     <Col span={10}>
-                                        <Row className="product__seller">
-                                            <Col span={4}>
-                                                <img
-                                                    src={`${data.seller.image}`}
-                                                    className="product__seller-image"
-                                                    id="seller__image"
-                                                    alt={data.seller.name}
-                                                />
-                                            </Col>
-                                            <Col span={20} className="product__seller-name">
-                                                {data.seller.name}
-                                            </Col>
-                                        </Row>
 
+                                        <div className="mt-1">
+                                            <h2 className="product__name">{data.name}</h2>
+                                        </div>
                                         <div>
-                                            <div className="my-2">
-                                                <h2 className="product__name">{data.name}</h2>
-                                            </div>
-
-                                            <div className="my-1">
-                                                {data.keywords.map((keyword, index) => (
-                                                    <Tag className="detail" key={index}>{keyword}</Tag>
-                                                ))}
-                                            </div>
-
-                                            <div className="my-2">
+                                            <Row className="product__seller">
+                                                <Col span={12}>
+                                                    <div style={{fontSize: 18}}>by <strong> {data.seller.name}</strong>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                            <div className="mt-1">
                                                 <h2 className="product__price">
                                                     ₹{data.price}.00
                                                 </h2>
                                             </div>
-
+                                            <div className="mt-2">
                                             {data.sizes.length > 1 && (
-                                                <div className="my-2">
+                                                <div className="product__size">
                                                     <div>Size:</div>
                                                     <Select
                                                         style={{width: "100%"}}
@@ -251,7 +238,7 @@ class Details extends React.Component {
                                                     </Select>
                                                 </div>
                                             )}
-                                            <div className="my-2">
+                                            <div className="product__quantity">
                                                 <div>Quantity:</div>
                                                 <InputNumber
                                                     style={{width: "100%"}}
@@ -261,24 +248,28 @@ class Details extends React.Component {
                                                     defaultValue={1}
                                                 />
                                             </div>
+                                            </div>
+                                            <div className>
+                                                <h5>Overview</h5>
+                                                <ul className="product__overview">
+                                                    <li>
+                                                        Cash On Delivery :
+                                                        {!data.codAccepted ? "Not" : ""} Accepted
+                                                    </li>
+                                                    <li>
+                                                        Return :
+                                                        {!data.returnAccepted ? "Not" : ""} Accepted
+                                                    </li>
+                                                    <li>
+                                                        Estimated Delivery : 09-09-2018
+                                                    </li>
+                                                    <li>
+                                                        Wholesale : Yes
+                                                    </li>
+                                                </ul>
+                                            </div>
+
                                         </div>
-
-                                        <div>
-                                            <h5>Overview</h5>
-                                            <ul className="product__overview">
-                                                <li>
-                                                    Cash On Delivery &nbsp;
-                                                    {!data.codAccepted ? "Not" : ""} Accepted
-                                                </li>
-                                                <li>
-                                                    Return &nbsp;
-                                                    {!data.returnAccepted ? "Not" : ""} Accepted
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <p className="my-1">Estimated Delivery by - 04/08/2018</p>
-
                                         <Row>
                                             <Col span={12}>
                                                 <Button
@@ -308,7 +299,7 @@ class Details extends React.Component {
 
                                 <Row className="information">
                                     <Col span={24}>
-                                        <Tabs defaultActiveKey="1">
+                                        <Tabs defaultActiveKey="1" style={{textAlign: 'center'}}>
                                             <TabPane
                                                 tab={
                                                     <span>
@@ -320,17 +311,15 @@ class Details extends React.Component {
                                             >
                                                 {data.description}
                                             </TabPane>
-                                            {/*
-										<TabPane tab={<span><Icon type="apple"/>Envelope</span>} key="2">
-												envelope dimensions {this.props.details.envelope_dimension}
-										</TabPane>
-										<TabPane tab={<span><Icon type="android"/>Card</span>} key="3">
-											card dimensions {this.props.details.card_dimension}
-										</TabPane>
-										<TabPane tab={<span><Icon type="android"/>Made In</span>} key="4">
-											made in the U.S.A
-										</TabPane> 
-									*/}
+
+
+                                            <TabPane tab={<span><Icon type="apple"/>Shipping & Returns</span>} key="2">
+                                                Hello World
+                                            </TabPane>
+                                            <TabPane tab={<span><Icon type="android"/>Reviews</span>} key="3">
+                                                Hello World
+                                            </TabPane>
+
                                         </Tabs>
                                     </Col>
                                 </Row>

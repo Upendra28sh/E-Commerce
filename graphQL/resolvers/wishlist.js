@@ -1,19 +1,38 @@
 const Wishlist = require('../models/wishlist');
+const User = require('../models/user');
 
 module.exports = {
     Query: {
         showWishlist: (parent, args, context, info) => {
-            const userID = args.user || context.user.id;
+            const userID = args.user;
+            const signedInUser = context.user.id;
 
-            return Wishlist.findOne({user: userID})
-                .populate({
-                    path: 'products',
-                    populate: {
-                        path: 'seller'
+            if (userID === signedInUser) {
+                return Wishlist.findOne({user: userID})
+                    .populate({
+                        path: 'products',
+                        populate: {
+                            path: 'seller'
+                        }
+                    })
+                    .populate('user')
+                    .exec();
+            } else {
+                return User.findOne({_id: userID}).then(
+                    foundUser => {
+                        if (foundUser.followers.includes(signedInUser))
+                            return Wishlist.findOne({user: userID})
+                                .populate({
+                                    path: 'products',
+                                    populate: {
+                                        path: 'seller'
+                                    }
+                                })
+                                .populate('user')
+                                .exec();
                     }
-                })
-                .populate('user')
-                .exec();
+                )
+            }
         },
         checkInWishlist: (parent, {productID}, context, info) => {
             const userID = context.user.id;

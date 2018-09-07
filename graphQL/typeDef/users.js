@@ -8,6 +8,7 @@ export default gql `
     extend type Query {
         allUsers: [User],
         User(username: String!): User,
+        checkUserNameAvailability(username: String): Boolean
     }
     extend type Mutation {
         followUser(

@@ -30,21 +30,19 @@ class SellerProducts extends Component {
                     // return <h1>{this.props.sellerID}</h1>
                     return (
                         <div>
-                            <div className="container_40">
-                                <div className="products">
-                                    {data.map((product, index) =>
-                                        <div key={index} className={'product'}>
-                                            <div className='image-container'>
-                                                <Link to={match.url + "/product/" + (product.id)}>
-                                                    <img className="img_fluid" // each_product
-                                                         alt={product.description} key={index}
-                                                         src={product.image}/>
-                                                </Link>
-                                            </div>
-                                            {product.name}
+
+                            <div className="products">
+                                {data.map((product, index) =>
+                                    <div key={index} className={'product'}>
+                                        <div className='image-container'>
+                                            <Link to={match.url + "/product/" + (product.id)}>
+                                                <img className="img_fluid" // each_product
+                                                     alt={product.description} key={index}
+                                                     src={product.image}/>
+                                            </Link>
                                         </div>
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                             </div>
                             {/*<ModalRoute path={`${match.url}/product/:id`} component={Details}/>*/}
 

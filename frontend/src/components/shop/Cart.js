@@ -88,16 +88,16 @@ class Cart extends React.Component {
                                                         <div className="item" key={index}>
                                                             <div className='item_seller'>
                                                                 <div className='item_seller_image'>
-                                                                    <img src={cartItem.item.sellerID.image}
+                                                                    <img src={cartItem.item.seller.image}
                                                                          alt=''
                                                                          style={{width: 32, height: 32}}/>
                                                                 </div>
-                                                                <span>{cartItem.item.sellerID.name}</span>
+                                                                <span>{cartItem.item.seller.name}</span>
                                                             </div>
 
                                                             <Row>
                                                                 <Col span={8}>
-                                                                    <img src={`product_images/${cartItem.item.image}`}
+                                                                    <img src={cartItem.item.image}
                                                                          alt={cartItem.item.name}/>
                                                                 </Col>
                                                                 <Col span={16}>
@@ -109,7 +109,7 @@ class Cart extends React.Component {
                                                                         <span
                                                                             className='item_title_price'>₹ {cartItem.item.price}</span>
                                                                     </div>
-                                                                    <p>{cartItem.item.description}</p>
+                                                                    {/*<p>{cartItem.item.description}</p>*/}
 
                                                                     <small>Selected Size
                                                                         : {cartItem.selectedSize}</small>
