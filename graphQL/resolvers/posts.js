@@ -1,5 +1,6 @@
 import Post from '../models/post';
 import User from '../models/user';
+import {createApprovalRequest,createFeedItem} from "./utils";
 
 module.exports = {
     Query: {
@@ -52,6 +53,7 @@ module.exports = {
             }).then(
                 createdPost => {
                     createdPost.timestamp = Date.now();
+                    createFeedItem('User Post',createdPost.id,'User Post is added');
                     createdPost.save(); 
                     return createdPost
                         .populate({

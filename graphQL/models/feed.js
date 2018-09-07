@@ -7,7 +7,7 @@ const FeedSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             refPath: 'collection'
         },
-        collection: String, // enum [ 'Post' , 'Sellerpost' , 'Product']
+        refString: String, // enum [ 'Post' , 'Sellerpost' , 'Product']
     },
     {
         versionKey: false,

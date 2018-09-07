@@ -1,5 +1,6 @@
 import Sellerpost from '../models/sellerpost';
 import Seller from '../models/seller';
+import {createApprovalRequest,createFeedItem} from "./utils";
 
 module.exports = {
     Query: {
@@ -45,7 +46,7 @@ module.exports = {
                 image: image,
             }).then(
                 createdPost => {
-
+                    createFeedItem('Seller Post',createdPost.id,'Seller Post is added');
                     return createdPost
                         .populate('seller')
                         .execPopulate()

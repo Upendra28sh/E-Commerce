@@ -1,5 +1,5 @@
 import Approval from './../models/approval';
-
+import Feed from './../models/feed';
 
 export function createApprovalRequest(approvalType, originId) {
 
@@ -21,6 +21,31 @@ export function createApprovalRequest(approvalType, originId) {
         sendErrorReport("Unable To Correct Approval", {
             approvalType ,
             originId
+        });
+    });
+
+}
+
+export function createFeedItem(feedType, originId,event) {
+
+    let feed = new Feed({
+        event : event ,
+        origin: originId,
+        refString: feedType,
+    });
+
+    feed.save().then(data => {
+        console.log(data);
+        // TODO : Take a Action Like SMS or Email For New Approval Created
+        // TODO : Create A Notification For Admin
+
+
+    }).catch(err => {
+        console.error(err);
+        sendErrorReport("Unable To Create feed item", {
+            feedType ,
+            originId ,
+            event
         });
     });
 

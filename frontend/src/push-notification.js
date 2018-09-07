@@ -15,6 +15,7 @@ export const initializeFirebase = () => {
     .then((registration) => {
       firebase.messaging().useServiceWorker(registration);
     });
+    
 }
 export const askForPermissionToReceiveNotifications = async () => {
   try {
@@ -23,6 +24,38 @@ export const askForPermissionToReceiveNotifications = async () => {
     const token = await messaging.getToken();
     console.log('user token:', token);
     return token;
+  } catch (error) {
+    console.error(error);
+  }
+}
+export const sendmessageusertoseller = async (username,message,shopname) => {
+  try {
+    firebase.database().ref('users/'+username).set({
+      message: message,
+      author : 'me',
+      shopname : shopname
+    });
+    firebase.database().ref('seller/'+shopname).set({
+      message: message,
+      author : 'them',
+      username : username
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+export const sendmessagesellertouser = async (username,message,shopname) => {
+  try {
+    firebase.database().ref('users/'+username).set({
+      message: message,
+      author : 'them',
+      shopname : shopname
+    });
+    firebase.database().ref('seller/'+shopname).set({
+      message: message,
+      author : 'me',
+      username : username
+    });
   } catch (error) {
     console.error(error);
   }
