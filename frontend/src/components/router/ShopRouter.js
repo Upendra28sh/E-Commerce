@@ -19,12 +19,14 @@ import Order from "../shop/Order";
 import RequireAuth from "../utils/RequireAuth";
 import TrendingFeed from "../shop/TrendingFeed";
 import addPost from "../shop/addpost"
+import Chat from "../shop/chat"
 
 const Router = () => {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
+        <Route exact path="/chat" component={Chat}/>
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/addPost" component={addPost}/>
