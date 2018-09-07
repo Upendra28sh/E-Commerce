@@ -2,21 +2,26 @@ import React, {Component} from 'react';
 
 class SellerPost extends Component {
     render() {
+        console.log(this.props.post);
+        let post = this.props.post;
+        if (!post) {
+            post = {};
+        }
         return (
             <div className="photo feed-product">
                 <header className="photo__header">
-                    <img src="http://www.cloudsellerpro.com/wp-content/uploads/2017/01/avatar-3.png"
+                    <img src={post.user.image}
                          alt=''
                          className="photo__avatar"/>
                     <div className="photo__user-info">
-                        <span className="photo__author">Rahul jain</span>
+                        <span className="photo__author">{post.user.name}</span>
                         <span className="photo__location">
                             <span className="photo__icon"><i className="fa fa-share" aria-hidden="true"/></span>
                             shared Red Envelope By Seller 1
                         </span>
                     </div>
                 </header>
-                <div className="photo__image">
+                <div className="photo__image" style={{backgroundImage: `url("${post.image}")`}}>
                     {/*<img src="product_images/product1.jpg"/>*/}
                     <div className="photo__image__overlay">
                         <span className="photo__image__overlay__price">
