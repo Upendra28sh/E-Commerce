@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Feed = require('../models/feed');
 const Product = require('../models/product');
 
 // TODO : Optimize Query and Sort According to Timestamp
@@ -7,6 +8,33 @@ const Product = require('../models/product');
 
 module.exports = {
     Query: {
+        getFeed: (parent, args, context, info) => {
+
+            return User.findOne({_id: context.user.id}).then(foundUser => {
+
+                if (foundUser) {
+                    let array1 = foundUser.following;
+                    let array2 = foundUser.followers;
+                    let array3 = foundUser.followingShop;
+
+                    let searchKeys = array1.concat(array2).concat(array3);
+                    console.log(searchKeys);
+
+                    return Feed.find({
+                        key: {"$in": searchKeys}
+                    }).populate('origin').then(data => {
+                        console.log(data);
+                        data = data.map(item => {
+                            item.origin.__typename = item.refString;
+                            return item;
+                        });
+                        return data;
+                    });
+                }
+            });
+
+
+        },
         getFeedPosts: (parent, args, context, info) => {
             // console.log(context.user);
             return User.findById(context.user.id).then(foundUser => {
@@ -24,7 +52,7 @@ module.exports = {
                     return posts;
                 });
             });
-        } ,
+        },
         getFeedProducts: (parent, args, context, info) => {
             console.log(context.user);
             return User.findById(context.user.id).then(foundUser => {

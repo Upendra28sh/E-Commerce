@@ -26,11 +26,12 @@ export function createApprovalRequest(approvalType, originId) {
 
 }
 
-export function createFeedItem(feedType, originId,event) {
+export function createFeedItem(feedType, originId, keyId  , event) {
 
     let feed = new Feed({
         event : event ,
         origin: originId,
+        key : keyId ,
         refString: feedType,
     });
 

@@ -1,6 +1,44 @@
 import {gql} from "apollo-boost";
 
 
+export const GET_USER_FEED = gql`
+    {
+        getFeed {
+            refString ,
+            origin {
+                ...on Post {
+                    caption ,
+                    product {
+                        name , 
+                        price ,
+                        sizes
+                    }
+                }
+                ...on Sellerpost {
+                    caption ,
+                    image ,
+                    seller {
+                        name ,
+                        image
+                    }
+                }
+                ...on Product {
+                    name ,
+                    image ,
+                    sizes ,
+                    description ,
+                    codAccepted ,
+                    returnAccepted
+                }
+            },
+            created_at ,
+            updated_at ,
+            event
+
+        }
+    }
+`
+
 export const USER_SIGNUP = gql`
     mutation($input : AuthInput , $details : UserDetailsInput , $address : AddressInput ) {
         UserSignup(input : $input , details :$details , address :$address  ) {

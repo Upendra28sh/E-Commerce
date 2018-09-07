@@ -92,7 +92,7 @@ module.exports = {
                 createdProduct => {
                     // TODO : Add Verification Request to Admin.
                     createApprovalRequest('Product' , createdProduct.id);
-                    createFeedItem('Product',createdProduct.id,'Product is added');
+                    createFeedItem('Product',createdProduct.id,  context.seller.id ,'Product is added');
 
 
                     return createdProduct.populate('seller').execPopulate().then(

@@ -46,7 +46,7 @@ module.exports = {
                 image: image,
             }).then(
                 createdPost => {
-                    createFeedItem('Seller Post',createdPost.id,'Seller Post is added');
+                    createFeedItem('Seller Post',createdPost.id, createdPost.seller  , 'Seller Post is added');
                     return createdPost
                         .populate('seller')
                         .execPopulate()

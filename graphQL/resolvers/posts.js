@@ -53,7 +53,7 @@ module.exports = {
             }).then(
                 createdPost => {
                     createdPost.timestamp = Date.now();
-                    createFeedItem('User Post',createdPost.id,'User Post is added');
+                    createFeedItem('User Post',createdPost.id, createdPost.user  ,'User Post is added');
                     createdPost.save(); 
                     return createdPost
                         .populate({
