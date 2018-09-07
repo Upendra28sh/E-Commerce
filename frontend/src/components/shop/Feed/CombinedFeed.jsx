@@ -18,14 +18,14 @@ class Feed extends React.Component {
                             return "Error...";
 
                         data = data.getFeed ;
-
+                        console.log("d",data);
                         return data.map((feedItem, index) => {
                             if (feedItem.refString === 'Product') {
-                                return <ProductFeed key={index} product={feedItem}/>;
+                                return <ProductFeed key={index} product={feedItem.origin}/>;
                             } else if (feedItem.refString === 'Sellerpost') {
-                                return <SellerPost key={index} post={feedItem}/>;
+                                return <SellerPost key={index} post={feedItem.origin}/>;
                             } else if (feedItem.refString === 'Post') {
-                                return <UserPost key={index} post={feedItem}/>;
+                                return <UserPost key={index} post={feedItem.origin}/>;
                             }
                         });
 
