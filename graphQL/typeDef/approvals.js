@@ -22,7 +22,8 @@ export default gql`
 
     input ApprovalInput {
         id: ID!,
-        comment: String!
+        comment: String!,
+        approved: Boolean!
     }
 
     extend type Query {
@@ -30,8 +31,9 @@ export default gql`
         getSellerApproval: [ApprovalSeller]
     }
 
-    #extend type Mutation {
-    #    acceptApproval(input: ApprovalInput): 
-    #    acceptApproval(input: ApprovalInput): 
-    #}
+    extend type Mutation {
+        handleApproval(
+            input: ApprovalInput
+        ) : Boolean
+    }
 `;

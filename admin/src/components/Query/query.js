@@ -159,3 +159,15 @@ query {
     }
 }  
 `;
+
+export const HANDLE_APPROVAL = gql`
+    mutation($id: ID!, $comment: String!, $approved: Boolean!) {
+        handleApproval(
+            input: {
+                id: $id,
+                comment: $comment,
+                approved: $approved
+            }
+        )
+    }
+`;

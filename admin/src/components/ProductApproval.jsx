@@ -2,22 +2,12 @@ import React, { Component } from 'react'
 import { Spin, Table, Col, Row, Modal} from "antd";
 import { Query } from 'react-apollo';
 import ApprovalDialog from './ApprovalDialog';
-import { GET_APPROVAL_PRODUCTS } from './Query/query';
-import ApolloClient from "apollo-boost";
+import { GET_APPROVAL_PRODUCTS, HANDLE_APPROVAL } from './Query/query';
+import ApolloClient, { gql } from "apollo-boost";
 
 const client = new ApolloClient({
     uri: "http://localhost:4000/"
 });
-
-const handleYes = (s) => {
-    // Handle Mutation
-    console.log(s);
-}
-
-const handleNo = (s) => {
-    // Handle Mutation    
-    console.log(s);
-}
 
 const columns = [
     {
@@ -63,7 +53,22 @@ const columns = [
         key: "approve",
         render: value => {
             return (
-                <ApprovalDialog handleYes={handleYes} handleNo={handleNo}/>
+                <ApprovalDialog 
+                    handleApproval={
+                        s => {
+                            client.mutate({
+                                mutation: HANDLE_APPROVAL,
+                                variables: {
+                                    "id": value,
+                                    "comment": s.comment,
+                                    "approved": s.yesModal
+                                }
+                            }).then(
+                                data => console.log("MUTATION", data)
+                            )
+                        }
+                    }
+                />
             )
         },
         align: "center"
