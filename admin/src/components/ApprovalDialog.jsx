@@ -12,12 +12,12 @@ class ApprovalDialog extends React.Component {
     }
 
     handleOkYesModal = (e) => {
-        this.props.handleYes(this.state);
+        this.props.handleApproval(this.state);
         this.setState({yesModal: false})
     }
 
     handleOkNoModal = (e) => {
-        this.props.handleNo(this.state);
+        this.props.handleApproval(this.state);
         this.setState({noModal: false})
     }
 

@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Spin, Table, Col, Row, Tag , Icon  } from "antd";
 import { Query } from 'react-apollo';
-import { GET_APPROVAL_SELELRS } from './Query/query';
+import ApprovalDialog from './ApprovalDialog';
+import { GET_APPROVAL_SELELRS, HANDLE_APPROVAL } from './Query/query';
+import ApolloClient, { gql } from "apollo-boost";
+
+const client = new ApolloClient({
+    uri: "http://localhost:4000/"
+});
 
 const columns = [
     {
@@ -35,14 +41,22 @@ const columns = [
         key: "approve",
         render: value => {
             return (
-                <div>
-                    <div onClick={() => alert(`Approve ${value}`)}>
-                        <Icon type='check'/>
-                    </div>
-                    <div onClick={() => alert(`Fail ${value}`)}>
-                        <Icon type='close'/>
-                    </div>
-                </div>
+                <ApprovalDialog 
+                    handleApproval={
+                        s => {
+                            client.mutate({
+                                mutation: HANDLE_APPROVAL,
+                                variables: {
+                                    "id": value,
+                                    "comment": s.comment,
+                                    "approved": s.yesModal
+                                }
+                            }).then(
+                                data => console.log("MUTATION", data)
+                            )
+                        }
+                    }
+                />
             )
         },
         align: "center"
