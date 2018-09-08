@@ -168,3 +168,17 @@ export const ADD_PRODUCT = gql`
         }
     }
 `;
+
+export const GET_SELLER_POST = gql`
+    query {
+        getSellerPostBySeller {
+            id
+            caption
+            image
+            comments {
+                id
+                text
+            }
+        }
+    }
+`;
