@@ -8,12 +8,11 @@ import jwt from 'jsonwebtoken';
 
 import Container from './components/Container';
 import DefaultContainer from './components/DefaultContainer';
+import './main.css';
+import RequireAuth from "./components/Utils/RequireAuth";
 
 // import AddSeller from "./components/AddSeller";
 // import WrappedLogin from "./components/Login";
-
-import './main.css';
-import RequireAuth from "./components/Utils/RequireAuth";
 
 let token = localStorage.getItem("token");
 
@@ -21,6 +20,18 @@ let found = false;
 if (token) {
     found = true;
 }
+
+let decodedToken;
+console.log(jwt.decode(token), function (err, data) {
+    if (err) {
+        if (err.name === 'TokenExpiredError') {
+            found = false;
+            decodedToken = {};
+        } else {
+            decodedToken = data;
+        }
+    }
+});
 
 let auth = {
     isAuthenticated: found,
@@ -74,7 +85,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
         <BrowserRouter>
             <Switch>
-                <Route path="/shop" component={DefaultContainer} />
+                <Route path="/shop" component={DefaultContainer}/>
                 {/* <Route exact path="/login" component={WrappedLogin}/>
                 <Route exact path="/shop/create/" component={AddSeller}/> */}
                 <Route path="/" component={RequireAuth(Container)}/>

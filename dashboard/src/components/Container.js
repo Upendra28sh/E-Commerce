@@ -18,7 +18,7 @@ class Container extends React.Component {
 
     render() {
         return (
-            <Layout className={'admin-panel'}>
+            <Layout className={'admin-panel'} style={{minHeight : '100vh'}}>
                 <Sider
 
                     collapsible

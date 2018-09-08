@@ -33,11 +33,6 @@ const data = [
     {genre: 'Other4', sold: 180, income: 3710}
 ];
 
-// 定义度量
-const cols = {
-    sold: {alias: '销售量'},
-    genre: {alias: '游戏种类'}
-};
 
 const chartRowResponsive = {
     xs: 24,
@@ -79,7 +74,6 @@ class SalesDetailsChart extends Component {
                                 <Chart
                                     forceFit={true}
                                     data={data}
-                                    scale={cols}
                                     padding={padding}
 
                                 >
