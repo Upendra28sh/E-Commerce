@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const Seller = require('../models/seller');
 var _ = require('lodash');
-import {createApprovalRequest,createFeedItem} from "./utils";
+import {createApprovalRequest, createFeedItem} from "./utils";
 
 const normalizeKeywords = (keywords) => {
     // TODO : Implement it to normalize keywords entered by user.
@@ -26,16 +26,20 @@ module.exports = {
         },
 
 
-        getProductBySeller: (parent, args , {seller}, info) => {
-            let id = args.id ;
-            if(seller){
-                id = seller.id
+        getProductBySeller: (parent, args, {seller}, info) => {
+            let id = args.id;
+            if (seller) {
+                id = seller.id;
             }
 
             return Product.find({
-                seller: id
+                seller: id,
+                'approval.approved': true
             }).populate('seller').exec().then(
-                data => data
+                data => {
+                    console.log(data);
+                    return data;
+                }
             );
 
         },
@@ -80,19 +84,19 @@ module.exports = {
             ...args
         }, context, info) => {
             // console.log(input, args);
-            if(!context.seller){
-                throw new Error("Seller Not Specified")
+            if (!context.seller) {
+                throw new Error("Seller Not Specified");
             }
 
             return Product.create({
-                ...input ,
+                ...input,
                 keywords: normalizeKeywords(input.keywords),
                 seller: context.seller.id
             }).then(
                 createdProduct => {
                     // TODO : Add Verification Request to Admin.
-                    createApprovalRequest('Product' , createdProduct.id);
-                    createFeedItem('Product',createdProduct.id,  context.seller.id ,'Product is added');
+                    createApprovalRequest('Product', createdProduct.id);
+                    createFeedItem('Product', createdProduct.id, context.seller.id, 'Product is added');
 
 
                     return createdProduct.populate('seller').execPopulate().then(
