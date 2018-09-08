@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Col, List, Row, Tabs , Avatar} from 'antd';
+import {Card, Col, List, Row, Tabs} from 'antd';
 import {Axis, Chart, Geom, Legend, Tooltip} from 'bizcharts';
 
 const TabPane = Tabs.TabPane;
@@ -51,12 +51,12 @@ class SalesDetailsChart extends Component {
         loading: true
     };
 
-    componentDidMount(){
+    componentDidMount() {
         setTimeout(() => {
             this.setState({
-                loading : false
-            } )
-        } , 1000)
+                loading: false
+            });
+        }, 1000);
     }
 
     render() {
@@ -87,35 +87,35 @@ class SalesDetailsChart extends Component {
                             <Col {...chartRowResponsive} xl={6} lg={8}>
                                 <p>
                                     <strong>Recent Orders</strong>
-                                    <div>
-                                        <List
-                                            itemLayout="horizontal"
-                                            dataSource={listData}
-                                            renderItem={item => (
-                                                <List.Item>
-                                                    <List.Item.Meta
-                                                        title={item.title}
-                                                        description={
-                                                            <Row gutter={16}>
-                                                                <Col span={6}>
-                                                                    <img
-                                                                        className='img-fluid img-thumbnail'
-                                                                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                                                </Col>
-                                                                <Col span={18}>
-                                                                    <strong>Product 1</strong>
-                                                                    <div>Quantity : S</div>
-                                                                    <div>Size     : 12</div>
-                                                                </Col>
-                                                            </Row>
-                                                        }
-                                                    />
-                                                </List.Item>
-                                            )}
-                                        />
-                                    </div>
-
                                 </p>
+                                <div>
+                                    <List
+                                        itemLayout="horizontal"
+                                        dataSource={listData}
+                                        renderItem={item => (
+                                            <List.Item>
+                                                <List.Item.Meta
+                                                    title={item.title}
+                                                    description={
+                                                        <Row gutter={16}>
+                                                            <Col span={6}>
+                                                                <img
+                                                                    className='img-fluid img-thumbnail'
+                                                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+                                                            </Col>
+                                                            <Col span={18}>
+                                                                <strong>Product 1</strong>
+                                                                <div>Quantity : S</div>
+                                                                <div>Size : 12</div>
+                                                            </Col>
+                                                        </Row>
+                                                    }
+                                                />
+                                            </List.Item>
+                                        )}
+                                    />
+                                </div>
+
                             </Col>
                         </Row>
 
@@ -126,6 +126,5 @@ class SalesDetailsChart extends Component {
     }
 }
 
-SalesDetailsChart.propTypes = {};
 
 export default SalesDetailsChart;

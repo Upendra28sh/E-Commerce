@@ -70,6 +70,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={Login} />
+
                 <Route path="/" component={RequireAuth(Container)} />
             </Switch>
         </BrowserRouter>
