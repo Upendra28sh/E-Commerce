@@ -1,15 +1,33 @@
 import React from 'react';
-import {Layout, Menu, Icon, Divider} from 'antd';
+import {Icon, Layout, Menu} from 'antd';
 import {Link} from 'react-router-dom';
 import Router from './Router/AppRouter';
 
 const {Header, Content, Footer, Sider} = Layout;
 
 class Container extends React.Component {
+    state = {
+        collapsed: false,
+    };
+
+    onCollapse = (collapsed) => {
+        console.log(collapsed);
+        this.setState({collapsed});
+    };
+
+
     render() {
         return (
             <Layout className={'admin-panel'}>
-                <Sider style={{overflow: 'auto', height: '100vh', position: 'fixed', left: 0}}>
+                <Sider
+
+                    collapsible
+                    collapsed={this.state.collapsed}
+                    onCollapse={this.onCollapse}
+                    breakpoint="lg"
+                    collapsedWidth="80"
+                    width={256}>
+
                     <div className="logo"/>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1">
@@ -19,10 +37,10 @@ class Container extends React.Component {
                             </Link>
                         </Menu.Item>
                         {/*<Menu.Item key="2">*/}
-                            {/*<Link to={'/sellers'}>*/}
-                                {/*<Icon type="user"/>*/}
-                                {/*<span className="nav-text">Sellers</span>*/}
-                            {/*</Link>*/}
+                        {/*<Link to={'/sellers'}>*/}
+                        {/*<Icon type="user"/>*/}
+                        {/*<span className="nav-text">Sellers</span>*/}
+                        {/*</Link>*/}
                         {/*</Menu.Item>*/}
                         <Menu.Item key="5">
                             <Link to={'/products'}>
@@ -50,11 +68,11 @@ class Container extends React.Component {
                         </Menu.Item>
                     </Menu>
                 </Sider>
-                <Layout style={{marginLeft: 200}}>
+                <Layout>
                     <Header style={{background: '#fff', padding: 0}}/>
                     <Content style={{margin: '24px 16px 0', overflow: 'initial'}}>
                         <div style={{padding: 24}}>
-                            <Router />
+                            <Router/>
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
