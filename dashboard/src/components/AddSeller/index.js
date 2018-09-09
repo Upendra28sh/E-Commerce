@@ -162,9 +162,10 @@ class AddSeller extends React.Component {
                returnPolicy: returnPolicy,
                storePolicy: storePolicy,
                about : about
-            })
+            }),
+            () => this.submitDetails()
         )
-        this.submitDetails();
+        // this.submitDetails();
     }
 
     render() {
