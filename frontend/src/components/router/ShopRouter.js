@@ -26,7 +26,7 @@ const Router = () => {
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/chat" component={Chat}/>
+        <Route exact path="/chat" component={RequireAuth(Chat)}/>
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/addPost" component={addPost}/>

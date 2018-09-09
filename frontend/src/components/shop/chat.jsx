@@ -1,36 +1,65 @@
 import React, {Component} from 'react'
-import {render} from 'react-dom'
- 
+import {Query} from 'react-apollo'
+import {Button,Icon} from 'antd'
+import {GET_ALL_SELLERS} from '../query'; 
+import {sendmessageusertoseller} from '../../push-notification'
+
 class Demo extends Component {
  
   constructor() {
     super();
     this.state = {
-      messageList: []
+      openPortal:false,
+      openChat:false,
+      sellername:'',
+      sellerImage:'',
+      sellerIntro:'',
+      messageList: [],
+      message:''
     };
   }
- 
-  _onMessageWasSent(message) {
+ changeSeller(value)
+ {
     this.setState({
-      messageList: [...this.state.messageList, message]
-    })
-  }
- 
-  _sendMessage(text) {
-    if (text.length > 0) {
-      this.setState({
-        messageList: [...this.state.messageList, {
-          author: 'them',
-          type: 'text',
-          data: { text }
-        }]
-      })
-    }
-  }
- 
+      sellername:value.shopName,
+      sellerImage:value.image,
+      sellerIntro:value.intro,
+      openChat:true
+    });
+    
+ }
+ onTyping(e)
+ {
+   this.setState({
+     message:e.target.value
+   })
+ }
+ onSummits()
+ {
+   console.log('clicked')
+   sendmessageusertoseller("dhruvramdev",this.state.message,this.state.sellername);
+
+ }
   render() {
-    return (<div id="chatbox">
-    <div id="friendslist">
+    console.log(this.props);
+    if(!this.state.openPortal)
+    {
+      return <Button onClick={()=>{this.setState({openPortal:true})}} type="primary" style={{top:'600px',left:'90%'}}></Button>
+    }
+    if(this.state.openChat)
+    {
+      var objDiv = document.getElementById("chat-messages");
+      if(objDiv!=null)
+      {
+        objDiv.scrollTop = objDiv.scrollHeight;
+      }
+   
+    }
+
+    return <div id="chat">
+    <div id="chatbox">
+    { !this.state.openChat ? (
+    <div id="friendslist" style={{display:'block'}}>
         <div id="topmenu">
             <span className="friends"></span>
               <span className="chats"></span>
@@ -38,69 +67,37 @@ class Demo extends Component {
           </div>
           
           <div id="friends">
-            <div className="friend">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-                  <p>
-                    <strong>Miro Badev</strong>
-                    <span>mirobadev@gmail.com</span>
-                  </p>
-                  <div className="status available"></div>
-              </div>
-              
-              <div className="friend">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
-                  <p>
-                    <strong>Martin Joseph</strong>
-                    <span>marjoseph@gmail.com</span>
-                  </p>
-                  <div className="status away"></div>
-              </div>
-              
-              <div className="friend">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3_copy.jpg" />
-                  <p>
-                    <strong>Tomas Kennedy</strong>
-                    <span>tomaskennedy@gmail.com</span>
-                  </p>
-                  <div className="status inactive"></div>
-              </div>
-              
-              <div className="friend">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4_copy.jpg" />
-                  <p>
-                    <strong>Enrique	Sutton</strong>
-                    <span>enriquesutton@gmail.com</span>
-                  </p>
-                  <div className="status inactive"></div>
-              </div>
-              
-              <div className="friend">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5_copy.jpg" />
-                  <p>
-                  <strong>	Darnell	Strickland</strong>
-                    <span>darnellstrickland@gmail.com</span>
-                  </p>
-                  <div className="status inactive"></div>
-              </div>
-              
-              <div id="search">
-                <input type="text" id="searchfield" value="Search contacts..." />
-              </div>
-              
-          </div>                
-          
-      </div>	
+          <Query query={GET_ALL_SELLERS}>
+          {({loading, error, data})=>{
+            if(loading) return <p>loading...</p>
+            data = data.allSellers;
+           
+           return  data.map((value)=>{
+              return <div className="friend" onClick={()=>this.changeSeller(value)}>
+              <img src={value.image}/>
+                <p>
+                  <strong>{value.name}</strong><br></br>
+                  <span>{value.intro}</span>
+                </p>
+                <div className="status available"></div>
+            </div>
+            })
+             
+          }}
+              </Query>
+             </div>
+             </div>
+    )
       
-      <div id="chatview" className="p1">    	
+     : (<div id="chatview" className="p1">    	
           <div id="profile">
   
               <div id="close">
-                  <div className="cy"></div>
-                  <div className="cx"></div>
+              <Icon type="close" theme="outlined" />
               </div>
               
-              <p>Miro Badev</p>
-              <span>miro@badev@gmail.com</span>
+              <p>{this.state.sellername}</p>
+              <span>{this.state.sellerIntro}</span>
           </div>
           <div id="chat-messages">
             <label>Thursday 02</label>
@@ -137,7 +134,6 @@ class Demo extends Component {
                   <div className="bubble">
                     Can you share a link for the tutorial?
                       <div className="corner"></div>
-                      <span>1 min</span>
                   </div>
               </div>
               
@@ -153,12 +149,16 @@ class Demo extends Component {
           </div>
         
           <div id="sendmessage">
-            <input type="text" value="Send message..." />
-              <button id="send"></button>
+            <input type="text" value={this.state.message} placeholder="Send messages here..." onChange={(e)=>this.onTyping(e)} />
+              <button type="button" id="send" onClick={this.onSummits.bind(this)}></button>
           </div>
-      
-      </div>        
-  </div>	)
+          <img src={this.state.sellerImage} className="floatingImg" style={{top: '20px', width: '68px', left: '108px'}}/>
+     </div>   )
+    }     
+  </div>
+    
+  </div>
+    		
   }
 }
 export default Demo;
