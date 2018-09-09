@@ -68,3 +68,12 @@ export const sendmessagesellertouser = async (username,message,shopname) => {
     console.error(error);
   }
 }
+
+
+export function getmessages(username,shopname){
+  
+  var getChatData = firebase.database().ref('users/' + username + '/sellers/'+shopname);
+   return getChatData;
+  
+
+  } 
