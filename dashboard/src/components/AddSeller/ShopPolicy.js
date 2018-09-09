@@ -36,7 +36,8 @@ class ShopPolicy extends React.Component {
             confirmDirty: false,
             ReturnPolicy: "",
             StorePolicy: "",
-            About: ""
+            About: "",
+            valid: undefined
         };
         this.handleaboutchange = this.handleaboutchange.bind(this);
         this.handlereturnchange = this.handlereturnchange.bind(this);
@@ -60,20 +61,32 @@ class ShopPolicy extends React.Component {
         });
     };
 
+    handleNext = () => {
+        if (this.state.About.length > 0 && this.state.ReturnPolicy.length > 0 && this.state.StorePolicy.length > 0) {
+            this.setState({valid: true});
+            this.props.onNext(
+                this.state.ReturnPolicy, 
+                this.state.StorePolicy, 
+                this.state.About
+            );
+        } else {
+            this.setState({valid: false});
+        }
+    }
 
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
-    };
+    // handleSubmit = e => {
+    //     e.preventDefault();
+    //     this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
+    // };
+
+    // componentWillUnmount() {
+    //     this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
+    // }
 
     handleConfirmBlur = e => {
         const value = e.target.value;
         this.setState({confirmDirty: this.state.confirmDirty || !!value});
     };
-
-    componentWillUnmount() {
-        this.props.onNext(this.state.ReturnPolicy, this.state.StorePolicy, this.state.About);
-    }
 
     render() {
         // const {getFieldDecorator} = this.props.form;
@@ -103,7 +116,9 @@ class ShopPolicy extends React.Component {
         return (
             <div className="form_content">
                 <div className="container_80">
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form 
+                        // onSubmit={this.handleSubmit}
+                    >
                         <FormItem {...formItemLayout} label="Store Policy">
 
                             <ReactQuill name="ReturnPolicy" style={{lineHeight: '22px'}} modules={modules}
@@ -124,12 +139,17 @@ class ShopPolicy extends React.Component {
                                         value={this.state.About}
                                         onChange={this.handleaboutchange}/>
                         </FormItem>
-                        <FormItem {...tailFormItemLayout}>
+                        {/* <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
                                 Save
                             </Button>
-                        </FormItem>
+                        </FormItem> */}
                     </Form>
+                </div>
+                <p id="message">{this.state.valid === undefined ? "" : this.state.valid ? "" : "Enter a valid name"}</p>                        
+                <div id="footer">
+                    <button onClick={this.props.onBack}>Back</button>
+                    <button onClick={this.handleNext}>Save and Continue</button>
                 </div>
             </div>
         );

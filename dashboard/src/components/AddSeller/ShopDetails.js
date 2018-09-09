@@ -11,30 +11,46 @@ class ShopDetails extends React.Component {
     componentDidMount() {
         const { setFieldsValue } = this.props.form;
         setFieldsValue({
-            'Aadhar': this.props.aadhar,
-            'PAN': this.props.pan,
-            'GST': this.props.gst,
-            'Bank Name': this.props.bankName,
-            'Account Number': this.props.accountNo,
-            'Bank IFSC Code': this.props.bankIFSC
+            'aadhar': this.props.aadhar,
+            'pan': this.props.pan,
+            'gst': this.props.gst,
+            'bank_name': this.props.bankName,
+            'account_number': this.props.accountNo,
+            'bank_IFSC': this.props.bankIFSC
         });      
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     this.props.form.validateFieldsAndScroll((err, values) => {
+    //       if (!err) {
+    //         let data = e.target;
+    //             this.props.onNext(
+    //                 data[0].value,
+    //                 data[1].value,
+    //                 data[2].value,
+    //                 data[3].value,
+    //                 data[4].value,
+    //                 data[5].value
+    //             );
+    //         }
+    //     });
+    // }
+
+    handleNext = () => {
         this.props.form.validateFieldsAndScroll((err, values) => {
-          if (!err) {
-            let data = e.target;
+            if (!err) {
+                const data = this.props.form.getFieldsValue();
                 this.props.onNext(
-                    data[0].value,
-                    data[1].value,
-                    data[2].value,
-                    data[3].value,
-                    data[4].value,
-                    data[5].value
+                    data["aadhar"],
+                    data["pan"],
+                    data["gst"],
+                    data["bank_name"],
+                    data["account_number"],
+                    data["bank_IFSC"]
                 );
             }
-        });
+        })
     }
 
     handleConfirmBlur = (e) => {
@@ -71,13 +87,15 @@ class ShopDetails extends React.Component {
         return (
             <div className="form_content">
                 <div className="container_80">
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form 
+                        // onSubmit={this.handleSubmit}
+                    >
                         <FormItem
                             {...formItemLayout}
                             label="Aadhar Number"
                         >
                             {
-                                getFieldDecorator('Aadhar',
+                                getFieldDecorator('aadhar',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Aadhar Number'}
@@ -93,7 +111,7 @@ class ShopDetails extends React.Component {
                             label="PAN Number"
                         >
                             {
-                                getFieldDecorator('PAN',
+                                getFieldDecorator('pan',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your PAN Number'}
@@ -109,7 +127,7 @@ class ShopDetails extends React.Component {
                             label="GST Number"
                         >
                             {
-                                getFieldDecorator('GST',
+                                getFieldDecorator('gst',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your GST Number'}
@@ -125,7 +143,7 @@ class ShopDetails extends React.Component {
                             label="Bank Name"
                         >
                             {
-                                getFieldDecorator('Bank Name',
+                                getFieldDecorator('bank_name',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Bank Name'}
@@ -141,7 +159,7 @@ class ShopDetails extends React.Component {
                             label="Accont Number"
                         >
                             {
-                                getFieldDecorator('Account Number',
+                                getFieldDecorator('account_number',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Bank Account Number'}
@@ -157,7 +175,7 @@ class ShopDetails extends React.Component {
                             label="Bank IFSC Code"
                         >
                             {
-                                getFieldDecorator('Bank IFSC Code',
+                                getFieldDecorator('bank_IFSC',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Bank IFSC Code'}
@@ -168,10 +186,14 @@ class ShopDetails extends React.Component {
                             }
                         </FormItem>
 
-                        <FormItem {...tailFormItemLayout}>
+                        {/* <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">Register</Button>
-                        </FormItem>
+                        </FormItem> */}
                     </Form>
+                </div>
+                <div id="footer">
+                    <button onClick={this.props.onBack}>Back</button>
+                    <button onClick={this.handleNext}>Save and Continue</button>
                 </div>
             </div>
         );

@@ -19,7 +19,9 @@ module.exports = {
                     return data;
                 });
         },
-        getSellerPostBySeller: (parent, {id}, context, info) => {
+        getSellerPostBySeller: (parent, args, {seller}, info) => {
+            let id = seller.id;
+
             return Sellerpost.find({seller: id})
                 .populate({
                     path: 'comments.user',
@@ -39,6 +41,8 @@ module.exports = {
     Mutation: {
         addNewPostSeller: (parent, {input}, {seller}, info) => {
             const {image, caption} = input;
+
+            // seller.id = seller.id || '5b8f43f6da9f902ff9cd2063';
 
             return Sellerpost.create({
                 seller: seller.id,
