@@ -73,6 +73,7 @@ class AddSeller extends React.Component {
     }
 
     submitDetails = () => {
+        console.log(this.state);
         let inputToGraph = this.prepareInput();
         console.log(inputToGraph);
         client.mutate({
@@ -97,10 +98,10 @@ class AddSeller extends React.Component {
             }
         );
 
-        if (this.state.percent === 100)
-        {
-            this.submitDetails();
-        }    
+        // if (this.state.percent === 100)
+        // {
+        //     this.submitDetails();
+        // }    
     };
 
     onBack = () => {
@@ -121,6 +122,7 @@ class AddSeller extends React.Component {
                 shopName: shopName
             })
         );
+        this.onContinue();
     }
 
     onSetSellerDetails = (name, image, intro, address, street, city, state, zipcode) => {
@@ -154,22 +156,24 @@ class AddSeller extends React.Component {
         this.onContinue();
     }
 
-    onSetShopPolicy = (returnPolicy, storePolicy,about) => {
+    onSetShopPolicy = (returnPolicy, storePolicy, about) => {
         this.setState(
             () => ({
                returnPolicy: returnPolicy,
                storePolicy: storePolicy,
                about : about
-            })
-        );
+            }),
+            () => this.submitDetails()
+        )
+        // this.submitDetails();
     }
 
     render() {
         const pages = [
-            <ShopName onNext={this.onSetShopName} {...this.state}/>,
-            <SellerDetails onNext={this.onSetSellerDetails} {...this.state}/>,
-            <ShopDetails onNext={this.onSetShopDetails} {...this.state}/>,
-            <ShopPolicy onNext={this.onSetShopPolicy} {...this.state}/>
+            <ShopName onBack={this.onBack} onNext={this.onSetShopName} {...this.state}/>,
+            <SellerDetails onBack={this.onBack} onNext={this.onSetSellerDetails} {...this.state}/>,
+            <ShopDetails onBack={this.onBack} onNext={this.onSetShopDetails} {...this.state}/>,
+            <ShopPolicy onBack={this.onBack}  onNext={this.onSetShopPolicy} {...this.state}/>
         ];
         
         return (
@@ -184,10 +188,10 @@ class AddSeller extends React.Component {
                     <div className="container_40">
                         {pages[this.state.page]}
                         <p style={{paddingTop: '20px', paddingBottom: '10px', textAlign: 'center'}}>For help, contact us.</p>
-                        <div id="footer">
+                        {/* <div id="footer">
                             <button onClick={this.onBack}>Back</button>
                             <button onClick={this.onContinue}>Save and Continue</button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </main>

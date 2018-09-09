@@ -11,34 +11,54 @@ class SellerDetails extends React.Component {
     componentDidMount() {
         const { setFieldsValue } = this.props.form;
         setFieldsValue({
-            'Name': this.props.name,
-            'Image': this.props.image,
+            'name': this.props.name,
+            'image': this.props.image,
             'intro': this.props.intro,
-            'Address': this.props.address,
-            'Street': this.props.street,
-            'City': this.props.city,
-            'State': this.props.state,
-            'Zipcode': this.props.zipcode,
+            'address': this.props.address,
+            'street': this.props.street,
+            'city': this.props.city,
+            'state': this.props.state,
+            'zipcode': this.props.zipcode,
         });      
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     console.log("FORM SUBMITTING");
+    //     this.props.form.validateFieldsAndScroll((err, values) => {
+    //       if (!err) {
+    //         let data = e.target;
+    //             this.props.onNext(
+    //                 data[0].value,
+    //                 data[1].value,
+    //                 data[2].value,
+    //                 data[3].value,
+    //                 data[4].value,
+    //                 data[5].value,
+    //                 data[6].value,
+    //                 data[7].value
+    //             );
+    //         }
+    //     });
+    // }
+
+    handleNext = () => {
         this.props.form.validateFieldsAndScroll((err, values) => {
-          if (!err) {
-            let data = e.target;
+            if (!err) {
+                console.log(this.props.form);
+                const data = this.props.form.getFieldsValue();
                 this.props.onNext(
-                    data[0].value,
-                    data[1].value,
-                    data[2].value,
-                    data[3].value,
-                    data[4].value,
-                    data[5].value,
-                    data[6].value,
-                    data[7].value
+                    data["name"],
+                    data["image"],
+                    data["intro"],
+                    data["address"],
+                    data["street"],
+                    data["city"],
+                    data["state"],
+                    data["zipcode"]
                 );
             }
-        });
+        })
     }
 
     handleConfirmBlur = (e) => {
@@ -74,14 +94,16 @@ class SellerDetails extends React.Component {
         return (
             <div className="form_content">
                 <div className="container_80">
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form 
+                        // onSubmit={this.handleSubmit}
+                    >
                         
                         <FormItem
                             {...formItemLayout}
                             label="Name"
                         >
                             {
-                                getFieldDecorator('Name',
+                                getFieldDecorator('name',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Name'}
@@ -97,7 +119,7 @@ class SellerDetails extends React.Component {
                             label="Image"
                         >
                             {
-                                getFieldDecorator('Image',
+                                getFieldDecorator('image',
                                 {
                                     rules: [
                                         { required: true, message: 'Upload an Image'}
@@ -129,7 +151,7 @@ class SellerDetails extends React.Component {
                             label="Address"
                         >
                             {
-                                getFieldDecorator('Address',
+                                getFieldDecorator('address',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Address'}
@@ -145,7 +167,7 @@ class SellerDetails extends React.Component {
                             label="Street"
                         >
                             {
-                                getFieldDecorator('Street',
+                                getFieldDecorator('street',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input the Street'}
@@ -161,7 +183,7 @@ class SellerDetails extends React.Component {
                             label="City"
                         >
                             {
-                                getFieldDecorator('City',
+                                getFieldDecorator('city',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input the City'}
@@ -177,7 +199,7 @@ class SellerDetails extends React.Component {
                             label="State"
                         >
                             {
-                                getFieldDecorator('State',
+                                getFieldDecorator('state',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input the State'}
@@ -193,7 +215,7 @@ class SellerDetails extends React.Component {
                             label="Zipcode"
                         >
                             {
-                                getFieldDecorator('Zipcode',
+                                getFieldDecorator('zipcode',
                                 {
                                     rules: [
                                         { required: true, message: 'Please input your Zipcode'}
@@ -204,10 +226,14 @@ class SellerDetails extends React.Component {
                             }
                         </FormItem>
 
-                        <FormItem {...tailFormItemLayout}>
+                        {/* <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">Register</Button>
-                        </FormItem>
+                        </FormItem> */}
                     </Form>
+                </div>
+                <div id="footer">
+                    <button onClick={this.props.onBack}>Back</button>
+                    <button onClick={this.handleNext}>Save and Continue</button>
                 </div>
             </div>
         );

@@ -48,6 +48,10 @@
     font-weight: 800;
     padding: 8px;
 
+    &:disabled {
+      background-color: #1d1d1d88;
+    }
+
     &:first-child {
       float: left;
       margin-top: 20px;

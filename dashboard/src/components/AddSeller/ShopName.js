@@ -13,9 +13,11 @@ class ShopName extends React.Component {
         super(props);
         this.state = {
             available: undefined,
-            shopName: ""
+            shopName: "",
+            valid: undefined
         }
         this.handleCheck = this.handleCheck.bind(this);
+        this.handleNext = this.handleNext.bind(this);
     }
 
     handleCheck(shopName) {
@@ -38,8 +40,8 @@ class ShopName extends React.Component {
         )
     }
 
-    componentWillUnmount() {
-        this.props.onNext(this.state.shopName)
+    handleNext() {
+        this.props.onNext(this.state.shopName)   
     }
 
     render() {
@@ -55,12 +57,26 @@ class ShopName extends React.Component {
                             placeholder="Choose a Shop Name"
                             enterButton="Check"
                             size="large"
-                            onSearch={value => this.handleCheck(value)}
+                            onSearch={
+                                value => {
+                                    if (value.trim().length > 0) {
+                                        this.handleCheck(value)
+                                        this.setState({valid: true})
+                                    }
+                                    else
+                                        this.setState({valid: false})
+                                }
+                            }
                             defaultValue={this.props.shopName}
                         />
+                        <p id="message">{this.state.valid === undefined ? "" : this.state.valid ? "" : "Enter a valid name"}</p>                        
                         <p id="message">{this.state.available === undefined ? "" : this.state.available ? "Available" : "Not Available"}</p>
                         <p>Shop names must have 4–20 characters and should not contain spaces.</p>
                     </div>
+                </div>
+                <div id="footer">
+                    <button onClick={this.props.onBack}>Back</button>
+                    <button onClick={this.handleNext} disabled={!(this.state.available && this.state.valid)}>Save and Continue</button>
                 </div>
             </div>
         );
