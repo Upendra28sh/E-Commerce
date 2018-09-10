@@ -264,3 +264,17 @@ export const ADD_SELLER_COMMENT = gql`
         }
     }
 `;
+
+export const GET_ALL_SELLERS = gql`
+
+query {
+    allSellers{
+      id
+      name
+      intro
+      about
+      image
+      shopName
+    }
+  }
+`;

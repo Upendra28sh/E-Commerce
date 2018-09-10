@@ -4,6 +4,7 @@ import UserPost from './UserPost';
 import ProductFeed from './ProductFeed';
 import {Query} from 'react-apollo';
 import {GET_USER_FEED} from "../../query";
+import Chat from '../chat';
 
 class Feed extends React.Component {
     render() {
@@ -31,6 +32,7 @@ class Feed extends React.Component {
 
                     }}
                 </Query>
+                <Chat></Chat>
             </div>
         );
     }

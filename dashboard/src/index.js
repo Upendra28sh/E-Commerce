@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {ApolloProvider} from "react-apollo";
 import ApolloClient from "apollo-boost";
-import registerServiceWorker from './registerServiceWorker';
+import {initializeFirebase} from './push-notification';
 import jwt from 'jsonwebtoken';
 
 import Container from './components/Container';
@@ -94,5 +94,6 @@ ReactDOM.render(
     </ApolloProvider>,
 
     document.getElementById('root'));
+    initializeFirebase()
 
-registerServiceWorker();
+
