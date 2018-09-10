@@ -8,7 +8,7 @@ import Order from "../Order";
 import Product from "../Product";
 import NewProduct from "../AddProduct/NewProduct";
 import Posts from '../Posts';
-
+import Chat from '../../chat';
 const Router = () => {
     return (
         <Switch>
@@ -17,6 +17,7 @@ const Router = () => {
             <Route exact path="/users" component={User}/>
             <Route exact path="/orders" component={Order}/>
             <Route exact path="/products" component={Product}/>
+            <Route exact path="/chats" component={Chat}/>
             <Route exact path="/product/new" component={NewProduct}/>
             <Route exact path="/posts" component={Posts} />
         </Switch>

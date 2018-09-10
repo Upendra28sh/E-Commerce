@@ -29,29 +29,37 @@ export const askForPermissionToReceiveNotifications = async () => {
   }
 }
 export const sendmessageusertoseller = async (username,message,shopname) => {
-  try {
-    firebase.database().ref('users/'+username).set({
+    firebase.database().ref('users/'+username+'/sellers/'+shopname).push({
       message: message,
       author : 'me',
-      shopname : shopname
-    });
-    firebase.database().ref('seller/'+shopname).set({
+    },function(error) {
+      if (error) {
+        console.log("error",error)
+      } else {
+        console.log("sucess")
+      }
+      });
+    firebase.database().ref('sellers/'+shopname+'/users/'+username).push({
       message: message,
       author : 'them',
-      username : username
     });
-  } catch (error) {
-    console.error(error);
-  }
-}
+  } 
+
+
 export const sendmessagesellertouser = async (username,message,shopname) => {
   try {
-    firebase.database().ref('users/'+username).set({
+    firebase.database().ref('users/'+username).push({
       message: message,
       author : 'them',
       shopname : shopname
-    });
-    firebase.database().ref('seller/'+shopname).set({
+    },function(error) {
+      if (error) {
+        console.log("error",error)
+      } else {
+        console.log("sucess")
+      }
+      });
+    firebase.database().ref('seller/'+shopname).push({
       message: message,
       author : 'me',
       username : username
@@ -60,3 +68,12 @@ export const sendmessagesellertouser = async (username,message,shopname) => {
     console.error(error);
   }
 }
+
+
+export function getmessages(username,shopname){
+  
+  var getChatData = firebase.database().ref('users/' + username + '/sellers/'+shopname);
+   return getChatData;
+  
+
+  } 
