@@ -938,7 +938,6 @@ div#search_result {
   margin-bottom: 20px; }
 
 #chat {
-  background: #f0f1f2;
   font: 12px "Open Sans", sans-serif; }
 
 #chat * {
@@ -1590,7 +1589,6 @@ th, td, tr {
     padding: 24px; } }
 
 #chat {
-  background: #f0f1f2;
   font: 12px "Open Sans", sans-serif; }
 
 #chat * {

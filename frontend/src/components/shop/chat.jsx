@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { Button, Icon } from "antd";
-import { GET_ALL_SELLERS } from "../query";
+import { GET_ALL_SELLERS, GET_AUTH } from "../query";
 import { sendmessageusertoseller, getmessages } from "../../push-notification";
 
 class Demo extends Component {
@@ -18,7 +18,11 @@ class Demo extends Component {
     };
   }
 
-  changeSeller(value) {
+  changeSeller(value,username) {
+    if(this.state.sellername!='')
+    {
+    getmessages(username,this.state.sellername).off();
+    }
     this.setState(
       {
         sellername: value.shopName,
@@ -28,7 +32,7 @@ class Demo extends Component {
       },
       () => {
         var self = this;
-        getmessages("dhruvramdev",this.state.sellername).on('value', function(snapshot) {
+        getmessages(username,this.state.sellername).on('value', function(snapshot) {
           var temp = [];
           for (var key in snapshot.val()) {
             if (snapshot.val().hasOwnProperty(key)) {
@@ -48,10 +52,10 @@ class Demo extends Component {
       message: e.target.value
     });
   }
-  onSummits() {
+  onSummits(username) {
     console.log("clicked");
     sendmessageusertoseller(
-      "dhruvramdev",
+      username,
       this.state.message,
       this.state.sellername
     );
@@ -79,7 +83,11 @@ class Demo extends Component {
     
 
     return (
-      <div id="chat">
+      <Query query={GET_AUTH}>
+      {({ data, loading }) => {
+          const userdata = data.auth.user;
+          
+      return <div id="chat">
        <Button
           onClick={() => {
             var e = this.state.openPortal;
@@ -110,7 +118,7 @@ class Demo extends Component {
                       return (
                         <div
                           className="friend"
-                          onClick={() => this.changeSeller(value)}
+                          onClick={() => this.changeSeller(value,userdata.username)}
                         >
                           <img src={value.image} />
                           <p>
@@ -137,10 +145,10 @@ class Demo extends Component {
                 <span>{this.state.sellerIntro}</span>
               </div>
               <div id="chat-messages">
-                <label>Thursday 02</label>
                 {
                   this.state.messageList.map((value,key)=>{
-                    if(value.author='me')
+                    console.log(value.author);
+                    if(value.author=='me')
                     {
                       return  <div className="message right">
                       <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
@@ -154,12 +162,11 @@ class Demo extends Component {
                     }
                     else
                     {
-                      <div className="message">
-                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+                      return <div className="message">
+                      <img src={this.state.sellerImage} />
                       <div className="bubble">
-                        Yeah, hold on
+                        {value.message}
                         <div className="corner" />
-                        <span>Now</span>
                       </div>
                     </div>
                  
@@ -179,7 +186,7 @@ class Demo extends Component {
                 <button
                   type="button"
                   id="send"
-                  onClick={this.onSummits.bind(this)}
+                  onClick={this.onSummits.bind(this,userdata.username)}
                 />
               </div>
               <img
@@ -191,6 +198,9 @@ class Demo extends Component {
           )}
         </div>
       </div>
+      }}
+
+      </Query>
     );
   }
 }

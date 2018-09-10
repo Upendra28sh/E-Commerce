@@ -34,7 +34,7 @@ class Dashboard extends Component {
                 <Row gutter={24}>
                     <Col lg={12} md={24} style={{marginBottom: '24px'}}>
                         <Card>
-                            Chat Component Should Go Here.
+                       Chat component Here
                         </Card>
                     </Col>
                     <Col lg={12} md={24} style={{marginBottom: '24px'}}>
