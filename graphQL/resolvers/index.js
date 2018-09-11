@@ -49,7 +49,8 @@ const resolvers = {
         ...sellerpost.Mutation,
         ...wishlist.Mutation,
         ...admin.Mutation,
-        ...approval.Mutation
+        ...approval.Mutation,
+        ...notification.Mutation
     },
 
     Date: new GraphQLScalarType({

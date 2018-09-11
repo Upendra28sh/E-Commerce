@@ -290,6 +290,7 @@ export const GET_USER_NOTIFS = gql `
                 username
             }
             readBy {
+                id
                 name
                 username
             }

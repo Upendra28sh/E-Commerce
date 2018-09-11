@@ -1,11 +1,43 @@
 import React from 'react';
-import {Query} from 'react-apollo';
+import {Query, withApollo} from 'react-apollo';
 import {Link} from 'react-router-dom';
 import {Row, Col} from 'antd';
 import {gql} from 'apollo-boost';
 import { GET_USER_NOTIFS } from '../query';
 
+const SET_NOTIF_READ = gql `
+    mutation($notifID: ID!) {
+        notificationRead(id: $notifID) {
+            id
+            text
+        }
+    }
+`;
+
+const findIDinObj= (userData, id) => {
+    for(let i=0; i<userData.length; i++) {
+        if (userData[i].id == id)
+            return true;
+    }
+}
+
 class Notification extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick = (id) => {
+        console.log(id);
+        this.props.client.mutate({
+            mutation: SET_NOTIF_READ,
+            variables: {notifID: id}
+        }).then(
+            data => console.log(data)
+        )
+    }
+
     render() {
         return (
             <Query query={GET_USER_NOTIFS}>
@@ -14,6 +46,7 @@ class Notification extends React.Component {
                         return <p>Loading...</p>
                     }
                     data = data.getNotifsByUser;
+                    const userID = this.props.user.auth.user.id;
                     console.log(data);
 
                     if (data.length == 0) {
@@ -24,7 +57,11 @@ class Notification extends React.Component {
                         data.map(
                             (notif, index) => {
                                 return (
-                                    <Row key={index} className="notification">
+                                    <Row 
+                                        key={index} 
+                                        className="notification" 
+                                        onClick={() => this.handleClick(notif.id)}
+                                    >
                                         <Col span={4}>
                                             <img 
                                                 src={notif.image}
@@ -36,6 +73,7 @@ class Notification extends React.Component {
                                             <Link className="notification__message" to={notif.action}>
                                                 <span>{notif.text}</span>
                                             </Link>
+                                            <p>{findIDinObj(notif.readBy, userID) ? 'READ' : ''}</p>
                                         </Col>
                                     </Row>
                                 )
@@ -48,4 +86,4 @@ class Notification extends React.Component {
     }
 }
 
-export default Notification;
+export default withApollo(Notification);

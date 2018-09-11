@@ -5,4 +5,8 @@ export default gql`
         allNotifs: [Notification]
         getNotifsByUser: [Notification]
     }
+
+    extend type Mutation {
+        notificationRead(id: ID): Notification
+    }
 `;

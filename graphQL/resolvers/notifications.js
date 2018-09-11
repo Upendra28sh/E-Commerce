@@ -24,5 +24,21 @@ module.exports = {
                     data => data
                 )
         }
+    },
+    Mutation: {
+        notificationRead: (parent, {id}, {user}, info) => {
+            return Notification
+                .findOne({_id: id})
+                .exec()
+                .then(
+                    foundNotif => {
+                        if (!foundNotif.readBy.includes(user.id)) {
+                            foundNotif.readBy.push(user.id);
+                            foundNotif.save();
+                        }
+                        return foundNotif;
+                    }
+                )
+        }
     }
 }

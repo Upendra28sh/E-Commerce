@@ -185,14 +185,18 @@ render() {
                                                 )
                                             }
                                             <li>
-                                                <Popover placement="bottomRight" title={text} content={<Notifs />} trigger="click">
+                                                <Popover placement="bottomRight" title={text} content={<Notifs user={data}/>} trigger="click">
                                                     <Icon type='bell' style={{fontSize: 18}}/>
                                                 </Popover>
                                             </li>
 
                                             <li>
-                                                <Link to="/cart"><Icon type='shopping-cart'
-                                                                       style={{fontSize: 18}}/></Link>
+                                                <Link to="/cart">
+                                                    <Icon 
+                                                        type='shopping-cart'
+                                                        style={{fontSize: 18}}
+                                                    />
+                                                </Link>
                                                 {/* <div>{this.props.shopping_cart.length}</div> */}
                                             </li>
 
