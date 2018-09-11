@@ -6,17 +6,26 @@ import MobileHeader from './MobileHeader';
 class Container extends React.Component {
     constructor(props) {
         super(props);
+        this.changeMobileHeader = this.changeMobileHeader.bind(this);
         this.state = {
             isMobile: false
         }
     }
 
-    componentWillMount() {
+    changeMobileHeader() {
         if(window.innerWidth <= 900) {
             this.setState({isMobile: true})
         } else {
             this.setState({isMobile: false})
         }
+    }
+
+    componentWillMount() {
+        this.changeMobileHeader();
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.changeMobileHeader);
     }
 
     render() {

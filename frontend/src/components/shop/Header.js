@@ -106,6 +106,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.state = {
       search: false
     };
@@ -118,6 +119,14 @@ class Header extends React.Component {
       };
     });
   };
+
+  handleCancel = () => {
+          this.setState(prevState => {
+      return {
+        search: !prevState.search
+      };
+    });
+  }
 
 render() {
 
@@ -149,7 +158,7 @@ render() {
                                                         }}
                                                     >
                                                         <input
-                                                            placeholder="Search Text"
+                                                            placeholder="Search text"
                                                             type="text"
                                                             onKeyPress = {
                                                                 e => {
@@ -157,10 +166,16 @@ render() {
                                                                         this.props.history.push(`/search/${e.target.value}`)
                                                                     }
                                                                 }
-                                                            }                                                            
+                                                            }
                                                             // onSearch={value => this.props.history.push(`/search/${value}`)}
                                                             // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
                                                         />
+                                                        <button 
+                                                            onClick={this.handleCancel}
+                                                            className="search_cancel"
+                                                        >
+                                                            X
+                                                        </button>
                                                     </li>
                                                 ) : (
                                                     <li onClick={this.handleSearch}>
