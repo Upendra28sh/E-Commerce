@@ -2,14 +2,14 @@
   //box-shadow: 5px 10px;
   //height: 64px;
   //background: white !important;
-  background-color: rgb(40,40,40) !important;
+  background-color: rgb(40, 40, 40) !important;
   border-bottom: 1px solid #c8c8c8;
   padding: 0.8rem;
 }
 
 @media (max-width: 1300px) {
   .navbar_container {
-    padding : 0.4rem;
+    padding: 0.4rem;
     //font-size: smaller;
 
     li {
@@ -97,4 +97,20 @@
 div#search_result {
   margin-top: 10%;
   font-size: 40px;
+}
+
+@media (max-width: 500px) {
+  .container_320 {
+    padding: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container_320 {
+    padding: 0 30%;
+  }
+
+  .container_160 {
+    padding: 0 15%;
+  }
 }

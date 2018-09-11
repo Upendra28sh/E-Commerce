@@ -2,6 +2,7 @@ const User = require('../models/user');
 const axios = require('axios');
 const Seller = require('../models/seller');
 const _ = require('lodash');
+import {createdNotificationFollow} from './utils';
 
 
 module.exports = {
@@ -48,15 +49,28 @@ module.exports = {
                     following: args.FollowingID
                 }
 
-            }).populate('following').exec().then((data) => {
-                return User.findOneAndUpdate({
-                    _id: args.FollowingID
-                }, {
-                    $addToSet: {
-                        followers: context.user.id
-                    }
-                }).populate('followers').exec().then(data => data);
-            });
+            })
+            .populate('following')
+            .exec()
+            .then(
+                (data) => {
+                    return User.findOneAndUpdate({
+                        _id: args.FollowingID
+                    }, {
+                        $addToSet: {
+                            followers: context.user.id
+                        }
+                    })
+                    .populate('followers')
+                    .exec()
+                    .then(
+                        info => {
+                            createdNotificationFollow(data, info)
+                            return info;
+                        }
+                    );
+                }
+            );
         },
         unFollowUser: (parents, args, context, info) => {
             return User.findOneAndUpdate({
@@ -73,7 +87,14 @@ module.exports = {
                     $pull: {
                         followers: context.user.id
                     }
-                }).populate('followers').exec().then(data => data);
+                })
+                .populate('followers')
+                .exec()
+                .then(
+                    data => {
+                        return data;
+                    }
+                );
             });
         },
         followShop: (parents, args, context, info) => {

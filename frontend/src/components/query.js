@@ -266,7 +266,6 @@ export const ADD_SELLER_COMMENT = gql`
 `;
 
 export const GET_ALL_SELLERS = gql`
-
 query {
     allSellers{
       id
@@ -277,4 +276,24 @@ query {
       shopName
     }
   }
+`;
+
+export const GET_USER_NOTIFS = gql `
+    query {
+        getNotifsByUser {
+            id
+            image
+            text
+            action
+            to {
+                name
+                username
+            }
+            readBy {
+                id
+                name
+                username
+            }
+        }
+    }
 `;

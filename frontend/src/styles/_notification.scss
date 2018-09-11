@@ -1,0 +1,14 @@
+.notification {
+    border: solid 1px black;
+    background: #fafafa;
+    &__image {
+        width: 100%;
+        padding: 0 10px 10px 10px;
+    }
+
+    &__message {
+        span {
+            color: black;
+        }
+    }
+}

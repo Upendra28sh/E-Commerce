@@ -15,6 +15,7 @@ import sellerpostTypeDef from './sellerpost';
 import wishlistTypeDef from './wishlist';
 import adminTypeDef from './admin';
 import approvalTypeDef from './approvals';
+import notificationTypedef from './notifications';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -177,6 +178,15 @@ const typeDefs = gql`
         products: [Product]
     }
 
+    type Notification {
+        id: ID,
+        text: String,
+        image: String,
+        action: String,
+        to: [User],
+        readBy: [User]
+    }
+
     input AddressInput {
         address: String,
         street: String,
@@ -188,4 +198,4 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef, notificationTypedef];

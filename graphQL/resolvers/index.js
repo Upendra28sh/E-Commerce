@@ -21,6 +21,7 @@ import sellerpost from './sellerpost';
 import wishlist from './wishlist';
 import admin from './admin';
 import approval from './approvals';
+import notification from './notifications';
 
 const resolvers = {
     Query: {
@@ -33,7 +34,8 @@ const resolvers = {
         ...feed.Query,
         ...sellerpost.Query,
         ...wishlist.Query,
-        ...approval.Query
+        ...approval.Query,
+        ...notification.Query
     },
 
     Mutation: {
@@ -47,7 +49,8 @@ const resolvers = {
         ...sellerpost.Mutation,
         ...wishlist.Mutation,
         ...admin.Mutation,
-        ...approval.Mutation
+        ...approval.Mutation,
+        ...notification.Mutation
     },
 
     Date: new GraphQLScalarType({
