@@ -1,5 +1,7 @@
 import Approval from './../models/approval';
 import Feed from './../models/feed';
+import Notification from '../models/notification';
+import Seller from '../models/seller';
 
 export function createApprovalRequest(approvalType, originId) {
 
@@ -50,6 +52,58 @@ export function createFeedItem(feedType, originId, keyId  , event) {
         });
     });
 
+}
+
+// Not Tested
+export function createNotificationProduct(product) {
+    Seller.findOne({
+        _id: data.seller.id
+    }).then(
+        foundSeller => {
+            Notification.create({
+                text: `${data.seller.name} added a product`,
+                action: 'www.google.co.in',
+                image: data.image,
+                to: foundSeller.followers
+            }).then(
+                data => console.log(data)
+            )
+        }
+    )
+}
+
+// Tested
+export function createNotificationSellerpost(data) {
+    // console.log(data);
+    Seller.findOne({
+        _id: data.seller.id
+    }).then(
+        foundSeller => {
+            Notification.create({
+                text: `${data.seller.name} added a post`,
+                action: 'www.google.co.in',
+                image: data.image,
+                to: foundSeller.followers
+            }).then(
+                data => console.log(data)
+            )
+        }
+    )
+
+    
+}
+
+export function createdNotificationFollow(followedBy, following) {
+    console.log(followedBy, following);
+    
+    Notification.create({
+        to: following.id,
+        text: `${followedBy.name} followed you`,
+        image: followedBy.image,
+        action: `/user/${followedBy.username}`
+    }).then(
+        data => console.log(data)
+    )
 }
 
 // TODO : Send a MAIL TO DEV TEAM
