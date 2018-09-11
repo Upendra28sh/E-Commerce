@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { Query } from "react-apollo";
 import { GET_AUTH } from "../query";
+import Notifs from './Notification';
 
 // TODO: Add User Notifications
 
@@ -184,7 +185,7 @@ render() {
                                                 )
                                             }
                                             <li>
-                                                <Popover placement="bottomRight" title={text} content={"No Notifications Yet."} trigger="click">
+                                                <Popover placement="bottomRight" title={text} content={<Notifs />} trigger="click">
                                                     <Icon type='bell' style={{fontSize: 18}}/>
                                                 </Popover>
                                             </li>

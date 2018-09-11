@@ -21,6 +21,7 @@ import sellerpost from './sellerpost';
 import wishlist from './wishlist';
 import admin from './admin';
 import approval from './approvals';
+import notification from './notifications';
 
 const resolvers = {
     Query: {
@@ -33,7 +34,8 @@ const resolvers = {
         ...feed.Query,
         ...sellerpost.Query,
         ...wishlist.Query,
-        ...approval.Query
+        ...approval.Query,
+        ...notification.Query
     },
 
     Mutation: {
