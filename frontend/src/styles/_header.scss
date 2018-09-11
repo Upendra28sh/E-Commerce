@@ -17,10 +17,11 @@ input {
     width: 100%;
     border: none;
     outline-color: none;
+    background: rgb(40,40,40);
 }
 
 input:focus {
-    outline: 0px solid white;
+    outline: 0px solid rgb(40,40,40);
 }
 
 .box-shadow-menu {
