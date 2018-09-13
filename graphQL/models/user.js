@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     name: String,
     image: String,
     about: String,
+    facebook: String,
     address: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address'

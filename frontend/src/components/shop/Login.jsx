@@ -1,10 +1,13 @@
 import React from "react";
 import { Form, Icon, Input, Button, Checkbox, message } from "antd";
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { Mutation, withApollo } from "react-apollo";
 import jwt from "jsonwebtoken";
+import FacebookLogin from 'react-facebook-login';
 import { askForPermissionToReceiveNotifications } from "../../push-notification";
 import { GET_AUTH } from "../query";
+
+const responseFacebook = (response) => console.log("FACEBOOK",response)
 
 const FormItem = Form.Item;
 
@@ -140,6 +143,14 @@ class Login extends React.Component {
                     Or <a href="">register now!</a>
                   </FormItem>
                 </Form>
+
+                {/* <FacebookLogin 
+                  appId="285659762264023"
+                  callback={responseFacebook}
+                  icon="fa-facebook"
+                  scope="public_profile,user_friends,email"
+                /> */}
+
                 <p style={{ paddingBottom: "10px", textAlign: "center" }}>
                   For help, contact us.
                 </p>
@@ -154,4 +165,4 @@ class Login extends React.Component {
 
 const WrappedLogin = Form.create()(Login);
 
-export default WrappedLogin;
+export default withApollo(WrappedLogin);

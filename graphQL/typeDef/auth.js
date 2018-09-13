@@ -7,8 +7,6 @@ export default gql`
         password: String!
     }
 
-
-
     input UserDetailsInput {
         name: String!,
         image: String!,
