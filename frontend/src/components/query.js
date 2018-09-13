@@ -235,7 +235,7 @@ export const GET_FOLLOW_SELLER = gql `
 `;
 
 export const GET_POST_BY_SELLER = gql`
-    query sellerpost($id : ID!){
+    query sellerpost($id : ID){
         getSellerPostBySeller(id:$id){
             id
             image

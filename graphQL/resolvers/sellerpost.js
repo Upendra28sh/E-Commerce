@@ -1,6 +1,5 @@
 import Sellerpost from '../models/sellerpost';
-import Seller from '../models/seller';
-import {createApprovalRequest,createFeedItem} from "./utils";
+import {createFeedItem} from "./utils";
 
 module.exports = {
     Query: {
@@ -20,7 +19,10 @@ module.exports = {
                 });
         },
         getSellerPostBySeller: (parent, args, {seller}, info) => {
-            let id = seller.id;
+            let id = args.id;
+            if (seller) {
+                id = seller.id;
+            }
 
             return Sellerpost.find({seller: id})
                 .populate({
@@ -50,7 +52,7 @@ module.exports = {
                 image: image,
             }).then(
                 createdPost => {
-                    createFeedItem('Seller Post',createdPost.id, createdPost.seller  , 'Seller Post is added');
+                    createFeedItem('Seller Post', createdPost.id, createdPost.seller, 'Seller Post is added');
                     return createdPost
                         .populate('seller')
                         .execPopulate()

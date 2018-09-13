@@ -62,8 +62,14 @@ class Container extends React.Component {
                         </Menu.Item>
                         <Menu.Item key="6">
                             <Link to={'/posts'}>
-                                <Icon type="post"/>
+                                <Icon type="user"/>
                                 <span className="nav-text">Posts</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="7">
+                            <Link to={'/chats'}>
+                                <Icon type="chat"/>
+                                <span className="nav-text">Chats</span>
                             </Link>
                         </Menu.Item>
                     </Menu>

@@ -19,7 +19,7 @@ import Order from "../shop/Order";
 import RequireAuth from "../utils/RequireAuth";
 import TrendingFeed from "../shop/TrendingFeed";
 import addPost from "../shop/addpost"
-import Chat from "../shop/chat"
+import Chat from "../shop/Chat"
 
 const Router = () => {
   return (

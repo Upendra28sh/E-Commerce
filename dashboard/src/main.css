@@ -172,23 +172,6 @@
 .chart-card_stat {
   font-size: 30px; }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: #fafafa; }
-
-main {
-  padding-top: 50px;
-  padding-left: 40px;
-  padding-right: 40px; }
-
-.container_80 {
-  padding: 0 13rem; }
-
-.ant-layout-header {
-  box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75); }
-
 *, *:before, *:after {
   box-sizing: border-box; }
 
@@ -203,20 +186,11 @@ main {
   --blue: #00b0ff; }
 
 .wrapper {
-  position: relative;
-  left: 50%;
-  width: var(--wrapper);
-  height: 800px;
-  transform: translate(-50%, 0); }
+  height: 75vh; }
 
 .container {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  height: 75%;
-  background-color: var(--white);
-  transform: translate(-50%, -50%); }
+  height: 100%;
+  background-color: var(--white); }
   .container .left {
     float: left;
     width: 37.6%;
@@ -390,7 +364,7 @@ main {
       .container .right .write input {
         font-size: 16px;
         float: left;
-        width: 347px;
+        width: 80%;
         height: 40px;
         padding: 0 10px;
         color: var(--dark);
@@ -410,19 +384,20 @@ main {
         background-position: center; }
       .container .right .write .write-link.smiley:before {
         display: inline-block;
-        float: left;
+        float: right;
         width: 20px;
         height: 42px;
+        margin-right: 11px;
         content: '';
         background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png");
         background-repeat: no-repeat;
         background-position: center; }
       .container .right .write .write-link.send:before {
         display: inline-block;
-        float: left;
+        float: right;
         width: 20px;
         height: 42px;
-        margin-left: 11px;
+        margin-right: 11px;
         content: '';
         background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png");
         background-repeat: no-repeat;
@@ -508,10 +483,27 @@ main {
     margin-right: 0;
     opacity: 1; } }
 
-@-webkit-keyframes slideFromRight {
+@-webkit-keyframes slideFromRights {
   0% {
     margin-right: -200px;
     opacity: 0; }
   100% {
     margin-right: 0;
     opacity: 1; } }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #fafafa; }
+
+main {
+  padding-top: 50px;
+  padding-left: 40px;
+  padding-right: 40px; }
+
+.container_80 {
+  padding: 0 13rem; }
+
+.ant-layout-header {
+  box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75); }

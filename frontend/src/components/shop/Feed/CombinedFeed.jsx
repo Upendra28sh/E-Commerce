@@ -4,7 +4,7 @@ import UserPost from './UserPost';
 import ProductFeed from './ProductFeed';
 import {Query} from 'react-apollo';
 import {GET_USER_FEED} from "../../query";
-import Chat from '../chat';
+import Chat from '../Chat';
 
 class Feed extends React.Component {
     render() {

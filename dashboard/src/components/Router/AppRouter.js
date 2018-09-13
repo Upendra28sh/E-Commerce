@@ -8,7 +8,7 @@ import Order from "../Order";
 import Product from "../Product";
 import NewProduct from "../AddProduct/NewProduct";
 import Posts from '../Posts';
-import Chat from '../../chat';
+import Chat from '../Chat';
 const Router = () => {
     return (
         <Switch>

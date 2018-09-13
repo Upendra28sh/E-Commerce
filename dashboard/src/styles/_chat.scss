@@ -1,250 +1,393 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
-$green: #86BB71;
-$blue: #94C2ED;
-$orange: #E38968;
-$gray: #92959E;
+@mixin font-bold {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+@mixin font {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
 
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
-body {
-  background: #C5DDEB;
-  font: 14px/20px "Lato", Arial, sans-serif;
-  padding: 40px 0;
-  color: white;
+:root {
+  --white: #fff;
+  --black: #000;
+  --bg: #f8f8f8;
+  --grey: #999;
+  --dark: #1a1a1a;
+  --light: #e6e6e6;
+  --wrapper: 1000px;
+  --blue: #00b0ff;
 }
 
+
+.wrapper {
+  //position: relative;
+  //left: 50%;
+  //width: var(--wrapper);
+  height: 75vh;
+  //height: 800px;
+  //transform: translate(-50%, 0);
+}
 .container {
-  margin: 0 auto;
-  width: 750px;
-  background: #444753;
-  border-radius: 5px;
-}
-
-.people-list {
-  width:260px;
-  float: left;
-  
-  .search {
-    padding: 20px;
-  }
-  
-  input {
-    border-radius: 3px;
-    border: none;
-    padding: 14px;
-    color: white;
-    background: #6A6C75;
-    width: 90%;
-    font-size: 14px;
-  }
-  
-  .fa-search {
-    position: relative;
-    left: -25px;
-  }
-  
-  ul {
-    padding: 20px;
-    height: 770px;
- 
-    
-    
-    
-    li {
-      padding-bottom: 20px;
-    }
-  }
-  
-  img {
+  //position: relative;
+  //top: 50%;
+  //left: 50%;
+  //width: 80%;
+  height: 100%;
+  background-color: var(--white);
+  //transform: translate(-50%, -50%);
+  .left {
     float: left;
-  }
-  
-  .about {
-    float: left;
-    margin-top: 8px;
-  }
-  
-  .about {
-    padding-left: 8px;
-  }
-  
-  .status {
-    color: $gray;
-  }
-  
-}
-
-.chat {
-  width: 400px;
-  float:left;
-  background: #F2F5F8;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  
-  color: #434651;
-  
-  .chat-header {
-    padding: 20px;
-    border-bottom: 2px solid white;
-    
-    img {
-      float: left;
-    }
-    
-    .chat-about {
-      float: left;
-      padding-left: 10px;
-      margin-top: 6px;
-    }
-    
-    .chat-with {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    
-    .chat-num-messages {
-      color: $gray;
-    }
-    
-    .fa-star {
-      float: right;
-      color: #D8DADF;
-      font-size: 20px;
-      margin-top: 12px;
-    }
-  }
-  
-  .chat-history {
-    padding: 30px 30px 20px;
-    border-bottom: 2px solid white;
-    overflow-y: scroll;
-    height: 575px;
-    
-    .message-data {
-      margin-bottom: 15px;
-    }
-    
-    .message-data-time {
-      color: lighten($gray, 8%);
-      padding-left: 6px;
-    }
-    
-    .message {      
-      color: white;
-      padding: 18px 20px;
-      line-height: 26px;
-      font-size: 16px;
-      border-radius: 7px;
-      margin-bottom: 30px;
-      width: 90%;
+    width: 37.6%;
+    height: 100%;
+    border: 1px solid var(--light);
+    background-color: var(--white);
+    .top {
       position: relative;
-      
-      &:after {
-        bottom: 100%;
-        left: 7%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-bottom-color: $green;
-        border-width: 10px;
-        margin-left: -10px;
-      }
-    }
-    
-    .my-message {
-      background: $green;
-    }
-    
-    .other-message {
-      background: $blue;
-      
-      &:after {
-        border-bottom-color: $blue;
-        left: 93%;
-      }
-    }
-    
-  }
-  
-  .chat-message {
-    padding: 30px;
-    
-    textarea {
       width: 100%;
-      border: none;
-      padding: 10px 20px;
-      font: 14px/22px "Lato", Arial, sans-serif;
-      margin-bottom: 10px;
+      height: 96px;
+      padding: 29px;
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        display: block;
+        width: 80%;
+        height: 1px;
+        content: '';
+        background-color: var(--light);
+        transform: translate(-50%, 0);
+      }
+    }
+    input {
+      float: left;
+      width: 188px;
+      height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--light);
+      background-color: #eceff1;
+      border-radius: 21px;
+      @include font();
+      &:focus {
+        outline: none;
+      }
+    }
+    a.search {
+      display: block;
+      float: left;
+      width: 42px;
+      height: 42px;
+      margin-left: 10px;
+      border: 1px solid var(--light);
+      background-color: var(--blue);
+      background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/name-type.png');
+      background-repeat: no-repeat;
+      background-position: top 12px left 14px;
+      border-radius: 50%;
+    }
+    .people {
+      margin-left: -1px;
+      border-right: 1px solid var(--light);
+      border-left: 1px solid var(--light);
+      width: calc(100% + 2px);
+      .person {
+        position: relative;
+        width: 100%;
+        padding: 12px 10% 16px;
+        cursor: pointer;
+        background-color: var(--white);
+        &:after {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          display: block;
+          width: 80%;
+          height: 1px;
+          content: '';
+          background-color: var(--light);
+          transform: translate(-50%, 0);
+        }
+        img {
+          float: left;
+          width: 40px;
+          height: 40px;
+          margin-right: 12px;
+          border-radius: 50%;
+        }
+        .name {
+          font-size: 14px;
+          line-height: 22px;
+          color: var(--dark);
+          @include font-bold;
+        }
+        .time {
+          font-size: 14px;
+          position: absolute;
+          top: 16px;
+          right: 10%;
+          padding: 0 0 5px 5px;
+          color: var(--grey);
+          background-color: var(--white);
+        }
+        .preview {
+          font-size: 14px;
+          display: inline-block;
+          overflow: hidden !important;
+          width: 70%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          color: var(--grey);
+        }
+        &.active,&:hover {
+          margin-top: -1px;
+          margin-left: -1px;
+          padding-top: 13px;
+          border: 0;
+          background-color: var(--blue);
+          width: calc(100% + 2px);
+          padding-left: calc(10% + 1px);
+          span {
+            color: var(--white);
+            background: transparent;
+          }
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    position: relative;
+    float: left;
+    width: 62.4%;
+    height: 100%;
+    .top {
+      width: 100%;
+      height: 47px;
+      padding: 15px 29px;
+      background-color: #eceff1;
+      span {
+        font-size: 15px;
+        color: var(--grey);
+        .name {
+          color: var(--dark);
+          @include font-bold;
+        }
+      }
+    }
+    .chat {
+      position: relative;
+      display: none;
+      overflow: hidden;
+      padding: 0 35px 92px;
+      border-width: 1px 1px 1px 0;
+      border-style: solid;
+      border-color: var(--light);
+      height: calc(100% - 48px);
+      justify-content: flex-end;
+      flex-direction: column;
+      &.active-chat {
+        display: block;
+        display: flex;
+        .bubble {
+          transition-timing-function: cubic-bezier(.4,-.04, 1, 1);
+          @for $i from 1 through 10 {
+            &:nth-of-type(#{$i}) {
+              animation-duration: .15s * $i;
+            }
+          }
+        }
+      }
+    }
+    .write {
+      position: absolute;
+      bottom: 29px;
+      left: 30px;
+      height: 42px;
+      padding-left: 8px;
+      border: 1px solid var(--light);
+      background-color: #eceff1;
+      width: calc(100% - 58px);
       border-radius: 5px;
-      resize: none;
-      
+      input {
+        font-size: 16px;
+        float: left;
+        //width: 347px;
+        width: 80%;
+        height: 40px;
+        padding: 0 10px;
+        color: var(--dark);
+        border: 0;
+        outline: none;
+        background-color: #eceff1;
+        @include font;
+      }
+      .write-link {
+        &.attach {
+          &:before {
+            display: inline-block;
+            float: left;
+            width: 20px;
+            height: 42px;
+            content: '';
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/attachment.png');
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+        &.smiley {
+          &:before {
+            display: inline-block;
+            float: right;
+            width: 20px;
+            height: 42px;
+            margin-right: 11px;
+            content: '';
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png');
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+        &.send {
+          &:before {
+            display: inline-block;
+            float: right;
+            width: 20px;
+            height: 42px;
+            margin-right: 11px;
+            content: '';
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png');
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
     }
-    
-    .fa-file-o, .fa-file-image-o {
+    .bubble {
       font-size: 16px;
-      color: gray;
-      cursor: pointer;
-      
+      position: relative;
+      display: inline-block;
+      clear: both;
+      margin-bottom: 8px;
+      padding: 13px 14px;
+      vertical-align: top;
+      border-radius: 5px;
+      &:before {
+        position: absolute;
+        top: 19px;
+        display: block;
+        width: 8px;
+        height: 6px;
+        content: '\00a0';
+        transform: rotate(29deg) skew(-35deg);
+      }
+      &.you {
+        float: left;
+        color: var(--white);
+        background-color: var(--blue);
+        align-self: flex-start;
+        animation-name: slideFromLeft;
+        &:before {
+          left: -3px;
+          background-color: var(--blue);
+        }
+      }
+      &.me {
+        float: right;
+        color: var(--dark);
+        background-color: #eceff1;
+        align-self: flex-end;
+        animation-name: slideFromRight;
+        &:before {
+          right: -3px;
+          background-color: #eceff1;
+        }
+      }
     }
-    
-    button {
-      float: right;
-      color: $blue;
-      font-size: 16px;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      background: #F2F5F8;
-      
-      &:hover {
-        color: darken($blue, 7%);
+    .conversation-start {
+      position: relative;
+      width: 100%;
+      margin-bottom: 27px;
+      text-align: center;
+      span {
+        font-size: 14px;
+        display: inline-block;
+        color: var(--grey);
+        &:before,&:after {
+          position: absolute;
+          top: 10px;
+          display: inline-block;
+          width: 30%;
+          height: 1px;
+          content: '';
+          background-color: var(--light);
+        }
+        &:before {
+          left: 0;
+        }
+        &:after {
+          right: 0;
+        }
       }
     }
   }
 }
-
-.online, .offline, .me {
-    margin-right: 3px;
-    font-size: 10px;
+@keyframes slideFromLeft {
+  0% {
+    margin-left: -200px;
+    opacity: 0;
   }
-  
-.online {
-  color: $green;
+  100% {
+    margin-left: 0;
+    opacity: 1;
+  }
 }
-  
-.offline {
-  color: $orange;
+@-webkit-keyframes slideFromLeft {
+  0% {
+    margin-left: -200px;
+    opacity: 0;
+  }
+  100% {
+    margin-left: 0;
+    opacity: 1;
+  }
 }
-
-.me {
-  color: $blue;
+@keyframes slideFromRight {
+  0% {
+    margin-right: -200px;
+    opacity: 0;
+  }
+  100% {
+    margin-right: 0;
+    opacity: 1;
+  }
 }
-
-.align-left {
-  text-align: left;
+@-webkit-keyframes slideFromRights {
+  0% {
+    margin-right: -200px;
+    opacity: 0;
+  }
+  100% {
+    margin-right: 0;
+    opacity: 1;
+  }
 }
-
-.align-right {
-  text-align: right;
-}
-
-.float-right {
-  float: right;
-}
-
-.clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-
