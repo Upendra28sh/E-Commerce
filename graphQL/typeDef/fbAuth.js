@@ -11,5 +11,8 @@ module.exports = gql`
         fbSignup(
             input: FBInput
         ): AuthPayload
+        fbSignin(
+            input: FBInput
+        ): AuthPayload
     }
 `;
