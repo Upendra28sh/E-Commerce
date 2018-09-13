@@ -16,12 +16,14 @@ import wishlistTypeDef from './wishlist';
 import adminTypeDef from './admin';
 import approvalTypeDef from './approvals';
 import notificationTypedef from './notifications';
+import fbAuthTypedef from './fbAuth';
 
 // Token code
 // 1 -> Successful signin/signup
 // 2 -> Email already registered
 // 3 -> Invalid password
 // 4 -> Email not registered
+// 5 -> Error occured with Facebook
 
 const typeDefs = gql`
     type Query {
@@ -198,4 +200,4 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef, notificationTypedef];
+module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef, notificationTypedef, fbAuthTypedef];

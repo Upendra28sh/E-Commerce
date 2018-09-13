@@ -1,11 +1,12 @@
 import React from "react";
 import {Steps, Icon, Card, Button} from "antd";
+import {message} from "antd/lib/index";
+import {withApollo} from 'react-apollo';
+import FacebookSignup from 'react-facebook-login';
 import BasicDetails from "./SignUp/BasicDetails";
 import AddressDetails from "./SignUp/AddressDetails";
 import PasswordDetails from "./SignUp/PasswordDetails";
-import {message} from "antd/lib/index";
-import {withApollo} from 'react-apollo';
-import {USER_SIGNUP} from "../query";
+import {USER_SIGNUP, FB_SIGNUP} from "../query";
 
 const Step = Steps.Step;
 
@@ -31,8 +32,29 @@ class SignUp extends React.Component {
             zipcode: '',
             confirmpassword: ''
         };
+        this.responseFacebook = this.responseFacebook.bind(this);
     }
 
+    responseFacebook(data) {
+        const input = {
+            "accessToken": data.accessToken,
+            "userID": data.userID
+        };
+        console.log(input);
+        // this.props.client.mutate({
+        //     mutation: FB_SIGNUP,
+        //     variables: {input: input}
+        // }).then((data) => {
+        //     data = data.fbSignup;
+        //     console.log(data);
+        //     // if (data.token.code === 1) {
+        //     //     console.log(data.token.content);
+        //     //     localStorage.setItem("token", data.token.content);
+        //     //     message.success("SignUp Successful");
+        //     //     this.props.history.push("/feed/");
+        //     // }
+        // });
+    }
 
     getContent() {
         switch (this.state.current) {
@@ -98,8 +120,6 @@ class SignUp extends React.Component {
                 message.success("SignUp Successful");
                 this.props.history.push("/feed/");
             }
-
-
         });
 
 
@@ -138,6 +158,15 @@ class SignUp extends React.Component {
                                 </Steps>
                             </div>
                             {this.getContent()}
+                            OR
+                            <div>
+                                <FacebookSignup 
+                                    appId="285659762264023"
+                                    callback={this.responseFacebook}
+                                    icon="fa-facebook"
+                                    scope="public_profile,user_friends,email"
+                                />
+                            </div>
                         </div>
 
                     </Card>

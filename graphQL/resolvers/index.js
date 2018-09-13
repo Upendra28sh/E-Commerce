@@ -22,6 +22,7 @@ import wishlist from './wishlist';
 import admin from './admin';
 import approval from './approvals';
 import notification from './notifications';
+import fbAuth from './fbAuth';
 
 const resolvers = {
     Query: {
@@ -50,7 +51,8 @@ const resolvers = {
         ...wishlist.Mutation,
         ...admin.Mutation,
         ...approval.Mutation,
-        ...notification.Mutation
+        ...notification.Mutation,
+        ...fbAuth.Mutation
     },
 
     Date: new GraphQLScalarType({
