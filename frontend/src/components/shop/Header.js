@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { Query } from "react-apollo";
 import { GET_AUTH } from "../query";
+import Notifs from './Notification';
 
 // TODO: Add User Notifications
 
@@ -106,6 +107,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.state = {
       search: false
     };
@@ -118,6 +120,14 @@ class Header extends React.Component {
       };
     });
   };
+
+  handleCancel = () => {
+          this.setState(prevState => {
+      return {
+        search: !prevState.search
+      };
+    });
+  }
 
 render() {
 
@@ -149,7 +159,7 @@ render() {
                                                         }}
                                                     >
                                                         <input
-                                                            placeholder="Search Text"
+                                                            placeholder="Search text"
                                                             type="text"
                                                             onKeyPress = {
                                                                 e => {
@@ -157,10 +167,16 @@ render() {
                                                                         this.props.history.push(`/search/${e.target.value}`)
                                                                     }
                                                                 }
-                                                            }                                                            
+                                                            }
                                                             // onSearch={value => this.props.history.push(`/search/${value}`)}
                                                             // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
                                                         />
+                                                        <button 
+                                                            onClick={this.handleCancel}
+                                                            className="search_cancel"
+                                                        >
+                                                            X
+                                                        </button>
                                                     </li>
                                                 ) : (
                                                     <li onClick={this.handleSearch}>
@@ -169,14 +185,18 @@ render() {
                                                 )
                                             }
                                             <li>
-                                                <Popover placement="bottomRight" title={text} content={"No Notifications Yet."} trigger="click">
+                                                <Popover placement="bottomRight" title={text} content={<Notifs user={data}/>} trigger="click">
                                                     <Icon type='bell' style={{fontSize: 18}}/>
                                                 </Popover>
                                             </li>
 
                                             <li>
-                                                <Link to="/cart"><Icon type='shopping-cart'
-                                                                       style={{fontSize: 18}}/></Link>
+                                                <Link to="/cart">
+                                                    <Icon 
+                                                        type='shopping-cart'
+                                                        style={{fontSize: 18}}
+                                                    />
+                                                </Link>
                                                 {/* <div>{this.props.shopping_cart.length}</div> */}
                                             </li>
 

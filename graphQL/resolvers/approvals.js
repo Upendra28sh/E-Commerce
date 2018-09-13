@@ -39,6 +39,7 @@ module.exports = {
                         foundProduct => {
                             foundProduct.approval.approved = updatedApproval.approved;
                             foundProduct.approval.comment = updatedApproval.comment;
+                            createNotificationProduct(foundProduct);
                             foundProduct.save();
                         }
                     )

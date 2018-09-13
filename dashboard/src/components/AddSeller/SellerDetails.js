@@ -138,7 +138,8 @@ class SellerDetails extends React.Component {
                                 getFieldDecorator('intro',
                                 {
                                     rules: [
-                                        { required: true, message: 'Tell something about yourself'}
+                                        { required: true, message: 'Tell something about yourself'},
+                                        { max: 280, message: 'Character limit exceeded (280 chars)' }
                                     ]
                                 }) (
                                     <Input />

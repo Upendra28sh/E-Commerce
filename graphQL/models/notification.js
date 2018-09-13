@@ -3,6 +3,8 @@ const transformSchema = require('./utils/schemaTransform');
 
 const notificationSchema = new mongoose.Schema({
     text: String,
+    action: String,
+    image: String,
     to: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

@@ -1,5 +1,6 @@
 import Sellerpost from '../models/sellerpost';
-import {createFeedItem} from "./utils";
+import Seller from '../models/seller';
+import {createApprovalRequest, createFeedItem, createNotificationSellerpost} from "./utils";
 
 module.exports = {
     Query: {
@@ -44,7 +45,7 @@ module.exports = {
         addNewPostSeller: (parent, {input}, {seller}, info) => {
             const {image, caption} = input;
 
-            // seller.id = seller.id || '5b8f43f6da9f902ff9cd2063';
+            seller.id = seller.id || '5b8f43f6da9f902ff9cd2063';
 
             return Sellerpost.create({
                 seller: seller.id,
@@ -58,6 +59,7 @@ module.exports = {
                         .execPopulate()
                         .then(
                             data => {
+                                createNotificationSellerpost(data);
                                 console.log(data);
                                 return data;
                             }
