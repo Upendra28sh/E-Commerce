@@ -30,6 +30,11 @@ input:focus {
     background-color: rgb(40,40,40);
     display: inline-block;
     cursor: pointer;
+    width: 10%;
+
+    &:focus {
+        ouline: none;
+    }
 }
 
 .box-shadow-menu {

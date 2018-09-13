@@ -29,7 +29,10 @@ input:focus {
   border: none;
   background-color: #282828;
   display: inline-block;
-  cursor: pointer; }
+  cursor: pointer;
+  width: 10%; }
+  .search_cancel:focus {
+    ouline: none; }
 
 .box-shadow-menu {
   position: relative;
@@ -43,7 +46,7 @@ input:focus {
   width: 1em;
   height: 0.15em;
   background: white;
-  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
+  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
 
 .mobile_header {
   width: 100%; }
@@ -505,7 +508,7 @@ li {
   opacity: 1;
   width: 152px;
   font-size: 15px;
-  top: 30%; }
+  top: 50%; }
 
 .photo .photo__header {
   padding: 15px;
@@ -535,6 +538,11 @@ li {
 .photo__actions .photo__action {
   cursor: pointer; }
 
+.photo__save {
+  border: 2px solid black;
+  padding: 3px 32px;
+  font-weight: 600; }
+
 .photo .photo__likes {
   font-weight: 600;
   margin-bottom: 10px;
@@ -553,14 +561,16 @@ li {
   border: 0;
   font-size: 14px;
   resize: none;
-  height: 20px; }
+  height: 20px;
+  overflow: hidden; }
 
 .photo__add-comment-container textarea:focus,
 .photo__add-comment-container textarea:active {
   outline: none; }
 
 .photo__add-comment-container i {
-  cursor: pointer; }
+  cursor: pointer;
+  margin-right: 5px; }
 
 .photo .photo__time-ago {
   font-size: 10px;
@@ -571,6 +581,20 @@ li {
 
 .photo__comments .photo__comment-author {
   font-weight: 500; }
+
+.photo__image__pointer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 15px;
+  background-color: white;
+  height: 30px;
+  line-height: 20px;
+  border-radius: 15px; }
+  .photo__image__pointer span {
+    margin-left: 5px; }
+  .photo__image__pointer i {
+    font-weight: bold; }
 
 .checkout_form {
   padding: 0 20px; }
@@ -951,32 +975,34 @@ div#search_result {
 
 .topRight {
   position: absolute;
-  top: 4%;
-  right: 5%;
-  font-size: 25px; }
+  bottom: 10px;
+  left: 20px;
+  background-color: white;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-content: center; }
+  .topRight i {
+    margin: auto;
+    font-size: 20px; }
 
 @media (min-width: 768px) {
   .row_feed {
     padding-top: 4px;
-    padding-bottom: 4px; }
-  .topRight {
-    font-size: 30px; } }
+    padding-bottom: 4px; } }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .row_feed {
     padding-top: 6px;
-    padding-bottom: 6px; }
-  .topRight {
-    font-size: 37px; } }
+    padding-bottom: 6px; } }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .row_feed {
     padding-top: 8px;
-    padding-bottom: 8px; }
-  .topRight {
-    font-size: 45px; } }
+    padding-bottom: 8px; } }
 
 .ant-upload-select-picture-card i {
   font-size: 32px;
@@ -1418,13 +1444,13 @@ body {
 
 .nav_bar li {
   display: inline-block;
-  padding: 10px; }
+  padding: 5px 10px; }
 
 .nav_bar li a, .nav_bar li {
   text-decoration: none;
   text-transform: uppercase;
   color: white;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: 0px; }
 
 .nav_bar li a:hover, .nav_bar li:hover {

@@ -26,6 +26,7 @@ export const GET_USER_FEED = gql`
                     name ,
                     image ,
                     sizes ,
+                    price
                     description ,
                     codAccepted ,
                     returnAccepted

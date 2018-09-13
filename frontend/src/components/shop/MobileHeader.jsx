@@ -131,7 +131,7 @@ class MobileHeader extends React.Component {
                         <div className="navbar_container">
                             <nav class="navbar navbar-dark" style={{backgroundColor: 'rgb(40,40,40)'}}>
                                 <div className="mobile_header">
-                                    <div className="brand"><Link to="/">FRNZY</Link></div>
+                                    <div className="brand"><Link to="/">APPLE</Link></div>
                                     
                                     {
                                         data.auth.isAuthenticated && (

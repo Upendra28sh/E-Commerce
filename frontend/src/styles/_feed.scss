@@ -233,7 +233,7 @@ li {
       width: 152px;
       font-size: 15px;
       //margin-left: -75px;
-      top: 30%;
+      top: 50%;
     }
 
   }
@@ -275,6 +275,12 @@ li {
   cursor: pointer;
 }
 
+.photo__save {
+  border: 2px solid black;
+  padding: 3px 32px;
+  font-weight: 600;
+}
+
 .photo .photo__likes {
   font-weight: 600;
   margin-bottom: 10px;
@@ -296,6 +302,7 @@ li {
   font-size: 14px;
   resize: none;
   height: 20px;
+  overflow: hidden;
 }
 
 .photo__add-comment-container textarea:focus,
@@ -305,6 +312,7 @@ li {
 
 .photo__add-comment-container i {
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .photo .photo__time-ago {
@@ -315,6 +323,30 @@ li {
   display: block;
 }
 
+//.photo__comments {
+//  border-top: 1px solid #e6e6e6;
+//}
+
 .photo__comments .photo__comment-author {
   font-weight: 500;
+}
+
+.photo__image__pointer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 15px;
+  background-color: white;
+  height: 30px;
+  line-height: 20px;
+  border-radius: 15px;
+
+  span {
+    margin-left: 5px;
+  }
+  i {
+    font-weight: bold;
+
+  }
+
 }

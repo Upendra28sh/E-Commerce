@@ -1,5 +1,6 @@
 import Approval from '../models/approval';
 import Product from '../models/product';
+import {createNotificationProduct} from './utils';
 
 module.exports = {
     Query: {

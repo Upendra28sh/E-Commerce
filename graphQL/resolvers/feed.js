@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const Feed = require('../models/feed');
 const Product = require('../models/product');
+const Seller = require('../models/seller');
 
 // TODO : Optimize Query and Sort According to Timestamp
 // TODO : Add Support for Infinite Scroll
@@ -18,14 +19,18 @@ module.exports = {
                     let array3 = foundUser.followingShop;
 
                     let searchKeys = array1.concat(array2).concat(array3);
-                    console.log(searchKeys);
+                    // console.log(searchKeys);
 
                     return Feed.find({
                         key: {"$in": searchKeys}
                     }).populate('origin').then(data => {
-                        console.log(data);
+                        // console.log(data);
                         data = data.map(item => {
                             item.origin.__typename = item.refString;
+                            if (item.refString === 'Product') {
+                                console.log("Product Feed");
+                                return Seller.populate(item , {'path' : 'origin.seller'})
+                            }
                             return item;
                         });
                         return data;

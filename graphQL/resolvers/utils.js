@@ -21,19 +21,19 @@ export function createApprovalRequest(approvalType, originId) {
     }).catch(err => {
         console.error(err);
         sendErrorReport("Unable To Correct Approval", {
-            approvalType ,
+            approvalType,
             originId
         });
     });
 
 }
 
-export function createFeedItem(feedType, originId, keyId  , event) {
+export function createFeedItem(feedType, originId, keyId, event) {
 
     let feed = new Feed({
-        event : event ,
+        event: event,
         origin: originId,
-        key : keyId ,
+        key: keyId,
         refString: feedType,
     });
 
@@ -46,8 +46,8 @@ export function createFeedItem(feedType, originId, keyId  , event) {
     }).catch(err => {
         console.error(err);
         sendErrorReport("Unable To Create feed item", {
-            feedType ,
-            originId ,
+            feedType,
+            originId,
             event
         });
     });
@@ -55,21 +55,24 @@ export function createFeedItem(feedType, originId, keyId  , event) {
 }
 
 // Not Tested
-export function createNotificationProduct(product) {
+export function createNotificationProduct(data) {
+    console.log(data);
     Seller.findOne({
-        _id: data.seller.id
+        _id: data.seller
     }).then(
         foundSeller => {
             Notification.create({
-                text: `${data.seller.name} added a product`,
+                text: `${foundSeller.name} added a product - ${data.name}`,
                 action: 'www.google.co.in',
                 image: data.image,
                 to: foundSeller.followers
             }).then(
                 data => console.log(data)
-            )
+            ).catch(
+                err => console.log(err)
+            );
         }
-    )
+    );
 }
 
 // Tested
@@ -86,16 +89,16 @@ export function createNotificationSellerpost(data) {
                 to: foundSeller.followers
             }).then(
                 data => console.log(data)
-            )
+            );
         }
-    )
+    );
 
-    
+
 }
 
 export function createdNotificationFollow(followedBy, following) {
     console.log(followedBy, following);
-    
+
     Notification.create({
         to: following.id,
         text: `${followedBy.name} followed you`,
@@ -103,10 +106,10 @@ export function createdNotificationFollow(followedBy, following) {
         action: `/user/${followedBy.username}`
     }).then(
         data => console.log(data)
-    )
+    );
 }
 
 // TODO : Send a MAIL TO DEV TEAM
-export function sendErrorReport(message , data) {
+export function sendErrorReport(message, data) {
     console.log("New Error Reported");
 }

@@ -1,46 +1,44 @@
-.row_feed{
-    padding-top: 1px;
-    padding-bottom:1px
+.row_feed {
+  padding-top: 1px;
+  padding-bottom: 1px
 }
 
-.topRight{
-    position: absolute;
-    top : 4%;
-    right: 5%;
-    font-size: 25px
+.topRight {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  background-color: white;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-content: center;
 
+  i {
+    margin: auto;
+    font-size: 20px;
+  }
 }
+
 @media (min-width: 768px) {
-    .row_feed {
-        padding-top: 4px;
-        padding-bottom:4px
-    }
-    .topRight{
-        font-size: 30px
-    
-    }
+  .row_feed {
+    padding-top: 4px;
+    padding-bottom: 4px
+  }
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .row_feed {
-        padding-top: 6px;
-        padding-bottom:6px
-    }
-    .topRight{
-        font-size: 37px
-    
-    }
+  .row_feed {
+    padding-top: 6px;
+    padding-bottom: 6px
+  }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .row_feed {
-        padding-top: 8px;
-        padding-bottom:8px
-    }
-    .topRight{
-        font-size: 45px
-    
-    }
+  .row_feed {
+    padding-top: 8px;
+    padding-bottom: 8px
+  }
 }
