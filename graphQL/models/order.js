@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
+import Address from './address'
 
 const orderSchema = new mongoose.Schema({
     products: [
@@ -21,20 +22,17 @@ const orderSchema = new mongoose.Schema({
     date: Date,
     shipping: {
         status: String,
-        address: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Address'
-        }
+        address: Address
     },
     payment: {
         status: String,
         mode: String
     },
     status: {
-        confirmed: Boolean,
-        packed: Boolean,
-        shipped: Boolean,
-        delivered: Boolean,
+        confirmed: {type : Boolean , default : false},
+        packed: {type : Boolean , default : false},
+        shipped: {type : Boolean , default : false},
+        delivered: {type : Boolean , default : false},
     }
 
 }, {versionKey: false});

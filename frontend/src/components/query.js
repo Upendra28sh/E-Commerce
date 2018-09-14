@@ -1,5 +1,83 @@
 import {gql} from "apollo-boost";
 
+export const GET_USER_ADDRESS = gql`
+    {
+        getUserAddresses {
+            address
+            zipcode
+            state
+            street
+            city
+        }
+    }
+`;
+
+export const GET_CART = gql`
+    {
+        getCart {
+            id
+            items {
+                itemCount
+                selectedSize
+                item {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    seller {
+                        id ,
+                        image ,
+                        name
+                    }
+                }
+            }
+        }
+    }
+`;
+
+
+export const ADD_ORDER_CART = gql `
+mutation($input : AddOrderFromCartInput) {
+  addOrderFromCart(input : $input) {
+    order {
+        id
+        discount
+        total
+        shipping {
+          status
+          address {
+            address
+            street
+            state
+            city
+            zipcode
+          }
+        }
+        status {
+          confirmed
+          packed
+          shipped
+          delivered
+        }
+        products {
+          product {
+            id
+            name
+            price
+            seller {
+              id
+              name
+              image
+            }
+          } ,
+          itemCount ,
+          selectedSize
+        }
+    }
+  }
+}`;
+
 
 export const GET_USER_FEED = gql`
     {
@@ -9,7 +87,7 @@ export const GET_USER_FEED = gql`
                 ...on Post {
                     caption ,
                     product {
-                        name , 
+                        name ,
                         price ,
                         sizes
                     }
@@ -42,7 +120,7 @@ export const GET_USER_FEED = gql`
 
         }
     }
-`
+`;
 
 export const USER_SIGNUP = gql`
     mutation($input : AuthInput , $details : UserDetailsInput , $address : AddressInput ) {
@@ -243,8 +321,8 @@ export const GET_POST_BY_SELLER = gql`
             caption
             updated_at
             seller {
-                name 
-                image 
+                name
+                image
             }
             comments{
                 user{
@@ -267,20 +345,20 @@ export const ADD_SELLER_COMMENT = gql`
 `;
 
 export const GET_ALL_SELLERS = gql`
-query {
-    allSellers{
-      id
-      name
-      intro
-      about
-      image
-      shopName
+    query {
+        allSellers{
+            id
+            name
+            intro
+            about
+            image
+            shopName
+        }
     }
-  }
 `;
 
 export const FB_SIGNUP = gql`
-    mutation($input: FBInput) { 
+    mutation($input: FBInput) {
         fbSignup(input: $input) {
             token {
                 code

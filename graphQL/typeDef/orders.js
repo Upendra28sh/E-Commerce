@@ -43,13 +43,7 @@ export default gql`
     }
 
     input AddOrderFromCartInput {
-        userID: ID!,
-        discount: Int,
-        total: Int,
-        date: Date,
-        shipping : AddShippingInput,
-        status: AddStatusInput,
-        payment: AddPaymentInput
+        address : AddressInput
     }
     
     type AddOrderPayload {
