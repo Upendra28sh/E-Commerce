@@ -99,6 +99,10 @@ div#search_result {
   font-size: 40px;
 }
 
+div.ant-popover-inner-content {
+  padding: 0 !important;
+}
+
 @media (max-width: 500px) {
   .container_320 {
     padding: 0;

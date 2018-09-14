@@ -61,11 +61,12 @@ class Notification extends React.Component {
                                         key={index} 
                                         className="notification" 
                                         onClick={() => this.handleClick(notif.id)}
+                                        style={{backgroundColor: findIDinObj(notif.readBy, userID) ? '#00000005' : '#fffff', padding: '10px'}}
                                     >
                                         <Col span={4}>
                                             <img 
                                                 src={notif.image}
-                                                style={{width: '100%', padding: "0 10px 10px 10px"}}
+                                                style={{width: '100%', padding: "0 10px 10px 10px", borderRadius: '50%'}}
                                                 className="notification__image"
                                             />
                                         </Col>
@@ -73,7 +74,7 @@ class Notification extends React.Component {
                                             <Link className="notification__message" to={notif.action}>
                                                 <span>{notif.text}</span>
                                             </Link>
-                                            <p>{findIDinObj(notif.readBy, userID) ? 'READ' : ''}</p>
+                                            {/* <p>{findIDinObj(notif.readBy, userID) ? 'READ' : ''}</p> */}
                                         </Col>
                                     </Row>
                                 )
