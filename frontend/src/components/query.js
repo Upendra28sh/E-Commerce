@@ -290,6 +290,17 @@ export const FB_SIGNUP = gql`
     }
 `;
 
+export const FB_SIGNIN = gql`
+    mutation($input: FBInput) {
+        fbSignin(input: $input) {
+            token {
+                code
+                content
+            }
+        }
+    }
+`;
+
 export const GET_USER_NOTIFS = gql `
     query {
         getNotifsByUser {

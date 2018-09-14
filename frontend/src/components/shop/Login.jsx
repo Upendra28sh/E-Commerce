@@ -5,7 +5,7 @@ import { Mutation, withApollo } from "react-apollo";
 import jwt from "jsonwebtoken";
 import FacebookLogin from 'react-facebook-login';
 import { askForPermissionToReceiveNotifications } from "../../push-notification";
-import { GET_AUTH } from "../query";
+import { GET_AUTH, FB_SIGNIN } from "../query";
 
 const responseFacebook = (response) => console.log("FACEBOOK",response)
 
@@ -26,6 +26,28 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
+  }
+
+  responseFacebook = (data) => {
+    const input = {
+      "accessToken": data.accessToken,
+      "userID": data.userID
+    };
+    this.props.client.mutate({
+        mutation: FB_SIGNIN,
+        variables: {input: input}
+    }).then((data) => {
+      console.log(data);
+        data = data.data.fbSignin;
+        console.log(data);
+        if (data.token.code === 1) {
+            console.log(data.token.content);
+            localStorage.setItem("token", data.token.content);
+            message.success("Login Successful");
+            this.props.history.push("/feed/");
+        }
+    });
   }
 
   handleSubmit = (loginMutation, client) => {
@@ -144,13 +166,15 @@ class Login extends React.Component {
                   </FormItem>
                 </Form>
 
-                {/* <FacebookLogin 
-                  appId="285659762264023"
-                  callback={responseFacebook}
-                  icon="fa-facebook"
-                  scope="public_profile,user_friends,email"
-                /> */}
-
+                <div>
+                  <FacebookLogin
+                    appId="285659762264023"
+                    callback={this.responseFacebook}
+                    icon="fa-facebook"
+                    scope="public_profile,user_friends,email"
+                  />
+                </div>
+                
                 <p style={{ paddingBottom: "10px", textAlign: "center" }}>
                   For help, contact us.
                 </p>

@@ -41,19 +41,19 @@ class SignUp extends React.Component {
             "userID": data.userID
         };
         console.log(input);
-        // this.props.client.mutate({
-        //     mutation: FB_SIGNUP,
-        //     variables: {input: input}
-        // }).then((data) => {
-        //     data = data.fbSignup;
-        //     console.log(data);
-        //     // if (data.token.code === 1) {
-        //     //     console.log(data.token.content);
-        //     //     localStorage.setItem("token", data.token.content);
-        //     //     message.success("SignUp Successful");
-        //     //     this.props.history.push("/feed/");
-        //     // }
-        // });
+        this.props.client.mutate({
+            mutation: FB_SIGNUP,
+            variables: {input: input}
+        }).then((data) => {
+            data = data.data.fbSignup;
+            console.log(data);
+            if (data.token.code === 1) {
+                console.log(data.token.content);
+                localStorage.setItem("token", data.token.content);
+                message.success("SignUp Successful");
+                this.props.history.push("/feed/");
+            }
+        });
     }
 
     getContent() {
