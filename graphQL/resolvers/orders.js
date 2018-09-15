@@ -1,15 +1,20 @@
+import {generateEncRequest} from "./utils";
+
 const Order = require('../models/order');
 const Cart = require('../models/cart');
 const Address = require('../models/address.js');
+const generate = require('nanoid/generate');
+const config = require('../config');
+
 
 function transformToProducts(cart) {
     return cart.items.map(item => {
         return {
-            product: item.item ,
+            product: item.item,
             itemCount: item.itemCount,
             selectedSize: item.selectedSize
-        }
-    })
+        };
+    });
 }
 
 
@@ -150,19 +155,23 @@ module.exports = {
             return Cart.findOne({user: context.user.id}).populate('items.item').then(
                 foundCart => {
                     console.log(foundCart);
-                    let total = 0 ;
+                    const alphabet = '0123456789';
+                    let order_number = generate(alphabet, 21).toString(); //=> "347249770509105530937"
+
+                    let total = 0;
                     foundCart.items.forEach(
                         cartItem => total += cartItem.item.price
                     );
                     let products = transformToProducts(foundCart);
-                    console.log(products)
+                    console.log(products);
 
                     return Order.create({
                         user: context.user.id,
                         discount: 0,
+                        order_number: order_number,
                         total: total,
-                        products : products,
-                        date: new Date().toISOString() ,
+                        products: products,
+                        date: new Date().toISOString(),
                         shipping: {address: input.address},
                     }).then(
                         createdOrder => {
@@ -193,6 +202,17 @@ module.exports = {
             }).populate('products').populate('user').exec().then(
                 data => data
             );
+        },
+        getEncryptedRequest: (parent, args, context, info) => {
+            return Order.findOne({
+                _id: args.orderID
+            }).populate('user').then(foundOrder => {
+                let response = {
+                    access_code: config.access_code,
+                    encRequest: generateEncRequest(foundOrder)
+                };
+                return response;
+            });
         }
     }
 };

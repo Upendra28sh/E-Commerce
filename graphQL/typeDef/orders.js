@@ -49,6 +49,11 @@ export default gql`
     type AddOrderPayload {
         order : Order
     }
+    
+    type EncryptedRequestPayload {
+        encRequest : String ,
+        access_code : String 
+    }
 
     extend type Mutation {
         addOrder(
@@ -58,6 +63,10 @@ export default gql`
         addOrderFromCart(
             input: AddOrderFromCartInput
         ) : AddOrderPayload
+        
+        getEncryptedRequest(
+            orderID : ID 
+        ) : EncryptedRequestPayload
 
         removeOrder(
             orderID: ID

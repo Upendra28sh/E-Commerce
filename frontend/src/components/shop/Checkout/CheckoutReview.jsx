@@ -36,6 +36,13 @@ class CheckoutReview extends Component {
         }).then(({data}) => {
             console.log(data);
             console.log(data.addOrderFromCart.order);
+            let order = data.addOrderFromCart.order ;
+            this.props.history.push({
+                pathname: '/checkout/submit',
+                state: {
+                    order
+                }
+            });
         });
 
 
@@ -56,8 +63,6 @@ class CheckoutReview extends Component {
         } else {
             this.props.history.push('/cart');
         }
-
-
     }
 
     render() {
@@ -137,8 +142,11 @@ class CheckoutReview extends Component {
                                                         {this.state.address.zipcode}
                                                     </p>
                                                 </div>
+                                                <div className='checkout_address'>
+                                                    <h4>Total Amount : <span>₹ {this.getProductsTotal(data)}</span></h4>
+                                                </div>
                                                 <Button onClick={this.placeOrder} className='theme_button'>
-                                                    Pay <span>₹ {this.getProductsTotal(data)}</span>
+                                                    Place Order
                                                 </Button>
                                             </Col>
                                         </Row>

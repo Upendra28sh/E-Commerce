@@ -21,6 +21,7 @@ import TrendingFeed from "../shop/TrendingFeed";
 import addPost from "../shop/addpost"
 import Chat from "../shop/Chat"
 import CheckoutReview from "../shop/Checkout/CheckoutReview";
+import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 
 const Router = () => {
   return (
@@ -39,6 +40,7 @@ const Router = () => {
         <Route exact path="/cart" component={RequireAuth(Cart)} />
         <Route path="/checkout/shipping" component={RequireAuth(CheckoutShipping)} />
         <Route path="/checkout/review" component={RequireAuth(CheckoutReview)} />
+        <Route path="/checkout/submit" component={RequireAuth(CheckoutSubmit)} />
         <Route exact path="/wishlist" component={RequireAuth(Wishlist)} />
         <Route exact path="/confirm" component={RequireAuth(Confirm)} />
         <Route exact path="/thanks" component={RequireAuth(Thanks)} />

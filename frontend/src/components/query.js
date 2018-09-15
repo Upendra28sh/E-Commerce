@@ -1,5 +1,14 @@
 import {gql} from "apollo-boost";
 
+export const GET_ENC_REQUEST = gql`
+    mutation($orderID : ID) {
+        getEncryptedRequest(orderID: $orderID) {
+            encRequest ,
+            access_code
+        }
+    }
+`
+
 export const GET_USER_ADDRESS = gql`
     {
         getUserAddresses {
@@ -42,6 +51,7 @@ mutation($input : AddOrderFromCartInput) {
   addOrderFromCart(input : $input) {
     order {
         id
+        order_number
         discount
         total
         shipping {
