@@ -1,8 +1,9 @@
 const {ApolloServer, gql} = require('apollo-server');
+import graphqlHTTP from 'express-graphql'
+import { apolloUploadExpress } from 'apollo-upload-server'
 const mongoose = require('mongoose');
 import express from 'express';
 import cors from 'cors';
-import upload from './middlewares/upload'
 
 const app = express();
 
@@ -25,6 +26,7 @@ import jwt from 'jsonwebtoken';
 
 // Mongoose configuration
 const url = "mongodb://localhost:27017/ecomm";
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -60,6 +62,7 @@ const server = new ApolloServer({
         },
     }
 });
+
 
 mongoose.connect(url, {useNewUrlParser: true}).then(() => {
     console.log("Connected to DB");

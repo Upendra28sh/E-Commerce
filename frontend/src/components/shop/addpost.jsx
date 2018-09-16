@@ -1,5 +1,18 @@
 import React from "react";
 import { Row, Col, Icon, Upload, Button, Input, message, Modal } from "antd";
+import {Mutation} from 'react-apollo';
+import {ADD_POST} from '../query';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from 'apollo-upload-client';
+import {gql} from "apollo-boost";
+
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: createUploadLink({uri:'http://localhost:4000'}),
+});
+
 
 class addPost extends React.Component {
   state = {
@@ -7,8 +20,22 @@ class addPost extends React.Component {
     previewImage: "",
     fileList: [],
     showPreview:false,
-    caption:''
+    caption:'',
   };
+
+  addNewPostSeller()
+  {
+    client.mutate({
+      variables:{caption:this.state.caption,file :this.state.fileList[0].originFileObj},
+      mutation:gql`
+      mutation($caption:String!,$file:Upload!){
+          addNewPostSeller(caption:$caption,file:$file)
+        }`
+    }).then(()=>{
+      message.success('post added');
+    })
+
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
   previewOn(e)
@@ -25,7 +52,7 @@ class addPost extends React.Component {
 
 
   handleChange = ({ fileList }) => {
-    console.log(fileList[0].thumbUrl);
+    console.log(fileList[0]);
     this.setState({ fileList })
     this.setState({
       previewImage:fileList[0].thumbUrl
@@ -46,7 +73,6 @@ class addPost extends React.Component {
         <div className="ant-upload-text">Upload</div>
       </div>
     );
-    console.log(this.state.previewImage);
     return (
       <div
         style={{
@@ -60,9 +86,10 @@ class addPost extends React.Component {
         <Row>
           <Col span={6}>
             <Upload
-              action="jsonplaceholder.typicode.com/posts/"
               listType="picture-card"
+              action={()=>{console.log('sone')}}
               fileList={fileList}
+              data={this.upload}
               onPreview={this.handlePreview}
               onChange={this.handleChange}
             >
@@ -89,9 +116,11 @@ class addPost extends React.Component {
                 }}
                 type="primary"
                 shape="circle"
+                onClick={()=>this.addNewPostSeller()}
               >
                 <i className="fa fa-send-o" />
               </Button>
+
             </div>
           </Col>
         </Row>
