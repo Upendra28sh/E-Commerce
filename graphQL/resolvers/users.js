@@ -27,20 +27,46 @@ module.exports = {
                 .populate('followingShop')
                 .populate('followNotify.User')
                 .exec();
-        } ,
-        checkUserNameAvailability : (parent , args , context , info ) => {
+        },
+        checkUserNameAvailability: (parent, args, context, info) => {
             return User.findOne({
-                username : args.username
+                username: args.username
             }).then(data => {
-                if(data){
+                if (data) {
                     return false;
                 }
-                return true ;
-            })
+                return true;
+            });
+        },
+        getUserAddresses: (parent, args, context, info) => {
+            let userId = context.user.id;
+            return User.findOne({
+                _id: userId
+            }).then(foundUser => {
+                console.log(foundUser.address);
+                return foundUser.address;
+            });
         }
     },
 
     Mutation: {
+        addUserAddress: (parents, args, context, info) => {
+            // console.log()
+            return User.findOneAndUpdate({
+                _id: context.user.id
+            }, {
+                $addToSet: {
+                    address: args.input.address
+                }
+
+            } , {new : true}).exec()
+                .then(data => {
+                    console.log(data);
+                    return data.address[data.address.length - 1];
+                });
+
+        },
+
         followUser: (parents, args, context, info) => {
             return User.findOneAndUpdate({
                 _id: context.user.id
@@ -50,27 +76,27 @@ module.exports = {
                 }
 
             })
-            .populate('following')
-            .exec()
-            .then(
-                (data) => {
-                    return User.findOneAndUpdate({
-                        _id: args.FollowingID
-                    }, {
-                        $addToSet: {
-                            followers: context.user.id
-                        }
-                    })
-                    .populate('followers')
-                    .exec()
-                    .then(
-                        info => {
-                            createdNotificationFollow(data, info)
-                            return info;
-                        }
-                    );
-                }
-            );
+                .populate('following')
+                .exec()
+                .then(
+                    (data) => {
+                        return User.findOneAndUpdate({
+                            _id: args.FollowingID
+                        }, {
+                            $addToSet: {
+                                followers: context.user.id
+                            }
+                        })
+                            .populate('followers')
+                            .exec()
+                            .then(
+                                info => {
+                                    createdNotificationFollow(data, info);
+                                    return info;
+                                }
+                            );
+                    }
+                );
         },
         unFollowUser: (parents, args, context, info) => {
             return User.findOneAndUpdate({
@@ -88,13 +114,13 @@ module.exports = {
                         followers: context.user.id
                     }
                 })
-                .populate('followers')
-                .exec()
-                .then(
-                    data => {
-                        return data;
-                    }
-                );
+                    .populate('followers')
+                    .exec()
+                    .then(
+                        data => {
+                            return data;
+                        }
+                    );
             });
         },
         followShop: (parents, args, context, info) => {

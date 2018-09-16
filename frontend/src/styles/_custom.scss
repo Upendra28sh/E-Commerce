@@ -18,6 +18,17 @@
   }
 }
 
+
+.theme_button {
+  border: none;
+  background: black !important;
+  color: white !important;
+  border-radius: 0 !important;
+  height: auto !important;
+  padding: 5px 10px !important;
+  margin: auto;
+}
+
 .container_320 {
   padding: 0 40%;
 }
@@ -31,6 +42,19 @@
   margin: auto;
   max-width: 980px;
 }
+
+.max_width_640 {
+  width: 95%;
+  margin: auto;
+  max-width: 640px;
+}
+
+.max_width_500 {
+  width: 95%;
+  margin: auto;
+  max-width: 500px;
+}
+
 
 .container_80 {
   padding: 0 13rem;

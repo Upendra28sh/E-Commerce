@@ -63,7 +63,7 @@ module.exports = {
                                                     email: info.email,
                                                     about: '',
                                                     image: info.picture.data.url,
-                                                    username: info.email,
+                                                    username: info.id,
                                                     facebook: info.id
                                                 }).then(
                                                     createdUser => {

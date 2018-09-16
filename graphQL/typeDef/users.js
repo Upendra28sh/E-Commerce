@@ -9,7 +9,13 @@ export default gql `
         allUsers: [User],
         User(username: String!): User,
         checkUserNameAvailability(username: String): Boolean
+        getUserAddresses : [Address]
     }
+    
+    input addUserAddressInput {
+        address : AddressInput
+    }
+    
     extend type Mutation {
         followUser(
             FollowingID : ID!
@@ -26,7 +32,11 @@ export default gql `
         Notify(
             UserToken : String!,
             Email : String!
-        ):User
+        ):User,
+        addUserAddress(
+            input : addUserAddressInput
+        ) : Address 
+        
     }
 `
 

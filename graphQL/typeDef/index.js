@@ -84,6 +84,7 @@ const typeDefs = gql`
 
     type Order {
         id: ID,
+        order_number : String, 
         user: User,
         products: [OrderItem],
         discount: Int,
