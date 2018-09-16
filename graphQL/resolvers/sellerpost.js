@@ -1,6 +1,11 @@
 import Sellerpost from '../models/sellerpost';
 import Seller from '../models/seller';
-import {createApprovalRequest, createFeedItem, createNotificationSellerpost} from "./utils";
+import {
+    createApprovalRequest,
+    createFeedItem,
+    createNotificationSellerpost
+} from "./utils";
+import uploadToS3 from '../middlewares/upload';
 
 module.exports = {
     Query: {
@@ -19,13 +24,17 @@ module.exports = {
                     return data;
                 });
         },
-        getSellerPostBySeller: (parent, args, {seller}, info) => {
+        getSellerPostBySeller: (parent, args, {
+            seller
+        }, info) => {
             let id = args.id;
             if (seller) {
                 id = seller.id;
             }
 
-            return Sellerpost.find({seller: id})
+            return Sellerpost.find({
+                    seller: id
+                })
                 .populate({
                     path: 'comments.user',
                 })
@@ -42,35 +51,60 @@ module.exports = {
 
 
     Mutation: {
-        addNewPostSeller: (parent, {input}, {seller}, info) => {
-            const {image, caption} = input;
+        addNewPostSeller: (parent, {
+            file,
+            caption
+        }, {
+            seller
+        }, info) => {
+            var image;
+            file.then((data) => {
+                const {
+                    stream,
+                    filename,
+                    mimetype,
+                    encoding
+                } = data;
+                uploadToS3(filename, stream).then((dataurl) => {
+                    image = dataurl;
+                    console.log("caption", caption);
+                    seller.id = seller.id || '5b8da01b7fa161041482573d';
+                    return Sellerpost.create({
+                        seller: seller.id,
+                        caption: caption,
+                        image: image
+                    }).then(
+                        createdPost => {
 
-            seller.id = seller.id || '5b8f43f6da9f902ff9cd2063';
+                            createFeedItem('Seller Post', createdPost.id, createdPost.seller, 'Seller Post is added');
+                            return createdPost
+                                .populate('seller')
+                                .execPopulate()
+                                .then(
+                                    data => {
+                                        createNotificationSellerpost(data);
+                                        console.log(data);
+                                        return data;
+                                    }
+                                );
+                        }
+                    );
+                })
 
-            return Sellerpost.create({
-                seller: seller.id,
-                caption: caption,
-                image: image,
-            }).then(
-                createdPost => {
-                    createFeedItem('Seller Post', createdPost.id, createdPost.seller, 'Seller Post is added');
-                    return createdPost
-                        .populate('seller')
-                        .execPopulate()
-                        .then(
-                            data => {
-                                createNotificationSellerpost(data);
-                                console.log(data);
-                                return data;
-                            }
-                        );
-                }
-            );
+            });
+
         },
 
+
+
         addSellerComment: (parent, args, context, info) => {
-            return Sellerpost.findOne({_id: args.PostID}).exec().then(post => {
-                post.comments.push({text: args.text, user: context.user.id});
+            return Sellerpost.findOne({
+                _id: args.PostID
+            }).exec().then(post => {
+                post.comments.push({
+                    text: args.text,
+                    user: context.user.id
+                });
                 post.save();
             });
         }

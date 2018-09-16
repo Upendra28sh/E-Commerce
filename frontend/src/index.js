@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {ModalContainer} from "react-router-modal";
+import {createUploadLink} from "apollo-upload-client"
 import {
     initializeFirebase,
     sendmessageusertoseller
@@ -35,7 +36,7 @@ let auth = {
 };
 
 console.log(auth);
-
+const link = createUploadLink({uri:'http://localhost:4000'})
 const client = new ApolloClient({
     uri: "http://localhost:4000",
     // uri: "http://18.216.241.175:4000" ,

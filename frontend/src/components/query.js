@@ -320,3 +320,7 @@ export const GET_USER_NOTIFS = gql `
         }
     }
 `;
+export const ADD_POST = gql`
+mutation($file:Upload!){
+    addNewPostSeller(file:$file)
+  }`
