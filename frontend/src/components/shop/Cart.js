@@ -1,32 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Row, Col} from 'antd';
-import gql from 'graphql-tag';
+import {Col, Row} from 'antd';
 import {Query} from 'react-apollo';
+import {GET_CART} from "../query";
 
-const GET_CART = gql`
-    {
-        getCart {
-            id
-            items {
-                itemCount
-                selectedSize
-                item {
-                    id
-                    name
-                    price
-                    image
-                    description
-                    seller {
-                        id ,
-                        image ,
-                        name
-                    }
-                }
-            }
-        }
-    }
-`;
 
 class Cart extends React.Component {
 
@@ -44,7 +21,7 @@ class Cart extends React.Component {
     }
 
     handleCheckout() {
-        this.props.history.push('/checkout');
+        this.props.history.push('/checkout/shipping');
     }
 
     // componentDidMount() {
@@ -76,10 +53,11 @@ class Cart extends React.Component {
                     return (
                         <div className="bg-grey">
                             <div className="max_width_980">
-                                <div className="cart_title">
-                                    <h2>{data.items.length} item{data.items.length > 1 ? 's' : ''} in your cart</h2>
-                                </div>
                                 <div className="cart_content">
+                                    <div className="cart_title">
+                                        <h3>My Cart</h3>
+                                        <p>{data.items.length} item{data.items.length > 1 ? 's' : ''} in your cart</p>
+                                    </div>
                                     <Row>
                                         <Col span={16} className="left_part">
                                             {
@@ -111,9 +89,17 @@ class Cart extends React.Component {
                                                                     </div>
                                                                     {/*<p>{cartItem.item.description}</p>*/}
 
-                                                                    <small>Selected Size
-                                                                        : {cartItem.selectedSize}</small>
-                                                                    <p>Item Count : {cartItem.itemCount}</p>
+                                                                    <div>
+                                                                        <small>
+                                                                            Selected Size : {cartItem.selectedSize}
+                                                                        </small>
+                                                                    </div>
+                                                                    <div>
+                                                                        <small>
+                                                                            Item Count : {cartItem.itemCount}
+                                                                        </small>
+                                                                    </div>
+
                                                                 </Col>
                                                             </Row>
                                                         </div>

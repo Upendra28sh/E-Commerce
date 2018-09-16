@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
+import Address from './address';
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -11,10 +12,7 @@ const userSchema = new mongoose.Schema({
     image: String,
     about: String,
     facebook: String,
-    address: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
-    }],
+    address: [Address],
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -34,7 +32,7 @@ const userSchema = new mongoose.Schema({
         },
         read: Boolean
     }],
-    UserToken : String,
+    UserToken: String,
 }, {
     versionKey: false
 });

@@ -2,6 +2,9 @@ import Approval from './../models/approval';
 import Feed from './../models/feed';
 import Notification from '../models/notification';
 import Seller from '../models/seller';
+import crypto from 'crypto';
+import config from "../config";
+import qs from 'qs';
 
 export function createApprovalRequest(approvalType, originId) {
 
@@ -113,3 +116,53 @@ export function createdNotificationFollow(followedBy, following) {
 export function sendErrorReport(message, data) {
     console.log("New Error Reported");
 }
+
+export function generateEncRequest(order) {
+    console.log(order);
+    let body = {
+        merchant_id: config.merchant_id,
+        order_id: order.id,
+        currency: 'INR',
+        amount: order.total,
+        redirect_url: config.redirect_url,
+        cancel_url: config.cancel_url,
+        language: 'en',
+        billing_name: order.user.name,
+        billing_address: order.shipping.address.address + ", " + order.shipping.address.street,
+        billing_city: order.shipping.address.city,
+        billing_state: order.shipping.address.state,
+        billing_zip: order.shipping.address.zipcode,
+        billing_country: "India",
+
+    };
+    console.log(body.toString());
+    let encRequest = encrypt(body);
+    return encRequest;
+}
+
+
+function encrypt(body) {
+    let plainText = qs.stringify(body);
+    var m = crypto.createHash('md5');
+    m.update(config.working_key);
+    var key = m.digest();
+    var iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f';
+    var cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
+    var encoded = cipher.update(plainText, 'utf8', 'hex');
+    encoded += cipher.final('hex');
+    return encoded;
+};
+
+
+function decrpyt(encText, workingKey) {
+    var m = crypto.createHash('md5');
+
+    m.update(workingKey);
+    var key = m.digest();
+    var iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f';
+    var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+    var decoded = decipher.update(encText, 'hex', 'utf8');
+    decoded += decipher.final('utf8');
+    return decoded;
+};
+

@@ -43,17 +43,16 @@ export default gql`
     }
 
     input AddOrderFromCartInput {
-        userID: ID!,
-        discount: Int,
-        total: Int,
-        date: Date,
-        shipping : AddShippingInput,
-        status: AddStatusInput,
-        payment: AddPaymentInput
+        address : AddressInput
     }
     
     type AddOrderPayload {
         order : Order
+    }
+    
+    type EncryptedRequestPayload {
+        encRequest : String ,
+        access_code : String 
     }
 
     extend type Mutation {
@@ -64,6 +63,10 @@ export default gql`
         addOrderFromCart(
             input: AddOrderFromCartInput
         ) : AddOrderPayload
+        
+        getEncryptedRequest(
+            orderID : ID 
+        ) : EncryptedRequestPayload
 
         removeOrder(
             orderID: ID

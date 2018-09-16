@@ -1,16 +1,8 @@
-import React, { Fragment } from "react";
-import { Link, NavLink } from "react-router-dom";
-import {
-  Input,
-  Dropdown,
-  Menu,
-  Icon,
-  Row,
-  Col,
-  Popover,
-} from "antd";
-import { Query } from "react-apollo";
-import { GET_AUTH } from "../query";
+import React, {Fragment} from "react";
+import {Link, NavLink} from "react-router-dom";
+import {Col, Dropdown, Icon, Input, Menu, Popover, Row} from "antd";
+import {Query, withApollo} from "react-apollo";
+import {GET_AUTH} from "../query";
 import Notifs from './Notification';
 
 // TODO: Add User Notifications
@@ -19,117 +11,127 @@ const Search = Input.Search;
 const text = <span style={{fontSize: '18px', fontWeight: '600'}}> Notifications</span>;
 
 const MenuI = (props) => {
+    console.log(props);
     return (
         <Menu>
             <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
-            <Menu.Item key="2"><NavLink to="/order">Your Order</NavLink></Menu.Item>
-            <Menu.Item key="3"><NavLink to="/wishlist">Your Wishlist</NavLink></Menu.Item>
-            <Menu.Item key="4">Log Out</Menu.Item>
+            <Menu.Item key="2"><NavLink to="/order">Your Orders</NavLink></Menu.Item>
+            <Menu.Item key="3"><NavLink to="/chat">Your Messages</NavLink></Menu.Item>
+            <Menu.Item key="4" onClick={props.logout}>Log Out</Menu.Item>
         </Menu>
     );
 };
 
 const menu = (
-  <div className="categories">
-    <Row>
-      <Col span={6}>
-        <ul className="categories__list">
-          <strong>
-            <li>Menu</li>
-          </strong>
-          <li>Shoes</li>
-          <li>Pants</li>
-          <li>Clothes</li>
-          <li>Shoes</li>
-          <li>Pants</li>
-        </ul>
-      </Col>
-      <Col span={6}>
-        <ul className="categories__list">
-          <strong>
-            <li>Women</li>
-          </strong>
-          <li>Shoes</li>
-          <li>Pants</li>
-          <li>Clothes</li>
-          <li>Shoes</li>
-          <li>Pants</li>
-        </ul>
-      </Col>
-      <Col span={6}>
-        <ul className="categories__list">
-          <strong>
-            <li>Kids</li>
-          </strong>
-          <li>Shoes</li>
-          <li>Pants</li>
-          <li>Clothes</li>
-          <li>Shoes</li>
-          <li>Pants</li>
-        </ul>
-      </Col>
-      <Col span={6}>
-        <ul className="categories__list">
-          <strong>
-            <li>Electronics</li>
-          </strong>
-          <li>Shoes</li>
-          <li>Pants</li>
-          <li>Clothes</li>
-          <li>Shoes</li>
-          <li>Pants</li>
-        </ul>
-      </Col>
-    </Row>
-  </div>
+    <div className="categories">
+        <Row>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong>
+                        <li>Menu</li>
+                    </strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong>
+                        <li>Women</li>
+                    </strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong>
+                        <li>Kids</li>
+                    </strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+            <Col span={6}>
+                <ul className="categories__list">
+                    <strong>
+                        <li>Electronics</li>
+                    </strong>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                    <li>Clothes</li>
+                    <li>Shoes</li>
+                    <li>Pants</li>
+                </ul>
+            </Col>
+        </Row>
+    </div>
 );
 
 const left_section = (
-  <Fragment>
-    <li>
-      <Dropdown overlay={menu} trigger={["click"]}>
+    <Fragment>
+        <li>
+            <Dropdown overlay={menu} trigger={["click"]}>
           <span className="box-shadow-menu">
               {/*Menu*/}
           </span>
-      </Dropdown>
-    </li>
-    <li>
-      <Link to="/feed">My Feed</Link>
-    </li>
-    <li>
-      {/*<Link to="/trending">Trending</Link>*/}
-      <Link to="/trendingFeed">Trending</Link>
-    </li>
-  </Fragment>
+            </Dropdown>
+        </li>
+        <li>
+            <Link to="/feed">My Feed</Link>
+        </li>
+        <li>
+            {/*<Link to="/trending">Trending</Link>*/}
+            <Link to="/trendingFeed">Trending</Link>
+        </li>
+    </Fragment>
 );
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.state = {
-      search: false
+    handleSearch = () => {
+        this.setState(prevState => {
+            return {
+                search: !prevState.search
+            };
+        });
     };
-  }
+    handleCancel = () => {
+        this.setState(prevState => {
+            return {
+                search: !prevState.search
+            };
+        });
+    };
 
-  handleSearch = () => {
-    this.setState(prevState => {
-      return {
-        search: !prevState.search
-      };
-    });
-  };
+    constructor(props) {
+        super(props);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.logout = this.logout.bind(this);
+        this.state = {
+            search: false
+        };
+    }
 
-  handleCancel = () => {
-          this.setState(prevState => {
-      return {
-        search: !prevState.search
-      };
-    });
-  }
+    logout() {
+        localStorage.clear();
+        this.props.client.clearStore().then(data => {
+            console.log(data);
+            console.log("Logout");
+        });
 
-render() {
+    }
+
+    render() {
 
         if (this.props.history.location.pathname === "/") {
             return <div></div>;
@@ -151,7 +153,7 @@ render() {
 
                                             {
                                                 this.state.search ? (
-                                                    <li 
+                                                    <li
                                                         style={{
                                                             border: 'solid 2px gray',
                                                             paddingTop: '0px',
@@ -161,17 +163,17 @@ render() {
                                                         <input
                                                             placeholder="Search text"
                                                             type="text"
-                                                            onKeyPress = {
+                                                            onKeyPress={
                                                                 e => {
                                                                     if (e.key == 'Enter') {
-                                                                        this.props.history.push(`/search/${e.target.value}`)
+                                                                        this.props.history.push(`/search/${e.target.value}`);
                                                                     }
                                                                 }
                                                             }
                                                             // onSearch={value => this.props.history.push(`/search/${value}`)}
                                                             // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
                                                         />
-                                                        <button 
+                                                        <button
                                                             onClick={this.handleCancel}
                                                             className="search_cancel"
                                                         >
@@ -185,14 +187,15 @@ render() {
                                                 )
                                             }
                                             <li>
-                                                <Popover placement="bottomRight" title={text} content={<Notifs user={data}/>} trigger="click">
+                                                <Popover placement="bottomRight" title={text}
+                                                         content={<Notifs user={data}/>} trigger="click">
                                                     <Icon type='bell' style={{fontSize: 18}}/>
                                                 </Popover>
                                             </li>
 
                                             <li>
                                                 <Link to="/cart">
-                                                    <Icon 
+                                                    <Icon
                                                         type='shopping-cart'
                                                         style={{fontSize: 18}}
                                                     />
@@ -206,7 +209,8 @@ render() {
                                                 paddingBottom: '0px',
                                                 marginLeft: '10px'
                                             }}>
-                                                <Link to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
+                                                <Link
+                                                    to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
                                             </li>
 
                                             <li style={{
@@ -215,8 +219,10 @@ render() {
                                                 paddingBottom: '0px',
                                                 marginLeft: '10px'
                                             }}>
-                                                <Dropdown overlay={<MenuI user={data.auth.user}/>} trigger={['click']}
-                                                          placement='bottomRight'>
+                                                <Dropdown
+                                                    overlay={<MenuI logout={this.logout} user={data.auth.user}/>}
+                                                    trigger={['click']}
+                                                    placement='bottomRight'>
                                                     <a className="ant-dropdown-link">
                                                         <Icon type="down"/>
                                                     </a>
@@ -245,4 +251,4 @@ render() {
     }
 };
 
-export default Header;
+export default withApollo(Header);
