@@ -8,7 +8,7 @@ import Notifs from './Notification';
 // TODO: Add User Notifications
 
 const Search = Input.Search;
-const text = <span>Notifications</span>;
+const text = <span style={{fontSize: '18px', fontWeight: '600'}}> Notifications</span>;
 
 const MenuI = (props) => {
     console.log(props);

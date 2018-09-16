@@ -82,6 +82,14 @@
 .nav-item:first-child {
   margin-top: 5px; }
 
+.notification span {
+  color: black;
+  margin: 10px;
+  font-size: 18px; }
+
+.notification div.ant-col-20 {
+  padding: 5px 10px; }
+
 .bg-image {
   height: 100vh;
   width: 100%;
@@ -746,6 +754,9 @@ li {
 div#search_result {
   margin-top: 10%;
   font-size: 40px; }
+
+div.ant-popover-inner-content {
+  padding: 0 !important; }
 
 @media (max-width: 500px) {
   .container_320 {
