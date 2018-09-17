@@ -135,13 +135,13 @@ export function generateEncRequest(order) {
         billing_country: "India",
 
     };
-    console.log(body.toString());
+    // console.log(body.toString());
     let encRequest = encrypt(body);
     return encRequest;
 }
 
 
-function encrypt(body) {
+export function encrypt(body) {
     let plainText = qs.stringify(body);
     var m = crypto.createHash('md5');
     m.update(config.working_key);
@@ -154,7 +154,7 @@ function encrypt(body) {
 };
 
 
-function decrpyt(encText, workingKey) {
+export function decrpyt(encText, workingKey) {
     var m = crypto.createHash('md5');
 
     m.update(workingKey);
@@ -166,3 +166,45 @@ function decrpyt(encText, workingKey) {
     return decoded;
 };
 
+export function createShippingQuote(foundOrder, productItem, seller) {
+
+    let requestBody = {
+        "seller": {
+            "address": seller.address.address,
+            "city": "Mumbai",
+            "country": "India",
+            "email": "allwyn.lobo@vamaship.com",
+            "name": "Dorian Gray",
+            "phone": "99999999999",
+            "pincode": "400005",
+            "state": "Maharashtra"
+        },
+        "shipments": [
+            {
+                "address": "abc, xyz",
+                "awb": "5109128390238",
+                "breadth": "10",
+                "city": "Jaipur",
+                "country": "India",
+                "email": "george.cloney@hollywood.com",
+                "height": "10",
+                "is_cod": false,
+                "length": "10",
+                "name": "George Cloney",
+                "phone": "88888888888",
+                "pickup_date": "2015-12-20T14:15:16+05:30",
+                "pincode": "400013",
+                "product": "Diary",
+                "product_value": 100,
+                "quantity": 1,
+                "reference1": "002",
+                "reference2": "refno2",
+                "state": "Rajasthan",
+                "unit": "cm",
+                "weight": "0.6"
+            }
+        ]
+    };
+
+
+}

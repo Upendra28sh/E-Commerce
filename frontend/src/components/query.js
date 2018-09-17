@@ -1,5 +1,161 @@
 import {gql} from "apollo-boost";
 
+export const GET_ORDER_BY_ID = gql`
+    query($input : ID!) {
+        Order(id : $input) {
+            user {
+                id
+                name
+            }
+            products {
+                product {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    sizes
+                    seller {
+                        id
+                        name
+                        image
+                    }
+                }
+                itemCount
+                selectedSize
+            }
+            discount
+            total
+            id
+            order_number
+            shipping {
+                address {
+                    address
+                    street
+                    city
+                    state
+                    zipcode
+                }
+                status
+            }
+            status {
+                confirmed
+                packed
+                shipped
+                delivered
+            }
+            payment {
+                mode
+                status
+            }
+        }    
+    }
+`;
+
+export const GET_ORDER_BY_NUMBER = gql`
+    query($input : ID!) {
+        getOrderByNumber(order_number : $input) {
+            user {
+                id
+                name
+            }
+            products {
+                product {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    sizes
+                    seller {
+                        id
+                        name
+                        image
+                    }
+                }
+                itemCount
+                selectedSize
+            }
+            discount
+            total
+            id
+            order_number
+            shipping {
+                address {
+                    address
+                    street
+                    city
+                    state
+                    zipcode
+                }
+                status
+            }
+            status {
+                confirmed
+                packed
+                shipped
+                delivered
+            }
+            payment {
+                mode
+                status
+            }
+        }    
+    }
+`;
+
+export const GET_ORDER_BY_USER = gql`
+    query {
+        getOrdersByUser {
+            user {
+                id
+                name
+            }
+            products {
+                product {
+                    id
+                    name
+                    price
+                    image
+                    description
+                    sizes
+                    seller {
+                        name
+                        image
+                    }
+                }
+                itemCount
+                selectedSize
+            }
+            discount
+            total
+            id
+            order_number
+            shipping {
+                address {
+                    address
+                    street
+                    city
+                    state
+                    zipcode
+                }
+                status
+            }
+            status {
+                confirmed
+                packed
+                shipped
+                delivered
+            }
+            payment {
+                mode
+                status
+            }
+        }
+    }
+`;
+
+
 export const GET_ENC_REQUEST = gql`
     mutation($orderID : ID) {
         getEncryptedRequest(orderID: $orderID) {
@@ -7,7 +163,7 @@ export const GET_ENC_REQUEST = gql`
             access_code
         }
     }
-`
+`;
 
 export const GET_USER_ADDRESS = gql`
     {
@@ -46,7 +202,7 @@ export const GET_CART = gql`
 `;
 
 
-export const ADD_ORDER_CART = gql `
+export const ADD_ORDER_CART = gql`
 mutation($input : AddOrderFromCartInput) {
   addOrderFromCart(input : $input) {
     order {
@@ -144,7 +300,7 @@ export const USER_SIGNUP = gql`
 `;
 
 
-export const GET_AUTH = gql `
+export const GET_AUTH = gql`
     {
         auth @client {
             isAuthenticated ,
@@ -157,7 +313,7 @@ export const GET_AUTH = gql `
     }
 `;
 
-export const GET_LOGIN_STATUS = gql `
+export const GET_LOGIN_STATUS = gql`
     {
         auth @client {
             isAuthenticated
@@ -165,13 +321,13 @@ export const GET_LOGIN_STATUS = gql `
     }
 `;
 
-export const SET_AUTH = gql `
+export const SET_AUTH = gql`
     mutation setAuth {
         updateAuth @client
     }
 
 `;
-export const FOLLOW_USER = gql `
+export const FOLLOW_USER = gql`
 mutation followuser($FollowingID: ID!) {
   followUser( FollowingID: $FollowingID) {
     id
@@ -179,7 +335,7 @@ mutation followuser($FollowingID: ID!) {
   }
 }
 `;
-export const UNFOLLOW_USER = gql `
+export const UNFOLLOW_USER = gql`
 mutation unfollowuser($FollowingID: ID!) {
   unFollowUser( FollowingID: $FollowingID) {
     id
@@ -187,7 +343,7 @@ mutation unfollowuser($FollowingID: ID!) {
   }
 }
 `;
-export const FOLLOW_SHOP = gql `
+export const FOLLOW_SHOP = gql`
 mutation followshop($FollowingID: ID!) {
   followShop( FollowingID: $FollowingID) {
     id
@@ -195,7 +351,7 @@ mutation followshop($FollowingID: ID!) {
   }
 }
 `;
-export const UNFOLLOW_SHOP = gql `
+export const UNFOLLOW_SHOP = gql`
 mutation unfollowshop($FollowingID: ID!) {
   unFollowShop( FollowingID: $FollowingID) {
     id
@@ -203,35 +359,33 @@ mutation unfollowshop($FollowingID: ID!) {
   }
 }
 `;
-export const GET_USER = gql `
-
-        query user($username : String!) {
-            User(username : $username){
-                id
-                name
-                about
-                username
-                email
-                following{
-                  id
-                  name
-                  followingShop{
-                    id
-                  }
-                }
-                followers{
-                  id
-                  
-                }
-                followingShop{
-                  id
-                }
-            }
+export const GET_USER = gql`
+query user($username : String!) {
+    User(username : $username){
+        id
+        name
+        about
+        username
+        email
+        following{
+          id
+          name
+          followingShop{
+            id
+          }
         }
-    
+        followers{
+          id
+          
+        }
+        followingShop{
+          id
+        }
+    }
+}
 `;
 
-export const GET_POST = gql `
+export const GET_POST = gql`
     query post($username : String!) {
         Posts(username : $username) {
             id
@@ -252,7 +406,7 @@ export const GET_POST = gql `
     }
 `;
 
-export const GET_SELLER = gql `
+export const GET_SELLER = gql`
     query getSeller($shopName: String!) {
         Seller (shopName: $shopName) {
             name
@@ -279,7 +433,7 @@ export const GET_SELLER = gql `
     }
 `;
 
-export const GET_PRODUCTS_BY_SELLER = gql `
+export const GET_PRODUCTS_BY_SELLER = gql`
     query getProductsBySeller($id: ID!) {
         getProductBySeller(id: $id) {
             id
@@ -311,7 +465,7 @@ export const ADD_TO_WISHLIST = gql`
     }
 `;
 
-export const GET_FOLLOW_SELLER = gql `
+export const GET_FOLLOW_SELLER = gql`
     query ($ids: [ID]!){
         getSellers (ids:$ids) {
             id
@@ -389,7 +543,7 @@ export const FB_SIGNIN = gql`
     }
 `;
 
-export const GET_USER_NOTIFS = gql `
+export const GET_USER_NOTIFS = gql`
     query {
         getNotifsByUser {
             id
@@ -411,4 +565,4 @@ export const GET_USER_NOTIFS = gql `
 export const ADD_POST = gql`
 mutation($file:Upload!){
     addNewPostSeller(file:$file)
-  }`
+  }`;

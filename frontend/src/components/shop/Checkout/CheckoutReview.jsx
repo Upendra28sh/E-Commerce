@@ -19,7 +19,7 @@ class CheckoutReview extends Component {
     getProductsTotal(data) {
         let total = 0;
         data.items.forEach(
-            cartItem => total += cartItem.item.price
+            cartItem => total += cartItem.item.price * cartItem.itemCount
         );
         return total;
     }

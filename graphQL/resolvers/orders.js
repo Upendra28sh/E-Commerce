@@ -10,7 +10,8 @@ const config = require('../config');
 function transformToProducts(cart) {
     return cart.items.map(item => {
         return {
-            product: item.item,
+            product: item.item._id,
+            seller: item.item.seller,
             itemCount: item.itemCount,
             selectedSize: item.selectedSize
         };
@@ -46,15 +47,15 @@ module.exports = {
                     }
                 })
                 .populate('user')
-                .populate('shipping.address')
                 .exec()
                 .then(
                     data => data
                 );
         },
-        getOrdersByUser: (parent, {userID}, context, info) => {
-            return Order.find({
-                user: userID
+        getOrderByNumber: (parent, args, context, info) => {
+            console.log(args);
+            return Order.findOne({
+                order_number: args.order_number
             })
                 .populate({
                     path: 'products.product',
@@ -63,15 +64,15 @@ module.exports = {
                     }
                 })
                 .populate('user')
-                .populate('shipping.address')
                 .exec()
                 .then(
                     data => data
                 );
         },
-        getOrdersBySeller: (parent, args, {seller}, info) => {
-            let result = [];
-            return Order.find({})
+        getOrdersByUser: (parent, args, context, info) => {
+            return Order.find({
+                user: context.user.id
+            })
                 .populate({
                     path: 'products.product',
                     populate: {
@@ -79,29 +80,45 @@ module.exports = {
                     }
                 })
                 .populate('user')
-                .populate('shipping.address')
                 .exec()
                 .then(
-                    data => {
-                        data.forEach(
-                            order => {
-                                order.products.forEach(
-                                    it => {
-                                        if (it.product.seller.id == seller.id) {
-                                            result.push(order);
-                                            return;
-                                        }
-                                    }
-                                );
-                            }
-                        );
-                    }
-                )
-                .then(
-                    data => {
-                        return result;
-                    }
+                    data => data
                 );
+        },
+        getOrdersBySeller: (parent, args, {seller}, info) => {
+            // let result = [];
+            console.log(seller.id);
+            return Order
+                .find({
+                    'products.seller': seller.id,
+                    'status.confirmed': true
+                })
+                .populate({
+                    path: 'products.product',
+                    populate: {
+                        path: 'seller'
+                    }
+                })
+                .populate('user')
+                .exec()
+                .then(orders => {
+                    // data = data.toJSON();
+                    return orders.map(order => {
+
+                        let products = order.products;
+                        products = products.filter(product => {
+                            if (product.seller == seller.id) {
+                                return true;
+                            }
+                            return false;
+                        });
+                        order.products = products;
+                        return order;
+
+                    });
+
+                })
+                .then(data => data);
         }
     },
 
@@ -139,7 +156,6 @@ module.exports = {
                             }
                         })
                         .populate('user')
-                        .populate('shipping.address')
                         .execPopulate().then(
                             data => {
                                 return {
@@ -154,13 +170,13 @@ module.exports = {
         addOrderFromCart: (parent, {input}, context, info) => {
             return Cart.findOne({user: context.user.id}).populate('items.item').then(
                 foundCart => {
-                    console.log(foundCart);
+                    // console.log(foundCart);
                     const alphabet = '0123456789';
                     let order_number = generate(alphabet, 21).toString(); //=> "347249770509105530937"
 
                     let total = 0;
                     foundCart.items.forEach(
-                        cartItem => total += cartItem.item.price
+                        cartItem => total += cartItem.item.price * cartItem.itemCount
                     );
                     let products = transformToProducts(foundCart);
                     console.log(products);
@@ -175,6 +191,9 @@ module.exports = {
                         shipping: {address: input.address},
                     }).then(
                         createdOrder => {
+
+                            // TODO : Clear the Cart.
+
                             return createdOrder
                                 .populate({
                                     path: 'products.product',
@@ -196,6 +215,29 @@ module.exports = {
             );
         },
 
+        confirmProductFromOrder: (parent, {input}, context, info) => {
+            return Order.findOne({
+                order_number: input.order_number
+            }).then(foundOrder => {
+                let product = foundOrder.products.id(input.product_id);
+                if (product.seller != context.seller.id) {
+                    return {
+                        success: false
+                    };
+                }
+                console.log(foundOrder.products.id(input.product_id).status.confirmed);
+                foundOrder.products.id(input.product_id).status.confirmed = true;
+                console.log(foundOrder.products.id(input.product_id).status.confirmed);
+                return foundOrder.save().then(_ => {
+                    return {
+                        success: true
+                    };
+                }).catch(err => {
+                    console.error(err);
+                });
+
+            });
+        },
         removeOrder: (parent, args, context, info) => {
             return Order.findOneAndDelete({
                 _id: args.orderID

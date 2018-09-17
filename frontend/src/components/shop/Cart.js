@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Col, Row} from 'antd';
+import {Col , Button, Row} from 'antd';
 import {Query} from 'react-apollo';
 import {GET_CART} from "../query";
 
@@ -15,7 +15,7 @@ class Cart extends React.Component {
     getCartTotal(data) {
         let total = 0;
         data.items.forEach(
-            cartItem => total += cartItem.item.price
+            cartItem => total += cartItem.item.price * cartItem.itemCount
         );
         return total;
     }
@@ -112,7 +112,7 @@ class Cart extends React.Component {
                                                 <p>Item(s) total</p>
                                                 <span>₹ {this.getCartTotal(data)}</span>
                                             </div>
-                                            <button onClick={this.handleCheckout}>Checkout</button>
+                                            <Button className='theme_button' onClick={this.handleCheckout}>Checkout</Button>
                                         </Col>
                                     </Row>
                                 </div>

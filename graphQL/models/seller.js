@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
 import bcrypt from 'bcryptjs';
+import Address from './address'
 
 const sellerSchema = new mongoose.Schema({
     name: String,
@@ -16,10 +17,7 @@ const sellerSchema = new mongoose.Schema({
     intro: String,
     about: String,
 
-    address: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
-    }],
+    address: [Address],
 
     legal: {
         aadhar: String,

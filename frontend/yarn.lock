@@ -473,7 +473,6 @@ apollo-link@^1.0.0, apollo-link@^1.0.6, apollo-link@^1.2.2:
     apollo-utilities "^1.0.0"
     zen-observable-ts "^0.8.9"
 
-<<<<<<< HEAD
 apollo-upload-client@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/apollo-upload-client/-/apollo-upload-client-8.1.0.tgz#db99eed6af926dbd54cb0bbde30345672c97fc5f"
@@ -482,14 +481,9 @@ apollo-upload-client@^8.1.0:
     apollo-link-http-common "^0.2.4"
     extract-files "^3.1.0"
 
-apollo-utilities@^1.0.0, apollo-utilities@^1.0.18, apollo-utilities@^1.0.8:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.18.tgz#e4ee91534283fde2b744a26caaea120fe6a94f67"
-=======
 apollo-utilities@1.0.21, apollo-utilities@^1.0.0, apollo-utilities@^1.0.18, apollo-utilities@^1.0.21, apollo-utilities@^1.0.8:
   version "1.0.21"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.21.tgz#cb8b5779fe275850b16046ff8373f4af2de90765"
->>>>>>> 7a53804c2ef281ff92b286ca117a47e5b493abfe
   dependencies:
     fast-json-stable-stringify "^2.0.0"
     fclone "^1.0.11"

@@ -102,9 +102,11 @@ const typeDefs = gql`
     }
 
     type OrderItem {
+        _id : ID ,
         product: Product,
         itemCount: Int,
         selectedSize: String
+        status : OrderStatus
     }
 
     type CartItem {

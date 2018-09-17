@@ -4,7 +4,8 @@ export default gql`
     extend type Query {
         allOrders: [Order],
         Order(id: ID!): Order,
-        getOrdersByUser(userID: ID!): [Order],
+        getOrderByNumber(order_number : ID!): Order,
+        getOrdersByUser: [Order],
         getOrdersBySeller: [Order]
     }
 
@@ -46,6 +47,15 @@ export default gql`
         address : AddressInput
     }
     
+    input confirmProductFromOrderInput {
+        order_number : String ,
+        product_id : String
+    }
+    
+    type confirmProductFromOrderPayload {
+        success : Boolean
+    }
+    
     type AddOrderPayload {
         order : Order
     }
@@ -67,6 +77,10 @@ export default gql`
         getEncryptedRequest(
             orderID : ID 
         ) : EncryptedRequestPayload
+        
+        confirmProductFromOrder(
+            input : confirmProductFromOrderInput 
+        ) : confirmProductFromOrderPayload
 
         removeOrder(
             orderID: ID

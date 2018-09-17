@@ -13,6 +13,7 @@ class SellerProducts extends Component {
     render() {
         const {match} = this.props;
         const id = this.props.seller;
+        console.log(id);
         return (
             <Query query={GET_PRODUCTS_BY_SELLER} variables={{id: id}}>
                 {({loading, error, data}) => {

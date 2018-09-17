@@ -129,7 +129,7 @@ class MobileHeader extends React.Component {
                 <Query query={GET_AUTH}>
                     {({data}) => (
                         <div className="navbar_container">
-                            <nav class="navbar navbar-dark" style={{backgroundColor: 'rgb(40,40,40)'}}>
+                            <nav className="navbar navbar-dark" style={{backgroundColor: 'rgb(40,40,40)'}}>
                                 <div className="mobile_header">
                                     <div className="brand"><Link to="/">APPLE</Link></div>
                                     
@@ -181,28 +181,28 @@ class MobileHeader extends React.Component {
                                         )
                                     }
                                     
-                                    <button class="navbar-toggler" type="button" onClick={this.handleClick}>
-                                        <span class="navbar-toggler-icon"></span>
+                                    <button className="navbar-toggler" type="button" onClick={this.handleClick}>
+                                        <span className="navbar-toggler-icon"/>
                                     </button>
                                 </div>
-                                <div class={`collapse navbar-collapse ${this.state.expand ? 'show' : ''}`} id="navbarNav">
-                                    <ul class="navbar-nav">
+                                <div className={`collapse navbar-collapse ${this.state.expand ? 'show' : ''}`} id="navbarNav">
+                                    <ul className="navbar-nav">
                                         {
                                             data.auth.isAuthenticated && (
                                                 <Fragment>
                                                     <li className="nav-item active">
                                                         <Link to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
                                                     </li>
-                                                    <li class="nav-item active">
+                                                    <li className="nav-item active">
                                                         <Link to="/feed">My Feed</Link>
                                                     </li>
-                                                    <li class="nav-item active">
+                                                    <li className="nav-item active">
                                                         <Link to="/trendingFeed">Trending</Link>
                                                     </li>
-                                                    <li class="nav-item active">
+                                                    <li className="nav-item active">
                                                         <Link to="/order">Order</Link>
                                                     </li>
-                                                    <li class="nav-item active">
+                                                    <li className="nav-item active">
                                                         <Link to="/wishlist">Wishlist</Link>
                                                     </li>
                                                 </Fragment>

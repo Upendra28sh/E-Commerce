@@ -15,7 +15,7 @@ const MenuI = (props) => {
     return (
         <Menu>
             <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
-            <Menu.Item key="2"><NavLink to="/order">Your Orders</NavLink></Menu.Item>
+            <Menu.Item key="2"><NavLink to="/orders">Your Orders</NavLink></Menu.Item>
             <Menu.Item key="3"><NavLink to="/chat">Your Messages</NavLink></Menu.Item>
             <Menu.Item key="4" onClick={props.logout}>Log Out</Menu.Item>
         </Menu>

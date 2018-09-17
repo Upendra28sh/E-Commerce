@@ -9,15 +9,29 @@ const orderSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Product' 
             },
+            seller : {
+                type : mongoose.Schema.Types.ObjectId ,
+                ref : 'Seller'
+            } ,
             itemCount: Number,
-            selectedSize: String
+            selectedSize: String ,
+            shipping : {} ,
+            status : {
+                confirmed: {type : Boolean , default : false},
+                packed: {type : Boolean , default : false},
+                shipped: {type : Boolean , default : false},
+                delivered: {type : Boolean , default : false},
+            }
         }
     ],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    order_number : String,
+    order_number : {
+        type : String ,
+        index : true
+    },
     discount: Number,
     total: Number,
     date: Date,
@@ -27,13 +41,11 @@ const orderSchema = new mongoose.Schema({
     },
     payment: {
         status: String,
-        mode: String
+        mode: String,
+        response : {}
     },
     status: {
-        confirmed: {type : Boolean , default : false},
-        packed: {type : Boolean , default : false},
-        shipped: {type : Boolean , default : false},
-        delivered: {type : Boolean , default : false},
+        confirmed: {type: Boolean, default: false},
     }
 
 }, {versionKey: false});

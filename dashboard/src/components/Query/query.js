@@ -1,8 +1,16 @@
-import { gql } from 'apollo-boost';
+import {gql} from 'apollo-boost';
 
 // sellerID = "5b883a829a14eb330b094d8b"
 
-export const GET_AUTH = gql `
+export const CONFIRM_PRODUCT_FROM_ORDER = gql`
+    mutation($input : confirmProductFromOrderInput ) {
+      confirmProductFromOrder(input : $input) {
+        success
+      }
+    }
+`;
+
+export const GET_AUTH = gql`
     {
         auth @client {
             isAuthenticated ,
@@ -15,7 +23,7 @@ export const GET_AUTH = gql `
     }
 `;
 
-export const GET_LOGIN_STATUS = gql `
+export const GET_LOGIN_STATUS = gql`
     {
         auth @client {
             isAuthenticated
@@ -45,7 +53,7 @@ export const GET_ALL_USERS = gql`
     }
 `;
 
-export const GET_ALL_SELLERS = gql `
+export const GET_ALL_SELLERS = gql`
     query {
         allSellers {
             id
@@ -71,16 +79,20 @@ export const GET_ALL_ORDERS = gql`
                     name
                     image
                     description
-                    seller {
-                        id
-                        shopName
-                        name
-                    }
+                    price
                 }
+                status {
+                    packed
+                    shipped
+                    confirmed
+                    delivered
+                }
+                _id
                 itemCount
                 selectedSize
             }
             discount
+            order_number
             total
             shipping {
                 status
@@ -126,7 +138,7 @@ export const GET_ALL_PRODUCTS = gql`
     }
 `;
 
-export const ADD_SELLER = gql `
+export const ADD_SELLER = gql`
     mutation($input: SellerInput) {
         addSeller(input: $input) {
             name

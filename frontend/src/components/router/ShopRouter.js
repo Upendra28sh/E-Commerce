@@ -15,13 +15,14 @@ import Confirm from "../shop/Confirm";
 import Thanks from "../shop/Thanks";
 import Feed from "../shop/Feed/CombinedFeed";
 import Trending from "../shop/Trending/Trending";
-import Order from "../shop/Order";
+import OrderList from "../shop/Order/OrderList";
 import RequireAuth from "../utils/RequireAuth";
 import TrendingFeed from "../shop/TrendingFeed";
 import addPost from "../shop/addpost"
 import Chat from "../shop/Chat"
 import CheckoutReview from "../shop/Checkout/CheckoutReview";
 import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
+import Order from "../shop/Order/Order";
 
 const Router = () => {
   return (
@@ -44,7 +45,8 @@ const Router = () => {
         <Route exact path="/wishlist" component={RequireAuth(Wishlist)} />
         <Route exact path="/confirm" component={RequireAuth(Confirm)} />
         <Route exact path="/thanks" component={RequireAuth(Thanks)} />
-        <Route exact path="/order" component={RequireAuth(Order)} />
+        <Route exact path="/orders" component={RequireAuth(OrderList)} />
+        <Route path="/order/:order_number" component={RequireAuth(Order)} />
         <Route path="/feed/" component={RequireAuth(Feed)} />
         <Route path="/trending" component={RequireAuth(Trending)} />
       </Switch>
