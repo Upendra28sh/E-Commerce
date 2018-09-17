@@ -5,21 +5,29 @@ import {Icon} from 'antd';
 
 class SellerPost extends Component {
     state = {
-        addClass: ""
+        addClass: "",
+        collapsed: ""
     };
 
     handleHover() {
         this.setState({
-            addClass: "animate"
+            addClass: "animate" ,
+            collapsed : ""
         });
     }
 
     handleDHover() {
         this.setState({
-            addClass: ""
+            addClass: "" ,
+            collapsed : "collapsed"
         });
     }
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({collapsed: "collapsed"});
+        }, 3000);
+    }
 
     render() {
         const product = this.props.product;
@@ -47,7 +55,7 @@ class SellerPost extends Component {
                         <div className="photo__image__view-details">View details</div>
                     </Link>
 
-                    <div className="photo__image__pointer">
+                    <div className={`photo__image__pointer ${this.state.collapsed}`}>
                         <Icon type="shopping-cart" theme="outlined"/>
                         <span>
                             Hover To View Product

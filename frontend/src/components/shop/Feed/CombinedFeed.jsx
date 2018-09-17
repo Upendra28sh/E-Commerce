@@ -9,7 +9,7 @@ import Chat from '../Chat';
 class Feed extends React.Component {
     render() {
         return (
-            <div id='feed'>
+            <main id='feed' style={{overflow : 'hidden'}}>
                 <Query query={GET_USER_FEED}>
                     {({loading, error, data}) => {
                         if (loading)
@@ -32,8 +32,8 @@ class Feed extends React.Component {
 
                     }}
                 </Query>
-                <Chat></Chat>
-            </div>
+                {/*<Chat></Chat>*/}
+            </main>
         );
     }
 }
