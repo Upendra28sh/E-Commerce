@@ -5,6 +5,7 @@ import Dashboard from "../Dashboard";
 import Seller from "../Seller";
 import User from "../User";
 import Order from "../Order";
+import OrderShip from "../OrderShip";
 import Product from "../Product";
 import NewProduct from "../AddProduct/NewProduct";
 import Posts from '../Posts';
@@ -16,6 +17,7 @@ const Router = () => {
             {/*<Route exact path="/sellers" component={Seller}/>*/}
             <Route exact path="/users" component={User}/>
             <Route exact path="/orders" component={Order}/>
+            <Route exact path="/orders/:id/ship" component={OrderShip} />
             <Route exact path="/products" component={Product}/>
             <Route exact path="/chats" component={Chat}/>
             <Route exact path="/product/new" component={NewProduct}/>

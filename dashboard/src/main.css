@@ -279,7 +279,7 @@
           background-color: var(--white); }
         .container .left .people .person .preview {
           font-size: 14px;
-          display: inline-block;
+          display: block;
           overflow: hidden !important;
           width: 70%;
           white-space: nowrap;

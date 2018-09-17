@@ -5,7 +5,8 @@ export default gql`
         allSellers: [Seller],
         Seller(shopName: String!): Seller,
         getSellers(ids : [ID]): [Seller],
-        checkShopnameAvailability(shopName: String): Boolean
+        checkShopnameAvailability(shopName: String): Boolean,
+        getSellerAddress: [Address]
     }
 
     input SellerInput {

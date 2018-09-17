@@ -194,3 +194,15 @@ export const GET_SELLER_POST = gql`
         }
     }
 `;
+
+export const GET_SELLER_ADDRESS = gql`
+    query {
+        getSellerAddress {
+            address
+            street
+            city
+            state
+            zipcode
+        }
+    }  
+`;
