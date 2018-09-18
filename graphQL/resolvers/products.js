@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Seller = require('../models/seller');
+import {uploadsToS3} from '../middlewares/upload';
 var _ = require('lodash');
 import {createApprovalRequest, createFeedItem} from "./utils";
 
@@ -83,29 +84,33 @@ module.exports = {
             input,
             ...args
         }, context, info) => {
-            // console.log(input, args);
+         console.log(input, context.seller);
             if (!context.seller) {
                 throw new Error("Seller Not Specified");
             }
-
-            return Product.create({
-                ...input,
-                keywords: normalizeKeywords(input.keywords),
-                seller: context.seller.id
-            }).then(
-                createdProduct => {
-                    // TODO : Add Verification Request to Admin.
-                    createApprovalRequest('Product', createdProduct.id);
-                    createFeedItem('Product', createdProduct.id, context.seller.id, 'Product is added');
-
-
-                    return createdProduct.populate('seller').execPopulate().then(
-                        data => ({
-                            product: data.toJSON()
-                        })
-                    );
-                }
-            );
+            uploadsToS3(input.image).then((data)=>{
+                input.image = data[0];
+                input.images = data;
+                return Product.create({
+                    ...input,
+                    keywords: normalizeKeywords(input.keywords),
+                    seller: context.seller.id
+                }).then(
+                    createdProduct => {
+                        // TODO : Add Verification Request to Admin.
+                        createApprovalRequest('Product', createdProduct.id);
+                        createFeedItem('Product', createdProduct.id, context.seller.id, 'Product is added');
+    
+    
+                        return createdProduct.populate('seller').execPopulate().then(
+                            data => ({
+                                product: data.toJSON()
+                            })
+                        );
+                    }
+                );
+            })
+           
         },
 
         updateProduct: (parents, {
