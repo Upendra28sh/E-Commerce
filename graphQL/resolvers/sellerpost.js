@@ -5,7 +5,7 @@ import {
     createFeedItem,
     createNotificationSellerpost
 } from "./utils";
-import uploadToS3 from '../middlewares/upload';
+import {uploadToS3} from '../middlewares/upload';
 
 module.exports = {
     Query: {
