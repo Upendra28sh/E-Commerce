@@ -6,7 +6,7 @@ export default gql `
     input AddProductInput {
         name: String!,
         price: Int!,
-        image: [Upload],
+        images: [Upload],
         sizes : [String] ,
         codAccepted : Boolean ,
         returnAccepted : Boolean ,

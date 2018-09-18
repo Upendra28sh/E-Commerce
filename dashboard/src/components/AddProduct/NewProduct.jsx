@@ -18,8 +18,8 @@ import { ADD_PRODUCT } from "../Query/query";
 import UploadAvatar from "../Shared/UploadAvatar";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
-const BASE_URL = 'http://localhost:4000/graphql' ;
 // const BASE_URL = 'http://localhost:4000/graphql' ;
+const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 let token = localStorage.getItem("token");
 const client = new ApolloClient({

@@ -33,8 +33,12 @@ let auth = {
 };
 
 
+// const BASE_URL = 'http://localhost:4000/graphql' ;
+const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
+
+
 const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    uri: BASE_URL,
     headers: {
         authorization: token ? `Bearer ${token}` : ""
     },

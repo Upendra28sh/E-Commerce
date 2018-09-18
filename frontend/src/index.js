@@ -48,8 +48,8 @@ let auth = {
     __typename: "Auth"
 };
 
-const BASE_URL = 'http://localhost:4000/graphql' ;
-// const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
+// const BASE_URL = 'http://localhost:4000/graphql' ;
+const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 console.log(auth);
 // const client = new ApolloClient({
