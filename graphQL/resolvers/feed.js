@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const Feed = require('../models/feed');
 const Product = require('../models/product');
 const Seller = require('../models/seller');
+const SellerPost = require('../models/sellerpost')
 
 // TODO : Optimize Query and Sort According to Timestamp
 // TODO : Add Support for Infinite Scroll
@@ -29,6 +30,10 @@ module.exports = {
                             item.origin.__typename = item.refString;
                             if (item.refString === 'Product') {
                                 console.log("Product Feed");
+                                return Seller.populate(item , {'path' : 'origin.seller'})
+                            }
+                            if(item.refString === 'Sellerpost') {
+                                console.log("Seller Post Feed");
                                 return Seller.populate(item , {'path' : 'origin.seller'})
                             }
                             return item;

@@ -88,7 +88,8 @@ module.exports = {
             if (!context.seller) {
                 throw new Error("Seller Not Specified");
             }
-            uploadsToS3(input.image).then((data)=>{
+            console.log(input)
+            uploadsToS3(input.images).then((data)=>{
                 input.image = data[0];
                 input.images = data;
                 return Product.create({

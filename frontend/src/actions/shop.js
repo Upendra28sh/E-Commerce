@@ -6,16 +6,6 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 const StripeCheckout = window.StripeCheckout;
 
-const BASEURL = 'http://localhost:4000';
-// const BASEURL = 'http://192.168.0.104:4000';
-
-const client = new ApolloClient({
-    uri: "http://localhost:4000"
-});
-// const client = new ApolloClient({
-//     uri: "http://18.216.241.175:4000"
-// });
-
 const history = createBrowserHistory();
 
 // Show products on home page

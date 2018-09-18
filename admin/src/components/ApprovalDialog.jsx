@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Input , Icon } from 'antd';
+import {withApollo} from 'react-apollo'
 
 class ApprovalDialog extends React.Component {
     constructor(props) {
@@ -12,12 +13,12 @@ class ApprovalDialog extends React.Component {
     }
 
     handleOkYesModal = (e) => {
-        this.props.handleApproval(this.state);
+        this.props.handleApproval(this.state, this.props.client);
         this.setState({yesModal: false})
     }
 
     handleOkNoModal = (e) => {
-        this.props.handleApproval(this.state);
+        this.props.handleApproval(this.state , this.props.client);
         this.setState({noModal: false})
     }
 
@@ -75,4 +76,4 @@ class ApprovalDialog extends React.Component {
     }
 }
 
-export default ApprovalDialog;
+export default withApollo(ApprovalDialog);

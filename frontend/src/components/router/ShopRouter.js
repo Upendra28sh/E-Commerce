@@ -7,12 +7,12 @@ import SignUp from "../shop/SignUp";
 import SignIn from "../shop/Login";
 import User from "../shop/User";
 import Seller from "../shop/Seller";
-import AddSeller from "../shop/AddSeller/index";
+// import AddSeller from "../shop/AddSeller/index";
 import Cart from "../shop/Cart";
 import CheckoutShipping from "../shop/Checkout/CheckoutShipping";
 import Wishlist from "../shop/Wishlist";
-import Confirm from "../shop/Confirm";
-import Thanks from "../shop/Thanks";
+// import Confirm from "../shop/Confirm";
+// import Thanks from "../shop/Thanks";
 import Feed from "../shop/Feed/CombinedFeed";
 import Trending from "../shop/Trending/Trending";
 import OrderList from "../shop/Order/OrderList";
@@ -43,8 +43,8 @@ const Router = () => {
         <Route path="/checkout/review" component={RequireAuth(CheckoutReview)} />
         <Route path="/checkout/submit" component={RequireAuth(CheckoutSubmit)} />
         <Route exact path="/wishlist" component={RequireAuth(Wishlist)} />
-        <Route exact path="/confirm" component={RequireAuth(Confirm)} />
-        <Route exact path="/thanks" component={RequireAuth(Thanks)} />
+        {/* <Route exact path="/confirm" component={RequireAuth(Confirm)} />
+        <Route exact path="/thanks" component={RequireAuth(Thanks)} /> */}
         <Route exact path="/orders" component={RequireAuth(OrderList)} />
         <Route path="/order/:order_number" component={RequireAuth(Order)} />
         <Route path="/feed/" component={RequireAuth(Feed)} />

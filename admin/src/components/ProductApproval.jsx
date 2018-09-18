@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import {Col, Row, Spin, Table} from "antd";
-import {Query} from 'react-apollo';
+import {Query , withApollo} from 'react-apollo';
 import ApprovalDialog from './ApprovalDialog';
 import {GET_APPROVAL_PRODUCTS, HANDLE_APPROVAL} from './Query/query';
-import ApolloClient from "apollo-boost";
-
-const client = new ApolloClient({
-    uri: "http://localhost:4000/"
-});
 
 const columns = [
     {
@@ -55,7 +50,7 @@ const columns = [
             return (
                 <ApprovalDialog
                     handleApproval={
-                        s => {
+                        (s , client) => {
                             client.mutate({
                                 mutation: HANDLE_APPROVAL,
                                 variables: {
@@ -125,4 +120,4 @@ class ProductApproval extends Component {
     }
 }
 
-export default ProductApproval;
+export default withApollo(ProductApproval);

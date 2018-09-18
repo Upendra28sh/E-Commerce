@@ -82,13 +82,15 @@ li {
     background-position: center;
 
     width: 100%;
-    padding-top: 100%; /* 1:1 Aspect Ratio */
+    height: 100%;
+    // padding-top: 50%; 
+    /* 1:1 Aspect Ratio */
     position: relative;
 
-    //img {
-    //  max-width: 100%;
-    //}
-    //
+    img {
+     max-width: 100%;
+    }
+    
     &__layer {
       position: absolute;
       top: 0;

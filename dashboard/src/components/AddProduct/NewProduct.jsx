@@ -18,9 +18,12 @@ import { ADD_PRODUCT } from "../Query/query";
 import UploadAvatar from "../Shared/UploadAvatar";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
+const BASE_URL = 'http://localhost:4000/graphql' ;
+const BASE_URL = 'http://localhost:4000/graphql' ;
+
 let token = localStorage.getItem("token");
 const client = new ApolloClient({
-  link: createUploadLink({ uri: "http://localhost:4000",
+  link: createUploadLink({ uri: BASE_URL,
   headers: {authorization: token ? `Bearer ${token}` : "",}
   }),
   cache: new InMemoryCache()
@@ -85,7 +88,7 @@ class AddProduct extends React.Component {
     return {
       input: {
         name: name,
-        image: this.state.files,
+        images: this.state.files,
         description: description,
         price:
           this.state.shipping_cost +

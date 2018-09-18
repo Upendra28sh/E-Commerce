@@ -1,0 +1,1 @@
+{"__schema":{"types":[{"kind":"UNION","name":"FeedOrigin","possibleTypes":[{"name":"Post"},{"name":"Product"},{"name":"Sellerpost"}]}]}}

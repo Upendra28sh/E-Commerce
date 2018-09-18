@@ -19,6 +19,9 @@ class SellerPost extends Component {
         if (!post) {
             post = {};
         }
+        if(!post.comments){
+            post.comments = []
+        }
         return (
             <div className="photo" key={post.id}>
                 <header className="photo__header">
@@ -30,8 +33,9 @@ class SellerPost extends Component {
                         <span className="photo__location"/>
                     </div>
                 </header>
-                <div className="photo__image" style={{backgroundImage: `url("${post.image}")`}}>
-                    {/*<img src={post.image}/>*/}
+                {/* style={{backgroundImage: `url("${post.image}")`}} */}
+                <div className="photo__image" >
+                    <img src={post.image}/>
                 </div>
                 <div className="photo__info" style={{textAlign: 'left'}}>
                     <div className="photo__actions">

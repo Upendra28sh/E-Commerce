@@ -1,17 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Progress, Input} from 'antd';
-import ApolloClient, {gql} from 'apollo-boost';
 import { ADD_SELLER } from '../Query/query';
+import {withApollo} from 'react-apollo'
 
 import ShopName from "./ShopName";
 import SellerDetails from './SellerDetails';
 import ShopDetails from './ShopDetails';
 import ShopPolicy from './ShopPolicy';
-
-const client = new ApolloClient({
-    uri: "http://localhost:4000"
-});
 
 class AddSeller extends React.Component {
     constructor(props) {
@@ -38,6 +34,9 @@ class AddSeller extends React.Component {
             returnPolicy: "",
             storePolicy: ""
         }
+
+        this.submitDetails = this.submitDetails.bind(this);
+
     }
 
     prepareInput() {
@@ -77,7 +76,7 @@ class AddSeller extends React.Component {
         console.log(this.state);
         let inputToGraph = this.prepareInput();
         console.log(inputToGraph);
-        client.mutate({
+        this.props.client.mutate({
             mutation: ADD_SELLER,
             variables: inputToGraph
         }).then(
@@ -204,4 +203,4 @@ class AddSeller extends React.Component {
     }
 };
 
-export default AddSeller;
+export default withApollo(AddSeller);

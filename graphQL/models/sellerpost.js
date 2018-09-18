@@ -17,7 +17,10 @@ const SellerpostSchema = new mongoose.Schema({
         ref: 'Seller'
     },
     caption: String,
-    comments: [Comment]
+    comments: {
+        type :  [Comment] ,
+        default : []
+    }
 }, {
     versionKey: false, timestamps: {
         createdAt: 'created_at',

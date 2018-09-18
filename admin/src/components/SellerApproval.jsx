@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { Spin, Table, Col, Row, Tag , Icon  } from "antd";
-import { Query } from 'react-apollo';
+import { Query , withApollo } from 'react-apollo';
 import ApprovalDialog from './ApprovalDialog';
 import { GET_APPROVAL_SELELRS, HANDLE_APPROVAL } from './Query/query';
-import ApolloClient, { gql } from "apollo-boost";
-
-const client = new ApolloClient({
-    uri: "http://localhost:4000/"
-});
 
 const columns = [
     {
@@ -43,7 +38,7 @@ const columns = [
             return (
                 <ApprovalDialog 
                     handleApproval={
-                        s => {
+                        (s , client) => {
                             client.mutate({
                                 mutation: HANDLE_APPROVAL,
                                 variables: {

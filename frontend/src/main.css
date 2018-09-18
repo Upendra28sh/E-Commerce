@@ -46,7 +46,7 @@
   width: 1em;
   height: 0.15em;
   background: white;
-  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
+  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
 
 .mobile_header {
   width: 100%; }
@@ -82,14 +82,13 @@
 .nav-item:first-child {
   margin-top: 5px; }
 
-.notification {
-  margin-top: 5px; }
-  .notification span {
-    color: black;
-    margin: 10px;
-    font-size: 18px; }
-  .notification div.ant-col-20 {
-    padding: 5px 10px; }
+.notification span {
+  color: black;
+  margin: 10px;
+  font-size: 18px; }
+
+.notification div.ant-col-20 {
+  padding: 5px 10px; }
 
 .bg-image {
   height: 100vh;
@@ -425,9 +424,11 @@ li {
   background-repeat: no-repeat;
   background-position: center;
   width: 100%;
-  padding-top: 100%;
+  height: 100%;
   /* 1:1 Aspect Ratio */
   position: relative; }
+  .photo__image img {
+    max-width: 100%; }
   .photo__image__layer {
     position: absolute;
     top: 0;
