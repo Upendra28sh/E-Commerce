@@ -605,10 +605,15 @@ li {
   height: 30px;
   line-height: 20px;
   border-radius: 15px; }
+  .photo__image__pointer * {
+    transition: all 500ms ease-in-out; }
   .photo__image__pointer span {
     margin-left: 5px; }
   .photo__image__pointer i {
     font-weight: bold; }
+
+.photo__image__pointer.collapsed span {
+  display: none; }
 
 .checkout_form {
   padding: 30px 20px; }
