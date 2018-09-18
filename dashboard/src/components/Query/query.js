@@ -206,3 +206,68 @@ export const GET_SELLER_ADDRESS = gql`
         }
     }  
 `;
+
+export const GET_POST_BY_SELLER = gql`
+    query sellerpost($id : ID){
+        getSellerPostBySeller(id:$id){
+            id
+            image
+            caption
+            updated_at
+            seller {
+                name
+                image
+            }
+            comments{
+                user{
+                    name
+                    username
+                }
+                text
+            }
+        }
+    }
+`;
+
+export const GET_PRODUCTS_BY_SELLER = gql`
+    query getProductsBySeller($id: ID!) {
+        getProductBySeller(id: $id) {
+            id
+            name
+            image
+            sizes
+            keywords
+            description
+            seller {
+                name
+            }
+        }
+    }
+`;
+
+export const GET_SELLER = gql`
+    query {
+        getSeller {
+            name
+            image
+            id
+            about
+            intro
+            shopName
+            address {
+                address
+                street
+                city
+                state
+                zipcode
+            }
+            policy {
+                store
+                return
+            }
+            followers{
+                id
+            }
+        }
+    }
+`;

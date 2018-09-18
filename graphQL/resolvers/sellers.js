@@ -20,6 +20,13 @@ module.exports = {
                 data => data
             );
         },
+        getSeller: (parent, args, { seller }, info) => {
+            return Seller.findOne({
+                "_id": seller.id
+            }).populate('followers').exec().then(
+                data => data
+            );
+        },
 
         getSellers: (parent, args, context, info) => {
             return Seller.find({

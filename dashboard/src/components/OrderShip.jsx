@@ -42,6 +42,7 @@ class OrderShip extends React.Component {
         if (this.state.order) 
             return (
                 <div>
+                    <h2>Select a pickup address -</h2>
                     <Row>
                         {this.state.addresses.map(
                             (address, index) => {
