@@ -36,13 +36,7 @@ class Container extends React.Component {
                                 <span className="nav-text">Dashboard</span>
                             </Link>
                         </Menu.Item>
-                        {/*<Menu.Item key="2">*/}
-                        {/*<Link to={'/sellers'}>*/}
-                        {/*<Icon type="user"/>*/}
-                        {/*<span className="nav-text">Sellers</span>*/}
-                        {/*</Link>*/}
-                        {/*</Menu.Item>*/}
-                        <Menu.Item key="5">
+                        <Menu.Item key="2">
                             <Link to={'/products'}>
                                 <Icon type="user"/>
                                 <span className="nav-text">Products</span>
@@ -60,16 +54,22 @@ class Container extends React.Component {
                                 <span className="nav-text">Users</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="6">
+                        <Menu.Item key="5">
                             <Link to={'/posts'}>
                                 <Icon type="user"/>
                                 <span className="nav-text">Posts</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="7">
+                        <Menu.Item key="6">
                             <Link to={'/chats'}>
-                                <Icon type="chat"/>
+                                <Icon type="message"/>
                                 <span className="nav-text">Chats</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="7">
+                            <Link to={'/profile'}>
+                                <Icon type="profile" />
+                                <span className="nav-text">Profile</span>
                             </Link>
                         </Menu.Item>
                     </Menu>

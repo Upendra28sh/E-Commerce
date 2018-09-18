@@ -1,0 +1,18 @@
+.main_page {
+    background: url("/main.jpg");
+    height: 100vh;
+    width: 100%;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    position: absolute;
+    filter: blur(5px);
+}
+
+.main_content {
+    position:relative;
+}
+
+.main {
+    position: relative;
+}

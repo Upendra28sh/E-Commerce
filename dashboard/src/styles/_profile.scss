@@ -1,0 +1,107 @@
+.profile {
+  padding-top: 45px;
+
+  .ant-tabs-bar {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 32px;
+  }
+
+  &__image {
+
+    background-image: url("https://scontent-bom1-1.cdninstagram.com/vp/633748d19c49931c166948e7c6b05f65/5BFD73F1/t51.2885-19/s150x150/30086307_190554238405069_2778711456735035392_n.jpg");
+    margin: auto;
+    height: 200px;
+    width: 200px;
+    background-size: cover;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    //float: right;
+    //margin-right: 10%;
+  }
+
+  &__info {
+    font-size: 16px;
+    margin-top: 2.5rem;
+
+    h1 {
+      font-size: 32px;
+      line-height: 40px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .stats {
+      margin-top: 12px;
+      margin-bottom: 12px;
+
+      .numbers {
+        margin-right: 5%;
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .tagline {
+      margin-bottom: 0;
+      width: 50%;
+      //font-size: 1.5rem;
+    }
+
+    div.button_group {
+      //margin-top: 15px;
+      display: inline-block;
+      position: relative;
+      left: 15px;
+      top : -7px ;
+
+      button {
+        width: 100px;
+        margin: 0 10px 0 0;
+        border: none;
+        //background-color: transparent;
+        border-radius: 3px;
+        padding: 2px 0;
+        color: white;
+        background-color: rgb(40,40,40);
+        cursor: pointer;
+      }
+      button:hover {
+        border: solid 1px gray;
+      }
+    }
+  }
+
+  &__details {
+
+    margin-top: 1%;
+
+    .ant-tabs-tab {
+      color: #575757;
+    }
+
+  }
+
+}
+
+.account_private {
+  padding: 50px 0px;
+  margin-top: 30px;
+  background-color: white;
+  text-align: center;
+
+  &__header {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 20px 0;
+  }
+
+  &__content {
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+
+}
