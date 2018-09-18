@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {Progress, Input} from 'antd';
 import ApolloClient, {gql} from 'apollo-boost';
 import { ADD_SELLER } from '../Query/query';
@@ -177,7 +178,10 @@ class AddSeller extends React.Component {
         ];
         
         return (
-            <main>
+            <div>
+            <Link to="/shop/login"><button className="register btn btn-default">Login</button></Link>
+            <br />
+            <main className="container_80">
                 {console.log(this.state)}
                 <div className="container_40">
                     <div id="progress">
@@ -195,6 +199,7 @@ class AddSeller extends React.Component {
                     </div>
                 </div>
             </main>
+            </div>
         );
     }
 };
