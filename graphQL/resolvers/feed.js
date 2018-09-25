@@ -23,7 +23,7 @@ module.exports = {
 
                     return Feed.find({
                         key: {"$in": searchKeys}
-                    }).populate('origin').then(data => {
+                    }).populate('origin').sort('-updated_at').then(data => {
                         // console.log(data);
                         data = data.map(item => {
                             item.origin.__typename = item.refString;
