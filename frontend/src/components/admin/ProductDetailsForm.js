@@ -3,6 +3,7 @@ import {Card, Row, Col, Input} from "antd";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 import {Mutation} from "react-apollo";
+import {withApollo} from 'react-apollo'
 
 let ADD_PRODUCT = gql`
     mutation addProduct($input: AddProductInput!) {
@@ -13,9 +14,7 @@ let ADD_PRODUCT = gql`
         }
     }
 `;
-const client = new ApolloClient({
-    uri: "http://localhost:4000"
-});
+
 
 class ProductDetailsForm extends React.Component {
     constructor(props) {
@@ -203,4 +202,4 @@ class ProductDetailsForm extends React.Component {
     }
 }
 
-export default ProductDetailsForm;
+export default withApollo(ProductDetailsForm);

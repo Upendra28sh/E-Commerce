@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Input} from 'antd';
-import {ADD_SELLER_COMMENT} from '../../query';
 import {Mutation} from 'react-apollo';
-
 
 let defaultPost = {
     id: '123',
@@ -19,9 +17,6 @@ class SellerPost extends Component {
         if (!post) {
             post = {};
         }
-        if(!post.comments){
-            post.comments = []
-        }
         return (
             <div className="photo" key={post.id}>
                 <header className="photo__header">
@@ -33,9 +28,8 @@ class SellerPost extends Component {
                         <span className="photo__location"/>
                     </div>
                 </header>
-                {/* style={{backgroundImage: `url("${post.image}")`}} */}
-                <div className="photo__image" >
-                    <img src={post.image}/>
+                <div className="photo__image" style={{backgroundImage: `url("${post.image}")`}}>
+                    {/*<img src={post.image}/>*/}
                 </div>
                 <div className="photo__info" style={{textAlign: 'left'}}>
                     <div className="photo__actions">
@@ -59,27 +53,6 @@ class SellerPost extends Component {
                         })}
                     </ul>
                     <span className="photo__time-ago">{post.updated_at}</span>
-                    <div className="photo__add-comment-container">
-                        <Input name="comment" id={`${post.id}`} placeholder="Add a comment..."/>
-                        <Mutation mutation={ADD_SELLER_COMMENT}>
-                            {(addSellerComment) => (
-                                <Button type="primary" shape="circle" onClick={() =>
-                                    addSellerComment({
-                                        variables: {
-                                            PostID: post.id,
-                                            text: document.getElementById(`${post.id}`).value
-                                        },
-                                        refetchQueries: ["sellerpost"],
-                                        update: () => {
-                                            document.getElementById(`${post.id}`).value = '';
-                                        }
-                                    })
-                                }>
-                                    <i className="fa fa-send-o"/>
-                                </Button>
-                            )}
-                        </Mutation>
-                    </div>
                 </div>
             </div>
 

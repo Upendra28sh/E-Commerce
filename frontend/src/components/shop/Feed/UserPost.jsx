@@ -21,8 +21,9 @@ class SellerPost extends Component {
                         </span>
                     </div>
                 </header>
-                <div className="photo__image" style={{backgroundImage: `url("${post.image}")`}}>
-                    {/*<img src="product_images/product1.jpg"/>*/}
+                {/* style={{backgroundImage: `url("${post.image}")`}} */}
+                <div className="photo__image" >
+                    <img src={post.image}/>
                     <div className="photo__image__overlay">
                         <span className="photo__image__overlay__price">
                           ₹200

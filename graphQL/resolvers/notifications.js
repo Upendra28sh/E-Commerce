@@ -19,6 +19,7 @@ module.exports = {
                 })
                 .populate('to')
                 .populate('readBy')
+                .sort('-created_at')
                 .exec()
                 .then(
                     data => data

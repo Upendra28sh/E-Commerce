@@ -1,12 +1,9 @@
 import React from 'react';
 import {Input} from "antd";
 import ApolloClient, { gql } from 'apollo-boost';
+import {withApollo} from 'react-apollo';
 
 const Search = Input.Search;
-
-const client = new ApolloClient({
-    uri: "http://localhost:4000"
-});
 
 class ShopName extends React.Component {
     constructor(props) {
@@ -69,4 +66,4 @@ class ShopName extends React.Component {
     }
 };
 
-export default ShopName;
+export default withApollo(ShopName);

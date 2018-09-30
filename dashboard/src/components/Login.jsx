@@ -1,5 +1,6 @@
 import React from 'react';
-import {Form, Icon, Input, Button, message} from "antd";
+import {Link} from 'react-router-dom';
+import {Col, Row, Form, Icon, Input, Button, message} from "antd";
 import gql from "graphql-tag";
 import {Mutation} from "react-apollo";
 import jwt from "jsonwebtoken";
@@ -43,7 +44,8 @@ class Login extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
-            <div>
+            <div className="main">
+                <div className="main_page"></div>
                 <Mutation
                     mutation={LOGIN_MUTATION}
                     update={(cache, {data: {SellerLogin}}) => {
@@ -67,12 +69,12 @@ class Login extends React.Component {
                     }}
                 >
                     {(loginMutation, {data, client}) => (
-                        <div>
-                            <div className="login_form">
-                                <div className="form_title">
+                        <div className="main_content">
+                            <Link to="/shop/create"><button className="register btn btn-default">Register</button></Link>
+                            <Row className="login">
+                                <Col xl={4} md={8} sm={12} offset={8} className="form_content">
+                                    <img className="logo" src="https://static.canva.com/static/images/canva_logo_100x100.png" />
                                     <h1>Sign In</h1>
-                                </div>
-                                <div className="form_content">
                                     <Form
                                         onSubmit={e => {
                                             e.preventDefault();
@@ -124,11 +126,11 @@ class Login extends React.Component {
                                             Or <a href="/shop/create">register now!</a>
                                         </FormItem>
                                     </Form>
-                                </div>
-                            </div>
-                            <p style={{textAlign: "center"}}>
-                                For help, contact us.
-                            </p>
+                                </Col>
+                                <Col xl={4} md={8} sm={12} className="intro">
+                                    Aliquip velit ea sit quis exercitation mollit aliquip incididunt cupidatat do.
+                                </Col>
+                            </Row>
                         </div>
                     )}
                 </Mutation>

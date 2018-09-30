@@ -14,7 +14,12 @@ const notificationSchema = new mongoose.Schema({
         ref: 'User'
     }]
 }, {
-    versionKey: false
+    versionKey: false ,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
+    
 });
 
 module.exports = mongoose.model('Notification', transformSchema(notificationSchema));

@@ -13,15 +13,21 @@ module.exports = {
             );
         },
 
-        Seller: (parent, {
-            shopName
-        }, context, info) => {
+        Seller: (parent, { shopName }, context, info) => {
             return Seller.findOne({
                 "shopName": shopName
             }).populate('followers').exec().then(
                 data => data
             );
         },
+        getSeller: (parent, args, { seller }, info) => {
+            return Seller.findOne({
+                "_id": seller.id
+            }).populate('followers').exec().then(
+                data => data
+            );
+        },
+
         getSellers: (parent, args, context, info) => {
             return Seller.find({
                 '_id': {
@@ -36,6 +42,17 @@ module.exports = {
             }).exec().then(
                 data => !data
             );
+        },
+
+        getSellerAddress: (parent, args, {seller}, info) => {
+            return Seller.findOne({
+                _id: seller.id
+            }).then(
+                data => {
+                    // console.log(data);
+                    return data.address;
+                }
+            )
         }
     },
 

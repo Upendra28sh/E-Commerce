@@ -66,7 +66,7 @@ const columns = [
                     {/*<Col span={7}><img style={{width: '80px'}} src={product.product.image}/></Col>*/}
                     <Col span={10}>{product.product.name}</Col>
                     <Col span={7}>{product.itemCount}</Col>
-                    <Col span={7}>{product.selectedSize}</Col>
+                    <Col span={7}>{product.selectedSize !== "undefined" ? product.selectedSize : ""}</Col>
                 </Row>
             );
         }
@@ -82,7 +82,7 @@ const columns = [
     //     title: "Shipping",
     //     dataIndex: "shipping",
     //     key: "shipping",
-    //     align: "center",
+    //     align: "center",5b90547775fdb44194d3cef4
     //     render: value => {
     //         value = value.address;
     //         return <p>{value.address}, {value.street}, {value.city}, {value.state}, {value.zipcode}</p>;
@@ -157,21 +157,28 @@ class Order extends Component {
         });
 
     }
-    shipProduct(order_number, product_id) {
-        this.props.client.mutate({
-            mutation: CONFIRM_PRODUCT_FROM_ORDER,
-            variables: {
-                input: {
-                    order_number,
-                    product_id
-                }
-            },
-            refetchQueries: ['getOrdersBySeller']
-        }).then(({data}) => {
-            if (data.confirmProductFromOrder.success) {
-                message.success("Product Confirmed");
-            } else {
-                message.error("Product Not Confirmed. Error!");
+    shipProduct(order) {
+        console.log(order);
+        // this.props.client.mutate({
+        //     mutation: CONFIRM_PRODUCT_FROM_ORDER,
+        //     variables: {
+        //         input: {
+        //             order_number,
+        //             product_id
+        //         }
+        //     },
+        //     refetchQueries: ['getOrdersBySeller']
+        // }).then(({data}) => {
+        //     if (data.confirmProductFromOrder.success) {
+        //         message.success("Product Confirmed");
+        //     } else {
+        //         message.error("Product Not Confirmed. Error!");
+        //     }
+        // });
+        this.props.history.push({
+            pathname: `/orders/${order.order_number}/ship`,
+            state: {
+                order: order
             }
         });
 
@@ -247,7 +254,7 @@ class Order extends Component {
                                                 {  (order.product.status.confirmed && !order.product.status.shipped ) && (
                                                     <Button
                                                         onClick={() => {
-                                                            this.shipProduct(order.order_number, order.product._id);
+                                                            this.shipProduct(order);
                                                         }}>
                                                         Ship Order
                                                     </Button>

@@ -47,9 +47,9 @@ class SellerPost extends Component {
                 <div className={`photo__image ${this.state.addClass}`}
                      onMouseEnter={() => this.handleHover()}
                      onMouseLeave={() => this.handleDHover()}
-                     style={{backgroundImage: `url('${product.image}')`}}
+                    //  style={{backgroundImage: `url('${product.image}')`}}
                 >
-                    {/*<img src="product_images/product1.jpg"/>*/}
+                    <img src={product.image}/>
                     <div className="photo__image__layer"/>
                     <Link to={`/feed`}>
                         <div className="photo__image__view-details">View details</div>

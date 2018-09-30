@@ -100,6 +100,7 @@ module.exports = {
                     }
                 })
                 .populate('user')
+                // .populate('shipping.address')
                 .exec()
                 .then(orders => {
                     // data = data.toJSON();
@@ -214,7 +215,6 @@ module.exports = {
                 }
             );
         },
-
         confirmProductFromOrder: (parent, {input}, context, info) => {
             return Order.findOne({
                 order_number: input.order_number
