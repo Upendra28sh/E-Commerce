@@ -6,10 +6,12 @@
 
   &__list {
     padding: 0 10px;
+    list-style: none;
 
     li {
       padding: 2px 0;
     }
+
   }
 }
 
@@ -106,17 +108,17 @@
 }
 
 .nav-item:first-child {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .notification {
-    span {
-        color: black;
-        margin: 10px;
-        font-size: 18px;
-    }
+  span {
+    color: black;
+    margin: 10px;
+    font-size: 18px;
+  }
 
-    div.ant-col-20 {
-        padding: 5px 10px;
-    }
+  div.ant-col-20 {
+    padding: 5px 10px;
+  }
 }

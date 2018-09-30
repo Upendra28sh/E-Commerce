@@ -32,8 +32,8 @@ const Router = () => {
         <Route exact path="/chat" component={RequireAuth(Chat)}/>
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
-        <Route exact path="/addPost" component={addPost}/>
-        <Route exact path="/trendingfeed" component={TrendingFeed}/>
+        {/*<Route exact path="/addPost" component={addPost}/>*/}
+        <Route exact path="/trendingfeed" component={RequireAuth(TrendingFeed)}/>
         <Route path="/search/:query/" component={RequireAuth(Search)} />
         <Route exact path="/user/:id" component={RequireAuth(User)} />
         {/*<Route exact path="/seller/new" component={RequireAuth(AddSeller)} />*/}

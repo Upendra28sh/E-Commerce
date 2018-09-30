@@ -18,6 +18,7 @@ module.exports = {
                     }
                 })
                 .populate('seller')
+                .populate('comments.user')
                 .exec()
                 .then(data => {
                     // console.log(data);
@@ -33,8 +34,8 @@ module.exports = {
             }
 
             return Sellerpost.find({
-                    seller: id
-                })
+                seller: id
+            })
                 .populate({
                     path: 'comments.user',
                 })
@@ -42,7 +43,7 @@ module.exports = {
                 .exec()
                 .then(
                     data => {
-                         console.log(data.length);
+                        console.log(data.length);
                         return data;
                     }
                 );
@@ -55,8 +56,8 @@ module.exports = {
             file,
             caption
         }, {
-            seller
-        }, info) => {
+                               seller
+                           }, info) => {
             var image;
             file.then((data) => {
                 const {
@@ -76,7 +77,7 @@ module.exports = {
                     }).then(
                         createdPost => {
 
-                            createFeedItem('Seller Post', createdPost.id, createdPost.seller, 'Seller Post is added');
+                            createFeedItem('Sellerpost', createdPost.id, createdPost.seller, 'Seller Post is added');
                             return createdPost
                                 .populate('seller')
                                 .execPopulate()
@@ -89,23 +90,26 @@ module.exports = {
                                 );
                         }
                     );
-                })
+                });
 
             });
 
         },
 
 
-
-        addSellerComment: (parent, args, context, info) => {
+        addSellerComment: (parent, {input}, context, info) => {
             return Sellerpost.findOne({
-                _id: args.PostID
+                _id: input.post
             }).exec().then(post => {
                 post.comments.push({
-                    text: args.text,
-                    user: context.user.id
+                    text: input.comment,
+                    user: context.user.id,
+                    username: context.user.username,
+                    mentions: input.mention
                 });
-                post.save();
+                return post.save().then(data => {
+                    return data;
+                });
             });
         }
     }

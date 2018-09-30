@@ -46,6 +46,16 @@ module.exports = {
                 console.log(foundUser.address);
                 return foundUser.address;
             });
+        },
+        searchUsers: (parent, args, context, info) => {
+            let queryString = args.query;
+            let regex = new RegExp("^" + queryString, 'i');
+            return User.find({
+                username: regex
+            }, 'username name').limit(5).then(data => {
+                // console.log(data);
+                return data ;
+            });
         }
     },
 
@@ -59,7 +69,7 @@ module.exports = {
                     address: args.input.address
                 }
 
-            } , {new : true}).exec()
+            }, {new: true}).exec()
                 .then(data => {
                     console.log(data);
                     return data.address[data.address.length - 1];

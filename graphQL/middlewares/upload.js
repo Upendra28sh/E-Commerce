@@ -11,38 +11,37 @@ AWS.config.credentials = credentials;
 var s3 = new AWS.S3();
 export const uploadsToS3 = (file) => {
     return new Promise((resolve, reject) => {
-        let temp =[];
+        let temp = [];
         file.map((item) => {
-            item.then((data)=>{
+            item.then((data) => {
                 var params = {
                     Bucket: 'sellers.frnzy',
                     Key: uuid(),
                     Body: data.stream,
                     ACL: 'public-read'
-              };
-              s3.upload(params, function (err, data) {
-                  if (err) {
-                      console.log('error in callback');
-                      reject(err);
-                  }
-                  console.log('success');
-                temp.push(data.Location);
-                if(temp.length==file.length)
-                {
-                    resolve(temp);
-                }
-                  
-              })
-            })
-            
-           });
-           
+                };
+                s3.upload(params, function (err, data) {
+                    if (err) {
+                        console.log('error in callback');
+                        reject(err);
+                    }
+                    console.log('success');
+                    temp.push(data.Location);
+                    if (temp.length == file.length) {
+                        resolve(temp);
+                    }
+
+                });
+            });
+
+        });
+
     });
 
 
-}
+};
 
-export const uploadToS3 = (filename,stream) => {
+export const uploadToS3 = (filename, stream) => {
     var params = {
         Bucket: 'sellers.frnzy',
         Key: uuid(),
@@ -54,13 +53,14 @@ export const uploadToS3 = (filename,stream) => {
         s3.upload(params, function (err, data) {
             if (err) {
                 console.log('error in callback');
+                console.log(err);
                 reject(err);
             }
             console.log('success');
             resolve(data.Location);
-        })
+        });
     });
 
 
-}
+};
 

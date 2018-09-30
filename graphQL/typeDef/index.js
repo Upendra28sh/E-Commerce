@@ -38,6 +38,7 @@ const typeDefs = gql`
         id: ID,
         text: String,
         user : User
+        username : String
     }
     type Product {
         id: ID,
@@ -78,6 +79,7 @@ const typeDefs = gql`
         seller: Seller,
         caption: String,
         image: String,
+        likes : Int,
         comments :[Comment],
         updated_at : String
     }

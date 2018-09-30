@@ -6,7 +6,12 @@ export default gql`
         allSellerpost: [Sellerpost]
         getSellerPostBySeller(id : ID) : [Sellerpost]
     }
-
+    
+    input addCommentInput {
+        post : ID! ,
+        comment : String! ,
+        mentions : [String]
+    }
     
     extend type Mutation {
         addNewPostSeller(
@@ -14,8 +19,7 @@ export default gql`
             caption:String!,
         ) : Boolean,
         addSellerComment(
-            PostID : ID!,
-            text : String
+            input : addCommentInput
         ):Sellerpost,
     }
 `;

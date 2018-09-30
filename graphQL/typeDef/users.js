@@ -5,11 +5,18 @@ const {
 //getFeedProducts(username: String!): [Product]
 
 export default gql `
+    
+    type UserSearchResult {
+        name : String ,
+        username : String
+    }
+
     extend type Query {
         allUsers: [User],
         User(username: String!): User,
         checkUserNameAvailability(username: String): Boolean
         getUserAddresses : [Address]
+        searchUsers(query : String!): [UserSearchResult]
     }
     
     input addUserAddressInput {

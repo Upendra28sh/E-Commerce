@@ -42,6 +42,23 @@ const client = new ApolloClient({
     headers: {
         authorization: token ? `Bearer ${token}` : ""
     },
+    onError : ({graphQLErrors, networkError}) => {
+        if (graphQLErrors) {
+            graphQLErrors.map(({message, locations, path}) => {
+                if (message === 'Context creation failed: jwt expired') {
+                    console.log('Token Expired');
+                    localStorage.removeItem('token');
+                    window.location.reload();
+                } else {
+                    console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,);
+                }
+
+            });
+        }
+        if (networkError) {
+            console.log(`[Network error]: ${networkError}`);
+        }
+    },
     clientState: {
         defaults: {
             auth: auth

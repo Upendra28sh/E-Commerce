@@ -57,7 +57,9 @@ class Login extends React.Component {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
                 message.success("Login Successful");
-                this.props.history.push("/feed/");
+                setTimeout(() => {
+                    this.props.history.push("/feed/");
+                } , 1000);
             }
         });
     };
@@ -84,8 +86,10 @@ class Login extends React.Component {
                         //                       `
                         //   });
                         // });
-
                         message.success("Login Successful");
+                        setTimeout(() => {
+                            this.props.history.push("/feed/");
+                        } , 1000);
                         this.props.history.push("/feed/");
                     }
                 });

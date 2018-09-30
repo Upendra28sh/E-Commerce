@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from '../router/ShopRouter';
-import Header from './Header'
+import Header from './Header/Header'
 import MobileHeader from './MobileHeader';
 
 class Container extends React.Component {

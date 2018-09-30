@@ -10,12 +10,12 @@ import cors from 'cors';
 import {ccAvenueRedirectCallback} from './middlewares/ccAvenueResponse';
 
 const app = express();
-const PORT = 4000 ;
+const PORT = 4000;
 const mongoose = require('mongoose');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use('/callback/ccAvenue/redirect', ccAvenueRedirectCallback);
 
 // app.use('/push', require('./push'));
@@ -47,8 +47,14 @@ const server = new ApolloServer({
         }
         token = token.split(" ")[1];
 
+        let decoded = {};
         // try to retrieve a user with the token
-        let decoded = jwt.verify(token, config.secret);
+        try {
+            decoded = jwt.verify(token, config.secret);
+        } catch (TokenExpiredError) {
+            console.log("Error");
+            decoded = {};
+        }
         // console.log(decoded);
         // const user = getUser(token);
 
@@ -73,7 +79,7 @@ server.applyMiddleware({app});
 
 mongoose.connect(url, {useNewUrlParser: true}).then(() => {
     console.log("Connected to DB");
-    app.listen({port : PORT} , () => {
+    app.listen({port: PORT}, () => {
         console.log(`Server ready at Server ready at http://localhost:${PORT}${server.graphqlPath}`);
     });
 }).catch(err => {

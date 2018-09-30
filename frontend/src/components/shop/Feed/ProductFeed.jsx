@@ -31,7 +31,7 @@ class SellerPost extends Component {
 
     render() {
         const product = this.props.product;
-        console.log(product);
+        // console.log(product);
         return (
             <div className="photo feed-product">
                 <header className="photo__header">

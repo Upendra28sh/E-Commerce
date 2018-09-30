@@ -2,8 +2,9 @@ import React, {Fragment} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {Col, Dropdown, Icon, Input, Menu, Popover, Row} from "antd";
 import {Query, withApollo} from "react-apollo";
-import {GET_AUTH} from "../query";
-import Notifs from './Notification';
+import {GET_AUTH} from "../../query";
+import Notifs from '../Notification';
+import {categories} from './categories';
 
 // TODO: Add User Notifications
 
@@ -25,54 +26,23 @@ const MenuI = (props) => {
 const menu = (
     <div className="categories">
         <Row>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Menu</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Women</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Kids</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Electronics</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
+            {
+                categories.map(category => (
+                    <Col span={8}>
+                        <ul className="categories__list">
+                            <strong>
+                                <li>{category.name}</li>
+                            </strong>
+                            {
+                                category.items.map(item => (
+                                    <li>{item}</li>
+                                ))
+                            }
+                        </ul>
+                    </Col>
+
+                ))
+            }
         </Row>
     </div>
 );
@@ -125,8 +95,25 @@ class Header extends React.Component {
     logout() {
         localStorage.clear();
         this.props.client.clearStore().then(data => {
+            let auth = {
+                isAuthenticated: false,
+                user: {
+                    id: "",
+                    name: "",
+                    username: "",
+                    __typename: "AuthUser"
+                },
+                __typename: "Auth"
+            };
+
+            this.props.client.writeQuery({
+                query: GET_AUTH,
+                data: {auth}
+            });
+
             console.log(data);
             console.log("Logout");
+            this.props.history.push('/login');
         });
 
     }

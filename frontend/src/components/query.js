@@ -1,5 +1,14 @@
 import {gql} from "apollo-boost";
 
+export const SEARCH_USERS = gql`
+    query($input : String!){
+      searchUsers(query : $input){
+        name ,
+        username
+      }
+    }
+`;
+
 export const GET_ORDER_BY_ID = gql`
     query($input : ID!) {
         Order(id : $input) {
@@ -251,6 +260,7 @@ export const GET_USER_FEED = gql`
             refString ,
             origin {
                 ...on Post {
+                    id,
                     caption ,
                     product {
                         name ,
@@ -259,11 +269,19 @@ export const GET_USER_FEED = gql`
                     }
                 }
                 ...on Sellerpost {
+                    id,
                     caption ,
                     image ,
+                    likes ,
                     seller {
                         name ,
+                        shopName ,
                         image
+                    } ,
+                    comments {
+                        id ,
+                        text , 
+                        username
                     }
                 }
                 ...on Product {
@@ -501,8 +519,8 @@ export const GET_POST_BY_SELLER = gql`
 `;
 
 export const ADD_SELLER_COMMENT = gql`
-    mutation($PostID : ID!,$text : String!){
-        addSellerComment(PostID:$PostID,text:$text){
+    mutation($input : addCommentInput){
+        addSellerComment(input : $input){
             id
         }
     }
