@@ -1,6 +1,7 @@
 @import url(../node_modules/antd/dist/antd.css);
 @import url(../node_modules/react-quill/dist/quill.snow.css);
 @import url(../node_modules/bootstrap/dist/css/bootstrap.min.css);
+@import url(../node_modules/font-awesome/css/font-awesome.min.css);
 .admin-panel .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
@@ -15,6 +16,17 @@
   padding: 1px 10px;
   background-color: transparent;
   font-size: 32px; }
+
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999; }
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666; }
+
+.ant-upload {
+  margin-bottom: 20px; }
 
 .new_product_form .label-container {
   display: inline-block;
