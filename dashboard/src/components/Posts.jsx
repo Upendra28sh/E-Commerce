@@ -8,15 +8,15 @@ class Post extends Component {
     render() {
         return (
             <div>
-                <h1>Your Posts</h1>
+                <h1>Your Posts <Link to="/addPost" style={{textDecoration:'none',color:'black'}}>+</Link></h1>
                 <Query query={GET_SELLER_POST}>
                     {({loading, error, data}) => {
                         
                         if (loading)  return <Spin size='large' />
                         if (error)  return <p>Error</p>
-
+                        console.log('dataofpost',data);
                         data = data.getSellerPostBySeller;
-                        console.log(data);
+                        
                 
                         return (
                             <Row>
