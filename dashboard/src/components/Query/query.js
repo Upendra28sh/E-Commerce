@@ -195,6 +195,10 @@ export const GET_SELLER_POST = gql`
     }
 `;
 
+// id pas kya hai? teamviewer ka? seller with posts
+//iosd wale me hi he post
+// samjh gaya
+
 export const GET_SELLER_ADDRESS = gql`
     query {
         getSellerAddress {

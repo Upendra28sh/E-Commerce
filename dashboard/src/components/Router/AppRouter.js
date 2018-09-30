@@ -11,6 +11,7 @@ import NewProduct from "../AddProduct/NewProduct";
 import Posts from '../Posts';
 import Chat from '../Chat';
 import Profile from '../Profile/Profile';
+import addPost from '../addpost'
 
 const Router = () => {
     return (
@@ -25,6 +26,7 @@ const Router = () => {
             <Route exact path="/product/new" component={NewProduct}/>
             <Route exact path="/posts" component={Posts} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/addpost" component={addPost}/>
         </Switch>
     );
 };

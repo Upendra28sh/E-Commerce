@@ -22,16 +22,7 @@ if (token) {
 }
 
 let decodedToken;
-console.log(jwt.decode(token), function (err, data) {
-    if (err) {
-        if (err.name === 'TokenExpiredError') {
-            found = false;
-            decodedToken = {};
-        } else {
-            decodedToken = data;
-        }
-    }
-});
+
 
 let auth = {
     isAuthenticated: found,
@@ -45,8 +36,8 @@ let auth = {
     __typename: "Auth"
 };
 
-// const BASE_URL = 'http://localhost:4000/graphql' ;
-const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
+const BASE_URL = 'http://localhost:4000/graphql' ;
+// const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 const client = new ApolloClient({
     uri: BASE_URL,

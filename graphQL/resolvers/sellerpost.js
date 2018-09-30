@@ -28,7 +28,7 @@ module.exports = {
             seller
         }, info) => {
             let id = args.id;
-            if (seller) {
+            if (seller.id) {
                 id = seller.id;
             }
 
@@ -42,7 +42,7 @@ module.exports = {
                 .exec()
                 .then(
                     data => {
-                        // console.log(data);
+                         console.log(data.length);
                         return data;
                     }
                 );
