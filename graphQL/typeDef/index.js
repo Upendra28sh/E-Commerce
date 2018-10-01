@@ -80,6 +80,7 @@ const typeDefs = gql`
         caption: String,
         image: String,
         likes : Int,
+        liked_by_me : Boolean,
         comments :[Comment],
         updated_at : String
     }

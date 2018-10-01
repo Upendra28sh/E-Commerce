@@ -34,6 +34,8 @@ module.exports = {
                             }
                             if (item.refString === 'Sellerpost') {
                                 console.log("Seller Post Feed");
+                                item.origin.liked_by_me = (item.origin.liked_by.indexOf(context.user.id) > -1);
+
                                 return Seller.populate(item, {'path': 'origin.seller'});
                             }
                             return item;

@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Input, Mention, Form} from 'antd';
-import {ADD_SELLER_COMMENT, GET_USER_FEED, SEARCH_USERS} from '../../query';
+import {
+    ADD_SELLER_COMMENT,
+    ADD_SELLER_POST_LIKE,
+    GET_USER_FEED,
+    REMOVE_SELLER_POST_LIKE,
+    SEARCH_USERS
+} from '../../query';
 import {Mutation, withApollo} from 'react-apollo';
 
 const {toString, getMentions, toContentState, Nav} = Mention;
@@ -76,6 +82,74 @@ class SellerPost extends Component {
             console.log(values);
         });
     };
+    removeLikeFromPost = () => {
+        this.props.client.mutate({
+            mutation: REMOVE_SELLER_POST_LIKE,
+            variables: {
+                input: {
+                    post: this.props.post.id
+                }
+            },
+            update: (cache, {data}) => {
+                let userFeed = cache.readQuery({query: GET_USER_FEED});
+                // console.log(userFeed.getFeed, data.removeSellerPostLike);
+                userFeed = userFeed.getFeed.map(FeedItem => {
+                    if (FeedItem.origin.id === data.removeSellerPostLike.id) {
+                        console.log("Found Item For Post");
+                        FeedItem.origin.liked_by_me = data.removeSellerPostLike.liked_by_me;
+                        FeedItem.origin.likes = data.removeSellerPostLike.likes;
+                        return FeedItem;
+                    }
+                    return FeedItem;
+                });
+
+                let writeData = {
+                    getFeed: userFeed
+                };
+
+                cache.writeQuery({
+                    query: GET_USER_FEED,
+                    data: writeData
+                });
+            }
+        }).then(({data, error}) => {
+            // console.log(data, error);
+        });
+    };
+    addLikeToPost = () => {
+        this.props.client.mutate({
+            mutation: ADD_SELLER_POST_LIKE,
+            variables: {
+                input: {
+                    post: this.props.post.id
+                }
+            },
+            update: (cache, {data}) => {
+                let userFeed = cache.readQuery({query: GET_USER_FEED});
+                // console.log(userFeed.getFeed, data.addSellerPostLike);
+                userFeed = userFeed.getFeed.map(FeedItem => {
+                    if (FeedItem.origin.id === data.addSellerPostLike.id) {
+                        console.log("Found Item For Post");
+                        FeedItem.origin.liked_by_me = data.addSellerPostLike.liked_by_me;
+                        FeedItem.origin.likes = data.addSellerPostLike.likes;
+                        return FeedItem;
+                    }
+                    return FeedItem;
+                });
+
+                let writeData = {
+                    getFeed: userFeed
+                };
+
+                cache.writeQuery({
+                    query: GET_USER_FEED,
+                    data: writeData
+                });
+            }
+        }).then(({data, error}) => {
+            // console.log(data, error);
+        });
+    };
 
     onAddComment = () => {
         const mentions = getMentions(this.state.mention);
@@ -114,7 +188,7 @@ class SellerPost extends Component {
                     });
                 }
             }).then(({data, error}) => {
-                console.log(data, error);
+                // console.log(data, error);
                 this.resetCommentField();
             });
         }
@@ -159,10 +233,20 @@ class SellerPost extends Component {
                 </div>
                 <div className="photo__info" style={{textAlign: 'left'}}>
                     <div className='photo__actions'>
-                            <span className='photo__save'>
-                                Like
-                            </span>
-
+                        {
+                            post.liked_by_me && (
+                                <span className='photo__save' onClick={this.removeLikeFromPost}>
+                                    Liked
+                                </span>
+                            )
+                        }
+                        {
+                            !post.liked_by_me && (
+                                <span className='photo__save' onClick={this.addLikeToPost}>
+                                    Like
+                                </span>
+                            )
+                        }
                         <div className="float-right">
                             <span className="photo__action">
                                 <i className="fa fa-share fa-lg"/>

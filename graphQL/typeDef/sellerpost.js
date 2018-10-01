@@ -13,6 +13,13 @@ export default gql`
         mentions : [String]
     }
     
+    input addLikeInput {
+        post : ID! 
+    }
+    input removeLikeInput {
+        post : ID!
+    }
+    
     extend type Mutation {
         addNewPostSeller(
             file: Upload!,
@@ -21,5 +28,12 @@ export default gql`
         addSellerComment(
             input : addCommentInput
         ):Sellerpost,
+        addSellerPostLike(
+            input : addLikeInput
+        ):Sellerpost,
+        removeSellerPostLike(
+            input : removeLikeInput
+        ):Sellerpost,
+        
     }
 `;

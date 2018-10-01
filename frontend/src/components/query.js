@@ -274,6 +274,7 @@ export const GET_USER_FEED = gql`
                     caption ,
                     image ,
                     likes ,
+                    liked_by_me ,
                     seller {
                         name ,
                         shopName ,
@@ -531,6 +532,26 @@ export const ADD_SELLER_COMMENT = gql`
         }
     }
 `;
+
+export const ADD_SELLER_POST_LIKE = gql`
+    mutation($input : addLikeInput) {
+      addSellerPostLike(input : $input){
+        liked_by_me ,
+        id ,
+        likes
+      }
+    }
+`
+export const REMOVE_SELLER_POST_LIKE = gql`
+    mutation($input : removeLikeInput) {
+      removeSellerPostLike(input : $input){
+        liked_by_me ,
+        likes ,
+        id ,
+      }
+    }
+`
+
 
 export const GET_ALL_SELLERS = gql`
     query {
