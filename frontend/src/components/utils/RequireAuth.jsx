@@ -23,9 +23,8 @@ export default function (ComposedComponent) {
                         } else {
                             const token = localStorage.getItem("token");
                             const isSignupFinished = jwt.decode(token).finished;
-                            console.log(this.props.location.pathname);
 
-                            if (this.props.location.pathname !== "/signup/complete") {
+                            if (this.props.location.pathname !== "/signup/complete") {  // to avoid infinite calls
                                 if (isSignupFinished) {
                                     return (
                                         <ComposedComponent {...this.props} />

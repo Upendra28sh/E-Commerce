@@ -29,7 +29,14 @@ export default gql`
             input: AuthInput
         ) : AuthPayload
         
+        CreateUser(
+            input: AuthInput
+        ) : AuthPayload
         
+        CompleteSignup(
+            details: UserDetailsInput,
+            address: AddressInput
+        ) : AuthPayload
     }
 `;
 

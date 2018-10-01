@@ -124,6 +124,8 @@
       cursor: pointer;
       border-bottom: solid 1px white;
       padding-top: 5px; }
+    .main_box .box_header .selected {
+      background: rgba(255, 255, 255, 0.7); }
     .main_box .box_header div:hover {
       background: rgba(255, 255, 255, 0.7); }
     .main_box .box_header :first-child {

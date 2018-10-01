@@ -6,6 +6,88 @@ const config = require('../config');
 
 module.exports = {
     Mutation: {
+        CreateUser: (parent, {input}, context, address) => {
+            let {email, password} = input;
+            console.log(input);
+            return User.findOne({email: email}).exec()
+                .then(
+                    foundUser => {
+                        if (foundUser) {
+                            return {
+                                token: {
+                                    code: 2,
+                                    content: "Email already registered"
+                                }
+                            };
+                        } else {
+                            const hashedPassword = bcrypt.hashSync(password);
+                            return User.create({
+                                email: email,
+                                password: hashedPassword,
+                            }).then(
+                                createdUser => {
+                                    console.log(createdUser);
+                                    const token = jwt.sign(
+                                        {
+                                            id: createdUser._id,
+                                            email: createdUser.email,
+                                            finished: createdUser.finished.signup
+                                        },
+                                        config.secret,
+                                        {expiresIn: 86400}
+                                    );
+                                    return {
+                                        token: {
+                                            code: 1,
+                                            content: token
+                                        }
+                                    };
+                                }
+                            )
+                        }
+                    }
+                );
+        },
+
+        CompleteSignup: (parent, {details, address}, {user}, info) => {
+            let {name, image, about, username} = details;
+
+            return User.findOne({email: user.email}).exec()
+                .then(
+                    (foundUser, err) => {
+                        console.log(err);
+                        foundUser.name = name;
+                        foundUser.image = image;
+                        foundUser.about = about;
+                        foundUser.username = username;
+                        foundUser.address = address;
+                        foundUser.finished.signup = true;
+                        foundUser.save();
+
+                        const token = jwt.sign(
+                            {
+                                id: foundUser._id,
+                                name: foundUser.name,
+                                image: foundUser.image,
+                                email: foundUser.email,
+                                about: foundUser.about,
+                                username: foundUser.username,
+                                finished: foundUser.finished.signup
+                            },
+                            config.secret,
+                            {expiresIn: 86400}
+                        );
+                        return {
+                            token: {
+                                code: 1,
+                                content: token
+                            }
+                        };
+                    }
+                );
+        },
+
+        // Not being used anymore
         UserSignup: (parent, {input, details, address}, context, info) => {
             let {email, password} = input;
             let {name, image, about, username} = details;
@@ -49,12 +131,13 @@ module.exports = {
 
                                             const token = jwt.sign(
                                                 {
-                                                    id: createdUser._id,
-                                                    name: createdUser.name,
-                                                    image: createdUser.image,
-                                                    email: createdUser.email,
-                                                    about: createdUser.about,
-                                                    username: createdUser.username
+                                                    id: foundUser._id,
+                                                    name: foundUser.name,
+                                                    image: foundUser.image,
+                                                    email: foundUser.email,
+                                                    about: foundUser.about,
+                                                    username: foundUser.username,
+                                                    finished: foundUser.finished.signup
                                                 },
                                                 config.secret,
                                                 {expiresIn: 86400}

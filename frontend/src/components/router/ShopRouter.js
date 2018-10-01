@@ -3,8 +3,8 @@ import { Switch, Route } from "react-router-dom";
 
 import Landing from "../shop/Landing";
 import Search from "../shop/Search";
-import SignUp from "../shop/SignUp";
-import SignIn from "../shop/Login";
+// import SignUp from "../shop/SignUp";
+// import SignIn from "../shop/Login";
 import User from "../shop/User";
 import Seller from "../shop/Seller";
 // import AddSeller from "../shop/AddSeller/index";
@@ -31,7 +31,7 @@ const Router = () => {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/chat" component={RequireAuth(Chat)}/>
-        <Route exact path="/signup" component={SignUp} />
+        {/* <Route exact path="/signup" component={SignUp} /> */}
         <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)} />
         {/* <Route exact path="/login" component={SignIn} /> */}
         {/*<Route exact path="/addPost" component={addPost}/>*/}

@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
     facebook: String,
     address: [Address],
     finished: {
-        signup: Boolean
+        signup: {
+            type: Boolean,
+            default: false
+        }
     },
     following: [{
         type: mongoose.Schema.Types.ObjectId,

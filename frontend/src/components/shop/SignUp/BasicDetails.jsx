@@ -11,7 +11,6 @@ class BasicDetails extends React.Component {
             'image': this.props.image,
             'about': this.props.about,
             'username': this.props.username,
-            'image': this.props.image,
         });     
     }
    handlenext(e)
@@ -68,7 +67,7 @@ class BasicDetails extends React.Component {
                             }
                         </FormItem>
 
-                        <FormItem
+                        {/* <FormItem
                             {...formItemLayout}
                             label="Email"
                         >
@@ -82,7 +81,7 @@ class BasicDetails extends React.Component {
                                     <Input onChange={(e)=>this.props.onChange(e)}/>
                                 )
                             }
-                        </FormItem>
+                        </FormItem> */}
 
                         <FormItem
                             {...formItemLayout}

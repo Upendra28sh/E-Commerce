@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './Login';
+import Signup from './Signup';
 
 class Landing extends React.Component {
     state = {
@@ -14,12 +15,12 @@ class Landing extends React.Component {
                     <div className="main_content">
                         <div className='main_box'>
                             <div className="box_header">
-                                <div onClick={() => this.setState({selected: 0})}>Login</div>
-                                <div onClick={() => this.setState({selected: 1})}>Signup</div>
+                                <div className={this.state.selected === 0 ? "selected" : ""} onClick={() => this.setState({selected: 0})}>Login</div>
+                                <div className={this.state.selected === 1 ? "selected" : ""} onClick={() => this.setState({selected: 1})}>Signup</div>
                             </div>
                             <div className="box_content">
                             {
-                                this.state.selected ? <p>Signup</p> : <Login {...this.props}/>
+                                this.state.selected ? <Signup {...this.props} /> : <Login {...this.props}/>
                             }
                             </div>
                         </div>
