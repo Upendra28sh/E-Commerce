@@ -257,6 +257,7 @@ mutation($input : AddOrderFromCartInput) {
 export const GET_USER_FEED = gql`
     {
         getFeed {
+            id ,
             refString ,
             origin {
                 ...on Post {
@@ -521,7 +522,12 @@ export const GET_POST_BY_SELLER = gql`
 export const ADD_SELLER_COMMENT = gql`
     mutation($input : addCommentInput){
         addSellerComment(input : $input){
-            id
+            id ,
+            comments {
+                id ,
+                text ,
+                username
+            }
         }
     }
 `;

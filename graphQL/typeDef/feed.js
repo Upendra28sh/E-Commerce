@@ -10,6 +10,7 @@ export default gql`
         created_at : String ,
         updated_at : String ,
         event : String 
+        id : ID 
     }
     
     

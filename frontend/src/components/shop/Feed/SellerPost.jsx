@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Button, Input, Mention, Form} from 'antd';
-import {ADD_SELLER_COMMENT, SEARCH_USERS} from '../../query';
+import {ADD_SELLER_COMMENT, GET_USER_FEED, SEARCH_USERS} from '../../query';
 import {Mutation, withApollo} from 'react-apollo';
 
-const {toString, getMentions, Nav} = Mention;
+const {toString, getMentions, toContentState, Nav} = Mention;
 
 let defaultPost = {
     id: '123',
@@ -22,7 +22,7 @@ class SellerPost extends Component {
     state = {
         suggestions: [],
         loading: false,
-        mention: undefined
+        mention: toContentState('')
     };
 
     constructor(props) {
@@ -91,12 +91,42 @@ class SellerPost extends Component {
                         comment: string,
                         mentions: mentions
                     }
+                },
+                update: (cache, {data}) => {
+                    let userFeed = cache.readQuery({query: GET_USER_FEED});
+                    console.log(userFeed.getFeed, data.addSellerComment);
+                    userFeed = userFeed.getFeed.map(FeedItem => {
+                        if (FeedItem.origin.id === data.addSellerComment.id) {
+                            console.log("Found Item For Post");
+                            FeedItem.origin.comments = data.addSellerComment.comments;
+                            return FeedItem;
+                        }
+                        return FeedItem;
+                    });
+
+                    let writeData = {
+                        getFeed: userFeed
+                    };
+
+                    cache.writeQuery({
+                        query: GET_USER_FEED,
+                        data: writeData
+                    });
                 }
             }).then(({data, error}) => {
                 console.log(data, error);
+                this.resetCommentField();
             });
         }
     };
+
+    resetCommentField() {
+        this.setState({
+            suggestions: [],
+            mention: toContentState("")
+        });
+    }
+
 
     onSelect(suggestion) {
         console.log('onSelect', suggestion);
@@ -169,6 +199,7 @@ class SellerPost extends Component {
                             onSearchChange={this.onSearchChange}
                             suggestions={this.state.suggestions}
                             onSelect={this.onSelect}
+                            value={this.state.mention}
                         />
                         <i className="fa fa-lg fa-send-o" onClick={this.onAddComment}/>
                         {/*<i className="fa fa-ellipsis-h"/>*/}
