@@ -100,7 +100,8 @@ module.exports = {
                                         image: foundUser.image,
                                         email: foundUser.email,
                                         about: foundUser.about,
-                                        username: foundUser.username
+                                        username: foundUser.username,
+                                        finished: foundUser.finished.signup
                                     },
                                     config.secret,
                                     {expiresIn: 86400}

@@ -2,6 +2,7 @@ import React from 'react';
 import {Redirect} from 'react-router-dom' ;
 import {Query} from 'react-apollo';
 import {GET_LOGIN_STATUS} from "../query";
+import jwt from "jsonwebtoken";
 
 // TODO : Specify A Return Path ?return_url=something
 
@@ -20,11 +21,29 @@ export default function (ComposedComponent) {
                                 }}
                             />;
                         } else {
-                            return (
-                                <ComposedComponent {...this.props} />
-                            );
-                        }
+                            const token = localStorage.getItem("token");
+                            const isSignupFinished = jwt.decode(token).finished;
+                            console.log(this.props.location.pathname);
 
+                            if (this.props.location.pathname !== "/signup/complete") {
+                                if (isSignupFinished) {
+                                    return (
+                                        <ComposedComponent {...this.props} />
+                                    );
+                                } else {
+                                    return <Redirect 
+                                        to={{
+                                            pathname: "/signup/complete",
+                                            state: {from: this.props.location}
+                                        }}
+                                    />;
+                                }
+                            } else {
+                                return (
+                                    <ComposedComponent {...this.props} />
+                                );
+                            }
+                        }
                     }}
                 </Query>
             );

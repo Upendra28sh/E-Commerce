@@ -23,6 +23,7 @@ import Chat from "../shop/Chat"
 import CheckoutReview from "../shop/Checkout/CheckoutReview";
 import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 import Order from "../shop/Order/Order";
+import SignupComplete from "../shop/SignupComplete";
 
 const Router = () => {
   return (
@@ -31,7 +32,8 @@ const Router = () => {
         <Route exact path="/" component={Landing} />
         <Route exact path="/chat" component={RequireAuth(Chat)}/>
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={SignIn} />
+        <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)} />
+        {/* <Route exact path="/login" component={SignIn} /> */}
         {/*<Route exact path="/addPost" component={addPost}/>*/}
         <Route exact path="/trendingfeed" component={RequireAuth(TrendingFeed)}/>
         <Route path="/search/:query/" component={RequireAuth(Search)} />

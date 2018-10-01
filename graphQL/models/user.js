@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     about: String,
     facebook: String,
     address: [Address],
+    finished: {
+        signup: Boolean
+    },
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

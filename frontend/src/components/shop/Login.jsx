@@ -50,9 +50,9 @@ class Login extends React.Component {
                 });
             }
         }).then((data) => {
-            console.log(data);
+            // console.log(data);
             data = data.data.fbSignin;
-            console.log(data);
+            // console.log(data);
             if (data.token.code === 1) {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
@@ -88,9 +88,9 @@ class Login extends React.Component {
                         // });
                         message.success("Login Successful");
                         setTimeout(() => {
-                            this.props.history.push("/feed/");
+                            this.props.history.push("/feed/");                            
                         } , 1000);
-                        this.props.history.push("/feed/");
+                        // this.props.history.push("/feed/");
                     }
                 });
             }
