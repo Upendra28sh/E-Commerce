@@ -22,7 +22,7 @@ module.exports = {
         UserPosts: (parent, {username}, context, info) => {
             return User.findOne({username: username}).exec().then(
                 foundUser => {
-                    return UserUserPost.find({user: foundUser._id})
+                    return UserPost.find({user: foundUser._id})
                         .populate({
                             path: 'product',
                             populate: {
