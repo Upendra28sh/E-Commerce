@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 export default gql`
 
-    union FeedOrigin = Post | Product | Sellerpost
+    union FeedOrigin = UserPost | Product | Sellerpost
     
     type FeedType {
         origin : FeedOrigin ,
@@ -16,8 +16,41 @@ export default gql`
     
     extend type Query {
         getFeed : [FeedType]
-        getFeedPosts : [Post]
+        getFeedPosts : [UserPost]
         getFeedProducts : [Product]
+    }
+    
+    input addCommentInput {
+        post : ID! ,
+        comment : String! ,
+        mentions : [String]
+    }
+    input addLikeInput {
+        post : ID! 
+    }
+    input removeLikeInput {
+        post : ID!
+    }
+    
+    extend type Mutation {
+        addSellerComment(
+            input : addCommentInput
+        ):Sellerpost,
+        addSellerPostLike(
+            input : addLikeInput
+        ):Sellerpost,
+        removeSellerPostLike(
+            input : removeLikeInput
+        ):Sellerpost,
+        addUserPostComment(
+            input : addCommentInput
+        ):UserPost,
+        addUserPostLike(
+            input : addLikeInput
+        ):UserPost,
+        removeUserPostLike(
+            input : removeLikeInput
+        ):UserPost
     }
     
 `;

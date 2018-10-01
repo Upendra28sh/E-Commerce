@@ -90,10 +90,12 @@ class SellerPost extends Component {
                     post: this.props.post.id
                 }
             },
-            update: (cache, {data}) => {
+            update: (cache, {data , errors}) => {
+                console.log(errors)
                 let userFeed = cache.readQuery({query: GET_USER_FEED});
-                // console.log(userFeed.getFeed, data.removeSellerPostLike);
+                console.log(userFeed.getFeed, data.removeSellerPostLike);
                 userFeed = userFeed.getFeed.map(FeedItem => {
+
                     if (FeedItem.origin.id === data.removeSellerPostLike.id) {
                         console.log("Found Item For Post");
                         FeedItem.origin.liked_by_me = data.removeSellerPostLike.liked_by_me;
@@ -201,11 +203,6 @@ class SellerPost extends Component {
         });
     }
 
-
-    onSelect(suggestion) {
-        console.log('onSelect', suggestion);
-    }
-
     render() {
 
         let post = this.props.post;
@@ -251,9 +248,6 @@ class SellerPost extends Component {
                             <span className="photo__action">
                                 <i className="fa fa-share fa-lg"/>
                             </span>
-                            {/*<span className="photo__action">*/}
-                            {/*<i className="fa fa-retweet fa-lg"/>*/}
-                            {/*</span>*/}
                         </div>
                     </div>
                     <span className="photo__likes">{post.likes} likes</span>
@@ -282,32 +276,11 @@ class SellerPost extends Component {
                             notFoundContent={"No Users Found"}
                             onSearchChange={this.onSearchChange}
                             suggestions={this.state.suggestions}
-                            onSelect={this.onSelect}
                             value={this.state.mention}
                         />
                         <i className="fa fa-lg fa-send-o" onClick={this.onAddComment}/>
                         {/*<i className="fa fa-ellipsis-h"/>*/}
                     </div>
-
-
-                    {/*<Mutation mutation={ADD_SELLER_COMMENT}>*/}
-                    {/*{(addSellerComment) => (*/}
-                    {/*<Button type="primary" shape="circle" onClick={() =>*/}
-                    {/*addSellerComment({*/}
-                    {/*variables: {*/}
-                    {/*PostID: post.id,*/}
-                    {/*text: document.getElementById(`${post.id}`).value*/}
-                    {/*},*/}
-                    {/*refetchQueries: ["sellerpost"],*/}
-                    {/*update: () => {*/}
-                    {/*document.getElementById(`${post.id}`).value = '';*/}
-                    {/*}*/}
-                    {/*})*/}
-                    {/*}>*/}
-                    {/*<i className="fa fa-send-o"/>*/}
-                    {/*</Button>*/}
-                    {/*)}*/}
-                    {/*</Mutation>*/}
                 </div>
             </div>
 

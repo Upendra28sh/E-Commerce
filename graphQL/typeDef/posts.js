@@ -2,24 +2,19 @@ const { gql } = require('apollo-server');
 
 export default gql`
 
-    input AddPostInput {
-        productID : ID!,
-        userID: String!,
-        caption: String!
+    input AddUserPostInput {
+        product : ID!,
+        caption: String
     }
     
     extend type Query {
-        getPosts : [Post]
-        Posts(username: String!) : [Post]
+        getUserPosts : [UserPost]
+        UserPosts(username: String!) : [UserPost]
     }
     
     extend type Mutation {
-        addPost(
-            input: AddPostInput
-        ) : Post,
-        addComment(
-            PostID : ID!,
-            text : String
-        ):Post
+        addUserPost(
+            input: AddUserPostInput
+        ) : UserPost
     }
 `;

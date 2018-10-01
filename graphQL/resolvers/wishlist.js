@@ -31,10 +31,10 @@ module.exports = {
                                 .populate('user')
                                 .exec();
                     }
-                )
+                );
             }
         },
-        checkInWishlist: (parent, {productID}, context, info) => {
+        checkInWishlist: (parent, {product}, context, info) => {
             const userID = context.user.id;
             return Wishlist.findOne({user: userID}).then(
                 foundWishlist => {
@@ -42,7 +42,7 @@ module.exports = {
                         return false;
                     } else {
                         return foundWishlist.products.find(
-                            product => product == productID
+                            product => product == product
                         );
                     }
                 }
@@ -50,7 +50,7 @@ module.exports = {
         }
     },
     Mutation: {
-        addToWishlist: (parent, {productID}, context, info) => {
+        addToWishlist: (parent, {product}, context, info) => {
             const userID = context.user.id;
 
             return Wishlist.findOne({user: userID}).exec().then(
@@ -60,7 +60,7 @@ module.exports = {
                             user: userID,
                         }).then(
                             createdWishlist => {
-                                createdWishlist.products.push(productID);
+                                createdWishlist.products.push(product);
                                 createdWishlist.save();
                                 return createdWishlist
                                     .populate({
@@ -75,7 +75,9 @@ module.exports = {
                             }
                         );
                     } else {
-                        foundWishlist.products.push(productID);
+                        if (foundWishlist.products.indexOf(product) === -1) {
+                            foundWishlist.products.push(product);
+                        }
                         foundWishlist.save();
                         return foundWishlist
                             .populate({
@@ -91,13 +93,13 @@ module.exports = {
                 }
             );
         },
-        removeFromWishlist: (parent, {productID}, context, info) => {
+        removeFromWishlist: (parent, {product}, context, info) => {
             const userID = context.user.id;
-            console.log("REMOVE FROM WISH LIST", userID, productID);
+            console.log("REMOVE FROM WISH LIST", userID, product);
             return Wishlist.findOne({user: userID}).exec().then(
                 foundWishlist => {
                     foundWishlist.products = foundWishlist.products.filter(
-                        product => product != productID
+                        product => product != product
                     );
 
                     foundWishlist.save();

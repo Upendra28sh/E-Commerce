@@ -25,7 +25,7 @@ class Feed extends React.Component {
                                 return <ProductFeed key={index} product={feedItem.origin}/>;
                             } else if (feedItem.refString === 'Sellerpost') {
                                 return <SellerPost key={index} post={feedItem.origin}/>;
-                            } else if (feedItem.refString === 'Post') {
+                            } else if (feedItem.refString === 'UserPost') {
                                 return <UserPost key={index} post={feedItem.origin}/>;
                             }
                         });

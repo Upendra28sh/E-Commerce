@@ -84,51 +84,6 @@ module.exports = {
                     );
                 });
             });
-        },
-        addSellerPostLike: (parent, {input}, context, info) => {
-            return Sellerpost.findOne({
-                _id: input.post
-            }).exec().then(post => {
-                if(post.liked_by.indexOf(context.user.id) === -1){
-                    post.liked_by.push(context.user.id);
-                }
-                return post.save().then(data => {
-                    console.log(data.liked_by);
-                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
-                    return data;
-                });
-            });
-        },
-        removeSellerPostLike: (parent, {input}, context, info) => {
-            return Sellerpost.findOne({
-                _id: input.post
-            }).exec().then(post => {
-                let index = post.liked_by.indexOf(context.user.id)
-                if(index  > -1){
-                    post.liked_by.splice( index , 1)
-                }
-                return post.save().then(data => {
-                    console.log(data.liked_by);
-                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
-                    return data;
-                });
-            });
-        },
-        addSellerComment: (parent, {input}, context, info) => {
-            return Sellerpost.findOne({
-                _id: input.post
-            }).exec().then(post => {
-                post.comments.push({
-                    text: input.comment,
-                    user: context.user.id,
-                    username: context.user.username,
-                    mentions: input.mention
-                });
-                return post.save().then(data => {
-                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
-                    return data;
-                });
-            });
         }
     }
 };

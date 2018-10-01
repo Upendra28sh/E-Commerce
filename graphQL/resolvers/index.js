@@ -52,7 +52,8 @@ const resolvers = {
         ...admin.Mutation,
         ...approval.Mutation,
         ...notification.Mutation,
-        ...fbAuth.Mutation
+        ...fbAuth.Mutation,
+        ...feed.Mutation
     },
 
     Date: new GraphQLScalarType({

@@ -260,14 +260,28 @@ export const GET_USER_FEED = gql`
             id ,
             refString ,
             origin {
-                ...on Post {
+                ...on UserPost {
                     id,
-                    caption ,
+                    caption ,              
                     product {
                         name ,
-                        price ,
-                        sizes
+                        image ,
+                        inWishlist
+                        seller {
+                            name 
+                        }
                     }
+                    user {
+                        name ,
+                        username ,
+                        image
+                    }
+                    comments {
+                        id ,
+                        text , 
+                        username
+                    }
+                    
                 }
                 ...on Sellerpost {
                     id,
@@ -287,10 +301,12 @@ export const GET_USER_FEED = gql`
                     }
                 }
                 ...on Product {
+                    id
                     name ,
                     image ,
                     sizes ,
-                    price
+                    price,
+                    inWishlist,
                     description ,
                     codAccepted ,
                     returnAccepted
@@ -407,7 +423,7 @@ query user($username : String!) {
 
 export const GET_POST = gql`
     query post($username : String!) {
-        Posts(username : $username) {
+        UserPosts(username : $username) {
             id
             product {
               name
@@ -471,7 +487,7 @@ export const GET_PRODUCTS_BY_SELLER = gql`
 
 export const REMOVE_FROM_WISHLIST = gql`
     mutation remove($id: ID) {
-        removeFromWishlist(productID: $id) {
+        removeFromWishlist(product: $id) {
             id
         }
     }
@@ -479,8 +495,11 @@ export const REMOVE_FROM_WISHLIST = gql`
 
 export const ADD_TO_WISHLIST = gql`
     mutation add($id: ID) {
-        addToWishlist(productID: $id) {
+        addToWishlist(product: $id) {
             id
+            products {
+                id
+            }
         }
     }
 `;
@@ -551,6 +570,37 @@ export const REMOVE_SELLER_POST_LIKE = gql`
       }
     }
 `
+export const ADD_USER_POST_COMMENT = gql`
+    mutation($input : addCommentInput){
+        addUserPostComment(input : $input){
+            id ,
+            comments {
+                id ,
+                text ,
+                username
+            }
+        }
+    }
+`;
+
+// export const ADD_USER_POST_LIKE = gql`
+//     mutation($input : addLikeInput) {
+//       addUserPostLike(input : $input){
+//         liked_by_me ,
+//         id ,
+//         likes
+//       }
+//     }
+// `
+// export const REMOVE_USER_POST_LIKE = gql`
+//     mutation($input : removeLikeInput) {
+//       removeUserPostLike(input : $input){
+//         liked_by_me ,
+//         likes ,
+//         id ,
+//       }
+//     }
+// `
 
 
 export const GET_ALL_SELLERS = gql`

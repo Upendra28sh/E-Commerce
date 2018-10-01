@@ -3,7 +3,8 @@ const Post = require('../models/post');
 const Feed = require('../models/feed');
 const Product = require('../models/product');
 const Seller = require('../models/seller');
-const SellerPost = require('../models/sellerpost');
+const Sellerpost = require('../models/sellerpost');
+const UserPost = require('../models/post');
 
 // TODO : Optimize Query and Sort According to Timestamp
 // TODO : Add Support for Infinite Scroll
@@ -35,8 +36,19 @@ module.exports = {
                             if (item.refString === 'Sellerpost') {
                                 console.log("Seller Post Feed");
                                 item.origin.liked_by_me = (item.origin.liked_by.indexOf(context.user.id) > -1);
-
                                 return Seller.populate(item, {'path': 'origin.seller'});
+                            }
+                            if (item.refString === 'UserPost') {
+                                console.log("User Repost Feed");
+                                return item.populate({path: 'origin.user', model: User})
+                                    .populate({
+                                        path: 'origin.product',
+                                        model: Product,
+                                        populate: {path: 'seller', model: Seller}
+                                    }).execPopulate().then(_ => {
+                                        // console.log(_);
+                                        return _;
+                                    });
                             }
                             return item;
                         });
@@ -50,7 +62,7 @@ module.exports = {
         getFeedPosts: (parent, args, context, info) => {
             // console.log(context.user);
             return User.findById(context.user.id).then(foundUser => {
-                console.log(foundUser);
+                // console.log(foundUser);
 
                 return Post.find({
                     user: foundUser.following
@@ -83,6 +95,101 @@ module.exports = {
             });
         }
     },
-
+    Mutation: {
+        addSellerPostLike: (parent, {input}, context, info) => {
+            return Sellerpost.findOne({
+                _id: input.post
+            }).exec().then(post => {
+                if (post.liked_by.indexOf(context.user.id) === -1) {
+                    post.liked_by.push(context.user.id);
+                }
+                return post.save().then(data => {
+                    console.log(data.liked_by);
+                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+                    return data;
+                });
+            });
+        },
+        removeSellerPostLike: (parent, {input}, context, info) => {
+            // console.log(input);
+            return Sellerpost.findOne({
+                _id: input.post
+            }).exec().then(post => {
+                // console.log(post);
+                let index = post.liked_by.indexOf(context.user.id);
+                if (index > -1) {
+                    post.liked_by.splice(index, 1);
+                }
+                return post.save().then(data => {
+                    console.log(data.liked_by);
+                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+                    return data;
+                });
+            });
+        },
+        addSellerComment: (parent, {input}, context, info) => {
+            return Sellerpost.findOne({
+                _id: input.post
+            }).exec().then(post => {
+                post.comments.push({
+                    text: input.comment,
+                    user: context.user.id,
+                    username: context.user.username,
+                    mentions: input.mention
+                });
+                return post.save().then(data => {
+                    data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+                    return data;
+                });
+            });
+        } ,
+        // addUserPostLike: (parent, {input}, context, info) => {
+        //     return UserPost.findOne({
+        //         _id: input.post
+        //     }).exec().then(post => {
+        //         if (post.liked_by.indexOf(context.user.id) === -1) {
+        //             post.liked_by.push(context.user.id);
+        //         }
+        //         return post.save().then(data => {
+        //             console.log(data.liked_by);
+        //             data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+        //             return data.populate('origin.user').populate('origin.seller').execPopulate().then(data => data);
+        //         });
+        //     });
+        // },
+        // removeUserPostLike: (parent, {input}, context, info) => {
+        //     // console.log(input);
+        //     return User.findOne({
+        //         _id: input.post
+        //     }).exec().then(post => {
+        //         // console.log(post);
+        //         let index = post.liked_by.indexOf(context.user.id);
+        //         if (index > -1) {
+        //             post.liked_by.splice(index, 1);
+        //         }
+        //         return post.save().then(data => {
+        //             console.log(data.liked_by);
+        //             data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+        //             return data.populate('origin.user').populate('origin.seller').execPopulate().then(data => data);
+        //
+        //         });
+        //     });
+        // },
+        addUserPostComment: (parent, {input}, context, info) => {
+            return UserPost.findOne({
+                _id: input.post
+            }).exec().then(post => {
+                post.comments.push({
+                    text: input.comment,
+                    user: context.user.id,
+                    username: context.user.username,
+                    mentions: input.mention
+                });
+                return post.save().then(data => {
+                    return data.populate('user').populate('seller').execPopulate().then(data => data);
+                });
+            });
+        }
+    }
 };
 

@@ -1,33 +1,74 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Icon} from 'antd';
+import {ADD_TO_WISHLIST, GET_USER_FEED} from "../../query";
+import {withApollo} from 'react-apollo'
 
 
-class SellerPost extends Component {
+class ProductFeed extends Component {
     state = {
         addClass: "",
         collapsed: ""
     };
 
+    constructor(props) {
+        super(props);
+
+        this.addToWishlist = this.addToWishlist.bind(this);
+    }
+
     handleHover() {
         this.setState({
-            addClass: "animate" ,
-            collapsed : ""
+            addClass: "animate",
+            collapsed: ""
         });
     }
 
     handleDHover() {
         this.setState({
-            addClass: "" ,
-            collapsed : "collapsed"
+            addClass: "",
+            collapsed: "collapsed"
         });
     }
 
     componentDidMount() {
+        console.log("Product for Feed", this.props.product);
         setTimeout(() => {
             this.setState({collapsed: "collapsed"});
         }, 3000);
     }
+
+    addToWishlist = () => {
+        this.props.client.mutate({
+            mutation: ADD_TO_WISHLIST,
+            variables: {
+                id: this.props.product.id
+            },
+            update: (cache, {data}) => {
+                let userFeed = cache.readQuery({query: GET_USER_FEED});
+                console.log(userFeed.getFeed, data.addToWishlist);
+                userFeed = userFeed.getFeed.map(FeedItem => {
+                    if (FeedItem.origin.id === this.props.product.id) {
+                        console.log("User Post Found");
+                        FeedItem.origin.inWishlist = true;
+                        return FeedItem;
+                    }
+                    return FeedItem;
+                });
+
+                let writeData = {
+                    getFeed: userFeed
+                };
+
+                cache.writeQuery({
+                    query: GET_USER_FEED,
+                    data: writeData
+                });
+            }
+        }).then(({data, error}) => {
+            // console.log(data, error);
+        });
+    };
 
     render() {
         const product = this.props.product;
@@ -61,28 +102,23 @@ class SellerPost extends Component {
                             Hover To View Product
                         </span>
                     </div>
-
-                    {/*<div className="photo__image__overlay">*/}
-                    {/*<span className="photo__image__overlay__price">*/}
-                    {/*₹ {product.price}*/}
-                    {/*</span>*/}
-                    {/*<span className="photo__image__overlay__name">*/}
-                    {/*{product.name}*/}
-                    {/*</span>*/}
-                    {/*/!*<p>Saxx Red Envelope</p>*!/*/}
-                    {/*{product.sizes.length > 0 && (*/}
-                    {/*<div className="photo__image__overlay__options">*/}
-                    {/*<strong>SIZES</strong>*/}
-                    {/*<span>{product.sizes}</span>*/}
-                    {/*</div>*/}
-                    {/*)}*/}
-                    {/*</div>*/}
                 </div>
                 <div className="photo__info">
                     <div className='photo__actions'>
-                            <span className='photo__save'>
-                                Save
-                            </span>
+                        {
+                            product.inWishlist && (
+                                <span className='photo__save'>
+                                  Saved
+                              </span>
+                            )
+                        }
+                        {
+                            !product.inWishlist && (
+                                <span className='photo__save' onClick={this.addToWishlist}>
+                                    Save
+                                </span>
+                            )
+                        }
 
                         <div className="float-right">
                             <span className="photo__action">
@@ -93,28 +129,6 @@ class SellerPost extends Component {
                             </span>
                         </div>
                     </div>
-                    {/*<div className="photo__actions">*/}
-                    {/*<span className="photo__action">*/}
-                    {/*<i className="fa fa-heart-o fa-lg"/>*/}
-                    {/*</span>*/}
-                    {/*<span className="photo__action">*/}
-                    {/*<i className="fa fa-comment-o fa-lg"/>*/}
-                    {/*</span>*/}
-                    {/*</div>*/}
-                    {/*<span className="photo__likes">45 saves</span>*/}
-                    <ul className="photo__comments">
-                        <li className="photo__comment">
-                            <span className="photo__comment-author">serranoarevalo</span> love this!
-                        </li>
-                        <li className="photo__comment">
-                            <span className="photo__comment-author">serranoarevalo</span> love this!
-                        </li>
-                    </ul>
-                    <span className="photo__time-ago">2 hours ago</span>
-                    <div className="photo__add-comment-container">
-                        <textarea name="comment" placeholder="Add a comment..."/>
-                        <i className="fa fa-ellipsis-h"/>
-                    </div>
                 </div>
             </div>
         );
@@ -122,4 +136,4 @@ class SellerPost extends Component {
 }
 
 
-export default SellerPost;
+export default withApollo(ProductFeed);

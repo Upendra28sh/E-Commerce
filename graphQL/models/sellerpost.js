@@ -1,17 +1,6 @@
 const mongoose = require('mongoose');
+import Comment from './comment'
 const transformSchema = require('./utils/schemaTransform');
-
-const Comment = new mongoose.Schema({
-    text: String,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    } ,
-    username : String ,
-    mentions : [String]
-
-});
-
 
 const SellerpostSchema = new mongoose.Schema({
     image: String,

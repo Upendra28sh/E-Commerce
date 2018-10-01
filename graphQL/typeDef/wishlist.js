@@ -3,11 +3,11 @@ import {gql} from 'apollo-server';
 export default gql `
     extend type Query {
         showWishlist(user : ID): Wishlist,
-        checkInWishlist(productID: ID): Boolean
+        checkInWishlist(product: ID): Boolean
     }
 
     extend type Mutation {
-        addToWishlist(productID: ID): Wishlist,
-        removeFromWishlist(productID: ID): Wishlist 
+        addToWishlist(product: ID): Wishlist,
+        removeFromWishlist(product: ID): Wishlist 
     }
 `;

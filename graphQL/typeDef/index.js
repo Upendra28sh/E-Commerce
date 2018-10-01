@@ -51,6 +51,7 @@ const typeDefs = gql`
         description: String,
         keywords:[String],
         seller: Seller
+        inWishlist : Boolean
     }
 
     type Seller {
@@ -66,7 +67,7 @@ const typeDefs = gql`
         followers : [User]
     }
 
-    type Post {
+    type UserPost {
         id: ID,
         user: User,
         product : Product,

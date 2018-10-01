@@ -1,16 +1,8 @@
 const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
+import Comment from './comment'
 
-const Comment = new mongoose.Schema({
-    text: String,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
-});
-
-
-const PostSchema = new mongoose.Schema({
+const UserPostSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -28,4 +20,4 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Post', transformSchema(PostSchema));
+module.exports = mongoose.model('UserPost', transformSchema(UserPostSchema));
