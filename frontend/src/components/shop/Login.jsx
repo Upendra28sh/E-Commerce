@@ -130,10 +130,9 @@ class Login extends React.Component {
             >
                 {(loginMutation, {data, client}) => (
                     <div className="bg-grey">
-                        <div className="container_320">
-                            <div className="form_title">
+                            {/* <div className="form_title">
                                 <h1>Sign In</h1>
-                            </div>
+                            </div> */}
                             <div className="form_content">
                                 <Form
                                     onSubmit={e => {
@@ -183,7 +182,7 @@ class Login extends React.Component {
                                         <Button htmlType="submit" className="submit_btn">
                                             Log in
                                         </Button>
-                                        Or <a href="">register now!</a>
+                                        {/* Or <a href="">register now!</a> */}
                                     </FormItem>
                                 </Form>
 
@@ -198,12 +197,11 @@ class Login extends React.Component {
                                     />
                                 </div>
 
-                                <p style={{paddingBottom: "10px", textAlign: "center"}}>
+                                <p style={{paddingTop: "10px", textAlign: "center"}}>
                                     For help, contact us.
                                 </p>
                             </div>
                         </div>
-                    </div>
                 )}
             </Mutation>
         );

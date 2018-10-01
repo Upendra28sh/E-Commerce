@@ -113,7 +113,7 @@ class Header extends React.Component {
 
             console.log(data);
             console.log("Logout");
-            this.props.history.push('/login');
+            this.props.history.push('/');
         });
 
     }
