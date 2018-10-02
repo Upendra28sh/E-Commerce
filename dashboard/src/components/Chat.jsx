@@ -64,7 +64,7 @@ class chat extends Component {
                                         <input type="text" placeholder="Search"/>
                                         <a href="javascript:" className="search"/>
                                     </div>
-
+                                    {console.log('seller',sellerdata)}
                                     <Query query={GET_ALL_USERS}>
                                         {({data, loading}) => {
                                             if (loading) return <p>Loading ...</p>;
@@ -102,7 +102,7 @@ class chat extends Component {
                                     </span>
                                     </div>
                                     <div className="active-chat">
-                                        <div className="conversation-start">
+                                        <div style={{overflow:'hidden'}} className="conversation-start">
                                             {
                                                 this.state.messageList.map((value) => {
                                                     if (value.author === "them") {

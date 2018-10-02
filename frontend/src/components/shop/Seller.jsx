@@ -71,7 +71,13 @@ class Seller extends React.Component {
             });
         }
     }
-
+    gettochat(sellername)
+    {
+        this.props.history.push({
+            pathname: '/chat',
+            state: { sellername: sellername }
+          })
+    }
     render() {
         let shopName = this.props.match.params.id;
         return (
@@ -124,6 +130,10 @@ class Seller extends React.Component {
                                                             }}>
                                                                 {button_text}
                                                             </button>
+                                                            {isAFollower ?
+                                                            <button onClick={()=>this.gettochat(data.shopName)}>Message</button>
+                                                                : ''
+                                                            }
                                                         </div>
                                                     </div>
                                                     <p className="tagline">{data.intro}

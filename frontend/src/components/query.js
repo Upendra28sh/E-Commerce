@@ -174,6 +174,26 @@ export const GET_ENC_REQUEST = gql`
         }
     }
 `;
+export const GET_ALL_USERS = gql`
+    query {
+        allUsers {
+            username
+            name
+            image
+            about
+            email
+            following {
+                id
+            }
+            followers {
+                id
+            }
+            followingShop {
+                id
+            }
+        }
+    }
+`;
 
 export const GET_USER_ADDRESS = gql`
     {
@@ -407,18 +427,29 @@ query user($username : String!) {
         username
         email
         following{
-          id
-          name
+            id
+            username
+            image
+            about
+            name
           followingShop{
             id
+            shopName
+            image
+            about
           }
         }
-        followers{
-          id
-          
+        followers {
+            id
+            username
+            image
+            about
         }
-        followingShop{
-          id
+        followingShop {
+            id
+            shopName
+            image
+            about
         }
     }
 }

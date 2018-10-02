@@ -15,6 +15,7 @@ export const initializeFirebase = () => {
 }
 
 
+
 export const sendmessagesellertouser = async (username,message,shopname) => {
   firebase.database().ref('users/'+username+'/sellers/'+shopname).push({
     message: message,
