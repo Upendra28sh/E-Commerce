@@ -41,7 +41,7 @@ class UserPost extends Component {
 
     componentDidMount() {
         console.log("Post for User", this.props.post);
-        console.log("in_my_wishlist", this.props.post.product.in_my_wishlist);
+        // console.log("in_my_wishlist", this.props.post.product.in_my_wishlist);
         setTimeout(() => {
             this.setState({collapsed: "collapsed"});
         }, 3000);

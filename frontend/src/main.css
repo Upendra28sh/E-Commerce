@@ -83,14 +83,6 @@
 .nav-item:first-child {
   margin-top: 5px; }
 
-.notification span {
-  color: black;
-  margin: 10px;
-  font-size: 18px; }
-
-.notification div.ant-col-20 {
-  padding: 5px 10px; }
-
 .main {
   position: relative; }
 
