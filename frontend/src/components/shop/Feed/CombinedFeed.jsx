@@ -19,7 +19,7 @@ class Feed extends React.Component {
                             return "Error...";
 
                         data = data.getFeed;
-                        console.log("d", data);
+                        // console.log("d", data);
                         return data.map((feedItem, index) => {
                             if (feedItem.refString === 'Product') {
                                 return <ProductFeed key={index} product={feedItem.origin} parentFeedId={feedItem.id}/>;

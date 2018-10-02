@@ -152,7 +152,7 @@ class Header extends React.Component {
                                                             type="text"
                                                             onKeyPress={
                                                                 e => {
-                                                                    if (e.key == 'Enter') {
+                                                                    if (e.key === 'Enter') {
                                                                         this.props.history.push(`/search/${e.target.value}`);
                                                                     }
                                                                 }
@@ -174,8 +174,13 @@ class Header extends React.Component {
                                                 )
                                             }
                                             <li>
-                                                <Popover placement="bottomRight" title={text}
-                                                         content={<Notifs user={data}/>} trigger="click">
+                                                <Popover placement="bottomLeft"
+                                                         arrowPointAtCenter
+                                                         title={text}
+                                                         content={
+                                                             <Notifs history={this.props.history} user={data}/>
+                                                         }
+                                                         trigger="click">
                                                     <Icon type='bell' style={{fontSize: 18}}/>
                                                 </Popover>
                                             </li>
