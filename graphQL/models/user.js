@@ -13,6 +13,12 @@ const userSchema = new mongoose.Schema({
     about: String,
     facebook: String,
     address: [Address],
+    finished: {
+        signup: {
+            type: Boolean,
+            default: false
+        }
+    },
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
