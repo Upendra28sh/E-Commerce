@@ -4,12 +4,13 @@ import {withApollo} from 'react-apollo';
 import {gql} from 'apollo-boost';
 import BasicDetails from "./SignUpComplete/BasicDetails";
 import AddressDetails from "./SignUpComplete/AddressDetails";
+import FollowSellers from "./SignUpComplete/FollowSellers";
 
 const Step = Steps.Step;
 
 const COMPLETE_SIGNUP = gql`
-    mutation($details : UserDetailsInput , $address : AddressInput ) {
-        CompleteSignup(details :$details , address :$address) {
+    mutation($details : UserDetailsInput , $address : AddressInput, $following: [ID]! ) {
+        CompleteSignup(details :$details , address :$address, following: $following) {
             token {
                 code
                 content
@@ -31,6 +32,7 @@ class SignupComplete extends React.Component {
             city: '',
             state: '',
             zipcode: '',
+            following: []
         };
     }
 
@@ -46,10 +48,17 @@ class SignupComplete extends React.Component {
             case 1:
                 return <AddressDetails 
                             onChange={this.onChange.bind(this)} 
-                            onNext={this.onSubmit.bind(this)}
+                            onNext={this.onNext.bind(this)}
                             onPrev={this.onPrev.bind(this)}  
                             {...this.state}
                         />;
+            case 2:
+                return <FollowSellers
+                            onChange={this.onChangeFollowing.bind(this)}
+                            onNext={this.onSubmit.bind(this)}
+                            onPrev={this.onPrev.bind(this)}  
+                            {...this.state}
+                        />
         }
     }
  
@@ -67,7 +76,8 @@ class SignupComplete extends React.Component {
                 "city": this.state.city,
                 "state": this.state.state,
                 "zipcode": this.state.zipcode
-            }
+            },
+            "following": this.state.following
         };
     }
 
@@ -83,7 +93,7 @@ class SignupComplete extends React.Component {
             if (data.token.code === 1) {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
-                message.success("SignUp Successful");
+                message.success("Profile Updated");
                 window.location.reload();
                 this.props.history.push("/feed/");
             }
@@ -94,6 +104,12 @@ class SignupComplete extends React.Component {
     onChange(e) {
         this.setState({
             [e.target.id]: e.target.value
+        });
+    }
+
+    onChangeFollowing(data) {
+        this.setState({
+            following: data
         });
     }
 
@@ -135,6 +151,10 @@ class SignupComplete extends React.Component {
                                         />
                                         <Step
                                             title="Address Info"
+                                            // description="You address."
+                                        />
+                                        <Step
+                                            title="Follow Shops"
                                             // description="You address."
                                         />
                                     </Steps>

@@ -27,15 +27,15 @@ const menu = (
     <div className="categories">
         <Row>
             {
-                categories.map(category => (
+                categories.map((category, index) => (
                     <Col span={8}>
-                        <ul className="categories__list">
+                        <ul className="categories__list" key={index}>
                             <strong>
                                 <li>{category.name}</li>
                             </strong>
                             {
-                                category.items.map(item => (
-                                    <li>{item}</li>
+                                category.items.map((item, index) => (
+                                    <li key={index}>{item}</li>
                                 ))
                             }
                         </ul>

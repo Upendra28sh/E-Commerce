@@ -67,8 +67,8 @@ module.exports = {
                 );
         },
 
-        CompleteSignup: (parent, {details, address}, {user}, info) => {
-            let {name, image, about, username} = details;
+        CompleteSignup: (parent, {details, address, following}, {user}, info) => {
+            let {name, image, about} = details;
 
             return User.findOne({email: user.email}).exec()
                 .then(
@@ -78,6 +78,7 @@ module.exports = {
                         foundUser.image = image;
                         foundUser.about = about;
                         foundUser.address = address;
+                        foundUser.followingShop = following;
                         foundUser.finished.signup = true;
                         foundUser.save();
 
