@@ -9,6 +9,7 @@ import {
     SEARCH_USERS
 } from "../../query";
 import {withApollo} from 'react-apollo';
+import gql from "graphql-tag";
 
 const {toString, getMentions, toContentState, Nav} = Mention;
 
@@ -39,6 +40,7 @@ class UserPost extends Component {
 
     componentDidMount() {
         console.log("Post for User", this.props.post);
+        console.log("in_my_wishlist", this.props.post.product.in_my_wishlist);
         setTimeout(() => {
             this.setState({collapsed: "collapsed"});
         }, 3000);
@@ -98,9 +100,9 @@ class UserPost extends Component {
 
     onAddComment = () => {
         const mentions = getMentions(this.state.mention);
-        console.log(mentions);
+        // console.log(mentions);
         const string = toString(this.state.mention);
-        console.log(string);
+        // console.log(string);
         if (string.length > 0) {
             this.props.client.mutate({
                 mutation: ADD_USER_POST_COMMENT,
@@ -112,24 +114,21 @@ class UserPost extends Component {
                     }
                 },
                 update: (cache, {data}) => {
-                    let userFeed = cache.readQuery({query: GET_USER_FEED});
-                    console.log(userFeed.getFeed, data.addUserPostComment);
-                    userFeed = userFeed.getFeed.map(FeedItem => {
-                        if (FeedItem.origin.id === data.addUserPostComment.id) {
-                            console.log("Found Item For Post");
-                            FeedItem.origin.comments = data.addUserPostComment.comments;
-                            return FeedItem;
-                        }
-                        return FeedItem;
-                    });
-
-                    let writeData = {
-                        getFeed: userFeed
-                    };
-
-                    cache.writeQuery({
-                        query: GET_USER_FEED,
-                        data: writeData
+                    cache.writeFragment({
+                        id: this.props.post.id,
+                        fragment: gql`
+                            fragment f on UserPost {
+                              comments {
+                                    id ,
+                                    text , 
+                                    username
+                               }
+                            }
+                         `,
+                        data: {
+                            comments: data.addUserPostComment.comments,
+                            __typename: "UserPost"
+                        },
                     });
                 }
             }).then(({data, error}) => {
@@ -153,12 +152,38 @@ class UserPost extends Component {
                 id: this.props.post.product.id
             },
             update: (cache, {data}) => {
+                console.log(this.props.post.product.id);
+                console.log(data.addToWishlist);
+                // cache.writeFragment({
+                //     id: this.props.post.product.id,
+                //     fragment: gql`
+                //             fragment f on Product {
+                //                 image
+                //             }
+                //          `,
+                //     data: {
+                //         image: "http:google",
+                //         __typename: "Product"
+                //     },
+                // });
+                // let t = cache.readFragment({
+                //     id: this.props.post.product.id,
+                //     fragment: gql`
+                //         fragment f on Product {
+                //             image
+                //         }
+                //     `
+                // });
+                // console.log(t);
+                //
+                // //
                 let userFeed = cache.readQuery({query: GET_USER_FEED});
                 console.log(userFeed.getFeed, data.addToWishlist);
                 userFeed = userFeed.getFeed.map(FeedItem => {
                     if (FeedItem.origin.id === this.props.post.id) {
                         console.log("User Post Found");
-                        FeedItem.origin.product.inWishlist = true;
+                        FeedItem.origin.product.in_my_wishlist = true;
+                        FeedItem.origin.product.name = 'Beats W';
                         return FeedItem;
                     }
                     return FeedItem;
@@ -174,12 +199,13 @@ class UserPost extends Component {
                 });
             }
         }).then(({data, error}) => {
-            // console.log(data, error);
+            console.log(data, error);
         });
     };
 
     render() {
-        // console.log(this.props.post);
+        console.log("Post : " , this.props.post);
+        // console.log("Re-Render");
         let post = this.props.post;
         if (!post) {
             post = {};
@@ -221,14 +247,17 @@ class UserPost extends Component {
                 <div className="photo__info">
                     <div className='photo__actions'>
                         {
-                            post.product.inWishlist && (
+                            console.log(post.product.in_my_wishlist)
+                        }
+                        {
+                            post.product.in_my_wishlist && (
                                 <span className='photo__save'>
                                   Saved
                               </span>
                             )
                         }
                         {
-                            !post.product.inWishlist && (
+                            !post.product.in_my_wishlist && (
                                 <span className='photo__save' onClick={this.addToWishlist}>
                                     Save
                                 </span>

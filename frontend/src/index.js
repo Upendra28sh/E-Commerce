@@ -52,38 +52,6 @@ const BASE_URL = 'http://localhost:4000/graphql';
 // const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 console.log(auth);
-// const client = new ApolloClient({
-//     uri: BASE_URL,
-//     headers: {
-//         authorization: token ? `Bearer ${token}` : ""
-//     },
-//     clientState: {
-//         defaults: {
-//             auth: auth
-//         },
-//         resolvers: {
-//             Mutation: {
-//                 updateAuth: (_, params, {cache}) => {
-//                     let token = localStorage.getItem("token");
-//                     let found = false;
-//                     if (token) {
-//                         found = true;
-//                     }
-
-//                     let auth = {
-//                         isAuthenticated: found,
-//                         user: {...jwt.decode(token), __typename: "AuthUser"},
-//                         __typename: "Auth"
-//                     };
-
-//                     cache.writeData({data: {auth}});
-//                     return null;
-//                 }
-//             }
-//         }
-//     }
-// });
-
 
 const cache = new InMemoryCache({
     fragmentMatcher
@@ -118,6 +86,7 @@ const requestLink = new ApolloLink((operation, forward) =>
 );
 
 const client = new ApolloClient({
+    // connectToDevTools: true,
     link: ApolloLink.from([
         onError(({graphQLErrors, networkError}) => {
             if (graphQLErrors) {

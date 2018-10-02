@@ -9,7 +9,7 @@ import Chat from '../Chat';
 class Feed extends React.Component {
     render() {
         return (
-            <main id='feed' style={{overflow : 'hidden'}}>
+            <main id='feed' style={{overflow: 'hidden'}}>
                 <Query query={GET_USER_FEED}>
                     {({loading, error, data}) => {
                         if (loading)
@@ -18,8 +18,8 @@ class Feed extends React.Component {
                         if (error)
                             return "Error...";
 
-                        data = data.getFeed ;
-                        // console.log("d",data);
+                        data = data.getFeed;
+                        console.log("d", data);
                         return data.map((feedItem, index) => {
                             if (feedItem.refString === 'Product') {
                                 return <ProductFeed key={index} product={feedItem.origin}/>;

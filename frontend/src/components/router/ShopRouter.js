@@ -18,7 +18,7 @@ import Trending from "../shop/Trending/Trending";
 import OrderList from "../shop/Order/OrderList";
 import RequireAuth from "../utils/RequireAuth";
 import TrendingFeed from "../shop/TrendingFeed";
-import addPost from "../shop/addpost"
+// import addPost from "../shop/addpost"
 import Chat from "../shop/Chat"
 import CheckoutReview from "../shop/Checkout/CheckoutReview";
 import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";

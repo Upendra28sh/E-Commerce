@@ -1,27 +1,16 @@
 import React, {Component} from 'react';
-import {Button, Input, Mention, Form} from 'antd';
+import {Mention} from 'antd';
 import {
     ADD_SELLER_COMMENT,
     ADD_SELLER_POST_LIKE,
-    GET_USER_FEED,
     REMOVE_SELLER_POST_LIKE,
     SEARCH_USERS
 } from '../../query';
-import {Mutation, withApollo} from 'react-apollo';
+import {withApollo} from 'react-apollo';
+import {gql} from 'apollo-boost'
 
 const {toString, getMentions, toContentState, Nav} = Mention;
 
-let defaultPost = {
-    id: '123',
-    seller: {
-        name: "default"
-    }
-};
-
-
-const {TextArea} = Input;
-
-// TODO : Implement Likes
 
 class SellerPost extends Component {
 
@@ -90,28 +79,20 @@ class SellerPost extends Component {
                     post: this.props.post.id
                 }
             },
-            update: (cache, {data , errors}) => {
-                console.log(errors)
-                let userFeed = cache.readQuery({query: GET_USER_FEED});
-                console.log(userFeed.getFeed, data.removeSellerPostLike);
-                userFeed = userFeed.getFeed.map(FeedItem => {
-
-                    if (FeedItem.origin.id === data.removeSellerPostLike.id) {
-                        console.log("Found Item For Post");
-                        FeedItem.origin.liked_by_me = data.removeSellerPostLike.liked_by_me;
-                        FeedItem.origin.likes = data.removeSellerPostLike.likes;
-                        return FeedItem;
-                    }
-                    return FeedItem;
-                });
-
-                let writeData = {
-                    getFeed: userFeed
-                };
-
-                cache.writeQuery({
-                    query: GET_USER_FEED,
-                    data: writeData
+            update: (cache, {data, errors}) => {
+                cache.writeFragment({
+                    id: this.props.post.id,
+                    fragment: gql`
+                            fragment f on Sellerpost {
+                              likes ,
+                              liked_by_me
+                            }
+                         `,
+                    data: {
+                        likes : data.removeSellerPostLike.likes ,
+                        liked_by_me : data.removeSellerPostLike.liked_by_me ,
+                        __typename : "Sellerpost"
+                    },
                 });
             }
         }).then(({data, error}) => {
@@ -127,25 +108,19 @@ class SellerPost extends Component {
                 }
             },
             update: (cache, {data}) => {
-                let userFeed = cache.readQuery({query: GET_USER_FEED});
-                // console.log(userFeed.getFeed, data.addSellerPostLike);
-                userFeed = userFeed.getFeed.map(FeedItem => {
-                    if (FeedItem.origin.id === data.addSellerPostLike.id) {
-                        console.log("Found Item For Post");
-                        FeedItem.origin.liked_by_me = data.addSellerPostLike.liked_by_me;
-                        FeedItem.origin.likes = data.addSellerPostLike.likes;
-                        return FeedItem;
-                    }
-                    return FeedItem;
-                });
-
-                let writeData = {
-                    getFeed: userFeed
-                };
-
-                cache.writeQuery({
-                    query: GET_USER_FEED,
-                    data: writeData
+                cache.writeFragment({
+                    id: this.props.post.id,
+                    fragment: gql`
+                            fragment f on Sellerpost {
+                              likes ,
+                              liked_by_me
+                            }
+                         `,
+                    data: {
+                        likes : data.addSellerPostLike.likes ,
+                        liked_by_me : data.addSellerPostLike.liked_by_me ,
+                        __typename : "Sellerpost"
+                    },
                 });
             }
         }).then(({data, error}) => {
@@ -155,9 +130,9 @@ class SellerPost extends Component {
 
     onAddComment = () => {
         const mentions = getMentions(this.state.mention);
-        console.log(mentions);
+        // console.log(mentions);
         const string = toString(this.state.mention);
-        console.log(string);
+        // console.log(string);
         if (string.length > 0) {
             this.props.client.mutate({
                 mutation: ADD_SELLER_COMMENT,
@@ -169,24 +144,21 @@ class SellerPost extends Component {
                     }
                 },
                 update: (cache, {data}) => {
-                    let userFeed = cache.readQuery({query: GET_USER_FEED});
-                    console.log(userFeed.getFeed, data.addSellerComment);
-                    userFeed = userFeed.getFeed.map(FeedItem => {
-                        if (FeedItem.origin.id === data.addSellerComment.id) {
-                            console.log("Found Item For Post");
-                            FeedItem.origin.comments = data.addSellerComment.comments;
-                            return FeedItem;
-                        }
-                        return FeedItem;
-                    });
-
-                    let writeData = {
-                        getFeed: userFeed
-                    };
-
-                    cache.writeQuery({
-                        query: GET_USER_FEED,
-                        data: writeData
+                    cache.writeFragment({
+                        id: this.props.post.id,
+                        fragment: gql`
+                            fragment f on Sellerpost {
+                              comments {
+                                    id ,
+                                    text , 
+                                    username
+                               }
+                            }
+                         `,
+                        data: {
+                            comments : data.addSellerComment.comments,
+                            __typename : "Sellerpost"
+                        },
                     });
                 }
             }).then(({data, error}) => {

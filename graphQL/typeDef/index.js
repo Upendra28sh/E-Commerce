@@ -50,8 +50,8 @@ const typeDefs = gql`
         returnAccepted : Boolean ,
         description: String,
         keywords:[String],
-        seller: Seller
-        inWishlist : Boolean
+        seller: Seller ,
+        in_my_wishlist : Boolean
     }
 
     type Seller {

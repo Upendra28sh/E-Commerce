@@ -8,10 +8,10 @@ import { createUploadLink } from 'apollo-upload-client';
 import {gql} from "apollo-boost";
 
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: createUploadLink({uri:'http://localhost:4000'}),
-});
+// const client = new ApolloClient({
+//   cache: new InMemoryCache(),
+//   link: createUploadLink({uri:'http://localhost:4000'}),
+// });
 
 
 class addPost extends React.Component {

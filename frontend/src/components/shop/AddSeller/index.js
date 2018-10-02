@@ -7,9 +7,9 @@ import SellerDetails from './SellerDetails';
 import ShopDetails from './ShopDetails';
 import ShopPolicy from './ShopPolicy';
 
-const client = new ApolloClient({
-    uri: "http://localhost:4000"
-});
+// const client = new ApolloClient({
+//     uri: "http://localhost:4000"
+// });
 
 class AddSeller extends React.Component {
     constructor(props) {

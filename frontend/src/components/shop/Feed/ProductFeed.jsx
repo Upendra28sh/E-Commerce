@@ -50,7 +50,7 @@ class ProductFeed extends Component {
                 userFeed = userFeed.getFeed.map(FeedItem => {
                     if (FeedItem.origin.id === this.props.product.id) {
                         console.log("User Post Found");
-                        FeedItem.origin.inWishlist = true;
+                        FeedItem.origin.in_my_wishlist = true;
                         return FeedItem;
                     }
                     return FeedItem;
@@ -106,14 +106,14 @@ class ProductFeed extends Component {
                 <div className="photo__info">
                     <div className='photo__actions'>
                         {
-                            product.inWishlist && (
+                            product.in_my_wishlist && (
                                 <span className='photo__save'>
                                   Saved
                               </span>
                             )
                         }
                         {
-                            !product.inWishlist && (
+                            !product.in_my_wishlist && (
                                 <span className='photo__save' onClick={this.addToWishlist}>
                                     Save
                                 </span>

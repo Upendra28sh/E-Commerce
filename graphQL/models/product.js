@@ -22,6 +22,8 @@ const productSchema = new mongoose.Schema({
 
     keywords: [String],
 
+    in_my_wishlist : {type : Boolean , default : false},
+
     approval: {
         approved: {
             type: Boolean,

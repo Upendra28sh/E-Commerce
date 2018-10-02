@@ -264,14 +264,16 @@ export const GET_USER_FEED = gql`
                     id,
                     caption ,              
                     product {
+                        id
                         name ,
                         image ,
-                        inWishlist
+                        in_my_wishlist ,
                         seller {
                             name 
                         }
                     }
                     user {
+                        id
                         name ,
                         username ,
                         image
@@ -306,7 +308,7 @@ export const GET_USER_FEED = gql`
                     image ,
                     sizes ,
                     price,
-                    inWishlist,
+                    in_my_wishlist,
                     description ,
                     codAccepted ,
                     returnAccepted
@@ -497,9 +499,6 @@ export const ADD_TO_WISHLIST = gql`
     mutation add($id: ID) {
         addToWishlist(product: $id) {
             id
-            products {
-                id
-            }
         }
     }
 `;

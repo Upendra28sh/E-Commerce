@@ -47,6 +47,7 @@ module.exports = {
                                         populate: {path: 'seller', model: Seller}
                                     }).execPopulate().then(_ => {
                                         // console.log(_);
+                                        // _.origin.product.in_my_wishlist = true ;
                                         return _;
                                     });
                             }
