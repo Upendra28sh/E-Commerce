@@ -88,7 +88,7 @@ class ProductFeed extends Component {
                 >
                     <img src={product.image}/>
                     <div className="photo__image__layer"/>
-                    <Link to={`/feed`}>
+                    <Link to={`/feed/product/${product.id}`}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
 

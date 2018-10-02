@@ -54,7 +54,7 @@ const Router = (props) => {
                     <Route exact path="/thanks" component={RequireAuth(Thanks)} /> */}
                 <Route exact path="/orders" component={RequireAuth(OrderList)}/>
                 <Route path="/order/:order_number" component={RequireAuth(Order)}/>
-                <Route path="/feed/:id" component={RequireAuth(FeedDetail)}/>
+                <Route exact path="/feed/:id" component={RequireAuth(FeedDetail)}/>
                 <Route path="/feed/" component={RequireAuth(Feed)}/>
                 <Route path="/trending" component={RequireAuth(Trending)}/>
             </Switch>

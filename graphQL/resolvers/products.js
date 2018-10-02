@@ -46,7 +46,9 @@ module.exports = {
         },
 
         getProducts: (parent, args, context, info) => {
-            return Product.find({}).populate('seller').exec().then(
+            return Product.find({
+                'approval.approved' : true 
+            }).populate('seller').exec().then(
                 data => {
                     let temp = [];
                     for (let i of data) {

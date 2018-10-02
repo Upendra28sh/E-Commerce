@@ -21,29 +21,21 @@ class TrendingFeed extends React.Component {
                 </Col>
                 <Col span={6}>
                     <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product2.jpg"/>
-                    <Icon type="video-camera" theme="filled" className="topRight"/>
+                    <div className="topRight">
+                        <Icon type="video-camera" theme='filled'/>
+                    </div>
                 </Col>
                 <Col span={6}>
                     <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product3.jpg"/>
-                    <Icon type="file-text" theme="filled" className="topRight"/>
+                    <div className="topRight">
+                        <Icon type="file-text" theme='filled'/>
+                    </div>
                 </Col>
                 <Col span={6}>
                     <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product3.jpg"/>
-                    <Icon type="file-text" theme="filled" className="topRight"/>
-                </Col>
-            </Row>
-            <Row gutter={{xs: 2, sm: 8, md: 12, lg: 16}} className="row_feed">
-                <Col span={8}>
-                    <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product1.jpg"/>
-                    <Icon type="camera" className="topRight"/>
-                </Col>
-                <Col span={8}>
-                    <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product2.jpg"/>
-                    <Icon type="video-camera" theme="filled" className="topRight"/>
-                </Col>
-                <Col span={8}>
-                    <img style={{maxHeight: '100%', maxWidth: '100%'}} src="./product_images/product3.jpg"/>
-                    <Icon type="file-text" theme="filled" className="topRight"/>
+                    <div className="topRight">
+                        <Icon type="file-text" theme='filled'/>
+                    </div>
                 </Col>
             </Row>
 

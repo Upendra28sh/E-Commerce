@@ -3,7 +3,7 @@ import {Card, Row, Col, Divider, Button} from 'antd';
 import {Link} from 'react-router-dom';
 
 const CardTitle = (props) => (
-    <div>
+    <div style={{width : '100%'}}>
         <div className="float-left">
             <Link to={`/order/${props.order.order_number}/`}>
                 <Button className='theme_button'>OD{props.order.order_number}</Button>

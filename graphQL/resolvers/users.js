@@ -54,9 +54,29 @@ module.exports = {
                 username: regex
             }, 'username name id').limit(5).then(data => {
                 // console.log(data);
-                return data ;
+                return data;
+            });
+        },
+
+        searchUsersAndSellers: (parent, {query}, context, info) => {
+            let regex = new RegExp("^" + query, 'i');
+            return User.find({
+                username: regex
+            }).limit(5).then(userResults => {
+                // console.log(data);
+                return Seller.find({
+                    shopName : regex
+                }).limit(5).then(sellerResults => {
+                    return {
+                        sellers : sellerResults ,
+                        users : userResults
+                    };
+                })
+
             });
         }
+
+
     },
 
     Mutation: {

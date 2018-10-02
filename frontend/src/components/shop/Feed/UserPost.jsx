@@ -223,7 +223,7 @@ class UserPost extends Component {
                 >
                     <img src={post.product.image}/>
                     <div className="photo__image__layer"/>
-                    <Link to={`/feed`}>
+                    <Link to={`/feed/product/${post.product.id}`}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
                     <div className={`photo__image__pointer ${this.state.collapsed}`}>

@@ -130,6 +130,7 @@ export const GET_ORDER_BY_USER = gql`
                     description
                     sizes
                     seller {
+                        id
                         name
                         image
                     }
