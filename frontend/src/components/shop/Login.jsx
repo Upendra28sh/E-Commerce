@@ -25,6 +25,8 @@ class Login extends React.Component {
             "accessToken": data.accessToken,
             "userID": data.userID
         };
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('userID', data.userID);
         this.props.client.mutate({
             mutation: FB_SIGNIN,
             variables: {input: input},

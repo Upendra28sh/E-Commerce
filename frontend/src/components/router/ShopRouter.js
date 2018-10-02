@@ -25,19 +25,19 @@ import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 import Order from "../shop/Order/Order";
 import FeedDetail from "../shop/Feed/FeedDetail";
 import SignupComplete from "../shop/SignupComplete";
-import Temp from "../shop/Temp";
+import FacebookConnect from "../shop/FacbookConnect";
 
 const Router = () => {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/temp" component={Temp}/>
         <Route exact path="/chat" component={RequireAuth(Chat)}/>
         {/* <Route exact path="/signup" component={SignUp} /> */}
         <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)} />
         {/* <Route exact path="/login" component={SignIn} /> */}
         {/*<Route exact path="/addPost" component={addPost}/>*/}
+        <Route exact path="/facebook" component={RequireAuth(FacebookConnect)} />
         <Route exact path="/trendingfeed" component={RequireAuth(TrendingFeed)}/>
         <Route path="/search/:query/" component={RequireAuth(Search)} />
         <Route exact path="/user/:id" component={RequireAuth(User)} />

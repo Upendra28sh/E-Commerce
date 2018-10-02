@@ -36,7 +36,8 @@ const resolvers = {
         ...sellerpost.Query,
         ...wishlist.Query,
         ...approval.Query,
-        ...notification.Query
+        ...notification.Query,
+        ...fbAuth.Query
     },
 
     Mutation: {

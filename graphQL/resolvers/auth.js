@@ -69,7 +69,7 @@ module.exports = {
 
         CompleteSignup: (parent, {details, address, following}, {user}, info) => {
             let {name, image, about} = details;
-
+            console.log(user);
             return User.findOne({email: user.email}).exec()
                 .then(
                     (foundUser, err) => {
