@@ -24,6 +24,7 @@ import fbAuthTypedef from './fbAuth';
 // 3 -> Invalid password
 // 4 -> Email not registered
 // 5 -> Error occured with Facebook
+// 6 -> Username already taken
 
 const typeDefs = gql`
     type Query {

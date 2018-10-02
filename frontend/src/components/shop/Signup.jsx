@@ -1,16 +1,16 @@
 import React from "react";
-import {Button, Form, Icon, Input, message} from "antd";
+import {Button, Form, Icon, Input, message, Alert} from "antd";
 import gql from "graphql-tag";
 import {Mutation, withApollo} from "react-apollo";
-import jwt from "jsonwebtoken";
 import FacebookLogin from 'react-facebook-login';
-import {FB_SIGNIN, GET_AUTH} from "../query";
+import {FB_SIGNUP, GET_AUTH} from "../query";
+import jwt from 'jsonwebtoken';
 
 const FormItem = Form.Item;
 
-const LOGIN_MUTATION = gql`
-    mutation Login($input: AuthInput) {
-        UserLogin(input: $input) {
+const SIGNUP_FIRST = gql`
+    mutation FirstSignup($input: NewUserInput) {
+        CreateUser(input: $input) {
             token {
                 code
                 content
@@ -19,80 +19,44 @@ const LOGIN_MUTATION = gql`
     }
 `;
 
-class Login extends React.Component {
+class Signup extends React.Component {
     responseFacebook = (data) => {
         const input = {
             "accessToken": data.accessToken,
             "userID": data.userID
         };
+        console.log(input);
         this.props.client.mutate({
-            mutation: FB_SIGNIN,
-            variables: {input: input},
-            update: (cache, {data: {fbSignin}}) => {
-                console.log(fbSignin);
-                let auth = {
-                    isAuthenticated: fbSignin.token.code === 1,
-                    user: {
-                        id: "",
-                        name: "",
-                        username: "",
-                        ...jwt.decode(fbSignin.token.content),
-                        __typename: "AuthUser"
-                    },
-                    __typename: "Auth"
-                };
-
-                cache.writeQuery({
-                    query: GET_AUTH,
-                    data: {auth}
-                });
-            }
+            mutation: FB_SIGNUP,
+            variables: {input: input}
         }).then((data) => {
-            // console.log(data);
-            data = data.data.fbSignin;
-            // console.log(data);
+            data = data.data.fbSignup;
+            console.log(data);
             if (data.token.code === 1) {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
-                message.success("Login Successful");
-                setTimeout(() => {
-                    this.props.history.push("/feed/");
-                } , 1000);
+                message.success("SignUp Successful");
+                this.props.history.push("/feed/");
             } else {
                 message.error(data.token.content);
             }
         });
     };
-    handleSubmit = (loginMutation, client) => {
+
+    handleSubmit = (signupMutation) => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log("Received values of form: ", values);
-                loginMutation({variables: {input: values}}).then(({data}) => {
-                    if (data.UserLogin.token.code === 1) {
-                        console.log(data.UserLogin.token.content);
-                        localStorage.setItem("token", data.UserLogin.token.content);
-                        // askForPermissionToReceiveNotifications().then(token => {
-                        //   client.mutate({
-                        //     mutation: gql`
-                        //                       mutation {
-                        //                           Notify(
-                        //                             Email:"${values.email}"
-                        //                             UserToken: "${token}"
-                        //                           ) {
-                        //                             id
-                        //                           }
-                        //                         }
-                        //
-                        //                       `
-                        //   });
-                        // });
-                        message.success("Login Successful");
+                signupMutation({variables: {input: values}}).then(({data}) => {
+                    console.log(data);
+                    if (data.CreateUser.token.code === 1) {
+                        console.log(data.CreateUser.token.content);
+                        localStorage.setItem("token", data.CreateUser.token.content);
+                        message.success("Signup Successful");
                         setTimeout(() => {
-                            this.props.history.push("/feed/");                            
-                        } , 1000);
-                        // this.props.history.push("/feed/");
+                            this.props.history.push("/signup/complete");                            
+                        }, 1000);
                     } else {
-                        message.error(data.UserLogin.token.content);
+                        message.error(data.CreateUser.token.content);
                     }
                 });
             }
@@ -101,6 +65,9 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            error: undefined
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.responseFacebook = this.responseFacebook.bind(this);
     }
@@ -109,16 +76,16 @@ class Login extends React.Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <Mutation
-                mutation={LOGIN_MUTATION}
-                update={(cache, {data: {UserLogin}}) => {
-                    console.log(UserLogin);
+                mutation={SIGNUP_FIRST}
+                update={(cache, {data: {CreateUser}}) => {
+                    console.log(CreateUser);
                     let auth = {
-                        isAuthenticated: UserLogin.token.code === 1,
+                        isAuthenticated: CreateUser.token.code === 1,
                         user: {
                             id: "",
                             name: "",
                             username: "",
-                            ...jwt.decode(UserLogin.token.content),
+                            ...jwt.decode(CreateUser.token.content),
                             __typename: "AuthUser"
                         },
                         __typename: "Auth"
@@ -130,13 +97,13 @@ class Login extends React.Component {
                     });
                 }}
             >
-                {(loginMutation, {data, client}) => (
+                {(signupMutation, {data, client}) => (
                     <div className="bg-grey">
                             <div className="form_content">
                                 <Form
                                     onSubmit={e => {
                                         e.preventDefault();
-                                        this.handleSubmit(loginMutation, client);
+                                        this.handleSubmit(signupMutation);
                                     }}
                                 >
                                     <FormItem>
@@ -153,6 +120,24 @@ class Login extends React.Component {
                                                     />
                                                 }
                                                 placeholder="Email"
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <FormItem>
+                                        {getFieldDecorator("username", {
+                                            rules: [
+                                                {required: true, message: "Please input a username!"}
+                                            ]
+                                        })(
+                                            <Input
+                                                prefix={
+                                                    <span
+                                                        style={{color: "rgba(0,0,0,.25)", fontSize: '14px'}}
+                                                    >
+                                                        @
+                                                    </span>
+                                                }
+                                                placeholder="Username"
                                             />
                                         )}
                                     </FormItem>
@@ -179,20 +164,26 @@ class Login extends React.Component {
                                     </FormItem>
                                     <FormItem>
                                         <Button htmlType="submit" className="submit_btn">
-                                            Log in
+                                            Sign Up
                                         </Button>
                                         {/* Or <a href="">register now!</a> */}
                                     </FormItem>
                                 </Form>
-
+                              
+                                { this.state.error && <Alert
+                                    message={this.state.error}
+                                    type="error"
+                                    closable
+                                /> }
                                 <div>
                                     <FacebookLogin
                                         appId="285659762264023"
                                         callback={(data) => {
-                                            this.responseFacebook(data, LOGIN_MUTATION);
+                                            this.responseFacebook(data, SIGNUP_FIRST);
                                         }}
                                         icon="fa-facebook"
                                         scope="public_profile,user_friends,email"
+                                        textButton="Signup with Facebook"
                                     />
                                 </div>
 
@@ -200,13 +191,14 @@ class Login extends React.Component {
                                     For help, contact us.
                                 </p>
                             </div>
-                        </div>
+                            
+                    </div>
                 )}
             </Mutation>
         );
     }
 }
 
-const WrappedLogin = Form.create()(Login);
+const WrappedSignup = Form.create()(Signup);
 
-export default withApollo(WrappedLogin);
+export default withApollo(WrappedSignup);

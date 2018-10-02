@@ -3,16 +3,15 @@ import {Steps, Icon, Card, Button} from "antd";
 import {message} from "antd/lib/index";
 import {withApollo} from 'react-apollo';
 import FacebookSignup from 'react-facebook-login';
-import BasicDetails from "./SignUp/BasicDetails";
-import AddressDetails from "./SignUp/AddressDetails";
-import PasswordDetails from "./SignUp/PasswordDetails";
-import {USER_SIGNUP, FB_SIGNUP} from "../query";
+import BasicDetails from "../SignUp/BasicDetails";
+import AddressDetails from "../SignUp/AddressDetails";
+import PasswordDetails from "../SignUp/PasswordDetails";
+import {USER_SIGNUP, FB_SIGNUP} from "../../query";
 
 const Step = Steps.Step;
 
 // TODO : Update Cache as Done in Login
 // TODO : Check for Availability of UserName
-
 
 class SignUp extends React.Component {
     constructor(props) {

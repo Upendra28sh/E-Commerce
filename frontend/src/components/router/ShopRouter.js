@@ -3,8 +3,8 @@ import { Switch, Route } from "react-router-dom";
 
 import Landing from "../shop/Landing";
 import Search from "../shop/Search";
-import SignUp from "../shop/SignUp";
-import SignIn from "../shop/Login";
+// import SignUp from "../shop/SignUp";
+// import SignIn from "../shop/Login";
 import User from "../shop/User";
 import Seller from "../shop/Seller";
 // import AddSeller from "../shop/AddSeller/index";
@@ -24,15 +24,19 @@ import CheckoutReview from "../shop/Checkout/CheckoutReview";
 import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 import Order from "../shop/Order/Order";
 import FeedDetail from "../shop/Feed/FeedDetail";
+import SignupComplete from "../shop/SignupComplete";
+import Temp from "../shop/Temp";
 
 const Router = () => {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
+        <Route exact path="/temp" component={Temp}/>
         <Route exact path="/chat" component={RequireAuth(Chat)}/>
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={SignIn} />
+        {/* <Route exact path="/signup" component={SignUp} /> */}
+        <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)} />
+        {/* <Route exact path="/login" component={SignIn} /> */}
         {/*<Route exact path="/addPost" component={addPost}/>*/}
         <Route exact path="/trendingfeed" component={RequireAuth(TrendingFeed)}/>
         <Route path="/search/:query/" component={RequireAuth(Search)} />

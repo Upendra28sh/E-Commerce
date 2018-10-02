@@ -1,33 +1,95 @@
-.bg-image {
-  height: 100vh;
-  width: 100%;
-  background-position: center !important;
-  background-size: cover !important;
-  background-repeat: no-repeat;
-  
-  .landing_logo {
-    height: 34px;
-    margin-top: 5px;
-  }
-  
-  .landing_item {
-    background-color: transparent;
-    float: right;
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    
-    &:hover {
-      border-bottom: solid 1px white;
-    }
-  }
-  
-  #landing_header {
-    color: white;
-    font-family: Lato, sans-serif;
-    font-size: 80px;
-    font-weight: 900;
-    text-align: center;
-    margin-top: 344px;
-  }
+// .bg-image {
+//   height: 100vh;
+//   width: 100%;
+//   background-position: center !important;
+//   background-size: cover !important;
+//   background-repeat: no-repeat;
+
+//   .landing_logo {
+//     height: 34px;
+//     margin-top: 5px;
+//   }
+
+//   .landing_item {
+//     background-color: transparent;
+//     float: right;
+//     color: white;
+//     font-weight: 600;
+//     font-size: 14px;
+
+//     &:hover {
+//       border-bottom: solid 1px white;
+//     }
+//   }
+
+//   #landing_header {
+//     color: white;
+//     font-family: Lato, sans-serif;
+//     font-size: 80px;
+//     font-weight: 900;
+//     text-align: center;
+//     margin-top: 344px;
+//   }
+// }
+.main {
+	position: relative;
+}
+
+.main_page {
+	background: url("/main.jpg");
+	height: 100vh;
+	width: 100%;
+	background-position: center !important;
+	background-size: cover !important;
+	background-repeat: no-repeat;
+	position: absolute;
+	filter: blur(5px);
+}
+
+.main_content {
+	position: relative;
+	padding-top: 12%;
+}
+
+.main_box {
+	border: solid 1px #fafafa;
+	border-radius: 5px;
+	background-color: rgba($color: white, $alpha: 0.6);
+	width: 23%;
+	margin: auto;
+
+	.box_header {
+		padding-bottom: 5px;
+
+		div {
+			width: 50%;
+			font-size: 32px;
+			text-align: center;
+			display: inline-block;
+			cursor: pointer;
+			border-bottom: solid 1px white;
+			padding-top: 5px;
+		}
+
+		.selected {
+			background: rgba(white, 0.7)
+		}
+		
+		div:hover {
+			background: rgba(white, 0.7)
+		}
+
+		:first-child {
+			border-right: solid 1px white;
+		}
+	}
+
+	.box_content {
+		padding: 5% 8%;
+	}
+}
+
+button.kep-login-facebook.metro {
+	display: block;
+	margin: auto;
 }

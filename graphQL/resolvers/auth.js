@@ -6,9 +6,109 @@ const config = require('../config');
 
 module.exports = {
     Mutation: {
+        CreateUser: (parent, {input}, context, address) => {
+            let {email, password, username} = input;
+            // console.log(input);
+            return User.findOne({email: email}).exec()
+                .then(
+                    foundUser => {
+                        if (foundUser) {
+                            return {
+                                token: {
+                                    code: 2,
+                                    content: "Email already registered"
+                                }
+                            };
+                        } else {
+                            // checking for unique username
+                            return User.findOne({username: username}).exec()
+                                .then(
+                                    foundUsername => {
+                                        if (foundUsername) {
+                                            console.log("Username found");
+                                            return {
+                                                token: {
+                                                    code: 6,
+                                                    content: "Username already taken"
+                                                }
+                                            }
+                                        } else {
+                                            const hashedPassword = bcrypt.hashSync(password);
+                                            return User.create({
+                                                email: email,
+                                                password: hashedPassword,
+                                                username: username
+                                            }).then(
+                                                createdUser => {
+                                                    console.log(createdUser);
+                                                    const token = jwt.sign(
+                                                        {
+                                                            id: createdUser._id,
+                                                            username: createdUser.username,
+                                                            email: createdUser.email,
+                                                            finished: createdUser.finished.signup
+                                                        },
+                                                        config.secret,
+                                                        {expiresIn: 86400}
+                                                    );
+                                                    return {
+                                                        token: {
+                                                            code: 1,
+                                                            content: token
+                                                        }
+                                                    };
+                                                }
+                                            )
+                                        }
+                                    }
+                                );
+                        }
+                    }
+                );
+        },
+
+        CompleteSignup: (parent, {details, address, following}, {user}, info) => {
+            let {name, image, about} = details;
+
+            return User.findOne({email: user.email}).exec()
+                .then(
+                    (foundUser, err) => {
+                        console.log(err);
+                        foundUser.name = name;
+                        foundUser.image = image;
+                        foundUser.about = about;
+                        foundUser.address = address;
+                        foundUser.followingShop = following;
+                        foundUser.finished.signup = true;
+                        foundUser.save();
+
+                        const token = jwt.sign(
+                            {
+                                id: foundUser._id,
+                                name: foundUser.name,
+                                image: foundUser.image,
+                                email: foundUser.email,
+                                about: foundUser.about,
+                                username: foundUser.username,
+                                finished: foundUser.finished.signup
+                            },
+                            config.secret,
+                            {expiresIn: 86400}
+                        );
+                        return {
+                            token: {
+                                code: 1,
+                                content: token
+                            }
+                        };
+                    }
+                );
+        },
+
+        // Not being used anymore but updated with changes made in type definitions
         UserSignup: (parent, {input, details, address}, context, info) => {
-            let {email, password} = input;
-            let {name, image, about, username} = details;
+            let {email, password, username} = input;
+            let {name, image, about} = details;
             let {street, city, state, zipcode} = address;
 
             return User.findOne({email: email}).exec()
@@ -49,12 +149,13 @@ module.exports = {
 
                                             const token = jwt.sign(
                                                 {
-                                                    id: createdUser._id,
-                                                    name: createdUser.name,
-                                                    image: createdUser.image,
-                                                    email: createdUser.email,
-                                                    about: createdUser.about,
-                                                    username: createdUser.username
+                                                    id: foundUser._id,
+                                                    name: foundUser.name,
+                                                    image: foundUser.image,
+                                                    email: foundUser.email,
+                                                    about: foundUser.about,
+                                                    username: foundUser.username,
+                                                    finished: foundUser.finished.signup
                                                 },
                                                 config.secret,
                                                 {expiresIn: 86400}
@@ -100,7 +201,8 @@ module.exports = {
                                         image: foundUser.image,
                                         email: foundUser.email,
                                         about: foundUser.about,
-                                        username: foundUser.username
+                                        username: foundUser.username,
+                                        finished: foundUser.finished.signup
                                     },
                                     config.secret,
                                     {expiresIn: 86400}
