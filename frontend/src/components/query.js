@@ -455,11 +455,31 @@ query user($username : String!) {
 }
 `;
 
+export const GET_SEARCH_USER_SELLER = gql`
+query($input : String!){
+  searchUsersAndSellers(query : $input) {
+    sellers {
+      id
+      name 
+      shopName 
+      image
+    } 
+    users {
+      id
+      name
+      username
+      image
+    }
+  }
+}
+`;
+
 export const GET_POST = gql`
     query post($username : String!) {
         UserPosts(username : $username) {
             id
             product {
+              id
               name
               image
               description
@@ -499,6 +519,28 @@ export const GET_SELLER = gql`
             followers{
                 id
               }
+        }
+    }
+`;
+
+export const GET_PRODUCT = gql`
+    query($input : ID!) {
+        Product(id: $input) {
+            id
+            name
+            image
+            price
+            sizes
+            codAccepted
+            returnAccepted
+            description
+            keywords
+            seller {
+                id
+                name
+                image
+                about
+            }
         }
     }
 `;
@@ -591,7 +633,7 @@ export const ADD_SELLER_POST_LIKE = gql`
         likes
       }
     }
-`
+`;
 export const REMOVE_SELLER_POST_LIKE = gql`
     mutation($input : removeLikeInput) {
       removeSellerPostLike(input : $input){
@@ -600,7 +642,7 @@ export const REMOVE_SELLER_POST_LIKE = gql`
         id ,
       }
     }
-`
+`;
 export const ADD_USER_POST_COMMENT = gql`
     mutation($input : addCommentInput){
         addUserPostComment(input : $input){

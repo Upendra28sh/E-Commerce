@@ -4,46 +4,23 @@ import {Button, Col, Icon, InputNumber, Row, Select, Tabs} from "antd";
 import gql from "graphql-tag";
 import {Query, withApollo} from "react-apollo";
 import {ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST} from '../query';
+import {GET_PRODUCT} from "../query";
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
 
 const decideQuery = bool => bool ? REMOVE_FROM_WISHLIST : ADD_TO_WISHLIST;
 
-let GET_PRODUCT = undefined;
 
 
 class Details extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: undefined
+            visible: false
         };
         this.handleAddToCart = this.handleAddToCart.bind(this);
     }
-
-    // handleCancel = () => {
-    //     this.setState(() => ({visible: false}));
-    //     // this.props.history.push('/shop');
-    //     this.props.history.goBack();
-    // };
-
-    // checkUser() {
-    //     if (this.props.token) {
-    //         this.props.addToCart(this.props.details.id, this.props.token);
-    //     } else {
-    //         this.props.emptyFields();
-    //     }
-    // }
-
-    // containsObject(obj, list) {
-    //     for (let i = 0; i < list.length; i++) {
-    //         if (list[i].id === obj.id) {
-    //             return i;
-    //         }
-    //     }
-    //     return -1;
-    // }
 
     componentWillMount() {
         const path = this.props.location.pathname;
@@ -51,7 +28,7 @@ class Details extends React.Component {
 
         const query = gql`
             query {
-                checkInWishlist(productID: "${id}")
+                checkInWishlist(product: "${id}")
             }
         `;
 
@@ -60,55 +37,18 @@ class Details extends React.Component {
         }).then(
             data => {
                 data = data.data.checkInWishlist;
+                console.log("Check in Wishlist : " ,data);
                 let ans;
                 if (data == true) {
                     ans = true;
                 } else {
                     ans = false;
                 }
-                this.setState(() => ({
+                this.setState({
                     visible: ans
-                }));
+                });
             }
         );
-
-        GET_PRODUCT = gql`
-            query {
-                Product(id: "${id}") {
-                    id
-                    name
-                    image
-                    price
-                    sizes
-                    codAccepted
-                    returnAccepted
-                    description
-                    keywords
-                    seller {
-                        id
-                        name
-                        image
-                        about
-                    }
-                }
-            }
-        `;
-        // console.log(this.props.products);
-        // console.log("Actions : ", actions);
-
-        // if (this.props.products.length === 0) {
-        //     console.log("Products Currently Empty");
-        //     this.props.getProducts().then(data => {
-        //         console.log("Success");
-        //         console.log("Fetched Products : ", this.props.products);
-        //         this.props.getDetails(this.props.match.params.id);
-        //     });
-
-        // }
-        // else {
-        //     console.log("Products Already There : ", this.props.products);
-        //     this.props.getDetails(this.props.match.params.id);
-        // }
     }
 
     handleAddToCart(data, selectedSize, itemCount) {
@@ -150,9 +90,11 @@ class Details extends React.Component {
     }
 
     handleSaveClick(e, id) {
+        // TODO : Update Cache
         this.props.client.mutate({
             mutation: decideQuery(this.state.visible),
-            variables: {id: id}
+            variables: {id: id} ,
+            refetchQueries : ['showWishlist']
         }).then(
             data => {
                 console.log(data);
@@ -171,9 +113,10 @@ class Details extends React.Component {
 
         let selectedSize = undefined;
         let itemCount = 1;
+        let productID = this.props.match.params.id ;
 
         return (
-            <Query query={GET_PRODUCT}>
+            <Query query={GET_PRODUCT} variables={{input : productID}}>
                 {({loading, error, data}) => {
                     // console.log(loading, error, data);
 
@@ -198,7 +141,8 @@ class Details extends React.Component {
                                                     this.handleSaveClick(e, data.id);
                                                 }}
                                             >
-                                                {this.state.visible ? <Icon type="heart"/> : <Icon type="heart-o"/>}
+                                                {console.log(this.state.visible , "Visible")}
+                                                {(this.state.visible === true) ? <Icon type="heart" theme="filled" /> : <Icon type="heart"/>}
                                             </div>
                                         </div>
                                     </Col>
@@ -221,35 +165,35 @@ class Details extends React.Component {
                                                 </h2>
                                             </div>
                                             <div className="mt-2">
-                                            {data.sizes.length > 1 && (
-                                                <div className="product__size">
-                                                    <div>Size:</div>
-                                                    <Select
+                                                {data.sizes.length > 1 && (
+                                                    <div className="product__size">
+                                                        <div>Size:</div>
+                                                        <Select
+                                                            style={{width: "100%"}}
+                                                            placeholder="Select Size"
+                                                            optionFilterProp="children"
+                                                            onChange={e => (selectedSize = e)}
+                                                        >
+                                                            {data.sizes.map(size => (
+                                                                <Option value={size} key={size}>
+                                                                    {size}
+                                                                </Option>
+                                                            ))}
+                                                        </Select>
+                                                    </div>
+                                                )}
+                                                <div className="product__quantity">
+                                                    <div>Quantity:</div>
+                                                    <InputNumber
                                                         style={{width: "100%"}}
-                                                        placeholder="Select Size"
-                                                        optionFilterProp="children"
-                                                        onChange={e => (selectedSize = e)}
-                                                    >
-                                                        {data.sizes.map(size => (
-                                                            <Option value={size} key={size}>
-                                                                {size}
-                                                            </Option>
-                                                        ))}
-                                                    </Select>
+                                                        min={1}
+                                                        max={5}
+                                                        onChange={e => (itemCount = e)}
+                                                        defaultValue={1}
+                                                    />
                                                 </div>
-                                            )}
-                                            <div className="product__quantity">
-                                                <div>Quantity:</div>
-                                                <InputNumber
-                                                    style={{width: "100%"}}
-                                                    min={1}
-                                                    max={5}
-                                                    onChange={e => (itemCount = e)}
-                                                    defaultValue={1}
-                                                />
                                             </div>
-                                            </div>
-                                            <div className>
+                                            <div>
                                                 <h5>Overview</h5>
                                                 <ul className="product__overview">
                                                     <li>
