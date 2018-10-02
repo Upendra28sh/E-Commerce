@@ -42,6 +42,7 @@ export const sendmessageusertoseller = async (username, message, shopname) => {
     firebase.database().ref('sellers/' + shopname + '/users/' + username).push({
         message: message,
         author: 'them',
+        read:false
     });
 };
 export const sendmessageusertouser = async (username, message, otherusername) => {
@@ -58,6 +59,7 @@ export const sendmessageusertouser = async (username, message, otherusername) =>
     firebase.database().ref('users/' + otherusername + '/users/' + username).push({
         message: message,
         author: 'them',
+        read:false
     });
 };
 
@@ -76,3 +78,4 @@ export function getmessagesfromuser(username, otheruser) {
     let getChatData = firebase.database().ref('users/' + username + '/users/' + otheruser);
     return getChatData;
 }
+

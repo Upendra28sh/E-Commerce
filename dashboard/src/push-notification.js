@@ -20,6 +20,7 @@ export const sendmessagesellertouser = async (username,message,shopname) => {
   firebase.database().ref('users/'+username+'/sellers/'+shopname).push({
     message: message,
     author : 'them',
+    read:false,
   },function(error) {
     if (error) {
       console.log("error",error)

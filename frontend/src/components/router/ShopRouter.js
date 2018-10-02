@@ -33,7 +33,7 @@ const Router = () => {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/temp" component={Temp}/>
-        <Route exact path="/chat" component={RequireAuth(Chat)}/>
+        <Route exact path="/chat" component={Chat}/>
         {/* <Route exact path="/signup" component={SignUp} /> */}
         <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)} />
         {/* <Route exact path="/login" component={SignIn} /> */}

@@ -23,15 +23,44 @@ class Demo extends Component {
       isUser: true
     };
   }
-  changeChatContacts()
-  {
+  changeChatContacts() {
     this.setState({
-      isUser:!this.state.isUser,
+      isUser: !this.state.isUser,
       username: "",
       sellername: "",
       messageList: [],
-      message: "",
-    })
+      message: ""
+    });
+  }
+  geturmessageuser(othername, username) {
+    var count = 0;
+    getmessagesfromuser(username, othername).once("value", snapshot => {
+      for (var key in snapshot.val()) {
+        if (
+          snapshot.val()[key].author == "them" &&
+          snapshot.val()[key].read == false
+        ) {
+          count++;
+        }
+      }
+      return count;
+    });
+    return count;
+  }
+  geturmessageseller(shopName, username) {
+    var count = 0;
+    getmessages(username, shopName).once("value", snapshot => {
+      for (var key in snapshot.val()) {
+        if (
+          snapshot.val()[key].author == "them" &&
+          snapshot.val()[key].read == false
+        ) {
+          count++;
+          console.log('count',count);
+        }
+      }
+    });
+    return count;
   }
   changeSeller(shopName, username) {
     if (this.state.username != "") {
@@ -50,12 +79,15 @@ class Demo extends Component {
           snapshot
         ) {
           var temp = [];
+          var update = {};
           for (var key in snapshot.val()) {
             if (snapshot.val().hasOwnProperty(key)) {
+              update["/" + key + "/read"] = true;
               temp.push(snapshot.val()[key]);
             }
           }
           console.log(temp);
+          getmessages(username, self.state.sellername).update(update);
           self.setState({
             messageList: temp
           });
@@ -80,12 +112,15 @@ class Demo extends Component {
           snapshot
         ) {
           var temp = [];
+          var update = {};
           for (var key in snapshot.val()) {
             if (snapshot.val().hasOwnProperty(key)) {
+              update["/" + key + "/read"] = true;
               temp.push(snapshot.val()[key]);
             }
           }
           console.log(temp);
+          getmessagesfromuser(username, self.state.username).update(update);
           self.setState({
             messageList: temp
           });
@@ -93,27 +128,27 @@ class Demo extends Component {
       }
     );
   }
-  componentDidMount(){
-      console.log(this.props);
-      if(checkintialized() && this.props.location.state!=undefined)
-      {
-    if(this.props.location.state.username!=undefined)
-    {
+  componentDidMount() {
+    console.log(this.props);
+    if (checkintialized() && this.props.location.state != undefined) {
+      if (this.props.location.state.username != undefined) {
         this.setState({
-            username:this.props.location.state.username,
-        })
-        this.changeUser(this.props.location.state.username,userdata.username)
-    }
-    if(this.props.location.state.sellername!=undefined)
-    {
+          username: this.props.location.state.username
+        });
+        this.changeUser(this.props.location.state.username, userdata.username);
+      }
+      if (this.props.location.state.sellername != undefined) {
         this.setState({
-            sellername:this.props.location.state.sellername,
-            isUser:false
-        })
-        this.changeSeller(this.props.location.state.sellername,userdata.username)
+          sellername: this.props.location.state.sellername,
+          isUser: false
+        });
+        this.changeSeller(
+          this.props.location.state.sellername,
+          userdata.username
+        );
+      }
     }
   }
-}
   onTyping(e) {
     this.setState({
       message: e.target.value
@@ -149,20 +184,24 @@ class Demo extends Component {
               {({ data, loading }) => {
                 console.log("username", data);
                 if (loading) return <p>loading....</p>;
-                
 
                 return (
                   <div className="wrapper">
-                    <br />
-                    >
+                    <br />>
                     <div className="container" style={{ padding: "0px" }}>
                       <div className="left">
                         <div className="top" style={{ paddingRight: "0px" }}>
                           <input type="text" placeholder="Search" />
                           <a href="javascript:" className="search" />
-                          <Button type={"primary"} onClick={()=>this.changeChatContacts()}style={{marginLeft:'10px',top:'18%'}}>{this.state.isUser ? 'Sellers' : 'Users'}</Button>
+                          <Button
+                            type={"primary"}
+                            onClick={() => this.changeChatContacts()}
+                            style={{ marginLeft: "10px", top: "18%" }}
+                          >
+                            {this.state.isUser ? "Sellers" : "Users"}
+                          </Button>
                         </div>
-                        
+
                         {this.state.isUser ? (
                           <ul
                             className="people"
@@ -181,7 +220,15 @@ class Demo extends Component {
                                   }}
                                 >
                                   <img src={value.image} alt="" />
-                                  <span className="name">{value.username}</span>
+                                  <span className="name">
+                                    {value.username}
+                                    <button class="btn-circle">
+                                      {this.geturmessageuser(
+                                        value.username,
+                                        userdata.username
+                                      )}
+                                    </button>
+                                  </span>
                                   <span className="preview">{value.about}</span>
                                 </li>
                               );
@@ -205,9 +252,16 @@ class Demo extends Component {
                                   }}
                                 >
                                   <img src={value.image} alt="" />
-                                  <span className="name">{value.shopName} <button class="btn-circle">1</button></span>
+                                  <span className="name">
+                                    {value.shopName}{" "}
+                                    <button class="btn-circle">
+                                      {this.geturmessageseller(
+                                        value.shopName,
+                                        userdata.username
+                                      )}
+                                    </button>
+                                  </span>
                                   <span className="preview">{value.about}</span>
-                                  
                                 </li>
                               );
                             })}
@@ -218,16 +272,19 @@ class Demo extends Component {
                         <div className="top">
                           <span>
                             To:{" "}
-                            <span className="name">{this.state.isUser ? this.state.username:this.state.sellername}</span>
+                            <span className="name">
+                              {this.state.isUser
+                                ? this.state.username
+                                : this.state.sellername}
+                            </span>
                           </span>
                         </div>
                         <div className="active-chat">
-                       
                           <div
                             style={{ overflowY: "scroll", height: "450px" }}
                             className="conversation-start"
                           >
-                           <br></br>
+                            <br />
                             {this.state.messageList.map(value => {
                               if (value.author === "them") {
                                 return (
@@ -235,18 +292,20 @@ class Demo extends Component {
                                     id="you"
                                     className="bubble you"
                                     style={{ marginLeft: "20px" }}
-                                    dangerouslySetInnerHTML={{__html: value.message}}
-                                  >
-                                  </div>
+                                    dangerouslySetInnerHTML={{
+                                      __html: value.message
+                                    }}
+                                  />
                                 );
                               } else {
                                 return (
                                   <div
                                     className="bubble me"
                                     style={{ marginRight: "20px" }}
-                                    dangerouslySetInnerHTML={{__html: value.message}}
-                                  >
-                                  </div>
+                                    dangerouslySetInnerHTML={{
+                                      __html: value.message
+                                    }}
+                                  />
                                 );
                               }
                             })}
