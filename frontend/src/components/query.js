@@ -424,6 +424,25 @@ query user($username : String!) {
 }
 `;
 
+export const GET_SEARCH_USER_SELLER = gql`
+query($input : String!){
+  searchUsersAndSellers(query : $input) {
+    sellers {
+      id
+      name 
+      shopName 
+      image
+    } 
+    users {
+      id
+      name
+      username
+      image
+    }
+  }
+}
+`;
+
 export const GET_POST = gql`
     query post($username : String!) {
         UserPosts(username : $username) {

@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 const Step = Steps.Step;
 
 const CardTitle = (props) => (
-    <div>
+    <div style={{width  : "100%"}}>
         <div className="float-left">
             <Button className='theme_button'>OD{props.order.order_number}</Button>
         </div>

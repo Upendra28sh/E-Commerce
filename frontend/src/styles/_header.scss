@@ -15,6 +15,14 @@
   }
 }
 
+.verified {
+  height: 15px;
+  width: 15px;
+  position: relative;
+  top: -3px;
+  margin-left: 3px;
+}
+
 .navbar_container {
 
   input {
@@ -27,6 +35,34 @@
   input:focus {
     outline: 0px solid rgb(40, 40, 40);
   }
+
+  .custom-autocomplete {
+    li {
+      padding: 0;
+      margin: 0;
+    }
+
+    &.ant-select-auto-complete {
+      width : 20rem;
+      margin: 0;
+      padding: 0;
+      border: 1px solid gray;
+      max-height: 30px;
+      max-width: 300px;
+      overflow: hidden;
+
+      .ant-select-selection__rendered {
+        background: rgb(40,40,40);
+      }
+
+      input {
+        color: white !important;
+      }
+
+
+    }
+  }
+
 }
 
 .search_cancel {
