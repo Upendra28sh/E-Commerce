@@ -705,6 +705,15 @@ mutation($file:Upload!){
     addNewPostSeller(file:$file)
   }`;
 
+
+export const ADD_PRODUCT_REPOST = gql`
+mutation($input : AddUserPostInput) {
+  addUserPost(input : $input ) {
+    id
+  }
+}
+`;
+
 export const GET_FEED_ITEM = gql`
 query ($input : ID!){
     getFeedItem(id :$input) {
