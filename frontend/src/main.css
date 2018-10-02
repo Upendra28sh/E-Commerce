@@ -156,16 +156,18 @@ button.kep-login-facebook.metro {
     background-size: cover;
     background-position: center; }
   .product__heart {
-    background: white;
+    display: flex;
+    background: #eeeeee;
     font-size: 25px;
     border: none;
     float: right;
     margin: 10px 10px 0 0;
     width: 40px;
     height: 40px;
-    padding: 3px 8px;
     border-radius: 50%;
     cursor: pointer; }
+    .product__heart i {
+      margin: auto; }
   .product__seller {
     display: inline-block; }
   .product__seller-name {
