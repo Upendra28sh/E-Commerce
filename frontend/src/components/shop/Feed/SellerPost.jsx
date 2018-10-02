@@ -17,7 +17,8 @@ class SellerPost extends Component {
     state = {
         suggestions: [],
         loading: false,
-        mention: toContentState('')
+        mention: toContentState(''),
+        mentionDict: {}
     };
 
     constructor(props) {
@@ -26,6 +27,19 @@ class SellerPost extends Component {
         this.onSearchChange = this.onSearchChange.bind(this);
         this.onAddComment = this.onAddComment.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onMentionSelect = this.onMentionSelect.bind(this)
+    }
+
+    onMentionSelect(value, data) {
+        let toBeInserted = {};
+        toBeInserted[value] = data.id;
+        console.log(value, data);
+        this.setState({
+            mentionDict: {
+                ...this.state.mentionDict,
+                ...toBeInserted
+            }
+        });
     }
 
     onSearchChange(value) {
@@ -81,7 +95,7 @@ class SellerPost extends Component {
             },
             update: (cache, {data, errors}) => {
                 cache.writeFragment({
-                    id: this.props.post.id,
+                    id: `Sellerpost:${this.props.post.id}`,
                     fragment: gql`
                             fragment f on Sellerpost {
                               likes ,
@@ -109,7 +123,7 @@ class SellerPost extends Component {
             },
             update: (cache, {data}) => {
                 cache.writeFragment({
-                    id: this.props.post.id,
+                    id: `Sellerpost:${this.props.post.id}`,
                     fragment: gql`
                             fragment f on Sellerpost {
                               likes ,
@@ -131,6 +145,12 @@ class SellerPost extends Component {
     onAddComment = () => {
         const mentions = getMentions(this.state.mention);
         // console.log(mentions);
+        const transformedMentions = mentions.map(mention => {
+            console.log(mention, typeof mention);
+            return this.state.mentionDict[mention.slice(1)];
+        });
+        console.log(transformedMentions);
+
         const string = toString(this.state.mention);
         // console.log(string);
         if (string.length > 0) {
@@ -140,12 +160,12 @@ class SellerPost extends Component {
                     input: {
                         post: this.props.post.id,
                         comment: string,
-                        mentions: mentions
+                        mentions: transformedMentions
                     }
                 },
                 update: (cache, {data}) => {
                     cache.writeFragment({
-                        id: this.props.post.id,
+                        id: `Sellerpost:${this.props.post.id}`,
                         fragment: gql`
                             fragment f on Sellerpost {
                               comments {
@@ -249,6 +269,7 @@ class SellerPost extends Component {
                             onSearchChange={this.onSearchChange}
                             suggestions={this.state.suggestions}
                             value={this.state.mention}
+                            onSelect={this.onMentionSelect}
                         />
                         <i className="fa fa-lg fa-send-o" onClick={this.onAddComment}/>
                         {/*<i className="fa fa-ellipsis-h"/>*/}

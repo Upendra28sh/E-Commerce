@@ -1,3 +1,5 @@
+import {createNotificationForGroup} from "./utils";
+
 const User = require('../models/user');
 const Post = require('../models/post');
 const Feed = require('../models/feed');
@@ -136,14 +138,21 @@ module.exports = {
                     text: input.comment,
                     user: context.user.id,
                     username: context.user.username,
-                    mentions: input.mention
+                    mentions: input.mentions
                 });
                 return post.save().then(data => {
                     data.liked_by_me = (data.liked_by.indexOf(context.user.id) > -1);
+                    createNotificationForGroup({
+                        to: input.mentions,
+                        text: `${context.user.name} mentioned you in a comment.`,
+                        image : context.user.image,
+                        action : `google.com`
+                    });
+
                     return data;
                 });
             });
-        } ,
+        },
         // addUserPostLike: (parent, {input}, context, info) => {
         //     return UserPost.findOne({
         //         _id: input.post
@@ -187,6 +196,12 @@ module.exports = {
                     mentions: input.mention
                 });
                 return post.save().then(data => {
+                    createNotificationForGroup({
+                        to: input.mentions,
+                        text: `${context.user.name} mentioned you in a comment.`,
+                        image : context.user.image,
+                        action : `google.com`
+                    });
                     return data.populate('user').populate('seller').execPopulate().then(data => data);
                 });
             });

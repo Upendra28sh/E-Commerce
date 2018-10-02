@@ -21,7 +21,8 @@ class UserPost extends Component {
         collapsed: "",
         suggestions: [],
         loading: false,
-        mention: toContentState('')
+        mention: toContentState(''),
+        mentionDict: {}
     };
 
     handleHover() {
@@ -52,12 +53,13 @@ class UserPost extends Component {
         this.onAddComment = this.onAddComment.bind(this);
         this.onChange = this.onChange.bind(this);
         this.addToWishlist = this.addToWishlist.bind(this);
+        this.onMentionSelect = this.onMentionSelect.bind(this);
     }
 
     onSearchChange(value) {
         const searchString = value.toLowerCase();
         this.setState({loading: true});
-        console.log(searchString);
+        // console.log(searchString);
         this.props.client.query({
             query: SEARCH_USERS,
             variables: {
@@ -65,7 +67,7 @@ class UserPost extends Component {
             }
         }).then(({data}) => {
             data = data.searchUsers;
-            console.log(data);
+            // console.log(data);
 
             const suggestions = data.map(suggestion => (
                 <Nav
@@ -100,7 +102,13 @@ class UserPost extends Component {
 
     onAddComment = () => {
         const mentions = getMentions(this.state.mention);
-        // console.log(mentions);
+        console.log(mentions);
+        const transformedMentions = mentions.map(mention => {
+            console.log(mention, typeof mention);
+            return this.state.mentionDict[mention.slice(1)];
+        });
+        console.log(transformedMentions);
+
         const string = toString(this.state.mention);
         // console.log(string);
         if (string.length > 0) {
@@ -110,12 +118,12 @@ class UserPost extends Component {
                     input: {
                         post: this.props.post.id,
                         comment: string,
-                        mentions: mentions
+                        mentions: transformedMentions
                     }
                 },
                 update: (cache, {data}) => {
                     cache.writeFragment({
-                        id: this.props.post.id,
+                        id: `UserPost:${this.props.post.id}`,
                         fragment: gql`
                             fragment f on UserPost {
                               comments {
@@ -154,48 +162,17 @@ class UserPost extends Component {
             update: (cache, {data}) => {
                 console.log(this.props.post.product.id);
                 console.log(data.addToWishlist);
-                // cache.writeFragment({
-                //     id: this.props.post.product.id,
-                //     fragment: gql`
-                //             fragment f on Product {
-                //                 image
-                //             }
-                //          `,
-                //     data: {
-                //         image: "http:google",
-                //         __typename: "Product"
-                //     },
-                // });
-                // let t = cache.readFragment({
-                //     id: this.props.post.product.id,
-                //     fragment: gql`
-                //         fragment f on Product {
-                //             image
-                //         }
-                //     `
-                // });
-                // console.log(t);
-                //
-                // //
-                let userFeed = cache.readQuery({query: GET_USER_FEED});
-                console.log(userFeed.getFeed, data.addToWishlist);
-                userFeed = userFeed.getFeed.map(FeedItem => {
-                    if (FeedItem.origin.id === this.props.post.id) {
-                        console.log("User Post Found");
-                        FeedItem.origin.product.in_my_wishlist = true;
-                        FeedItem.origin.product.name = 'Beats W';
-                        return FeedItem;
-                    }
-                    return FeedItem;
-                });
-
-                let writeData = {
-                    getFeed: userFeed
-                };
-
-                cache.writeQuery({
-                    query: GET_USER_FEED,
-                    data: writeData
+                cache.writeFragment({
+                    id: `Product:${this.props.post.product.id}`,
+                    fragment: gql`
+                            fragment f on Product {
+                                in_my_wishlist
+                            }
+                         `,
+                    data: {
+                        in_my_wishlist: true,
+                        __typename: "Product"
+                    },
                 });
             }
         }).then(({data, error}) => {
@@ -203,8 +180,20 @@ class UserPost extends Component {
         });
     };
 
+    onMentionSelect(value, data) {
+        let toBeInserted = {};
+        toBeInserted[value] = data.id;
+        console.log(value, data);
+        this.setState({
+            mentionDict: {
+                ...this.state.mentionDict,
+                ...toBeInserted
+            }
+        });
+    }
+
     render() {
-        console.log("Post : " , this.props.post);
+        // console.log("Post : " , this.props.post);
         // console.log("Re-Render");
         let post = this.props.post;
         if (!post) {
@@ -236,7 +225,6 @@ class UserPost extends Component {
                     <Link to={`/feed`}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
-
                     <div className={`photo__image__pointer ${this.state.collapsed}`}>
                         <Icon type="shopping-cart" theme="outlined"/>
                         <span>
@@ -246,9 +234,6 @@ class UserPost extends Component {
                 </div>
                 <div className="photo__info">
                     <div className='photo__actions'>
-                        {
-                            console.log(post.product.in_my_wishlist)
-                        }
                         {
                             post.product.in_my_wishlist && (
                                 <span className='photo__save'>
@@ -296,6 +281,7 @@ class UserPost extends Component {
                             notFoundContent={"No Users Found"}
                             onSearchChange={this.onSearchChange}
                             suggestions={this.state.suggestions}
+                            onSelect={this.onMentionSelect}
                             value={this.state.mention}
                         />
                         <i className="fa fa-lg fa-send-o" onClick={this.onAddComment}/>

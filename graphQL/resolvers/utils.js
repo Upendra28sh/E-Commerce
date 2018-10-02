@@ -112,6 +112,21 @@ export function createdNotificationFollow(followedBy, following) {
     );
 }
 
+
+export function createNotificationForGroup(input) {
+    console.log(input);
+    Notification.create({
+        to: input.to,
+        text: input.text,
+        image: input.image,
+        action: input.action,
+    }).then(
+        data => console.log(data)
+    ).catch(
+        err => console.log(err)
+    );
+}
+
 // TODO : Send a MAIL TO DEV TEAM
 export function sendErrorReport(message, data) {
     console.log("New Error Reported");

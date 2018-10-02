@@ -9,6 +9,7 @@ export default gql `
     type UserSearchResult {
         name : String ,
         username : String
+        id : String
     }
 
     extend type Query {

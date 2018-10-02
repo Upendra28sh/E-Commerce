@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Icon} from 'antd';
 import {ADD_TO_WISHLIST, GET_USER_FEED} from "../../query";
 import {withApollo} from 'react-apollo'
+import gql from "graphql-tag";
 
 
 class ProductFeed extends Component {
@@ -45,24 +46,19 @@ class ProductFeed extends Component {
                 id: this.props.product.id
             },
             update: (cache, {data}) => {
-                let userFeed = cache.readQuery({query: GET_USER_FEED});
-                console.log(userFeed.getFeed, data.addToWishlist);
-                userFeed = userFeed.getFeed.map(FeedItem => {
-                    if (FeedItem.origin.id === this.props.product.id) {
-                        console.log("User Post Found");
-                        FeedItem.origin.in_my_wishlist = true;
-                        return FeedItem;
-                    }
-                    return FeedItem;
-                });
-
-                let writeData = {
-                    getFeed: userFeed
-                };
-
-                cache.writeQuery({
-                    query: GET_USER_FEED,
-                    data: writeData
+                console.log(this.props.product.id);
+                console.log(data.addToWishlist);
+                cache.writeFragment({
+                    id: `Product:${this.props.product.id}`,
+                    fragment: gql`
+                            fragment f on Product {
+                                in_my_wishlist
+                            }
+                         `,
+                    data: {
+                        in_my_wishlist : true ,
+                        __typename: "Product"
+                    },
                 });
             }
         }).then(({data, error}) => {

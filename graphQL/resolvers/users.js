@@ -52,7 +52,7 @@ module.exports = {
             let regex = new RegExp("^" + queryString, 'i');
             return User.find({
                 username: regex
-            }, 'username name').limit(5).then(data => {
+            }, 'username name id').limit(5).then(data => {
                 // console.log(data);
                 return data ;
             });
