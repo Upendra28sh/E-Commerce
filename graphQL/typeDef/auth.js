@@ -7,6 +7,12 @@ export default gql`
         password: String!
     }
 
+    input NewUserInput {
+        email: String!
+        password: String!
+        username: String!
+    }
+
     input UserDetailsInput {
         name: String!,
         image: String!,
@@ -30,7 +36,7 @@ export default gql`
         ) : AuthPayload
         
         CreateUser(
-            input: AuthInput
+            input: NewUserInput
         ) : AuthPayload
         
         CompleteSignup(

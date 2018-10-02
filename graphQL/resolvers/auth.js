@@ -7,8 +7,8 @@ const config = require('../config');
 module.exports = {
     Mutation: {
         CreateUser: (parent, {input}, context, address) => {
-            let {email, password} = input;
-            console.log(input);
+            let {email, password, username} = input;
+            // console.log(input);
             return User.findOne({email: email}).exec()
                 .then(
                     foundUser => {
@@ -20,30 +20,48 @@ module.exports = {
                                 }
                             };
                         } else {
-                            const hashedPassword = bcrypt.hashSync(password);
-                            return User.create({
-                                email: email,
-                                password: hashedPassword,
-                            }).then(
-                                createdUser => {
-                                    console.log(createdUser);
-                                    const token = jwt.sign(
-                                        {
-                                            id: createdUser._id,
-                                            email: createdUser.email,
-                                            finished: createdUser.finished.signup
-                                        },
-                                        config.secret,
-                                        {expiresIn: 86400}
-                                    );
-                                    return {
-                                        token: {
-                                            code: 1,
-                                            content: token
+                            // checking for unique username
+                            return User.findOne({username: username}).exec()
+                                .then(
+                                    foundUsername => {
+                                        if (foundUsername) {
+                                            console.log("Username found");
+                                            return {
+                                                token: {
+                                                    code: 6,
+                                                    content: "Username already taken"
+                                                }
+                                            }
+                                        } else {
+                                            const hashedPassword = bcrypt.hashSync(password);
+                                            return User.create({
+                                                email: email,
+                                                password: hashedPassword,
+                                                username: username
+                                            }).then(
+                                                createdUser => {
+                                                    console.log(createdUser);
+                                                    const token = jwt.sign(
+                                                        {
+                                                            id: createdUser._id,
+                                                            username: createdUser.username,
+                                                            email: createdUser.email,
+                                                            finished: createdUser.finished.signup
+                                                        },
+                                                        config.secret,
+                                                        {expiresIn: 86400}
+                                                    );
+                                                    return {
+                                                        token: {
+                                                            code: 1,
+                                                            content: token
+                                                        }
+                                                    };
+                                                }
+                                            )
                                         }
-                                    };
-                                }
-                            )
+                                    }
+                                );
                         }
                     }
                 );

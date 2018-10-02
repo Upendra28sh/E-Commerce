@@ -1,15 +1,14 @@
 import React from "react";
-import {Button, Form, Icon, Input, message} from "antd";
+import {Button, Form, Icon, Input, message, Alert} from "antd";
 import gql from "graphql-tag";
 import {Mutation, withApollo} from "react-apollo";
-import jwt from "jsonwebtoken";
 import FacebookLogin from 'react-facebook-login';
 import {FB_SIGNUP} from "../query";
 
 const FormItem = Form.Item;
 
 const SIGNUP_FIRST = gql`
-    mutation FirstSignup($input: AuthInput) {
+    mutation FirstSignup($input: NewUserInput) {
         CreateUser(input: $input) {
             token {
                 code
@@ -37,6 +36,8 @@ class Signup extends React.Component {
                 localStorage.setItem("token", data.token.content);
                 message.success("SignUp Successful");
                 this.props.history.push("/feed/");
+            } else {
+                message.error(data.token.content);
             }
         });
     };
@@ -53,6 +54,8 @@ class Signup extends React.Component {
                         setTimeout(() => {
                             this.props.history.push("/signup/complete");                            
                         }, 1000);
+                    } else {
+                        message.error(data.CreateUser.token.content);
                     }
                 });
             }
@@ -61,6 +64,9 @@ class Signup extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            error: undefined
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.responseFacebook = this.responseFacebook.bind(this);
     }
@@ -117,6 +123,23 @@ class Signup extends React.Component {
                                         )}
                                     </FormItem>
                                     <FormItem>
+                                        {getFieldDecorator("username", {
+                                            rules: [
+                                                {required: true, message: "Please input a username!"}
+                                            ]
+                                        })(
+                                            <Input
+                                                prefix={
+                                                    <Icon
+                                                        type="profile"
+                                                        style={{color: "rgba(0,0,0,.25)"}}
+                                                    />
+                                                }
+                                                placeholder="Username"
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <FormItem>
                                         {getFieldDecorator("password", {
                                             rules: [
                                                 {
@@ -144,7 +167,12 @@ class Signup extends React.Component {
                                         {/* Or <a href="">register now!</a> */}
                                     </FormItem>
                                 </Form>
-
+                              
+                                { this.state.error && <Alert
+                                    message={this.state.error}
+                                    type="error"
+                                    closable
+                                /> }
                                 <div>
                                     <FacebookLogin
                                         appId="285659762264023"
@@ -161,7 +189,8 @@ class Signup extends React.Component {
                                     For help, contact us.
                                 </p>
                             </div>
-                        </div>
+                            
+                    </div>
                 )}
             </Mutation>
         );
