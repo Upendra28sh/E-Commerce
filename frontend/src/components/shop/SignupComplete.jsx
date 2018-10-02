@@ -1,10 +1,9 @@
 import React from 'react';
-import {Steps, Icon, Card, Button, message} from "antd";
+import {Steps, Icon, Card, Alert, message} from "antd";
 import {withApollo} from 'react-apollo';
 import {gql} from 'apollo-boost';
-import BasicDetails from "./SignUp/BasicDetails";
-import AddressDetails from "./SignUp/AddressDetails";
-// import PasswordDetails from "../SignUp/PasswordDetails";
+import BasicDetails from "./SignUpComplete/BasicDetails";
+import AddressDetails from "./SignUpComplete/AddressDetails";
 
 const Step = Steps.Step;
 
@@ -27,7 +26,6 @@ class SignupComplete extends React.Component {
             name: '',
             image: '',
             about: '',
-            username: '',
             address: '',
             street: '',
             city: '',
@@ -86,9 +84,8 @@ class SignupComplete extends React.Component {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
                 message.success("SignUp Successful");
-                this.props.history.push("/feed/");
                 window.location.reload();
-                
+                this.props.history.push("/feed/");
             }
         });
         console.log(inputToGraphQL);
@@ -117,21 +114,28 @@ class SignupComplete extends React.Component {
     render() {
         return (
             <div>
-                <h1>You have to complete the signup</h1>
                 <div className='sign_up'>
                     <div className="container">
+                    <Alert
+                        message="Finish Signup"
+                        description="You have to finish your signup details."
+                        type="info"
+                        iconType="profile"
+                        showIcon    
+                        style={{marginTop: '50px'}}
+                    />
                         <Card className='sign_up__card'>
                             {console.log(this.state)}
                             <div className="container_40">
-                                <div>
+                                <div style={{paddingBottom: '20px'}}>
                                     <Steps progressDot current={this.state.current}>
                                         <Step
                                             title="Basic Info"
-                                            description="This is a description."
+                                            // description="Your basic details."
                                         />
                                         <Step
                                             title="Address Info"
-                                            description="This is a description."
+                                            // description="You address."
                                         />
                                     </Steps>
                                 </div>

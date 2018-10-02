@@ -77,7 +77,6 @@ module.exports = {
                         foundUser.name = name;
                         foundUser.image = image;
                         foundUser.about = about;
-                        foundUser.username = username;
                         foundUser.address = address;
                         foundUser.finished.signup = true;
                         foundUser.save();
@@ -105,10 +104,10 @@ module.exports = {
                 );
         },
 
-        // Not being used anymore
+        // Not being used anymore but updated with changes made in type definitions
         UserSignup: (parent, {input, details, address}, context, info) => {
-            let {email, password} = input;
-            let {name, image, about, username} = details;
+            let {email, password, username} = input;
+            let {name, image, about} = details;
             let {street, city, state, zipcode} = address;
 
             return User.findOne({email: email}).exec()

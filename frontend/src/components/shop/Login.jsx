@@ -58,6 +58,8 @@ class Login extends React.Component {
                 setTimeout(() => {
                     this.props.history.push("/feed/");
                 } , 1000);
+            } else {
+                message.error(data.token.content);
             }
         });
     };
@@ -89,6 +91,8 @@ class Login extends React.Component {
                             this.props.history.push("/feed/");                            
                         } , 1000);
                         // this.props.history.push("/feed/");
+                    } else {
+                        message.error(data.UserLogin.token.content);
                     }
                 });
             }

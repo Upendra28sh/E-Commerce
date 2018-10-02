@@ -3,7 +3,8 @@ import {Button, Form, Icon, Input, message, Alert} from "antd";
 import gql from "graphql-tag";
 import {Mutation, withApollo} from "react-apollo";
 import FacebookLogin from 'react-facebook-login';
-import {FB_SIGNUP} from "../query";
+import {FB_SIGNUP, GET_AUTH} from "../query";
+import jwt from 'jsonwebtoken';
 
 const FormItem = Form.Item;
 
@@ -76,25 +77,25 @@ class Signup extends React.Component {
         return (
             <Mutation
                 mutation={SIGNUP_FIRST}
-                // update={(cache, {data: {UserLogin}}) => {
-                //     console.log(UserLogin);
-                //     let auth = {
-                //         isAuthenticated: UserLogin.token.code === 1,
-                //         user: {
-                //             id: "",
-                //             name: "",
-                //             username: "",
-                //             ...jwt.decode(UserLogin.token.content),
-                //             __typename: "AuthUser"
-                //         },
-                //         __typename: "Auth"
-                //     };
+                update={(cache, {data: {CreateUser}}) => {
+                    console.log(CreateUser);
+                    let auth = {
+                        isAuthenticated: CreateUser.token.code === 1,
+                        user: {
+                            id: "",
+                            name: "",
+                            username: "",
+                            ...jwt.decode(CreateUser.token.content),
+                            __typename: "AuthUser"
+                        },
+                        __typename: "Auth"
+                    };
 
-                //     cache.writeQuery({
-                //         query: GET_AUTH,
-                //         data: {auth}
-                //     });
-                // }}
+                    cache.writeQuery({
+                        query: GET_AUTH,
+                        data: {auth}
+                    });
+                }}
             >
                 {(signupMutation, {data, client}) => (
                     <div className="bg-grey">
@@ -130,10 +131,11 @@ class Signup extends React.Component {
                                         })(
                                             <Input
                                                 prefix={
-                                                    <Icon
-                                                        type="profile"
-                                                        style={{color: "rgba(0,0,0,.25)"}}
-                                                    />
+                                                    <span
+                                                        style={{color: "rgba(0,0,0,.25)", fontSize: '14px'}}
+                                                    >
+                                                        @
+                                                    </span>
                                                 }
                                                 placeholder="Username"
                                             />

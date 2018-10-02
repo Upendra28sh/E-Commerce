@@ -17,7 +17,6 @@ export default gql`
         name: String!,
         image: String!,
         about: String!,
-        username: String!
     }
 
     type AuthPayload {
@@ -26,7 +25,7 @@ export default gql`
 
     extend type Mutation {
         UserSignup(
-            input: AuthInput,
+            input: NewUserInput,
             details: UserDetailsInput,
             address: AddressInput
         ) : AuthPayload
