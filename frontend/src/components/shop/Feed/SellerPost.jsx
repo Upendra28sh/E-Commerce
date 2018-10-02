@@ -160,7 +160,8 @@ class SellerPost extends Component {
                     input: {
                         post: this.props.post.id,
                         comment: string,
-                        mentions: transformedMentions
+                        mentions: transformedMentions,
+                        parentFeedId : this.props.parentFeedId ,
                     }
                 },
                 update: (cache, {data}) => {

@@ -661,3 +661,73 @@ export const ADD_POST = gql`
 mutation($file:Upload!){
     addNewPostSeller(file:$file)
   }`;
+
+export const GET_FEED_ITEM = gql`
+query ($input : ID!){
+    getFeedItem(id :$input) {
+        id ,
+        refString ,
+        origin {
+            ...on UserPost {
+                id,
+                caption ,              
+                product {
+                    id
+                    name ,
+                    image ,
+                    in_my_wishlist ,
+                    seller {
+                        name 
+                    }
+                }
+                user {
+                    id
+                    name ,
+                    username ,
+                    image
+                }
+                comments {
+                    id ,
+                    text , 
+                    username
+                }
+                
+            }
+            ...on Sellerpost {
+                id,
+                caption ,
+                image ,
+                likes ,
+                liked_by_me ,
+                seller {
+                    name ,
+                    shopName ,
+                    image
+                } ,
+                comments {
+                    id ,
+                    text , 
+                    username
+                }
+            }
+            ...on Product {
+                id
+                name ,
+                image ,
+                sizes ,
+                price,
+                in_my_wishlist,
+                description ,
+                codAccepted ,
+                returnAccepted
+                seller {
+                    name ,
+                    image
+                }
+            }
+        },
+        created_at ,
+        updated_at ,
+        event
+    }
+}`;

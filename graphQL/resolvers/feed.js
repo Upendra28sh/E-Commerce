@@ -7,6 +7,7 @@ const Product = require('../models/product');
 const Seller = require('../models/seller');
 const Sellerpost = require('../models/sellerpost');
 const UserPost = require('../models/post');
+import config from '../config'
 
 // TODO : Optimize Query and Sort According to Timestamp
 // TODO : Add Support for Infinite Scroll
@@ -62,41 +63,37 @@ module.exports = {
 
 
         },
-        getFeedPosts: (parent, args, context, info) => {
-            // console.log(context.user);
-            return User.findById(context.user.id).then(foundUser => {
-                // console.log(foundUser);
+        getFeedItem: (parent, {id}, context, info) => {
+            console.log(id);
+            return Feed.findOne({
+                _id: id
+            }).populate('origin').sort('-updated_at').then(item => {
+                // console.log(data);
 
-                return Post.find({
-                    user: foundUser.following
-                }).populate({
-                    path: 'product',
-                    populate: {
-                        path: 'sellerID'
-                    }
-                }).populate('user').then(posts => {
-                    console.log("Posts From Followers : ", posts);
-                    return posts;
-                });
+                item.origin.__typename = item.refString;
+                if (item.refString === 'Product') {
+                    console.log("Product Feed");
+                    return Seller.populate(item, {'path': 'origin.seller'});
+                }
+                if (item.refString === 'Sellerpost') {
+                    console.log("Seller Post Feed");
+                    item.origin.liked_by_me = (item.origin.liked_by.indexOf(context.user.id) > -1);
+                    return Seller.populate(item, {'path': 'origin.seller'});
+                }
+                if (item.refString === 'UserPost') {
+                    console.log("User Repost Feed");
+                    return item.populate({path: 'origin.user', model: User})
+                        .populate({
+                            path: 'origin.product',
+                            model: Product,
+                            populate: {path: 'seller', model: Seller}
+                        }).execPopulate().then(_ => {
+                            return _;
+                        });
+                }
+                return item;
             });
         },
-        getFeedProducts: (parent, args, context, info) => {
-            console.log(context.user);
-            return User.findById(context.user.id).then(foundUser => {
-                console.log(foundUser);
-                return Product.find({
-                    sellerID: foundUser.followingShop
-                }).populate({
-                    path: 'sellerID'
-                }).then(products => {
-                    console.log(products);
-                    return products;
-                });
-            }).catch(err => {
-                console.log(err);
-                return [];
-            });
-        }
     },
     Mutation: {
         addSellerPostLike: (parent, {input}, context, info) => {
@@ -145,8 +142,8 @@ module.exports = {
                     createNotificationForGroup({
                         to: input.mentions,
                         text: `${context.user.name} mentioned you in a comment.`,
-                        image : context.user.image,
-                        action : `google.com`
+                        image: context.user.image,
+                        action: `${config.client_url}/feed/${input.parentFeedId}`
                     });
 
                     return data;
@@ -199,8 +196,8 @@ module.exports = {
                     createNotificationForGroup({
                         to: input.mentions,
                         text: `${context.user.name} mentioned you in a comment.`,
-                        image : context.user.image,
-                        action : `google.com`
+                        image: context.user.image,
+                        action: `${config.client_url}/feed/${input.parentFeedId}`
                     });
                     return data.populate('user').populate('seller').execPopulate().then(data => data);
                 });

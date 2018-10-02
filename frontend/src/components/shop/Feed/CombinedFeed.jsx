@@ -22,11 +22,11 @@ class Feed extends React.Component {
                         console.log("d", data);
                         return data.map((feedItem, index) => {
                             if (feedItem.refString === 'Product') {
-                                return <ProductFeed key={index} product={feedItem.origin}/>;
+                                return <ProductFeed key={index} product={feedItem.origin} parentFeedId={feedItem.id}/>;
                             } else if (feedItem.refString === 'Sellerpost') {
-                                return <SellerPost key={index} post={feedItem.origin}/>;
+                                return <SellerPost key={index} post={feedItem.origin} parentFeedId={feedItem.id}/>;
                             } else if (feedItem.refString === 'UserPost') {
-                                return <UserPost key={index} post={feedItem.origin}/>;
+                                return <UserPost key={index} post={feedItem.origin} parentFeedId={feedItem.id}/>;
                             }
                         });
 

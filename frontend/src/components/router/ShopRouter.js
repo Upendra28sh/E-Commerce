@@ -23,6 +23,7 @@ import Chat from "../shop/Chat"
 import CheckoutReview from "../shop/Checkout/CheckoutReview";
 import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 import Order from "../shop/Order/Order";
+import FeedDetail from "../shop/Feed/FeedDetail";
 
 const Router = () => {
   return (
@@ -47,6 +48,7 @@ const Router = () => {
         <Route exact path="/thanks" component={RequireAuth(Thanks)} /> */}
         <Route exact path="/orders" component={RequireAuth(OrderList)} />
         <Route path="/order/:order_number" component={RequireAuth(Order)} />
+        <Route path="/feed/:id" component={RequireAuth(FeedDetail)} />
         <Route path="/feed/" component={RequireAuth(Feed)} />
         <Route path="/trending" component={RequireAuth(Trending)} />
       </Switch>

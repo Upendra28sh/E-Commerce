@@ -16,14 +16,14 @@ export default gql`
     
     extend type Query {
         getFeed : [FeedType]
-        getFeedPosts : [UserPost]
-        getFeedProducts : [Product]
+        getFeedItem(id : ID!) : FeedType
     }
     
     input addCommentInput {
         post : ID! ,
         comment : String! ,
-        mentions : [String]
+        mentions : [String],
+        parentFeedId : ID!
     }
     input addLikeInput {
         post : ID! 
