@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema({
 
     in_my_wishlist : {type : Boolean , default : false},
 
+    category: {
+        name: String,
+        title: String
+    },
+
     approval: {
         approved: {
             type: Boolean,

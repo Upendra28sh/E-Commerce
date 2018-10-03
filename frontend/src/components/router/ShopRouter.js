@@ -29,6 +29,7 @@ import SignupComplete from "../shop/SignupComplete";
 // import Temp from "../shop/Temp";
 import Details from "../shop/Details";
 import FacebookConnect from "../shop/FacbookConnect";
+import CategoryProduct from "../shop/CategoryProduct";
 
 const Router = (props) => {
     return (
@@ -38,6 +39,7 @@ const Router = (props) => {
                 {/* <Route exact path="/temp" component={Temp}/> */}
                 <Route exact path="/chat" component={RequireAuth(Chat)}/>
                 <Route exact path="/facebook" component={RequireAuth(FacebookConnect)} />
+                <Route exact path="/category/:name/:title" component={RequireAuth(CategoryProduct)}/>
                 {/* <Route exact path="/signup" component={SignUp} /> */}
                 <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)}/>
                 {/* <Route exact path="/login" component={SignIn} /> */}
