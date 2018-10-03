@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
             default: false
         }
     },
+    public: {
+        type: Boolean,
+        default: false
+    },
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

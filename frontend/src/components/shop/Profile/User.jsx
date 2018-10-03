@@ -1,6 +1,6 @@
 import React from "react";
-import {Col, Icon, Row, Tabs} from "antd";
-import {FOLLOW_USER, GET_AUTH, GET_USER, UNFOLLOW_USER} from "../../query";
+import {Col, Icon, Row, Tabs, Switch, message} from "antd";
+import {FOLLOW_USER, GET_AUTH, GET_USER, UNFOLLOW_USER, CHANGE_VISBILITY} from "../../query";
 import {Query, withApollo} from "react-apollo";
 import NotFound from "../NotFound";
 import Details from '../Details' ;
@@ -39,6 +39,20 @@ class User extends React.Component {
         }
     }
 
+    onChangeVisibility(changed) {
+        console.log(changed);
+        this.props.client.mutate({
+            mutation: CHANGE_VISBILITY,
+            variables: {val: changed}
+        }).then(
+            data => {
+                if (data) {
+                    message.info("Changed");
+                }
+            }
+        )
+    }
+
     render() {
 
         let username = this.props.match.params.id;
@@ -61,6 +75,8 @@ class User extends React.Component {
                                 }
                                 const user = data_1.User;
                                 const me = data_2.auth.user;
+
+                                const isProfilePublic = user.public;
 
                                 console.log("Profile Data : ", user);
                                 if (user === null) {
@@ -105,6 +121,14 @@ class User extends React.Component {
                                                                     {button_text}
                                                                 </button>
                                                             </div>)}
+                                                            {myProfile && (<div style={{display: 'inline-block', float: 'right', marginRight: '20px'}}>
+                                                                <Switch 
+                                                                    checkedChildren="Public" 
+                                                                    unCheckedChildren="Private" 
+                                                                    defaultChecked={user.public}
+                                                                    onChange={this.onChangeVisibility.bind(this)}
+                                                                />
+                                                            </div>)}
                                                         </div>
                                                         <p className="tagline">
                                                             <strong>{user.name}</strong>
@@ -135,7 +159,7 @@ class User extends React.Component {
 
                                                     </Col>
                                                 </Row>
-                                                {(isAFollower || myProfile) && (<Row className="profile__details">
+                                                {(isProfilePublic || isAFollower || myProfile) && (<Row className="profile__details">
                                                     <Col span={24}>
                                                         <Tabs
                                                             defaultActiveKey="1"
@@ -155,7 +179,7 @@ class User extends React.Component {
                                                         </Tabs>
                                                     </Col>
                                                 </Row>)}
-                                                {(!isAFollower && !myProfile) && (
+                                                {(!isProfilePublic && !isAFollower && !myProfile) && (
                                                     <div className='account_private'>
                                                         <div className='account_private__header'>This Account is Private
                                                         </div>
