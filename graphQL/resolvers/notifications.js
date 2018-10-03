@@ -20,6 +20,7 @@ module.exports = {
                 .populate('to')
                 .populate('readBy')
                 .sort('-created_at')
+                .limit(10)
                 .exec()
                 .then(
                     data => data

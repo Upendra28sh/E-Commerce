@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import {Icon, Mention} from "antd";
+import {Icon, Mention, Modal, Input,Button , message} from "antd";
 import {
+    ADD_PRODUCT_REPOST,
     ADD_SELLER_COMMENT,
     ADD_SELLER_POST_LIKE, ADD_TO_WISHLIST,
     ADD_USER_POST_COMMENT,
@@ -10,6 +11,8 @@ import {
 } from "../../query";
 import {withApollo} from 'react-apollo';
 import gql from "graphql-tag";
+
+const {TextArea} = Input;
 
 const {toString, getMentions, toContentState, Nav} = Mention;
 
@@ -22,7 +25,10 @@ class UserPost extends Component {
         suggestions: [],
         loading: false,
         mention: toContentState(''),
-        mentionDict: {}
+        mentionDict: {},
+        visible: false,
+        loadingButton: false,
+        captionValue: ''
     };
 
     handleHover() {
@@ -41,7 +47,7 @@ class UserPost extends Component {
 
     componentDidMount() {
         console.log("Post for User", this.props.post);
-        console.log("in_my_wishlist", this.props.post.product.in_my_wishlist);
+        // console.log("in_my_wishlist", this.props.post.product.in_my_wishlist);
         setTimeout(() => {
             this.setState({collapsed: "collapsed"});
         }, 3000);
@@ -54,6 +60,13 @@ class UserPost extends Component {
         this.onChange = this.onChange.bind(this);
         this.addToWishlist = this.addToWishlist.bind(this);
         this.onMentionSelect = this.onMentionSelect.bind(this);
+        this.onCaptionChange = this.onCaptionChange.bind(this);
+    }
+
+    onCaptionChange(value) {
+        this.setState({
+            captionValue: value
+        });
     }
 
     onSearchChange(value) {
@@ -119,7 +132,7 @@ class UserPost extends Component {
                         post: this.props.post.id,
                         comment: string,
                         mentions: transformedMentions,
-                        parentFeedId : this.props.parentFeedId ,
+                        parentFeedId: this.props.parentFeedId,
                     }
                 },
                 update: (cache, {data}) => {
@@ -193,6 +206,32 @@ class UserPost extends Component {
         });
     }
 
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = () => {
+        this.setState({loadingButton: true});
+        this.props.client.mutate({
+            mutation: ADD_PRODUCT_REPOST,
+            variables: {
+                input: {
+                    product: this.props.post.product.id,
+                    caption: this.state.captionValue
+                }
+            }
+        }).then(({data}) => {
+            message.success("Reposted Successfully");
+            this.setState({loadingButton: false, visible: false});
+        });
+    };
+
+    handleCancel = () => {
+        this.setState({visible: false});
+    };
+
     render() {
         // console.log("Post : " , this.props.post);
         // console.log("Re-Render");
@@ -223,7 +262,7 @@ class UserPost extends Component {
                 >
                     <img src={post.product.image}/>
                     <div className="photo__image__layer"/>
-                    <Link to={`/feed`}>
+                    <Link to={`/feed/product/${post.product.id}`}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
                     <div className={`photo__image__pointer ${this.state.collapsed}`}>
@@ -253,7 +292,7 @@ class UserPost extends Component {
                             <span className="photo__action">
                                 <i className="fa fa-share fa-lg"/>
                             </span>
-                            <span className="photo__action">
+                            <span className="photo__action" onClick={this.showModal}>
                                 <i className="fa fa-retweet fa-lg"/>
                             </span>
                         </div>
@@ -289,6 +328,23 @@ class UserPost extends Component {
                         {/*<i className="fa fa-ellipsis-h"/>*/}
                     </div>
                 </div>
+                <Modal
+                    visible={this.state.visible}
+                    title="Confirm Post"
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={[
+                        <Button key="back" loading={this.state.loadingButton}
+                                onClick={this.handleCancel}>Return</Button>,
+                        <Button key="submit" type="primary" onClick={this.handleOk}>
+                            Submit
+                        </Button>,
+                    ]}
+                >
+                    <TextArea
+                        onChange={this.captionChange}
+                        value={this.state.captionValue}/>
+                </Modal>
             </div>
         );
     }

@@ -77,7 +77,7 @@ class Search extends React.Component {
                                                                         className="img_fluid" // each_product
                                                                         alt={product.description}
                                                                         key={index}
-                                                                        src={`product_images/${product.image}`}
+                                                                        src={`${product.image}`}
                                                                     />
                                                                 </Link>
                                                                 {product.name}

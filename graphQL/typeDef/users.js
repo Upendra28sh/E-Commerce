@@ -11,6 +11,11 @@ export default gql `
         username : String
         id : String
     }
+    
+    type CombinedSearchResult {
+        sellers : [Seller]
+        users : [User] 
+    }
 
     extend type Query {
         allUsers: [User],
@@ -18,6 +23,7 @@ export default gql `
         checkUserNameAvailability(username: String): Boolean
         getUserAddresses : [Address]
         searchUsers(query : String!): [UserSearchResult]
+        searchUsersAndSellers(query : String!): CombinedSearchResult
     }
     
     input addUserAddressInput {

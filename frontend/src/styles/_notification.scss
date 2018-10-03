@@ -1,14 +1,24 @@
 .notification {
-    border: solid 1px black;
-    background: #fafafa;
-    &__image {
-        width: 100%;
-        padding: 0 10px 10px 10px;
-    }
 
-    &__message {
-        span {
-            color: black;
-        }
+  max-width: 400px;
+  padding: 10px;
+
+  border: solid 1px black;
+  background: #fafafa;
+  &__image {
+    width: 100%;
+    padding: 0 10px 10px 10px;
+  }
+
+  &__message {
+    span {
+      color: black;
+      margin: 10px;
+      font-size: 14px;
     }
+  }
+
+  div.ant-col-20 {
+    padding: 5px 10px;
+  }
 }

@@ -197,7 +197,7 @@ module.exports = {
                         to: input.mentions,
                         text: `${context.user.name} mentioned you in a comment.`,
                         image: context.user.image,
-                        action: `${config.client_url}/feed/${input.parentFeedId}`
+                        action: `/feed/${input.parentFeedId}`
                     });
                     return data.populate('user').populate('seller').execPopulate().then(data => data);
                 });

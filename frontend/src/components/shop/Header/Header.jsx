@@ -1,14 +1,15 @@
 import React, {Fragment} from "react";
 import {Link, NavLink} from "react-router-dom";
-import {Col, Dropdown, Icon, Input, Menu, Popover, Row} from "antd";
+import {Col, Dropdown, Icon, AutoComplete, Input, Menu, Popover, Row} from "antd";
 import {Query, withApollo} from "react-apollo";
-import {GET_AUTH} from "../../query";
+import {GET_AUTH, GET_SEARCH_USER_SELLER} from "../../query";
 import Notifs from '../Notification';
 import {categories} from './categories';
 
 // TODO: Add User Notifications
 
 const Search = Input.Search;
+const Option = AutoComplete.Option;
 const text = <span style={{fontSize: '18px', fontWeight: '600'}}> Notifications</span>;
 
 const MenuI = (props) => {
@@ -86,10 +87,91 @@ class Header extends React.Component {
         super(props);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
+        this.onSearchSelect = this.onSearchSelect.bind(this);
         this.logout = this.logout.bind(this);
         this.state = {
-            search: false
+            search: false,
+            dataSource: [],
+            options: []
         };
+    }
+
+    onSearchChange(value) {
+        if (value === '') {
+            this.setState({
+                dataSource: [],
+                options: []
+            });
+            return;
+        }
+        this.props.client.query({
+            query: GET_SEARCH_USER_SELLER,
+            variables: {
+                input: value
+            }
+        }).then(({data}) => {
+            data = data.searchUsersAndSellers;
+            let transformed = [
+                ...data.sellers,
+                ...data.users
+            ];
+            console.log(transformed);
+            let options = transformed.map((item, index) => {
+                return (
+                    <Option key={item.username || item.shopName} original={item}>
+                        <Row gutter={8}>
+                            <Col span={5}>
+                                <img className={'img-fluid'} src={item.image} alt=""/>
+                            </Col>
+                            <Col span={19}>
+                                {item.name}
+                                {item.__typename === 'Seller' && (
+                                    <img src="https://www.veloceinternational.com/wp-content/uploads/2017/08/1495368559287-300x300.png"
+                                         className='verified'
+                                         alt=""/>
+                                )}
+                            </Col>
+                        </Row>
+                    </Option>
+                );
+            });
+            options.push(<Option key={`/search/${value}`}>
+                <Row gutter={8}>
+                    <Link to={`/search/${value}`}/>
+                    <Col span={5}>
+                        <img className={'img-fluid'}
+                             src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV9e0xcioHeH_3D7blQUumfnZQEgdveoWYdhEtP8qgGEN_xSxf'}
+                             alt=""/>
+                    </Col>
+                    <Col span={19}>
+                        Search for #{value}
+                    </Col>
+                </Row>
+            </Option>);
+            this.setState({
+                dataSource: transformed,
+                options
+            });
+        });
+
+    }
+
+    onSearchSelect(value, option) {
+        console.log(value, option);
+        let item = option.props.original ;
+        if(item) {
+            if(item.__typename === 'User'){
+                this.props.history.push(`/user/${item.username}`)
+            } else {
+                this.props.history.push(`/shop/${item.shopName}`)
+            }
+        } else {
+            this.props.history.push(value);
+        }
+        this.setState({
+            search : false
+        })
     }
 
     logout() {
@@ -126,113 +208,123 @@ class Header extends React.Component {
         else
             return (
                 <Query query={GET_AUTH}>
-                    {({data}) => (
-                        <div className="navbar_container">
-                            {/* {console.log("Data: : ", data)} */}
+                    {({data}) => {
+                        return (
+                            <div className="navbar_container">
+                                {/* {console.log("Data: : ", data)} */}
 
-                            <div className='container_40'>
-                                <ul className="nav_bar">
-                                    {left_section}
+                                <div className='container_40'>
+                                    <ul className="nav_bar">
+                                        {left_section}
 
-                                    {data.auth.isAuthenticated && (
-                                        <div className="float-right">
+                                        {data.auth.isAuthenticated && (
+                                            <div className="float-right">
 
 
-                                            {
-                                                this.state.search ? (
-                                                    <li
-                                                        style={{
-                                                            border: 'solid 2px gray',
-                                                            paddingTop: '0px',
-                                                            paddingBottom: '0px',
-                                                        }}
-                                                    >
-                                                        <input
-                                                            placeholder="Search text"
-                                                            type="text"
-                                                            onKeyPress={
-                                                                e => {
-                                                                    if (e.key == 'Enter') {
-                                                                        this.props.history.push(`/search/${e.target.value}`);
-                                                                    }
-                                                                }
-                                                            }
-                                                            // onSearch={value => this.props.history.push(`/search/${value}`)}
-                                                            // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
-                                                        />
-                                                        <button
-                                                            onClick={this.handleCancel}
-                                                            className="search_cancel"
+                                                {
+                                                    this.state.search ? (
+                                                        <li
+                                                            style={{
+                                                                paddingTop: '0px',
+                                                                paddingBottom: '0px',
+                                                                display: 'inline-flex'
+                                                            }}
                                                         >
-                                                            X
-                                                        </button>
-                                                    </li>
-                                                ) : (
-                                                    <li onClick={this.handleSearch}>
-                                                        <Icon type='search' style={{fontSize: 18}}/>
-                                                    </li>
-                                                )
-                                            }
-                                            <li>
-                                                <Popover placement="bottomRight" title={text}
-                                                         content={<Notifs user={data}/>} trigger="click">
-                                                    <Icon type='bell' style={{fontSize: 18}}/>
-                                                </Popover>
-                                            </li>
+                                                            <AutoComplete
+                                                                className={'custom-autocomplete'}
+                                                                onSearch={this.onSearchChange}
+                                                                dataSource={this.state.options}
+                                                                onSelect={this.onSearchSelect}
+                                                                onBlur={() => {
+                                                                    this.setState({search : false})
+                                                                }}
+                                                                optionLabelProp="name"
+                                                                // onKeyPress={
+                                                                //     e => {
+                                                                //         if (e.key === 'Enter') {
+                                                                //             this.props.history.push(`/search/${e.target.value}`);
+                                                                //         }
+                                                                //     }
+                                                                // }
+                                                                // onSearch={value => this.props.history.push(`/search/${value}`)}
+                                                                // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
+                                                            >
+                                                                <Input/>
+                                                            </AutoComplete>
+                                                        </li>
+                                                    ) : (
+                                                        <li onClick={this.handleSearch}>
+                                                            <Icon type='search' style={{fontSize: 18}}/>
+                                                        </li>
+                                                    )
+                                                }
+                                                <li>
+                                                    <Popover placement="bottomLeft"
+                                                             arrowPointAtCenter
+                                                             title={text}
+                                                             content={
+                                                                 <Notifs history={this.props.history} user={data}/>
+                                                             }
+                                                             trigger="click">
+                                                        <Icon type='bell' style={{fontSize: 18}}/>
+                                                    </Popover>
+                                                </li>
 
-                                            <li>
-                                                <Link to="/cart">
-                                                    <Icon
-                                                        type='shopping-cart'
-                                                        style={{fontSize: 18}}
-                                                    />
-                                                </Link>
-                                                {/* <div>{this.props.shopping_cart.length}</div> */}
-                                            </li>
+                                                <li>
+                                                    <Link to="/cart">
+                                                        <Icon
+                                                            type='shopping-cart'
+                                                            style={{fontSize: 18}}
+                                                        />
+                                                    </Link>
+                                                    {/* <div>{this.props.shopping_cart.length}</div> */}
+                                                </li>
 
-                                            <li style={{
-                                                border: 'solid 2px gray',
-                                                paddingTop: '0px',
-                                                paddingBottom: '0px',
-                                                marginLeft: '10px'
-                                            }}>
-                                                <Link
-                                                    to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
-                                            </li>
+                                                <li style={{
+                                                    border: 'solid 2px gray',
+                                                    paddingTop: '0px',
+                                                    paddingBottom: '0px',
+                                                    marginLeft: '10px'
+                                                }}>
+                                                    <Link
+                                                        to={`/user/${data.auth.user.username}`}>Hi {Object.keys(data).length > 0 ? `, ${data.auth.user.name}` : ""}</Link>
+                                                </li>
 
-                                            <li style={{
-                                                border: 'solid 2px gray',
-                                                paddingTop: '0px',
-                                                paddingBottom: '0px',
-                                                marginLeft: '10px'
-                                            }}>
-                                                <Dropdown
-                                                    overlay={<MenuI logout={this.logout} user={data.auth.user}/>}
-                                                    trigger={['click']}
-                                                    placement='bottomRight'>
-                                                    <a className="ant-dropdown-link">
-                                                        <Icon type="down"/>
-                                                    </a>
-                                                </Dropdown>
-                                            </li>
-                                        </div>)}
+                                                <li style={{
+                                                    border: 'solid 2px gray',
+                                                    paddingTop: '0px',
+                                                    paddingBottom: '0px',
+                                                    marginLeft: '10px'
+                                                }}>
+                                                    <Dropdown
+                                                        overlay={<MenuI logout={this.logout} user={data.auth.user}/>}
+                                                        trigger={['click']}
+                                                        placement='bottomRight'>
+                                                        <a className="ant-dropdown-link">
+                                                            <Icon type="down"/>
+                                                        </a>
+                                                    </Dropdown>
+                                                </li>
+                                            </div>)}
 
-                                    {!data.auth.isAuthenticated && (
-                                        <div className="float-right">
-                                            <li>
-                                                <Link to="/login">Login</Link>
-                                                {/* <div>{this.props.shopping_cart.length}</div> */}
-                                            </li>
-                                            <li>
-                                                <Link to="/signup">Register</Link>
-                                                {/* <div>{this.props.shopping_cart.length}</div> */}
-                                            </li>
-                                        </div>
-                                    )}
-                                </ul>
+                                        {!data.auth.isAuthenticated && (
+                                            <div className="float-right">
+                                                <li>
+                                                    <Link to="/login">Login</Link>
+                                                    {/* <div>{this.props.shopping_cart.length}</div> */}
+                                                </li>
+                                                <li>
+                                                    <Link to="/signup">Register</Link>
+                                                    {/* <div>{this.props.shopping_cart.length}</div> */}
+                                                </li>
+                                            </div>
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        );
+
+                    }}
                 </Query>
             );
     }

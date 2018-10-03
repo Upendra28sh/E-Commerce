@@ -130,6 +130,7 @@ export const GET_ORDER_BY_USER = gql`
                     description
                     sizes
                     seller {
+                        id
                         name
                         image
                     }
@@ -171,6 +172,26 @@ export const GET_ENC_REQUEST = gql`
         getEncryptedRequest(orderID: $orderID) {
             encRequest ,
             access_code
+        }
+    }
+`;
+export const GET_ALL_USERS = gql`
+    query {
+        allUsers {
+            username
+            name
+            image
+            about
+            email
+            following {
+                id
+            }
+            followers {
+                id
+            }
+            followingShop {
+                id
+            }
         }
     }
 `;
@@ -407,20 +428,50 @@ query user($username : String!) {
         username
         email
         following{
-          id
-          name
+            id
+            username
+            image
+            about
+            name
           followingShop{
             id
+            shopName
+            image
+            about
           }
         }
-        followers{
-          id
-          
+        followers {
+            id
+            username
+            image
+            about
         }
-        followingShop{
-          id
+        followingShop {
+            id
+            shopName
+            image
+            about
         }
     }
+}
+`;
+
+export const GET_SEARCH_USER_SELLER = gql`
+query($input : String!){
+  searchUsersAndSellers(query : $input) {
+    sellers {
+      id
+      name 
+      shopName 
+      image
+    } 
+    users {
+      id
+      name
+      username
+      image
+    }
+  }
 }
 `;
 
@@ -429,6 +480,7 @@ export const GET_POST = gql`
         UserPosts(username : $username) {
             id
             product {
+              id
               name
               image
               description
@@ -468,6 +520,28 @@ export const GET_SELLER = gql`
             followers{
                 id
               }
+        }
+    }
+`;
+
+export const GET_PRODUCT = gql`
+    query($input : ID!) {
+        Product(id: $input) {
+            id
+            name
+            image
+            price
+            sizes
+            codAccepted
+            returnAccepted
+            description
+            keywords
+            seller {
+                id
+                name
+                image
+                about
+            }
         }
     }
 `;
@@ -560,7 +634,7 @@ export const ADD_SELLER_POST_LIKE = gql`
         likes
       }
     }
-`
+`;
 export const REMOVE_SELLER_POST_LIKE = gql`
     mutation($input : removeLikeInput) {
       removeSellerPostLike(input : $input){
@@ -569,7 +643,7 @@ export const REMOVE_SELLER_POST_LIKE = gql`
         id ,
       }
     }
-`
+`;
 export const ADD_USER_POST_COMMENT = gql`
     mutation($input : addCommentInput){
         addUserPostComment(input : $input){
@@ -661,6 +735,15 @@ export const ADD_POST = gql`
 mutation($file:Upload!){
     addNewPostSeller(file:$file)
   }`;
+
+
+export const ADD_PRODUCT_REPOST = gql`
+mutation($input : AddUserPostInput) {
+  addUserPost(input : $input ) {
+    id
+  }
+}
+`;
 
 export const GET_FEED_ITEM = gql`
 query ($input : ID!){

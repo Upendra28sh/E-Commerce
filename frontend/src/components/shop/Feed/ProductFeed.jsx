@@ -1,21 +1,33 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Icon} from 'antd';
-import {ADD_TO_WISHLIST, GET_USER_FEED} from "../../query";
-import {withApollo} from 'react-apollo'
+import {Button, Icon, message, Modal, Input} from 'antd';
+import {ADD_PRODUCT_REPOST, ADD_TO_WISHLIST, GET_USER_FEED} from "../../query";
+import {withApollo} from 'react-apollo';
 import gql from "graphql-tag";
 
+const TextArea = Input.TextArea;
 
 class ProductFeed extends Component {
     state = {
         addClass: "",
-        collapsed: ""
+        collapsed: "",
+        visible: false,
+        loadingButton: false,
+        captionValue: ''
     };
 
     constructor(props) {
         super(props);
 
         this.addToWishlist = this.addToWishlist.bind(this);
+        this.onCaptionChange = this.onCaptionChange.bind(this);
+    }
+
+
+    onCaptionChange(value) {
+        this.setState({
+            captionValue: value
+        });
     }
 
     handleHover() {
@@ -39,6 +51,34 @@ class ProductFeed extends Component {
         }, 3000);
     }
 
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = () => {
+        this.setState({loadingButton: true});
+        this.props.client.mutate({
+            mutation: ADD_PRODUCT_REPOST,
+            variables: {
+                input: {
+                    product: this.props.product.id,
+                    caption: this.state.captionValue
+                }
+            }
+        }).then(({data}) => {
+            message.success("Reposted Successfully");
+            this.setState({loadingButton: false, visible: false});
+        });
+    };
+
+    handleCancel = () => {
+        this.setState({visible: false});
+    };
+
+
     addToWishlist = () => {
         this.props.client.mutate({
             mutation: ADD_TO_WISHLIST,
@@ -56,7 +96,7 @@ class ProductFeed extends Component {
                             }
                          `,
                     data: {
-                        in_my_wishlist : true ,
+                        in_my_wishlist: true,
                         __typename: "Product"
                     },
                 });
@@ -88,7 +128,7 @@ class ProductFeed extends Component {
                 >
                     <img src={product.image}/>
                     <div className="photo__image__layer"/>
-                    <Link to={`/feed`}>
+                    <Link to={`/feed/product/${product.id}`}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
 
@@ -120,12 +160,29 @@ class ProductFeed extends Component {
                             <span className="photo__action">
                                 <i className="fa fa-share fa-lg"/>
                             </span>
-                            <span className="photo__action">
+                            <span className="photo__action" onClick={this.showModal}>
                                 <i className="fa fa-retweet fa-lg"/>
                             </span>
                         </div>
                     </div>
                 </div>
+                <Modal
+                    visible={this.state.visible}
+                    title="Confirm Post"
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={[
+                        <Button key="back" loading={this.state.loadingButton}
+                                onClick={this.handleCancel}>Return</Button>,
+                        <Button key="submit" type="primary" onClick={this.handleOk}>
+                            Submit
+                        </Button>,
+                    ]}
+                >
+                    <TextArea
+                        onChange={this.captionChange}
+                        value={this.state.captionValue}/>
+                </Modal>
             </div>
         );
     }

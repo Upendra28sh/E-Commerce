@@ -36,7 +36,13 @@ class User extends React.Component {
             });
         }
     }
-
+    gettochat(username)
+    {
+        this.props.history.push({
+            pathname: '/chat',
+            state: { username: username }
+          })
+    }
     render() {
 
         let username = this.props.match.params.id;
@@ -101,6 +107,10 @@ class User extends React.Component {
                                                             }}>
                                                                 {button_text}
                                                             </button>
+                                                            {isAFollower ?
+                                                            <button onClick={()=>this.gettochat(user.username)}>Message</button>
+                                                                : ''
+                                                            }
                                                         </div>)}
                                                     </div>
                                                     <p className="tagline">

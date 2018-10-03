@@ -7,6 +7,8 @@ import ProductFeed from './ProductFeed';
 import {Query} from 'react-apollo';
 import {GET_USER_FEED} from "../../query";
 import Chat from '../Chat';
+import Details from "../Details";
+import {ModalRoute} from 'react-router-modal';
 
 class Feed extends React.Component {
     state = {
@@ -66,6 +68,10 @@ class Feed extends React.Component {
 
                         }}
                     </Query>
+                    <ModalRoute
+                    path={`${this.props.match.url}/product/:id`}
+                    parentPath={this.props.match.url}
+                    component={Details}/>
                     {/*<Chat></Chat>*/}
                 </main>
             </div>
