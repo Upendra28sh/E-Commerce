@@ -1,84 +1,37 @@
 import React, { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-    Input,
-    Dropdown,
-    Menu,
-    Icon,
-    Row,
-    Col,
-    Popover
-} from "antd";
-import { Query } from "react-apollo";
-import { GET_AUTH } from "../query";
+import {Col, Dropdown, Icon, AutoComplete, Input, Menu, Popover, Row} from "antd";
+import {Query, withApollo} from "react-apollo";
+import {GET_AUTH, GET_SEARCH_USER_SELLER} from "./../query";
+import Notifs from './Notification';
+import {categories} from './Header/categories';
 
 // TODO: Add User Notifications
 
 const Search = Input.Search;
-const text = <span>Notifications</span>;
-
-const MenuI = (props) => {
-    return (
-        <Menu>
-            <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
-            <Menu.Item key="2"><NavLink to="/order">Your Order</NavLink></Menu.Item>
-            <Menu.Item key="3"><NavLink to="/wishlist">Your Wishlist</NavLink></Menu.Item>
-            <Menu.Item key="4">Log Out</Menu.Item>
-        </Menu>
-    );
-};
+const Option = AutoComplete.Option;
+const text = <span style={{fontSize: '18px', fontWeight: '600'}}> Notifications</span>;
 
 const menu = (
     <div className="categories">
         <Row>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Menu</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Women</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Kids</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
-            <Col span={6}>
-                <ul className="categories__list">
-                    <strong>
-                        <li>Electronics</li>
-                    </strong>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                    <li>Clothes</li>
-                    <li>Shoes</li>
-                    <li>Pants</li>
-                </ul>
-            </Col>
+            {
+                categories.map((category, index) => (
+                    <Col span={8} key={index}>
+                        <ul className="categories__list" >
+                            <strong>
+                                <li>{category.name}</li>
+                            </strong>
+                            {
+                                category.items.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                ))
+                            }
+                        </ul>
+                    </Col>
+
+                ))
+            }
         </Row>
     </div>
 );
@@ -89,9 +42,14 @@ class MobileHeader extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
+        this.onSearchSelect = this.onSearchSelect.bind(this);
+        this.logout = this.logout.bind(this);
         this.state = {
             search: false,
-            expand: false
+            expand: false,
+            dataSource: [],
+            options: []
         };
     }
 
@@ -119,6 +77,110 @@ class MobileHeader extends React.Component {
         });
     }
 
+    onSearchChange(value) {
+        if (value === '') {
+            this.setState({
+                dataSource: [],
+                options: []
+            });
+            return;
+        }
+        this.props.client.query({
+            query: GET_SEARCH_USER_SELLER,
+            variables: {
+                input: value
+            }
+        }).then(({data}) => {
+            data = data.searchUsersAndSellers;
+            let transformed = [
+                ...data.sellers,
+                ...data.users
+            ];
+            console.log(transformed);
+            let options = transformed.map((item, index) => {
+                return (
+                    <Option key={item.username || item.shopName} original={item}>
+                        <Row gutter={8}>
+                            <Col span={5}>
+                                <img className={'img-fluid'} src={item.image} alt=""/>
+                            </Col>
+                            <Col span={19}>
+                                {item.name}
+                                {item.__typename === 'Seller' && (
+                                    <img src="https://www.veloceinternational.com/wp-content/uploads/2017/08/1495368559287-300x300.png"
+                                         className='verified'
+                                         alt=""/>
+                                )}
+                            </Col>
+                        </Row>
+                    </Option>
+                );
+            });
+            options.push(<Option key={`/search/${value}`}>
+                <Row gutter={8}>
+                    <Link to={`/search/${value}`}/>
+                    <Col span={5}>
+                        <img className={'img-fluid'}
+                             src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV9e0xcioHeH_3D7blQUumfnZQEgdveoWYdhEtP8qgGEN_xSxf'}
+                             alt=""/>
+                    </Col>
+                    <Col span={19}>
+                        Search for #{value}
+                    </Col>
+                </Row>
+            </Option>);
+            this.setState({
+                dataSource: transformed,
+                options
+            });
+        });
+
+    }
+
+    onSearchSelect(value, option) {
+        console.log(value, option);
+        let item = option.props.original ;
+        if(item) {
+            if(item.__typename === 'User'){
+                this.props.history.push(`/user/${item.username}`)
+            } else {
+                this.props.history.push(`/shop/${item.shopName}`)
+            }
+        } else {
+            this.props.history.push(value);
+        }
+        this.setState({
+            search : false
+        })
+    }
+
+
+    logout() {
+        localStorage.clear();
+        this.props.client.clearStore().then(data => {
+            let auth = {
+                isAuthenticated: false,
+                user: {
+                    id: "",
+                    name: "",
+                    username: "",
+                    __typename: "AuthUser"
+                },
+                __typename: "Auth"
+            };
+
+            this.props.client.writeQuery({
+                query: GET_AUTH,
+                data: {auth}
+            });
+
+            console.log(data);
+            console.log("Logout");
+            this.props.history.push('/');
+        });
+
+    }
+
     render() {
 
         if (this.props.history.location.pathname === "/") {
@@ -139,24 +201,47 @@ class MobileHeader extends React.Component {
                                                 <div>
                                                 {
                                                     this.state.search ? (
+                                                        // <div>
+                                                        //     <input
+                                                        //         placeholder="Search Text"
+                                                        //         type="text"
+                                                        //         onKeyPress = {
+                                                        //             e => {
+                                                        //                 if (e.key == 'Enter') {
+                                                        //                     this.props.history.push(`/search/${e.target.value}`)
+                                                        //                 }
+                                                        //             }
+                                                        //         }
+                                                        //     />
+                                                        //     <button 
+                                                        //         onClick={this.handleCancel}
+                                                        //         className="search_cancel"
+                                                        //     >
+                                                        //         X
+                                                        //     </button>
+                                                        // </div>
                                                         <div>
-                                                            <input
-                                                                placeholder="Search Text"
-                                                                type="text"
-                                                                onKeyPress = {
-                                                                    e => {
-                                                                        if (e.key == 'Enter') {
-                                                                            this.props.history.push(`/search/${e.target.value}`)
-                                                                        }
-                                                                    }
-                                                                }
-                                                            />
-                                                            <button 
-                                                                onClick={this.handleCancel}
-                                                                className="search_cancel"
+                                                            <AutoComplete
+                                                                className={'custom-autocomplete'}
+                                                                onSearch={this.onSearchChange}
+                                                                dataSource={this.state.options}
+                                                                onSelect={this.onSearchSelect}
+                                                                onBlur={() => {
+                                                                    this.setState({search : false})
+                                                                }}
+                                                                optionLabelProp="name"
+                                                                // onKeyPress={
+                                                                //     e => {
+                                                                //         if (e.key === 'Enter') {
+                                                                //             this.props.history.push(`/search/${e.target.value}`);
+                                                                //         }
+                                                                //     }
+                                                                // }
+                                                                // onSearch={value => this.props.history.push(`/search/${value}`)}
+                                                                // style={{width: '200px', border: 'none', borderRadius: '5%', borderColor: 'none', background: 'none'}}
                                                             >
-                                                                X
-                                                            </button>
+                                                                <Input/>
+                                                            </AutoComplete>
                                                         </div>
                                                     ) : (
                                                         <div onClick={this.handleSearch}>
@@ -203,12 +288,15 @@ class MobileHeader extends React.Component {
                                                         <Link to="/order">Order</Link>
                                                     </li>
                                                     <li className="nav-item active">
-                                                        <Link to="/wishlist">Wishlist</Link>
+                                                        <Link to="/chat">Chat</Link>
+                                                    </li>
+                                                    <li className="nav-item active">
+                                                        <a onClick={this.logout}>Logout</a>
                                                     </li>
                                                 </Fragment>
                                             )
                                         }
-                                        <li className="nav-item active">
+                                        <li className="nav-item active" style={{cursor: 'pointer'}}>
                                             <Dropdown overlay={menu} trigger={["click"]}>
                                                 <span>Categories</span>
                                             </Dropdown>
@@ -236,4 +324,4 @@ class MobileHeader extends React.Component {
     }
 };
 
-export default MobileHeader;
+export default withApollo(MobileHeader);

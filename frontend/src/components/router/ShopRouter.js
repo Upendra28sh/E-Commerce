@@ -26,7 +26,7 @@ import CheckoutSubmit from "../shop/Checkout/CheckoutSubmit";
 import Order from "../shop/Order/Order";
 import FeedDetail from "../shop/Feed/FeedDetail";
 import SignupComplete from "../shop/SignupComplete";
-import Temp from "../shop/Temp";
+// import Temp from "../shop/Temp";
 import Details from "../shop/Details";
 
 const Router = (props) => {
@@ -34,7 +34,7 @@ const Router = (props) => {
         <div>
             <Switch>
                 <Route exact path="/" component={Landing}/>
-                <Route exact path="/temp" component={Temp}/>
+                {/* <Route exact path="/temp" component={Temp}/> */}
                 <Route exact path="/chat" component={RequireAuth(Chat)}/>
                 {/* <Route exact path="/signup" component={SignUp} /> */}
                 <Route exact path="/signup/complete" component={RequireAuth(SignupComplete)}/>

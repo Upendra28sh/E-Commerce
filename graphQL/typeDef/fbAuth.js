@@ -3,8 +3,14 @@ import {gql} from 'apollo-server';
 module.exports = gql`
 
     input FBInput {
-        accessToken: String!,
-        userID: String!,
+        accessToken: String,
+        userID: String,
+    }
+
+    extend type Query {
+        fbFriends(
+            input: FBInput
+        ): [User]
     }
 
     extend type Mutation {
@@ -14,5 +20,8 @@ module.exports = gql`
         fbSignin(
             input: FBInput
         ): AuthPayload
+        followFBFriends(
+            ids: [ID]!
+        ): Boolean
     }
 `;

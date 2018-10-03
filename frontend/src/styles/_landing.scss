@@ -52,11 +52,11 @@
 }
 
 .main_box {
-	border: solid 1px #fafafa;
+	border: solid 1px #faaeeb;
 	border-radius: 5px;
-	background-color: rgba($color: white, $alpha: 0.6);
-	width: 23%;
-	margin: auto;
+	background-color: white;
+	max-width: 400px;
+	margin-left: auto;
 
 	.box_header {
 		padding-bottom: 5px;
@@ -67,20 +67,20 @@
 			text-align: center;
 			display: inline-block;
 			cursor: pointer;
-			border-bottom: solid 1px white;
+			border-bottom: solid 1px #faaeeb;
 			padding-top: 5px;
 		}
 
 		.selected {
-			background: rgba(white, 0.7)
+			background: rgba(black, 0.02);
 		}
 		
 		div:hover {
-			background: rgba(white, 0.7)
+			background: rgba(black, 0.02);
 		}
 
 		:first-child {
-			border-right: solid 1px white;
+			border-right: solid 1px #faaeeb;
 		}
 	}
 

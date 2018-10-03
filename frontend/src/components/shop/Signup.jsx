@@ -25,10 +25,30 @@ class Signup extends React.Component {
             "accessToken": data.accessToken,
             "userID": data.userID
         };
+        localStorage.setItem('fb', input);
         console.log(input);
         this.props.client.mutate({
             mutation: FB_SIGNUP,
-            variables: {input: input}
+            variables: {input: input},
+            update: (cache, {data: {fbSignup}}) => {
+                console.log("FbSignup", fbSignup);
+                let auth = {
+                    isAuthenticated: fbSignup.token.code === 1,
+                    user: {
+                        id: "",
+                        name: "",
+                        username: "",
+                        ...jwt.decode(fbSignup.token.content),
+                        __typename: "AuthUser"
+                    },
+                    __typename: "Auth"
+                };
+
+                cache.writeQuery({
+                    query: GET_AUTH,
+                    data: {auth}
+                });
+            }
         }).then((data) => {
             data = data.data.fbSignup;
             console.log(data);
@@ -36,7 +56,10 @@ class Signup extends React.Component {
                 console.log(data.token.content);
                 localStorage.setItem("token", data.token.content);
                 message.success("SignUp Successful");
-                this.props.history.push("/feed/");
+                setTimeout(() => {
+                    this.props.history.push("/signup/complete");                            
+                }, 1000);
+                // this.props.history.push("/feed/");
             } else {
                 message.error(data.token.content);
             }
