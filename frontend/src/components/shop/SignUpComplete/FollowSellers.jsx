@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon, Row, Col, message} from 'antd';
 import {Query} from 'react-apollo';
-import {GET_ALL_SELLERS} from '../../query';
+import {GET_ALL_SELLERS, GET_TOP_SELLERS} from '../../query';
 
 const MIN_SELLERS = 3;
 
@@ -50,14 +50,14 @@ class FollowSellers extends React.Component {
 
     render() {
 		return (
-			<Query query={GET_ALL_SELLERS}>
+			<Query query={GET_TOP_SELLERS}>
 			{
 				({loading, data}) => {
 					if (loading) {
 						return <p>Loading...</p>
 					}
 
-					data = data.allSellers;
+					data = data.getTopSellers;
 					console.log(data);
 					
 					return (

@@ -3,7 +3,7 @@ import {Query} from 'react-apollo';
 
 import {GET_POST} from '../../query';
 import {Link} from "react-router-dom";
-import {Card, Col} from "antd";
+import {Card, Row ,Col} from "antd";
 
 class UserPosts extends Component {
     constructor(props) {
@@ -27,23 +27,24 @@ class UserPosts extends Component {
                         data = data.UserPosts;
                         console.log("User Posts : ", data);
                         return (
-                            data.map(
-                                (post, index) => {
-                                    return (
-                                        <Col span={6} key={index}>
-                                            <Link to={`/user/${this.props.username}/product/${post.product.id}`}>
-                                                <Card
-                                                    key={index}
-                                                    hoverable
-                                                    cover={<img src={post.product.image}/>}
-                                                >
-                                                </Card>
-                                            </Link>
-                                        </Col>
+                            <Row gutter={16} style={{margin : 0}}>
+                                {data.map(
+                                    (post, index) => {
+                                        return (
+                                            <Col span={6} key={index}>
+                                                <Link to={`/user/${this.props.username}/product/${post.product.id}`}>
+                                                    <Card
+                                                        key={index}
+                                                        cover={<img src={post.product.image}/>}
+                                                    >
+                                                    </Card>
+                                                </Link>
+                                            </Col>
 
-                                    );
-                                }
-                            )
+                                        );
+                                    }
+                                )}
+                            </Row>
                         );
                     }}
                 </Query>

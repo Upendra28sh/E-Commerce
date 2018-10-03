@@ -706,7 +706,9 @@ export const GET_TOP_SELLERS = gql`
             about
             image
             shopName
-            followers
+            followers {
+                id
+            }
         }
     }
 `;

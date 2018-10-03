@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const transformSchema = require('./utils/schemaTransform');
 import bcrypt from 'bcryptjs';
-import Address from './address'
+import Address from './address';
 
 const sellerSchema = new mongoose.Schema({
     name: String,
@@ -33,10 +33,13 @@ const sellerSchema = new mongoose.Schema({
         store: String,
         return: String
     },
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+    followers: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }] ,
+        default : []
+    },
 }, {
     versionKey: false
 });
