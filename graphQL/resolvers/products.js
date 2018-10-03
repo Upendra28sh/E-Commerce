@@ -10,6 +10,18 @@ const normalizeKeywords = (keywords) => {
     return keywords || [];
 };
 
+const lowerToTitle = (str) => {
+    let res = str.split("");
+    res[0] = res[0].toUpperCase();
+    for(let i=1; i<res.length; i++) {
+        if (res[i] === " ") {
+            res[i+1] = res[i+1].toUpperCase();
+        }
+    }
+    res = res.join(""); 
+    return res;
+}
+
 module.exports = {
     Query: {
         // TODO : Implement Pagination and Filters...
@@ -78,6 +90,19 @@ module.exports = {
                 }
             );
         },
+
+        getProductsByCategory: (parent, {input}, args, info) => {
+            input.name = lowerToTitle(input.name);
+            input.title = lowerToTitle(input.title);
+            return Product.find({
+                category: input
+            }).exec().then(
+                data => {
+                    // console.log(data);
+                    return data;
+                }
+            );
+        }
     },
 
     Mutation: {

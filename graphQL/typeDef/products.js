@@ -34,13 +34,18 @@ export default gql `
         product : Product
     }
     
+    input CategoryInput {
+        name: String!,
+        title: String!
+    }
+
     # TODO : Change AllProducts to Custom Payload for Support with Paginiation and Infinite Scrolling.
     extend type Query {
         allProducts: [Product],
         getProductBySeller(id : ID): [Product],
         Product(id: ID!): Product,
         getProducts(filter : String!): [Seller]
-
+        getProductsByCategory(input: CategoryInput): [Product]
     }
 
     extend type Mutation {

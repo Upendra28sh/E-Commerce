@@ -49,8 +49,10 @@ export default gql `
         ):User,
         addUserAddress(
             input : addUserAddressInput
-        ) : Address 
-        
+        ): Address 
+        changeProfileVisibility(
+            public: Boolean
+        ): Boolean        
     }
 `
 

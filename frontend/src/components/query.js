@@ -1,5 +1,11 @@
 import {gql} from "apollo-boost";
 
+export const CHANGE_VISBILITY = gql`
+    mutation ChangeVisibility($val: Boolean){
+        changeProfileVisibility(public: $val)
+    }
+`;
+
 export const SEARCH_USERS = gql`
     query($input : String!){
       searchUsers(query : $input){
@@ -427,6 +433,7 @@ query user($username : String!) {
         about
         username
         email
+        public
         following{
             id
             username
@@ -686,6 +693,20 @@ export const GET_ALL_SELLERS = gql`
             about
             image
             shopName
+        }
+    }
+`;
+
+export const GET_TOP_SELLERS = gql`
+    query {
+        getTopSellers{
+            id
+            name
+            intro
+            about
+            image
+            shopName
+            followers
         }
     }
 `;

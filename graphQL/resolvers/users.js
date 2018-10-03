@@ -200,6 +200,19 @@ module.exports = {
 
             });
 
+        },
+
+        changeProfileVisibility: (parent, {public: isProfilePublic}, {user}, info) => {
+            return User.findOneAndUpdate(
+                {_id: user.id},
+                {$set: { public: isProfilePublic }},
+                {returnNewDocument: true}
+            ).exec().then(
+                updatedUser => {
+                    // console.log(updatedUser.public);
+                    return !!updatedUser
+                }
+            )
         }
 
     }

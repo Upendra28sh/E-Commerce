@@ -85,9 +85,9 @@ class FacebookConnect extends React.Component {
                                     data.map(
                                         (user, index) => {
                                             return (
-                                                <Col xl={8} xm={12} xs={24} key={index}>
+                                                <Col span={8} key={index}>
                                                     <div 
-                                                        style={{margin: '5px',backgroundColor: 'white'}}
+                                                        style={{margin: '5px',backgroundColor: 'white', border: 'solid 1px rgb(250,238,235'}}
                                                     >
                                                         <div 
                                                             style={{ 
