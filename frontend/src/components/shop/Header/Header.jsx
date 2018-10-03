@@ -28,8 +28,8 @@ const menu = (
         <Row>
             {
                 categories.map((category, index) => (
-                    <Col span={8}>
-                        <ul className="categories__list" key={index}>
+                    <Col span={8} key={index}>
+                        <ul className="categories__list" >
                             <strong>
                                 <li>{category.name}</li>
                             </strong>

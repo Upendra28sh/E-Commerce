@@ -40,7 +40,7 @@ class Landing extends React.Component {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={0} sm={0} xl={4} style={{padding: '20px', fontSize: '20px', color: 'white', fontWeight: 'bold'}}>
+                            <Col xs={0} sm={0} xl={6} style={{padding: '20px', fontSize: '20px', color: 'white', fontWeight: 'bold'}}>
                                 <p>Ullamco id aute cupidatat dolore consectetur irure nostrud minim est enim. Labore cillum Lorem excepteur est ad aliquip duis deserunt ea ea enim consectetur proident.</p>
                             </Col>
                         </Row>

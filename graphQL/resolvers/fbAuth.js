@@ -20,18 +20,6 @@ const randomUsername = (name) => {
     return final;
 }
 
-const arrayUnique = (array) => {
-    let a = array.concat();
-    for(let i=0; i<a.length; ++i) {
-        for(let j=i+1; j<a.length; ++j) {
-            if(a[i] == a[j])
-                a.splice(j--, 1);
-        }
-    }
-
-    return a;
-}
-
 module.exports = {
     Query: {
         fbFriends: (parent, { input }, context, info) => {
@@ -267,8 +255,28 @@ module.exports = {
                     if (!foundUser) {
                         return false;
                     }
-                    // follow users in IDs
-                    return true;
+
+                    return User.findOneAndUpdate({_id: user.id}, {
+                        $addToSet: {
+                            following: ids
+                        }
+                    }).exec().then(
+                        updatedUser => {
+                            ids.map(
+                                id => {
+                                    return User.findOneAndUpdate({_id: id}, {
+                                        $addToSet: {
+                                            followers: user.id
+                                        }
+                                    }).exec().then(
+                                        info => {
+                                            return true;                                            
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    );
                 }
             )
         }
