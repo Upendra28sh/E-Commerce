@@ -5,6 +5,14 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import {createApprovalRequest} from "./utils";
 
+function compare(a,b) {
+    if (a.followers.length > b.followers.length)
+        return -1;
+    if (a.followers.length < b.followers.length)
+        return 1;
+    return 0;
+}
+
 module.exports = {
     Query: {
         allSellers: (parent, args, context, info) => {
@@ -53,6 +61,18 @@ module.exports = {
                     return data.address;
                 }
             )
+        },
+
+        getTopSellers: (parent, args, input, info) => {
+            return Seller.find().exec()
+                .then(
+                    data => {
+                        // console.log(data);
+                        data.sort(compare);
+                        data.splice(10);
+                        return data;
+                    }
+                )
         }
     },
 

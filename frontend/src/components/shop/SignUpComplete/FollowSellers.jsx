@@ -3,7 +3,7 @@ import {Icon, Row, Col, message} from 'antd';
 import {Query} from 'react-apollo';
 import {GET_ALL_SELLERS} from '../../query';
 
-const MIN_SELLERS = 4;
+const MIN_SELLERS = 3;
 
 class FollowSellers extends React.Component {
 
@@ -88,6 +88,7 @@ class FollowSellers extends React.Component {
 														<div style={{padding: '10px', borderTop: 'solid 1px #faeeeb'}}>
 															<h5 style={{fontWeight: 'bold'}}>{seller.name}</h5>
 															<span>{seller.intro}</span>
+															<span>{seller.followers.length} followers</span>
 														</div>
 													</div>    
                                                 </Col>

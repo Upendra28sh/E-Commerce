@@ -690,6 +690,20 @@ export const GET_ALL_SELLERS = gql`
     }
 `;
 
+export const GET_TOP_SELLERS = gql`
+    query {
+        getTopSellers{
+            id
+            name
+            intro
+            about
+            image
+            shopName
+            followers
+        }
+    }
+`;
+
 export const FB_SIGNUP = gql`
     mutation($input: FBInput) {
         fbSignup(input: $input) {
