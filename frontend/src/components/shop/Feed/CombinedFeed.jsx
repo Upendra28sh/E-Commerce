@@ -36,8 +36,8 @@ class Feed extends React.Component {
                     onCancel={this.handleCancel.bind(this)}
                     footer={[
                         <Button key="back" onClick={this.handleCancel.bind(this)}>Return</Button>,
-                        <Link to="/facebook/">
-                            <Button key="submit" type="primary">
+                        <Link key="submit" to="/facebook/">
+                            <Button type="primary">
                                 Connect
                             </Button>
                         </Link>
