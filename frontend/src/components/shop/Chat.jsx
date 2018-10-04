@@ -9,7 +9,8 @@ import {
   sendmessageusertouser,
   checkintialized
 } from "../../push-notification";
-
+import gql from "graphql-tag";
+import {withApollo} from 'react-apollo';
 let userdata;
 
 class Demo extends Component {
@@ -20,7 +21,8 @@ class Demo extends Component {
       sellername: "",
       messageList: [],
       message: "",
-      isUser: true
+      isUser: true,
+      unread: {}
     };
   }
   changeChatContacts() {
@@ -43,7 +45,6 @@ class Demo extends Component {
           count++;
         }
       }
-      return count;
     });
     return count;
   }
@@ -56,11 +57,15 @@ class Demo extends Component {
           snapshot.val()[key].read == false
         ) {
           count++;
-          console.log('count',count);
+          console.log("count", count);
         }
       }
+      let temp = this.state.unread;
+      temp[shopName] = count;
+      this.setState({
+        unread: temp
+      });
     });
-    return count;
   }
   changeSeller(shopName, username) {
     if (this.state.username != "") {
@@ -148,6 +153,15 @@ class Demo extends Component {
         );
       }
     }
+    let self = this;
+    this.props.client.query({
+      query:GET_AUTH
+    }).then((data)=>{
+      self.props.client.query({
+        query:GET_USER,
+        variables:{username:data.data.auth.user.username}
+      }).then()
+    })
   }
   onTyping(e) {
     this.setState({
@@ -156,9 +170,16 @@ class Demo extends Component {
   }
 
   onSummits(username) {
-    console.log("clicked");
+    console.log("clicked",this.state.username);
     if (this.state.isUser) {
       sendmessageusertouser(username, this.state.message, this.state.username);
+      this.props.client.mutate({
+        mutation:gql`mutation{
+          makeChatNotify(to:"${this.state.username}")
+        }`
+      }).then((data)=>{
+        console.log('data',data);
+      })
     } else {
       sendmessageusertoseller(
         username,
@@ -169,6 +190,7 @@ class Demo extends Component {
     this.setState({
       message: ""
     });
+    
   }
 
   render() {
@@ -240,6 +262,10 @@ class Demo extends Component {
                             style={{ listStyle: "none", padding: "0px" }}
                           >
                             {data.User.followingShop.map((value, index) => {
+                              this.geturmessageseller(
+                                  value.shopName,
+                                  userdata.username
+                                );
                               return (
                                 <li
                                   className="person"
@@ -255,10 +281,7 @@ class Demo extends Component {
                                   <span className="name">
                                     {value.shopName}{" "}
                                     <button class="btn-circle">
-                                      {this.geturmessageseller(
-                                        value.shopName,
-                                        userdata.username
-                                      )}
+                                      {this.state.unread[value.shopName]}
                                     </button>
                                   </span>
                                   <span className="preview">{value.about}</span>
@@ -340,4 +363,4 @@ class Demo extends Component {
   }
 }
 
-export default Demo;
+export default withApollo(Demo);
