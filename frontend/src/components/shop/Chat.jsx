@@ -22,7 +22,8 @@ class Demo extends Component {
       messageList: [],
       message: "",
       isUser: true,
-      unread: {}
+      unread: {},
+      unreadUser:{}
     };
   }
   changeChatContacts() {
@@ -45,8 +46,13 @@ class Demo extends Component {
           count++;
         }
       }
-    });
-    return count;
+        let temp = this.state.unreadUser;
+        console.log(othername,count);
+        temp[othername] = count;
+        this.setState({
+          unreadUser: temp
+        });
+      });
   }
   geturmessageseller(shopName, username) {
     var count = 0;
@@ -61,6 +67,7 @@ class Demo extends Component {
         }
       }
       let temp = this.state.unread;
+      console.log(shopName,count);
       temp[shopName] = count;
       this.setState({
         unread: temp
@@ -160,7 +167,17 @@ class Demo extends Component {
       self.props.client.query({
         query:GET_USER,
         variables:{username:data.data.auth.user.username}
-      }).then()
+      }).then(
+        datauser=>{
+          console.log('userdata',datauser);
+          datauser.data.User.followingShop.map((value)=>{
+            this.geturmessageseller(value.shopName,data.data.auth.user.username);
+          })
+          datauser.data.User.following.map((value)=>{
+            this.geturmessageuser(value.username,data.data.auth.user.username);
+          })
+        }
+      )
     })
   }
   onTyping(e) {
@@ -245,10 +262,7 @@ class Demo extends Component {
                                   <span className="name">
                                     {value.username}
                                     <button class="btn-circle">
-                                      {this.geturmessageuser(
-                                        value.username,
-                                        userdata.username
-                                      )}
+                                      {this.state.unreadUser[value.username]}
                                     </button>
                                   </span>
                                   <span className="preview">{value.about}</span>
@@ -262,10 +276,7 @@ class Demo extends Component {
                             style={{ listStyle: "none", padding: "0px" }}
                           >
                             {data.User.followingShop.map((value, index) => {
-                              this.geturmessageseller(
-                                  value.shopName,
-                                  userdata.username
-                                );
+                              
                               return (
                                 <li
                                   className="person"
