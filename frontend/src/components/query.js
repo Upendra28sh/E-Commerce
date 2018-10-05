@@ -431,6 +431,7 @@ query user($username : String!) {
         id
         name
         about
+        image
         username
         email
         public
@@ -461,6 +462,14 @@ query user($username : String!) {
         }
     }
 }
+`;
+
+export const UPDATE_USER = gql`
+    mutation($input: UserDetailsInput) {
+        updateUser(input: $input) {
+            id
+        }
+    }
 `;
 
 export const GET_SEARCH_USER_SELLER = gql`

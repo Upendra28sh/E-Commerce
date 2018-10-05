@@ -47,6 +47,9 @@ export default gql `
             UserToken : String!,
             Email : String!
         ):User,
+        updateUser(
+            input: UserDetailsInput
+        ): User,
         addUserAddress(
             input : addUserAddressInput
         ): Address 
@@ -56,21 +59,4 @@ export default gql `
     }
 `
 
-// module.exports = {
-//     Query: `
-//         
-//     `,
-//     Mutation: `
-//         addUser(
-//             name: String,
-//             image: String,
-//             about: String,
-//             order:Int,
-//             City:String,
-//             email:String,
-//             Latest:Int,
-//             Contact:String,
-//             Total:Int
-//         ): User
-//     `
-// }
+// UserDetailsInput used is defined in auth typedef

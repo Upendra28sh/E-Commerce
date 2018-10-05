@@ -30,6 +30,7 @@ import SignupComplete from "../shop/SignupComplete";
 import Details from "../shop/Details";
 import FacebookConnect from "../shop/FacbookConnect";
 import CategoryProduct from "../shop/CategoryProduct";
+import EditProfile from "../shop/Profile/EditProfile";
 
 const Router = (props) => {
     return (
@@ -46,6 +47,7 @@ const Router = (props) => {
                 {/*<Route exact path="/addPost" component={addPost}/>*/}
                 <Route exact path="/trendingfeed" component={RequireAuth(TrendingFeed)}/>
                 <Route path="/search/:query/" component={RequireAuth(Search)}/>
+                <Route path="/user/:id/edit" component={RequireAuth(EditProfile)}/>
                 <Route path="/user/:id" component={RequireAuth(User)}/>
                 {/*<Route exact path="/seller/new" component={RequireAuth(AddSeller)} />*/}
                 <Route path="/shop/:id/" component={RequireAuth(Seller)}/>
