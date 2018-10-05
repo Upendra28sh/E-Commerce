@@ -82,6 +82,14 @@ module.exports = {
                     return data;
                 }
             )
+        },
+
+        deleteUserPost: (parent, {postID}, context, info) => {
+            return UserPost.findOneAndRemove(
+                {_id: postID}
+            ).exec().then(
+                data => !!data
+            )
         }
     }
 };

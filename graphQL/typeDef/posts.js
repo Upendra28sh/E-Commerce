@@ -24,6 +24,10 @@ export default gql`
 
         updateUserPost(
             input: UpdateUserPost
-        ): UserPost
+        ): UserPost,
+
+        deleteUserPost(
+            postID: ID!
+        ): Boolean
     }
 `;

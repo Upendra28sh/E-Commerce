@@ -858,3 +858,9 @@ export const UPDATE_POST_CAPTION = gql`
         }
     }
 `;
+
+export const DELETE_USER_POST = gql`
+    mutation deletePost($id: ID!) {
+        deleteUserPost(postID: $id)
+    }
+`;

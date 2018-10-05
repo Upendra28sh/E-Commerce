@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Query, withApollo} from 'react-apollo';
 import {Link} from "react-router-dom";
-import {GET_POST, UPDATE_POST_CAPTION} from '../../query';
+import {GET_POST, UPDATE_POST_CAPTION, DELETE_USER_POST} from '../../query';
 import {Card, Row ,Col, Icon, Modal, Input, message} from "antd";
 
 
@@ -10,17 +10,27 @@ class UserPosts extends Component {
         super(props);
         this.state = {
             visible: false,
-            post: undefined
+            post: undefined,
+            delete: false,
+            deleteItem: undefined
         }
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.handleCancelDelete = this.handleCancelDelete.bind(this);
+        this.deletePost = this.deletePost.bind(this);
     }
 
     handleCancel() {
         this.setState({
             visible: false
+        });
+    }
+
+    handleCancelDelete() {
+        this.setState({
+            delete: false
         });
     }
 
@@ -50,6 +60,23 @@ class UserPosts extends Component {
         });
     }
 
+    deletePost() {
+        // delete user post
+        this.props.client.mutate({
+            mutation: DELETE_USER_POST,
+            variables: {id: this.state.deleteItem}
+        }).then(
+            data => {
+                data = data.data.deleteUserPost;
+                if (data) {
+                    this.handleCancelDelete();
+                } else {
+                    message.error("Try again later.")
+                }
+            }
+        )
+    }
+
     render() {
         return (
             <div>
@@ -74,7 +101,12 @@ class UserPosts extends Component {
                                                 <Card
                                                     key={index}
                                                     cover={<img src={post.product.image}/>}
-                                                    actions={[<Icon type="edit" onClick={() => this.setState({visible: true, post: post})}/>]}
+                                                    actions={
+                                                        [
+                                                            <Icon type="edit" onClick={() => this.setState({visible: true, post: post})}/>,
+                                                            <Icon type="delete" onClick={() => this.setState({delete: true, deleteItem: post.id})} />
+                                                        ]
+                                                    }
                                                 >
                                                     <Card.Meta
                                                         title={<Link to={`/user/${this.props.username}/product/${post.product.id}`}>{post.product.name}</Link>}
@@ -99,6 +131,15 @@ class UserPosts extends Component {
                     {this.state.post ? (
                         <Input defaultValue={this.state.post.caption} onChange={this.onChange}/>
                     ) : <p>Loading...</p>}
+                </Modal>
+
+                <Modal
+                    title="Delete Post"
+                    visible={this.state.delete}
+                    onCancel={this.handleCancelDelete}
+                    onOk={this.deletePost}
+                >
+                    <p>Are you sure you want to delete this post?</p>
                 </Modal>
             </div>
         );
