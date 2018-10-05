@@ -1,13 +1,13 @@
 import React from "react";
-import {Button, Col, Icon, InputNumber, Row, Select, Tabs} from "antd";
+import {Button, Col, Icon, InputNumber, Row, Select, Tabs,Modal} from "antd";
 
 import gql from "graphql-tag";
 import {Query, withApollo} from "react-apollo";
 import {ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST} from '../query';
 import {GET_PRODUCT} from "../query";
-
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
+
 
 const decideQuery = bool => bool ? REMOVE_FROM_WISHLIST : ADD_TO_WISHLIST;
 
@@ -17,7 +17,8 @@ class Details extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            visibleshare:false,
         };
         this.handleAddToCart = this.handleAddToCart.bind(this);
     }
@@ -233,9 +234,16 @@ class Details extends React.Component {
                                                     type="primary"
                                                     size="large"
                                                     className="product__share"
+                                                    onClick={()=>{this.setState({visibleshare:true})}}
                                                 >
                                                     Share
                                                 </Button>
+                                                <Modal
+                                                title="Share on Various platform"
+                                                visible={this.state.visibleshare}
+                                                onCancel={()=>{this.setState({visibleshare:false})}}
+                                                >
+                                                    </Modal>
                                             </Col>
                                         </Row>
                                     </Col>
