@@ -60,7 +60,7 @@ class User extends React.Component {
                                 return <p>Loading...</p>;
                             }
                             if (error_1 || error_2) {
-                                return <p>Eroor...</p>;
+                                return <p>Error...</p>;
                             }
                             const user = data_1.User;
                             const me = data_2.auth.user;

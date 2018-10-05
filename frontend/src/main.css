@@ -71,7 +71,7 @@
   width: 1em;
   height: 0.15em;
   background: white;
-  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
+  box-shadow: 0 0.25em 0 0 white, 0 0.5em 0 0 white; }
 
 .mobile_header {
   width: 100%; }
@@ -111,25 +111,56 @@
   position: relative; }
 
 .main_page {
-  background: url("/main.jpg");
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35)), url(/main.jpg);
   height: 100vh;
   width: 100%;
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat;
   position: absolute;
-  filter: blur(5px); }
+  filter: blur(4px); }
 
 .main_content {
   position: relative;
-  padding-top: 12%; }
+  padding-top: 20vh;
+  max-width: 800px;
+  width: 95%;
+  margin: auto; }
+
+.main_logo {
+  position: absolute;
+  top: -60px;
+  left: calc(50% - 60px);
+  z-index: 1000;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
+  .main_logo img {
+    width: 100%;
+    height: 100%; }
+
+.main_logo_1 {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 1000;
+  width: 120px;
+  margin: auto;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
+  .main_logo_1 img {
+    width: 100%;
+    height: 100%; }
 
 .main_box {
-  border: solid 1px #faaeeb;
   border-radius: 5px;
   background-color: white;
   max-width: 400px;
-  margin-left: auto; }
+  margin: auto; }
   .main_box .box_header {
     padding-bottom: 5px; }
     .main_box .box_header div {
@@ -138,20 +169,19 @@
       text-align: center;
       display: inline-block;
       cursor: pointer;
-      border-bottom: solid 1px #faaeeb;
-      padding-top: 5px; }
-    .main_box .box_header .selected {
-      background: rgba(0, 0, 0, 0.02); }
-    .main_box .box_header div:hover {
-      background: rgba(0, 0, 0, 0.02); }
+      border-bottom: solid 1px #999999;
+      padding: 15px 0; }
     .main_box .box_header :first-child {
-      border-right: solid 1px #faaeeb; }
+      border-right: solid 1px #999999; }
   .main_box .box_content {
     padding: 5% 8%; }
 
 button.kep-login-facebook.metro {
   display: block;
-  margin: auto; }
+  margin: auto;
+  padding: 10px 13px;
+  font-weight: 600;
+  font-size: 13px; }
 
 .sign_up__card {
   margin-top: 20px !important;

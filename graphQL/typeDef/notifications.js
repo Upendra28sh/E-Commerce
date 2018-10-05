@@ -8,5 +8,6 @@ export default gql`
 
     extend type Mutation {
         notificationRead(id: ID): Notification
+        makeChatNotify(to:String):Boolean
     }
 `;

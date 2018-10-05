@@ -16,7 +16,7 @@ const MenuI = (props) => {
     console.log(props);
     return (
         <Menu>
-            <Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>
+            {/*<Menu.Item key="1"><NavLink to={`/user/${props.user.username}`}>Your Profile</NavLink></Menu.Item>*/}
             <Menu.Item key="2"><NavLink to="/orders">Your Orders</NavLink></Menu.Item>
             <Menu.Item key="3"><NavLink to="/chat">Your Messages</NavLink></Menu.Item>
             <Menu.Item key="4" onClick={props.logout}>Log Out</Menu.Item>
@@ -136,12 +136,12 @@ class Header extends React.Component {
                     </Option>
                 );
             });
-            options.push(<Option key={`/search/${value}`}>
+            options.unshift(<Option key={`/search/${value}`}>
                 <Row gutter={8}>
                     <Link to={`/search/${value}`}/>
                     <Col span={5}>
                         <img className={'img-fluid'}
-                             src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV9e0xcioHeH_3D7blQUumfnZQEgdveoWYdhEtP8qgGEN_xSxf'}
+                             src={'https://upload.wikimedia.org/wikipedia/commons/4/47/Hash.png'}
                              alt=""/>
                     </Col>
                     <Col span={19}>
