@@ -8,7 +8,7 @@ import {createdNotificationFollow} from './utils';
 module.exports = {
     Query: {
         allUsers: (parent, args, context, info) => {
-            console.log(context.seller);
+            //console.log(context.seller);
             return User.find({})
                 .populate('address')
                 .populate('following')
@@ -43,7 +43,7 @@ module.exports = {
             return User.findOne({
                 _id: userId
             }).then(foundUser => {
-                console.log(foundUser.address);
+                //console.log(foundUser.address);
                 return foundUser.address;
             });
         },
@@ -53,7 +53,7 @@ module.exports = {
             return User.find({
                 username: regex
             }, 'username name id').limit(5).then(data => {
-                // console.log(data);
+                //console.log(data);
                 return data;
             });
         },
@@ -63,7 +63,7 @@ module.exports = {
             return User.find({
                 username: regex
             }).limit(5).then(userResults => {
-                // console.log(data);
+                //console.log(data);
                 return Seller.find({
                     shopName : regex
                 }).limit(5).then(sellerResults => {
@@ -81,7 +81,7 @@ module.exports = {
 
     Mutation: {
         addUserAddress: (parents, args, context, info) => {
-            // console.log()
+            //console.log()
             return User.findOneAndUpdate({
                 _id: context.user.id
             }, {
@@ -91,7 +91,7 @@ module.exports = {
 
             }, {new: true}).exec()
                 .then(data => {
-                    console.log(data);
+                    //console.log(data);
                     return data.address[data.address.length - 1];
                 });
 
@@ -193,23 +193,38 @@ module.exports = {
             return User.findOne({
                 email: args.Email
             }).exec().then((user) => {
-                console.log(context.user);
+                //console.log(context.user);
                 user.UserToken = args.UserToken;
-                console.log(user.UserToken);
+                //console.log(user.UserToken);
                 user.save();
 
             });
 
         },
 
+        updateUser: (parent, {input}, {user}, info) => {
+            let {name, image, about} = input;
+
+            return User.findOneAndUpdate(
+                {_id: user.id},
+                {$set: { name: name, image: image, about: about }},
+                {returnNewDocument: true}
+            ).exec().then(
+                updatedUser => {
+                    //console.log(updatedUser);
+                    return updatedUser;
+                }
+            )
+        },
+
         changeProfileVisibility: (parent, {public: isProfilePublic}, {user}, info) => {
             return User.findOneAndUpdate(
                 {_id: user.id},
                 {$set: { public: isProfilePublic }},
-                {returnNewDocument: true}
+                {new: true}
             ).exec().then(
                 updatedUser => {
-                    // console.log(updatedUser.public);
+                    //console.log(updatedUser.public);
                     return !!updatedUser
                 }
             )

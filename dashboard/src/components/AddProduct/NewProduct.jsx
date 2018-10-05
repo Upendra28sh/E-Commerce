@@ -9,7 +9,8 @@ import {
   Col,
   message,
   Upload,
-  Modal
+  Modal,
+  Select
 } from "antd";
 import { withApollo } from "react-apollo";
 import { ApolloClient } from "apollo-client";
@@ -17,8 +18,11 @@ import { createUploadLink } from "apollo-upload-client";
 import { ADD_PRODUCT } from "../Query/query";
 import UploadAvatar from "../Shared/UploadAvatar";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import {categories} from "./categories";
 
 const BASE_URL = 'http://localhost:4000/graphql' ;
+
+const { Option, OptGroup } = Select;
 // const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 let token = localStorage.getItem("token");
@@ -34,18 +38,25 @@ const { TextArea } = Input;
 let uuid = 0;
 
 class AddProduct extends React.Component {
-  state = {
-    confirmDirty: false,
-    total_cost: 150,
-    cod_cost: 50,
-    shipping_cost: 150,
-    isCod: false,
-    current_price: 0,
-    previewVisible: false,
-    previewImage: "",
-    fileList: [],
-    files: []
-  };
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmDirty: false,
+      total_cost: 150,
+      cod_cost: 50,
+      shipping_cost: 150,
+      isCod: false,
+      current_price: 0,
+      previewVisible: false,
+      previewImage: "",
+      fileList: [],
+      files: [],
+      category: null
+    };
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+  }
+
   handleCancel = () => this.setState({ previewVisible: false });
   getfiledata(file) {
     let temp = this.state.files;
@@ -75,6 +86,16 @@ class AddProduct extends React.Component {
     return result;
   };
 
+  handleCategoryChange= (data) => {
+    const res = data.split(',');
+    this.setState({
+      category: {
+        name: res[1],
+        title: res[0]
+      }
+    }, () => console.log(this.state));
+  }
+
   prepareInput({
     name,
     image,
@@ -97,7 +118,8 @@ class AddProduct extends React.Component {
         sizes: sizes,
         codAccepted: cod ? true : false,
         returnAccepted: returnAcc ? true : false,
-        keywords: this.prepareKeywordsFromString(keywords)
+        keywords: this.prepareKeywordsFromString(keywords),
+        category: this.state.category
       }
     };
   }
@@ -414,6 +436,44 @@ class AddProduct extends React.Component {
                   {getFieldDecorator("description", {
                     rules: [{ required: true, message: "Enter a description" }]
                   })(<TextArea />)}
+                </FormItem>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={5}>
+                <div className="label-container">
+                  <div>Categories</div>
+                  <small>
+                    What is the category of your product?
+                  </small>
+                </div>
+              </Col>
+              <Col offset={1} span={18}>
+                <FormItem>
+                  {getFieldDecorator("category", {
+                    rules: [{ required: true, message: "Enter some keywords" }]
+                  })
+                    (
+                      <Select
+                        onChange={this.handleCategoryChange}
+                      >
+                        {
+                          categories.map(
+                            (categ,index) => (
+                              <OptGroup key={index} label={categ.name}>
+                                {
+                                  categ.items.map(
+                                    (item,ind) => <Option key={ind} value={`${item},${categ.name}`}>{item}</Option>
+                                  )
+                                }
+                              </OptGroup>
+                            )
+                          )
+                        }
+                      </Select>
+                    )
+                  }
                 </FormItem>
               </Col>
             </Row>
