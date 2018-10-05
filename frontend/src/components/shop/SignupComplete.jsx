@@ -2,9 +2,11 @@ import React from 'react';
 import {Steps, Icon, Card, Alert, message} from "antd";
 import {withApollo} from 'react-apollo';
 import {gql} from 'apollo-boost';
+
 import BasicDetails from "./SignUpComplete/BasicDetails";
 import AddressDetails from "./SignUpComplete/AddressDetails";
 import FollowSellers from "./SignUpComplete/FollowSellers";
+import SelectCategories from "./SignUpComplete/SelectCategories";
 
 const Step = Steps.Step;
 
@@ -32,7 +34,8 @@ class SignupComplete extends React.Component {
             city: '',
             state: '',
             zipcode: '',
-            following: []
+            following: [],
+            categories: []
         };
     }
 
@@ -53,6 +56,13 @@ class SignupComplete extends React.Component {
                             {...this.state}
                         />;
             case 2:
+                return <SelectCategories 
+                            onChange={this.onChangeCategories.bind(this)}
+                            onNext={this.onNext.bind(this)}
+                            onPrev={this.onPrev.bind(this)}  
+                            {...this.state}
+                        />
+            case 3:
                 return <FollowSellers
                             onChange={this.onChangeFollowing.bind(this)}
                             onNext={this.onSubmit.bind(this)}
@@ -77,7 +87,8 @@ class SignupComplete extends React.Component {
                 "state": this.state.state,
                 "zipcode": this.state.zipcode
             },
-            "following": this.state.following
+            "following": this.state.following,
+            "categories": this.state.categories
         };
     }
 
@@ -110,6 +121,12 @@ class SignupComplete extends React.Component {
     onChangeFollowing(data) {
         this.setState({
             following: data
+        });
+    }
+
+    onChangeCategories(data) {
+        this.setState({
+            categories: data
         });
     }
 
@@ -151,6 +168,10 @@ class SignupComplete extends React.Component {
                                         />
                                         <Step
                                             title="Address Info"
+                                            // description="You address."
+                                        />
+                                        <Step
+                                            title="Select Interests"
                                             // description="You address."
                                         />
                                         <Step
