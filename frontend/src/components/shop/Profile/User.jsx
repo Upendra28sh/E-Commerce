@@ -13,6 +13,13 @@ import UserWishlist from "./UserWishlist";
 const {TabPane} = Tabs;
 
 class User extends React.Component {
+    gettochat(username)
+    {
+        this.props.history.push({
+            pathname: '/chat',
+            state: { username: username }
+          })
+    }
     handleFollowClick(isAFollower, FollowingID) {
         // TODO : Change Refetch To Cache Update
         console.log("Follow ID", FollowingID);
@@ -120,6 +127,10 @@ class User extends React.Component {
                                                                 }}>
                                                                     {button_text}
                                                                 </button>
+                                                                {isAFollower ?
+                                                            <button onClick={()=>this.gettochat(user.username)}>Message</button>
+                                                                : ''
+                                                            }
                                                             </div>)}
                                                             {myProfile && (<div style={{display: 'inline-block', float: 'right', marginRight: '20px'}}>
                                                                 <Switch 

@@ -1,4 +1,5 @@
 const Notification = require('../models/notification');
+const User = require('../models/user');
 
 module.exports = {
     Query: {
@@ -12,7 +13,9 @@ module.exports = {
                     data => data
                 )
         },
-        getNotifsByUser: (parent, args, {user}, info) => {
+        getNotifsByUser: (parent, args, {
+            user
+        }, info) => {
             return Notification
                 .find({
                     "to": user.id
@@ -28,9 +31,15 @@ module.exports = {
         }
     },
     Mutation: {
-        notificationRead: (parent, {id}, {user}, info) => {
+        notificationRead: (parent, {
+            id
+        }, {
+            user
+        }, info) => {
             return Notification
-                .findOne({_id: id})
+                .findOne({
+                    _id: id
+                })
                 .exec()
                 .then(
                     foundNotif => {
@@ -41,6 +50,41 @@ module.exports = {
                         return foundNotif;
                     }
                 )
+        },
+        makeChatNotify: (parent, {
+            to
+        }, {
+            user
+        }, info) => {
+            return User.findOne({
+                username:to
+            }).then(users=>{
+                
+                Notification.findOne({
+                    "text": {"$regex":user.username},
+                    "to": users.id,
+                    "action": '/chat'
+                }).exec().then(
+                    foundNotif => {
+                        if (foundNotif == null) {
+                            var temp = new Notification({
+                                "text": "1 unread chat from "+user.username,
+                                "to": users.id,
+                                "action": '/chat',
+                                "image":user.image
+                            })
+                            temp.save();
+                        }
+                        else
+                        {
+                            var noOfChat = parseInt(foundNotif.text,10);
+                            noOfChat++;
+                            foundNotif.text = noOfChat+" unread chat from "+user.username;
+                            foundNotif.save();
+                        }
+                    }
+                )
+            })
         }
     }
 }
