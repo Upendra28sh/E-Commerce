@@ -221,7 +221,7 @@ module.exports = {
             return User.findOneAndUpdate(
                 {_id: user.id},
                 {$set: { public: isProfilePublic }},
-                {returnNewDocument: true}
+                {new: true}
             ).exec().then(
                 updatedUser => {
                     //console.log(updatedUser.public);

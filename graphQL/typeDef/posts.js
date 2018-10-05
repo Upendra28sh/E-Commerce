@@ -6,6 +6,11 @@ export default gql`
         product : ID!,
         caption: String
     }
+
+    input UpdateUserPost {
+        postID: ID!,
+        caption: String!
+    }
     
     extend type Query {
         getUserPosts : [UserPost]
@@ -15,6 +20,10 @@ export default gql`
     extend type Mutation {
         addUserPost(
             input: AddUserPostInput
-        ) : UserPost
+        ) : UserPost,
+
+        updateUserPost(
+            input: UpdateUserPost
+        ): UserPost
     }
 `;

@@ -495,6 +495,7 @@ export const GET_POST = gql`
     query post($username : String!) {
         UserPosts(username : $username) {
             id
+            caption
             product {
               id
               name
@@ -846,3 +847,14 @@ query ($input : ID!){
         event
     }
 }`;
+
+export const UPDATE_POST_CAPTION = gql`
+    mutation updateCaption($input: UpdateUserPost) {
+        updateUserPost(
+            input: $input
+        ) {
+            id
+            caption
+        }
+    }
+`;
