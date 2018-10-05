@@ -149,6 +149,12 @@ class Demo extends Component {
         });
         this.changeUser(this.props.location.state.username, userdata.username);
       }
+      if(this.props.location.state.message!=undefined)
+      {
+        this.setState({
+          message:this.props.location.state.message
+        })
+      }
       if (this.props.location.state.sellername != undefined) {
         this.setState({
           sellername: this.props.location.state.sellername,
