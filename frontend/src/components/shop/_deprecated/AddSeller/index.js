@@ -20,6 +20,7 @@ class AddSeller extends React.Component {
             shopName: "",
             name: "",
             image: "",
+            password:"",
             about: "",
             intro:"",
             address: "",
@@ -134,12 +135,13 @@ class AddSeller extends React.Component {
         );
     }
 
-    onSetSellerDetails = (name, image, intro, address, street, city, state, zipcode) => {
+    onSetSellerDetails = (name, image, intro,password, address, street, city, state, zipcode) => {
         this.setState(
             () => ({
                 name: name,
                 image: image,
                 intro: intro,
+                password:password,
                 address: address,
                 street: street,
                 city: city,

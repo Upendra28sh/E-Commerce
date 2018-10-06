@@ -16,7 +16,7 @@ export const uploadsToS3 = (file) => {
             item.then((data) => {
                 var params = {
                     Bucket: 'sellers.frnzy',
-                    Key: uuid(),
+                    Key: uuid()+data.filename,
                     Body: data.stream,
                     ACL: 'public-read'
                 };
@@ -44,7 +44,7 @@ export const uploadsToS3 = (file) => {
 export const uploadToS3 = (filename, stream) => {
     var params = {
         Bucket: 'sellers.frnzy',
-        Key: uuid(),
+        Key: uuid()+filename,
         Body: stream,
         ACL: 'public-read'
     };
