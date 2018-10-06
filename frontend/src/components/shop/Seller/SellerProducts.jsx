@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import {Link} from 'react-router-dom';
-import {GET_PRODUCTS_BY_SELLER} from '../query';
-// import {ModalRoute} from 'react-router-modal';
-// import Details from './Details';
+import {GET_PRODUCTS_BY_SELLER} from '../../query';
 
 class SellerProducts extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {match} = this.props;
         const id = this.props.seller;

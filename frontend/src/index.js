@@ -2,7 +2,7 @@ import React from "react";
 import jwt from "jsonwebtoken";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
-import {ModalContainer , ModalRoute} from "react-router-modal";
+import {ModalContainer} from "react-router-modal";
 import {
     initializeFirebase
 } from "./push-notification";
@@ -19,7 +19,6 @@ import {ApolloLink, Observable} from 'apollo-link';
 import withAnalytics from "./withAnalytics";
 
 import "./main.css";
-import Details from "./components/shop/Details";
 
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -56,9 +55,10 @@ const cache = new InMemoryCache({
 });
 
 const request = async (operation) => {
+    const getToken = localStorage.getItem('token');
     operation.setContext({
         headers: {
-            authorization: token ? `Bearer ${token}` : ""
+            authorization: getToken ? `Bearer ${getToken}` : ""
         }
     });
 };
@@ -88,7 +88,7 @@ const client = new ApolloClient({
     link: ApolloLink.from([
         onError(({graphQLErrors, networkError}) => {
             if (graphQLErrors) {
-                graphQLErrors.map(({message, locations, path}) => {
+                graphQLErrors.forEach(({message, locations, path}) => {
                     if (message === 'Context creation failed: jwt expired') {
                         console.log('Token Expired');
                         localStorage.removeItem('token');
@@ -145,12 +145,7 @@ const Root = (props) => {
             <Switch>
                 <Route path="/" component={StoreContainer}/>
             </Switch>
-            {/*{console.log(props)}*/}
-            <ModalRoute
-                path={`${props.match.url}/product/:id`}
-                parentPath={props.match.url}
-                component={Details}
-            />
+            {console.log(`${props.match.url}/product/:id`)}
             <ModalContainer
                 modalClassName={"react-router-modal__modal container"}
             />

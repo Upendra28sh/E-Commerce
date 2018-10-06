@@ -4,6 +4,8 @@ import {Button, Icon, message, Modal, Input} from 'antd';
 import {ADD_PRODUCT_REPOST, ADD_TO_WISHLIST, GET_USER_FEED} from "../../query";
 import {withApollo} from 'react-apollo';
 import gql from "graphql-tag";
+import {ModalLink} from 'react-router-modal'
+import Details from "../Details";
 
 const TextArea = Input.TextArea;
 
@@ -128,7 +130,10 @@ class ProductFeed extends Component {
                 >
                     <img src={product.image}/>
                     <div className="photo__image__layer"/>
-                    <Link to={{pathname:`/feed/product/${product.id}`,state:{parentFeedId:this.props.parentFeedId}}}>
+                    <Link to={{
+                        pathname: `/feed/product/${product.id}`,
+                        state: {parentFeedId: this.props.parentFeedId}
+                    }}>
                         <div className="photo__image__view-details">View details</div>
                     </Link>
 

@@ -71,7 +71,8 @@ module.exports = {
         },
         getOrdersByUser: (parent, args, context, info) => {
             return Order.find({
-                user: context.user.id
+                user: context.user.id ,
+                'status.confirmed' : true
             })
                 .populate({
                     path: 'products.product',
@@ -194,22 +195,28 @@ module.exports = {
                         createdOrder => {
 
                             // TODO : Clear the Cart.
+                            return Cart.deleteOne({
+                                _id: foundCart.id
+                            }).then(deletedInfo => {
+                                return createdOrder
+                                    .populate({
+                                        path: 'products.product',
+                                        populate: {
+                                            path: 'seller'
+                                        }
+                                    })
+                                    .populate('user')
+                                    .execPopulate().then(
+                                        data => {
+                                            return {
+                                                order: data.toJSON()
+                                            };
+                                        }
+                                    );
 
-                            return createdOrder
-                                .populate({
-                                    path: 'products.product',
-                                    populate: {
-                                        path: 'seller'
-                                    }
-                                })
-                                .populate('user')
-                                .execPopulate().then(
-                                    data => {
-                                        return {
-                                            order: data.toJSON()
-                                        };
-                                    }
-                                );
+                            });
+
+
                         }
                     );
                 }

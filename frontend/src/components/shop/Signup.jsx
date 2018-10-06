@@ -58,7 +58,7 @@ class Signup extends React.Component {
                 message.success("SignUp Successful");
                 setTimeout(() => {
                     this.props.history.push("/signup/complete");                            
-                }, 1000);
+                }, 500);
                 // this.props.history.push("/feed/");
             } else {
                 message.error(data.token.content);
@@ -77,7 +77,7 @@ class Signup extends React.Component {
                         message.success("Signup Successful");
                         setTimeout(() => {
                             this.props.history.push("/signup/complete");                            
-                        }, 1000);
+                        }, 500);
                     } else {
                         message.error(data.CreateUser.token.content);
                     }

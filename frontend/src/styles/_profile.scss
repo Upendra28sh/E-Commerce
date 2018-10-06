@@ -1,5 +1,5 @@
 .profile {
-  padding-top: 45px;
+  padding-top: 30px;
 
   .ant-tabs-bar {
     margin-left: 10px;
@@ -7,20 +7,21 @@
     margin-bottom: 32px;
   }
 
-  &__image {
+  &__about {
+    padding: 10px 10%;
+    text-align: center;
+    font-size: 1.1rem;
 
-    background-image: url("https://scontent-bom1-1.cdninstagram.com/vp/633748d19c49931c166948e7c6b05f65/5BFD73F1/t51.2885-19/s150x150/30086307_190554238405069_2778711456735035392_n.jpg");
-    margin: auto;
+  }
+
+  &__image {
     margin: 5%;
     width: 90%;
     padding-top: 90%;
-
+    background: url("https://scontent-bom1-1.cdninstagram.com/vp/633748d19c49931c166948e7c6b05f65/5BFD73F1/t51.2885-19/s150x150/30086307_190554238405069_2778711456735035392_n.jpg") center;
     background-size: contain;
-    background-position: center;
     border: none;
     border-radius: 50%;
-    //float: right;
-    //margin-right: 10%;
   }
 
   &__info {
@@ -37,6 +38,12 @@
     .stats {
       margin-top: 12px;
       margin-bottom: 12px;
+
+      i {
+        position: relative;
+        top: -2px;
+        padding-right: 4px;
+      }
 
       .numbers {
         margin-right: 5%;
@@ -58,7 +65,7 @@
       display: inline-block;
       position: relative;
       left: 15px;
-      top : -7px ;
+      top: -7px;
 
       button {
         width: 100px;
@@ -68,7 +75,7 @@
         border-radius: 3px;
         padding: 2px 0;
         color: white;
-        background-color: rgb(40,40,40);
+        background-color: rgb(40, 40, 40);
         cursor: pointer;
       }
       button:hover {

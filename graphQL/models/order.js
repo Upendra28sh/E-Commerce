@@ -18,7 +18,6 @@ const orderSchema = new mongoose.Schema({
             shipping : {} ,
             status : {
                 confirmed: {type : Boolean , default : false},
-                packed: {type : Boolean , default : false},
                 shipped: {type : Boolean , default : false},
                 delivered: {type : Boolean , default : false},
             }

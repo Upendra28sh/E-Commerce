@@ -2,40 +2,12 @@ import React from "react";
 import {Col, Icon, Row, Tabs,} from "antd";
 import {Query, withApollo} from "react-apollo";
 import SellerProducts from "./SellerProducts";
-import {FOLLOW_SHOP, GET_AUTH, GET_SELLER, UNFOLLOW_SHOP} from "../query";
+import {FOLLOW_SHOP, GET_AUTH, GET_SELLER, UNFOLLOW_SHOP} from "../../query";
 import {ModalRoute} from "react-router-modal";
 import SellerPostContainer from "./SellerPostContainer";
-import Details from "./Details";
+import Details from "../Details";
 
 const {TabPane} = Tabs;
-// const props = {
-//     name: "file",
-//     action: "//jsonplaceholder.typicode.com/posts/",
-//     headers: {
-//         authorization: "authorization-text"
-//     },
-//     onChange(info) {
-//         if (info.file.status !== "uploading") {
-//             console.log(info.file, info.fileList);
-//         }
-//         if (info.file.status === "done") {
-//             message.success(`${info.file.name} file uploaded successfully`);
-//         } else if (info.file.status === "error") {
-//             message.error(`${info.file.name} file upload failed.`);
-//         }
-//     }
-// };
-
-const formItemLayout = {
-    labelCol: {
-        xs: {span: 24},
-        sm: {span: 6}
-    },
-    wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 12}
-    }
-};
 
 class Seller extends React.Component {
     constructor(props) {
@@ -71,13 +43,14 @@ class Seller extends React.Component {
             });
         }
     }
-    gettochat(sellername)
-    {
+
+    getToChat(sellername) {
         this.props.history.push({
             pathname: '/chat',
-            state: { sellername: sellername }
-          })
+            state: {sellername: sellername}
+        });
     }
+
     render() {
         let shopName = this.props.match.params.id;
         return (
@@ -89,7 +62,7 @@ class Seller extends React.Component {
                                 return <p>Loading...</p>;
                             }
                             if (error_1 || error_2) {
-                                return <p>Eroor...</p>;
+                                return <p>Error...</p>;
                             }
                             // console.log(data_1);
                             // console.log(data_2);
@@ -116,14 +89,14 @@ class Seller extends React.Component {
                                 <div className="bg-grey">
                                     <div className="container">
                                         <div className="profile">
-                                            <Row>
+                                            <Row gutter={8}>
                                                 <Col span={6}>
                                                     <div className="profile__image"
                                                          style={{backgroundImage: `url('${data.image}')`}}/>
                                                 </Col>
                                                 <Col className="profile__info" span={18}>
                                                     <div>
-                                                        <h1  style={{display : 'inline-block'}}>{data.name}</h1>
+                                                        <h1 style={{display: 'inline-block'}}>{data.name}</h1>
                                                         <div className="button_group">
                                                             <button onClick={() => {
                                                                 this.handleFollowClick(isAFollower, data.id);
@@ -131,17 +104,19 @@ class Seller extends React.Component {
                                                                 {button_text}
                                                             </button>
                                                             {isAFollower ?
-                                                            <button onClick={()=>this.gettochat(data.shopName)}>Message</button>
+                                                                <button
+                                                                    onClick={() => this.getToChat(data.shopName)}>Message</button>
                                                                 : ''
                                                             }
                                                         </div>
                                                     </div>
-                                                    <p className="tagline">{data.intro}
+                                                    <p className="tagline">
+                                                        {data.intro}
                                                     </p>
                                                     <p className="stats">
                                                         <span className="numbers">
                                                           <Icon type="file"/>
-                                                          <span className="posts"> {this.state.total_posts}</span> posts
+                                                          <span className="posts">{this.state.total_posts}</span> posts
                                                         </span>
                                                         <span className="numbers">
                                                           <Icon type="user"/>
@@ -174,24 +149,29 @@ class Seller extends React.Component {
                                                         </TabPane>
 
                                                         <TabPane tab="About" key="3">
-                                                            <p>{data.about}</p>
+                                                            <div className="profile__about">
+                                                                <h3>About {data.name}</h3>
+                                                                <p>{data.about}</p>
+                                                            </div>
                                                         </TabPane>
                                                         <TabPane tab="Store Policy" key="4">
-                                                            <div>
-                                                                <h3>Store Policy</h3>
-                                                                <div
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: data.policy.store
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <h3>Return Policy</h3>
-                                                                <div
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: data.policy.return
-                                                                    }}
-                                                                />
+                                                            <div className="profile__about">
+                                                                <div>
+                                                                    <h3>Store Policy</h3>
+                                                                    <div
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html: data.policy.store
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <h3>Return Policy</h3>
+                                                                    <div
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html: data.policy.return
+                                                                        }}
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </TabPane>
                                                     </Tabs>

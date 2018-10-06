@@ -5,6 +5,7 @@ export default gql`
     extend type Query {
         allSellerpost: [Sellerpost]
         getSellerPostBySeller(id : ID) : [Sellerpost]
+        getSellerPostByFeed(id : ID) : [FeedType]
     }
         
     extend type Mutation {

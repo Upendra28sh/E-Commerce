@@ -1,7 +1,7 @@
 import Sellerpost from '../models/sellerpost';
+import Feed from '../models/feed';
 import Seller from '../models/seller';
 import {
-    createApprovalRequest,
     createFeedItem,
     createNotificationSellerpost
 } from "./utils";
@@ -29,7 +29,7 @@ module.exports = {
             seller
         }, info) => {
             let id = args.id;
-            if (seller.id) {
+            if (seller) {
                 id = seller.id;
             }
 
@@ -47,6 +47,28 @@ module.exports = {
                         return data;
                     }
                 );
+        } ,
+        getSellerPostByFeed : (parent , args , context , info ) => {
+            let seller = args.id ;
+
+            return Feed.find({
+                key : seller ,
+                refString : 'Sellerpost'
+            }).populate('origin').sort('-updated_at').then(data => {
+                data = data.map(item => {
+                    item.origin.__typename = item.refString;
+
+                    if (item.refString === 'Sellerpost') {
+                        console.log("Seller Post Feed");
+                        item.origin.liked_by_me = (item.origin.liked_by.indexOf(context.user.id) > -1);
+                        return Seller.populate(item, {'path': 'origin.seller'});
+                    }
+                    return item;
+                });
+                return data;
+            });
+
+
         }
     },
 

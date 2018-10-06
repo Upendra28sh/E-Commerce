@@ -13,13 +13,13 @@ import UserWishlist from "./UserWishlist";
 const {TabPane} = Tabs;
 
 class User extends React.Component {
-    gettochat(username)
-    {
+    getToChat(username) {
         this.props.history.push({
             pathname: '/chat',
-            state: { username: username }
-          })
+            state: {username: username}
+        });
     }
+
     handleFollowClick(isAFollower, FollowingID) {
         // TODO : Change Refetch To Cache Update
         console.log("Follow ID", FollowingID);
@@ -57,7 +57,7 @@ class User extends React.Component {
                     message.info("Changed");
                 }
             }
-        )
+        );
     }
 
     render() {
@@ -111,71 +111,80 @@ class User extends React.Component {
                                 }
 
                                 return (
-                                    <div className="bg-grey">
-                                        <div className="container">
-                                            <div className="profile">
-                                                <Row>
-                                                    <Col span={6}>
-                                                        <div className="profile__image"/>
-                                                    </Col>
-                                                    <Col className="profile__info" span={18}>
-                                                        <div>
-                                                            <h1 style={{display: 'inline-block'}}>{user.username}</h1>
-                                                            {!myProfile && (<div className="button_group">
-                                                                <button onClick={() => {
-                                                                    this.handleFollowClick(isAFollower, user.id);
-                                                                }}>
-                                                                    {button_text}
-                                                                </button>
-                                                                {isAFollower ?
-                                                            <button onClick={()=>this.gettochat(user.username)}>Message</button>
+                                    <div className="container">
+                                        <div className="profile">
+                                            <Row gutter={8}>
+                                                <Col span={6}>
+                                                    <div className="profile__image"/>
+                                                </Col>
+                                                <Col className="profile__info" span={18}>
+                                                    <div>
+                                                        <h1 style={{display: 'inline-block'}}>{user.username}</h1>
+                                                        {!myProfile && (<div className="button_group">
+                                                            <button onClick={() => {
+                                                                this.handleFollowClick(isAFollower, user.id);
+                                                            }}>
+                                                                {button_text}
+                                                            </button>
+                                                            {isAFollower ?
+                                                                <button
+                                                                    onClick={() => this.getToChat(user.username)}>Message</button>
                                                                 : ''
                                                             }
-                                                            </div>)}
-                                                            {myProfile && (<div style={{display: 'inline-block', float: 'right', marginRight: '20px'}}>
-                                                                <Switch 
-                                                                    checkedChildren="Public" 
-                                                                    unCheckedChildren="Private" 
-                                                                    defaultChecked={user.public}
-                                                                    onChange={this.onChangeVisibility.bind(this)}
-                                                                />
-                                                                <Icon   
-                                                                    type="edit"
-                                                                    style={{margin: '0 10px', fontSize: '20px', cursor: 'pointer'}}
-                                                                    onClick={() => this.props.history.push(`/user/${username}/edit/`)}
-                                                                />
-                                                            </div>)}
-                                                        </div>
-                                                        <p className="tagline">
-                                                            <strong>{user.name}</strong>
-                                                        </p>
-                                                        <p className="tagline">{user.about}</p>
+                                                        </div>)}
+                                                        {myProfile && (<div style={{
+                                                            display: 'inline-block',
+                                                            float: 'right',
+                                                            marginRight: '20px'
+                                                        }}>
+                                                            <Switch
+                                                                checkedChildren="Public"
+                                                                unCheckedChildren="Private"
+                                                                defaultChecked={user.public}
+                                                                onChange={this.onChangeVisibility.bind(this)}
+                                                            />
+                                                            <Icon
+                                                                type="edit"
+                                                                style={{
+                                                                    margin: '0 10px',
+                                                                    fontSize: '20px',
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                                onClick={() => this.props.history.push(`/user/${username}/edit/`)}
+                                                            />
+                                                        </div>)}
+                                                    </div>
+                                                    <p className="tagline">
+                                                        <strong>{user.name}</strong>
+                                                    </p>
+                                                    <p className="tagline">{user.about}</p>
 
-                                                        <p className="stats">
+                                                    <p className="stats">
                                                       <span className="numbers">
                                                         <Icon type="file"/>
                                                         <span className="posts">0</span> posts
                                                       </span>
-                                                            <span className="numbers">
+                                                        <span className="numbers">
                                                         <Icon type="user"/>
                                                         <span className="connections">
                                                           {user.followers.length}
                                                         </span>{" "}
-                                                                follower
+                                                            follower
                                                       </span>
-                                                            <span className="numbers">
+                                                        <span className="numbers">
                                                         <Icon type="user-add"/>
                                                         <span className="connections">
                                                           {" "}
                                                             {user.following.length}
                                                         </span>{" "}
-                                                                following
+                                                            following
                                                       </span>
-                                                        </p>
+                                                    </p>
 
-                                                    </Col>
-                                                </Row>
-                                                {(isProfilePublic || isAFollower || myProfile) && (<Row className="profile__details">
+                                                </Col>
+                                            </Row>
+                                            {(isProfilePublic || isAFollower || myProfile) && (
+                                                <Row className="profile__details">
                                                     <Col span={24}>
                                                         <Tabs
                                                             defaultActiveKey="1"
@@ -195,16 +204,15 @@ class User extends React.Component {
                                                         </Tabs>
                                                     </Col>
                                                 </Row>)}
-                                                {(!isProfilePublic && !isAFollower && !myProfile) && (
-                                                    <div className='account_private'>
-                                                        <div className='account_private__header'>This Account is Private
-                                                        </div>
-                                                        <p className='account_private__content'>Follow to see their
-                                                            posts
-                                                            and wishlists</p>
+                                            {(!isProfilePublic && !isAFollower && !myProfile) && (
+                                                <div className='account_private'>
+                                                    <div className='account_private__header'>This Account is Private
                                                     </div>
-                                                )}
-                                            </div>
+                                                    <p className='account_private__content'>Follow to see their
+                                                        posts
+                                                        and wishlists</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 );
@@ -224,6 +232,6 @@ class User extends React.Component {
 
 
     }
-};
+}
 
 export default withApollo(User);

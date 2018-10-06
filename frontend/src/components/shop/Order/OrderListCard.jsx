@@ -3,7 +3,7 @@ import {Card, Row, Col, Divider, Button} from 'antd';
 import {Link} from 'react-router-dom';
 
 const CardTitle = (props) => (
-    <div style={{width : '100%'}}>
+    <div style={{width: '100%'}}>
         <div className="float-left">
             <Link to={`/order/${props.order.order_number}/`}>
                 <Button className='theme_button'>OD{props.order.order_number}</Button>
@@ -15,33 +15,62 @@ const CardTitle = (props) => (
     </div>
 );
 
-const ProductListing = (props) => (
+const StatusRender = ({product}) => {
+    console.log(product.status);
+    if (!product.status.confirmed) {
+        return (
+            <div>
+                <div>Product is under process</div>
+                <small>Seller will confirm your order</small>
+            </div>
+        );
+    } else if (product.status.confirmed) {
+        return (
+            <div>
+                <div> Product is confirmed</div>
+                <small>Seller will ship your order</small>
+            </div>
+        );
+    } else if (product.status.shipped) {
+        return (
+            <div>
+                <div> Product is being Delivered</div>
+                <small>Product is with our shipping partner</small>
+            </div>
+        );
+    } else if (product.status.delivered) {
+        return (
+            <div>
+                <div>Product is Delivered</div>
+            </div>
+        );
+    }
+};
+
+const ProductListing = ({product}) => (
     <Row>
         <Col span={3} className='text-center'>
             <img className='img-fluid'
-                 src={`${props.product.product.image}`}
-                 alt={props.product.product.name}/>
+                 src={`${product.product.image}`}
+                 alt={product.product.name}/>
         </Col>
         <Col span={1}/>
         <Col span={8}>
-            <Link to={'/product/' + props.product.product.id}>{props.product.product.name}</Link>
-            {props.product.selectedSize !== "undefined" && (
+            <Link to={'/product/' + product.product.id}>{product.product.name}</Link>
+            {product.selectedSize !== "undefined" && (
                 <div>
-                    <small>Size : {props.product.selectedSize}</small>
+                    <small>Size : {product.selectedSize}</small>
                 </div>
             )}
             <div>
-                <small>Quantity : {props.product.itemCount}</small>
+                <small>Quantity : {product.itemCount}</small>
             </div>
         </Col>
         <Col span={3}>
-            <div>Rs. {props.product.product.price}</div>
+            <div>Rs. {product.product.price}</div>
         </Col>
         <Col span={9}>
-            <div>
-                Delivered on Sun, Apr 8th '18
-            </div>
-            <small>Your item has been delivered</small>
+            <StatusRender product={product}/>
         </Col>
 
     </Row>
@@ -49,7 +78,7 @@ const ProductListing = (props) => (
 
 const OrderFooter = (props) => (
     <div>
-        Ordered on 6th August 18
+        Ordered on {new Date(1538518100405).toLocaleString()}
         <div className="float-right">
             <strong>Order Total : </strong> Rs.{props.total}
         </div>
@@ -57,12 +86,6 @@ const OrderFooter = (props) => (
 );
 
 class OrderListCard extends Component {
-
-    constructor(props) {
-        super(props);
-        // console.log(this.props.order);
-    }
-
     render() {
 
         const data = this.props.order;

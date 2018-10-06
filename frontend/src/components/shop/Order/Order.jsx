@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Button, Card, Row, Col, Divider , Steps} from "antd";
+import {Button, Card, Row, Col, Steps} from "antd";
 import {Query} from "react-apollo";
 import {GET_ORDER_BY_NUMBER} from "../../query";
 import {Link} from "react-router-dom";

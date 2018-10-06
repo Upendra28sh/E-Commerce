@@ -141,12 +141,18 @@ export const GET_ORDER_BY_USER = gql`
                         image
                     }
                 }
+                status {
+                    confirmed
+                    shipped
+                    delivered
+                }
                 itemCount
                 selectedSize
             }
             discount
             total
             id
+            date
             order_number
             shipping {
                 address {
@@ -613,16 +619,14 @@ export const GET_POST_BY_SELLER = gql`
             id
             image
             caption
-            updated_at
             seller {
+                id
                 name
                 image
             }
             comments{
-                user{
-                    name
-                    username
-                }
+                id
+                username
                 text
             }
         }
@@ -692,8 +696,6 @@ export const ADD_USER_POST_COMMENT = gql`
 //       }
 //     }
 // `
-
-
 
 
 export const GET_ALL_SELLERS = gql`
@@ -877,4 +879,75 @@ export const LOGIN_MUTATION = gql`
             }
         }
     }
+`;
+
+export const GET_SELLER_POSTS_BY_FEED = gql`
+    query($id: ID!) {
+      getSellerPostByFeed(id: $id) {
+        id
+        refString
+        origin {
+          ... on UserPost {
+            id
+            caption
+            product {
+              id
+              name
+              image
+              in_my_wishlist
+              seller {
+                name
+              }
+            }
+            user {
+              id
+              name
+              username
+              image
+            }
+            comments {
+              id
+              text
+              username
+            }
+          }
+          ... on Sellerpost {
+            id
+            caption
+            image
+            likes
+            liked_by_me
+            seller {
+              name
+              shopName
+              image
+            }
+            comments {
+              id
+              text
+              username
+            }
+          }
+          ... on Product {
+            id
+            name
+            image
+            sizes
+            price
+            in_my_wishlist
+            description
+            codAccepted
+            returnAccepted
+            seller {
+              name
+              image
+            }
+          }
+        }
+        created_at
+        updated_at
+        event
+      }
+    }
+
 `;

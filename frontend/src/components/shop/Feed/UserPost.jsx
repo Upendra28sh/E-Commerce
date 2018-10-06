@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import {Icon, Mention, Modal, Input,Button , message} from "antd";
+import {Icon, Mention, Modal, Input, Button, message} from "antd";
 import {
     ADD_PRODUCT_REPOST,
-    ADD_SELLER_COMMENT,
-    ADD_SELLER_POST_LIKE, ADD_TO_WISHLIST,
+    ADD_TO_WISHLIST,
     ADD_USER_POST_COMMENT,
-    GET_USER_FEED,
     SEARCH_USERS
 } from "../../query";
 import {withApollo} from 'react-apollo';
