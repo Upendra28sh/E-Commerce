@@ -10,7 +10,7 @@ import Container from './components/Container';
 import DefaultContainer from './components/DefaultContainer';
 import './main.css';
 import RequireAuth from "./components/Utils/RequireAuth";
-
+export const BASE_URL = 'http://localhost:4000/graphql' ;
 // import AddSeller from "./components/AddSeller";
 // import WrappedLogin from "./components/Login";
 
@@ -36,7 +36,7 @@ let auth = {
     __typename: "Auth"
 };
 
-const BASE_URL = 'http://localhost:4000/graphql' ;
+//const BASE_URL = 'http://localhost:4000/graphql' ;
 // const BASE_URL = 'http://18.216.241.175:4000/graphql' ;
 
 const client = new ApolloClient({

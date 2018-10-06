@@ -10,7 +10,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: createUploadLink({uri:'http://localhost:4000/graphql'}),
 });
-
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
 
 class addPost extends React.Component {
   state = {
@@ -20,7 +24,7 @@ class addPost extends React.Component {
     showPreview:false,
     caption:'',
   };
-
+  
   addNewPostSeller()
   {
     client.mutate({
@@ -49,12 +53,14 @@ class addPost extends React.Component {
   };
 
 
-  handleChange = ({ fileList }) => {
-    console.log(fileList[0]);
-    this.setState({ fileList })
+  handleChange = ({ file,fileList }) => {
+    console.log(file);
     this.setState({
-      previewImage:fileList[0].thumbUrl
+      previewImage:file.url || file.thumbUrl,
+      fileList:fileList
     })
+  
+    
   };
   
   onTyping(e){
@@ -85,7 +91,7 @@ class addPost extends React.Component {
           <Col span={6}>
             <Upload
               listType="picture-card"
-              action={()=>{console.log('sone')}}
+             customRequest={dummyRequest}
               fileList={fileList}
               data={this.upload}
               onPreview={this.handlePreview}

@@ -13,7 +13,7 @@ export default gql`
 
     input SellerInput {
         name: String,
-        image: String,
+        image: Upload,
         shopName : String,
         password : String,
         about: String,
@@ -25,6 +25,9 @@ export default gql`
 
     input LegalDetailsInput {
         aadhar: String,
+        aadhar_image:Upload,
+        pan_image:Upload,
+        cancelled_cheque:Upload,
         pan: String,
         gst: String,
         bank: BankDetailsInput

@@ -1,8 +1,12 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button,Upload,Icon } from 'antd';
 
 const FormItem = Form.Item;
-
+const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
 class SellerDetails extends React.Component {
     state = {
         confirmDirty: false,
@@ -12,7 +16,7 @@ class SellerDetails extends React.Component {
         const { setFieldsValue } = this.props.form;
         setFieldsValue({
             'name': this.props.name,
-            'image': this.props.image,
+            'password': this.props.password,
             'intro': this.props.intro,
             'address': this.props.address,
             'street': this.props.street,
@@ -41,7 +45,13 @@ class SellerDetails extends React.Component {
     //         }
     //     });
     // }
-
+    normFile = (e) => {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+          return e;
+        }
+        return e && e.fileList;
+      }
     handleNext = () => {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
@@ -51,6 +61,7 @@ class SellerDetails extends React.Component {
                     data["name"],
                     data["image"],
                     data["intro"],
+                    data["password"],
                     data["address"],
                     data["street"],
                     data["city"],
@@ -114,21 +125,20 @@ class SellerDetails extends React.Component {
                             }
                         </FormItem>
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="Image"
-                        >
-                            {
-                                getFieldDecorator('image',
-                                {
-                                    rules: [
-                                        { required: true, message: 'Upload an Image'}
-                                    ]
-                                }) (
-                                    <Input />
-                                )
-                            }
-                        </FormItem>
+                         <FormItem
+              {...formItemLayout}
+              label="Image"
+            >
+              {getFieldDecorator("image", {
+                getValueFromEvent: this.normFile
+              })(
+                <Upload customRequest={dummyRequest}>
+                  <Button>
+                    <Icon type="upload" /> Click to upload Image
+                  </Button>
+                </Upload>
+              )}
+            </FormItem>
 
                         <FormItem
                             {...formItemLayout}
@@ -146,7 +156,21 @@ class SellerDetails extends React.Component {
                                 )
                             }
                         </FormItem>
-
+                        <FormItem
+                            {...formItemLayout}
+                            label="Password"
+                        >
+                            {
+                                getFieldDecorator('password',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input the Password'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
                         <FormItem
                             {...formItemLayout}
                             label="Address"
@@ -210,6 +234,7 @@ class SellerDetails extends React.Component {
                                 )
                             }
                         </FormItem>
+                       
 
                         <FormItem
                             {...formItemLayout}

@@ -3,9 +3,14 @@ const Address = require('../models/address');
 const Seller = require('../models/seller');
 import jwt from 'jsonwebtoken';
 import config from '../config';
-import {createApprovalRequest} from "./utils";
+import {
+    createApprovalRequest
+} from "./utils";
+import {
+    uploadsToS3
+} from '../middlewares/upload';
 
-function compare(a,b) {
+function compare(a, b) {
     if (a.followers.length > b.followers.length)
         return -1;
     if (a.followers.length < b.followers.length)
@@ -21,14 +26,18 @@ module.exports = {
             );
         },
 
-        Seller: (parent, { shopName }, context, info) => {
+        Seller: (parent, {
+            shopName
+        }, context, info) => {
             return Seller.findOne({
                 "shopName": shopName
             }).populate('followers').exec().then(
                 data => data
             );
         },
-        getSeller: (parent, args, { seller }, info) => {
+        getSeller: (parent, args, {
+            seller
+        }, info) => {
             return Seller.findOne({
                 "_id": seller.id
             }).populate('followers').exec().then(
@@ -44,7 +53,9 @@ module.exports = {
             }).populate('followers').exec().then(data => data);
         },
 
-        checkShopnameAvailability: (parent, { shopName }, context, info) => {
+        checkShopnameAvailability: (parent, {
+            shopName
+        }, context, info) => {
             return Seller.findOne({
                 shopName: shopName
             }).exec().then(
@@ -52,7 +63,9 @@ module.exports = {
             );
         },
 
-        getSellerAddress: (parent, args, {seller}, info) => {
+        getSellerAddress: (parent, args, {
+            seller
+        }, info) => {
             return Seller.findOne({
                 _id: seller.id
             }).then(
@@ -77,33 +90,42 @@ module.exports = {
     },
 
     Mutation: {
-        addSeller: (parents, {input}, context, info) => {
+        addSeller: (parents, {
+            input
+        }, context, info) => {
 
             console.log(input);
-            let {address} = input;
+            let {
+                address
+            } = input;
             delete input.address;
+            uploadsToS3([input.legal.aadhar_image, input.legal.pan_image, input.legal.cancelled_cheque,input.image]).then((data) => {
+                input.legal.aadhar_image = data[0];
+                input.legal.pan_image = data[1];
+                input.legal.cancelled_cheque = data[2];
+                input.image = data[3];
+                return Seller.create({
+                    ...input
+                }).then(
+                    createdSeller => {
+                        createdSeller.address = [{
+                            address: address.address,
+                            street: address.street,
+                            city: address.city,
+                            state: address.state,
+                            zipcode: address.zipcode
+                        }];
+                        createdSeller.save();
+                        createApprovalRequest('Seller', createdSeller.id);
 
-            return Seller.create({
-                ...input
-            }).then(
-                createdSeller => {
-                    return Address.create({
-                        address: address.address,
-                        street: address.street,
-                        city: address.city,
-                        state: address.state,
-                        zipcode: address.zipcode
-                    }).then(
-                        createdAddress => {
-                            createdSeller.address = [createdAddress];
-                            createdSeller.save();
-                            createApprovalRequest('Seller', createdSeller.id);
+                        return createdSeller;
 
-                            return createdSeller;
-                        }
-                    );
-                }
-            );
+
+                    }
+                );
+                S
+            })
+
         },
 
         // Modify update seller to update address
@@ -153,11 +175,18 @@ module.exports = {
                 data => data
             );
         },
-        SellerLogin: (parent, {input}, context, info) => {
+        SellerLogin: (parent, {
+            input
+        }, context, info) => {
             console.log(input);
-            let {shopName, password} = input;
+            let {
+                shopName,
+                password
+            } = input;
 
-            return Seller.findOne({shopName}).exec()
+            return Seller.findOne({
+                    shopName
+                }).exec()
                 .then(
                     foundSeller => {
                         if (foundSeller) {
@@ -170,17 +199,17 @@ module.exports = {
                                     }
                                 };
                             } else {
-                                const token = jwt.sign(
-                                    {
+                                const token = jwt.sign({
                                         id: foundSeller._id,
                                         name: foundSeller.name,
                                         image: foundSeller.image,
                                         about: foundSeller.about,
                                         shopName: foundSeller.shopName,
-                                        seller : true
+                                        seller: true
                                     },
-                                    config.secret,
-                                    {expiresIn: 86400}
+                                    config.secret, {
+                                        expiresIn: 86400
+                                    }
                                 );
                                 return {
                                     token: {
