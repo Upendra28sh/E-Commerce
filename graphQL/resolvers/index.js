@@ -1,7 +1,3 @@
-import mongoose from'mongoose';
-import Product from'../models/product';
-import Seller from'../models/seller';
-
 import {
     GraphQLScalarType
 } from 'graphql';
@@ -23,6 +19,7 @@ import admin from './admin';
 import approval from './approvals';
 import notification from './notifications';
 import fbAuth from './fbAuth';
+import dashboard from './dashboard';
 
 const resolvers = {
     Query: {
@@ -37,7 +34,8 @@ const resolvers = {
         ...wishlist.Query,
         ...approval.Query,
         ...notification.Query,
-        ...fbAuth.Query
+        ...fbAuth.Query,
+        ...dashboard.Query
     },
 
     Mutation: {
@@ -54,7 +52,8 @@ const resolvers = {
         ...approval.Mutation,
         ...notification.Mutation,
         ...fbAuth.Mutation,
-        ...feed.Mutation
+        ...feed.Mutation,
+        ...dashboard.Mutation
     },
 
     Date: new GraphQLScalarType({

@@ -15,9 +15,22 @@ const data = [
 const padding = [10, 5, 5, 5];
 
 class SalesSummaryChart extends Component {
+    state = {
+        loading : true
+    }
+
+    componentDidMount(){
+        setTimeout(() => {
+            this.setState({
+                loading : false
+            } )
+        } , 1000)
+    }
+
     render() {
         return (
             <ChartCard
+                loading={this.state.loading}
                 title={'Sales Summary'}
                 tooltip={'Sales Summary For Products'}
                 stat={'$12,600'}

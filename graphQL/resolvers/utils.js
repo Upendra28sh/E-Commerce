@@ -5,6 +5,75 @@ import Seller from '../models/seller';
 import crypto from 'crypto';
 import config from "../config";
 import qs from 'qs';
+import {google} from 'googleapis';
+import moment from 'moment';
+import path from 'path';
+
+
+export async function getActiveUsersLastWeek() {
+
+    const googleClient = await google.auth.getClient({
+        keyFile: path.join(__dirname, 'e-commerce-60b22c41898a.json'),
+        scopes: 'https://www.googleapis.com/auth/analytics.readonly',
+    });
+
+    // Obtain a new drive client, making sure you pass along the auth client
+    const analyticsreporting = google.analyticsreporting({
+        version: 'v4',
+        auth: googleClient,
+    });
+
+    let endDate = moment();
+    let startDate = moment().subtract(6, 'days');
+
+    console.log(startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'));
+
+    const res = await analyticsreporting.reports.batchGet({
+        requestBody: {
+            "reportRequests": [
+                {
+                    "viewId": "182993290",
+                    "dateRanges": [
+                        {
+                            startDate: startDate.format('YYYY-MM-DD'),
+                            endDate: endDate.format('YYYY-MM-DD')
+                        }
+                    ],
+                    "metrics": [
+                        {
+                            "expression": "ga:users",
+                            "alias": ""
+                        }
+                    ],
+                    "dimensions": [
+                        {
+                            "name": "ga:date"
+                        }
+                    ]
+                }
+            ]
+        }
+    });
+    let di = {};
+    let data = res.data.reports[0].data;
+    console.log(data);
+    data.rows.map(row => {
+        di[row.dimensions[0]] = row.metrics[0].values[0];
+    });
+    console.log(di);
+    let results = [];
+
+    for (let m = moment(startDate); m.diff(endDate, 'days') <= 0; m.add(1, 'days')) {
+        let key = m.format('DD-MM-YYYY');
+        let search = m.format('YYYYMMDD');
+        results.push({
+            date : key ,
+            users : di[search] || 0
+        })
+    }
+
+    return results
+}
 
 export function createApprovalRequest(approvalType, originId) {
 

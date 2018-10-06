@@ -3,25 +3,12 @@ import {Card, Divider, Icon, Tooltip} from 'antd';
 
 
 class ChartCard extends Component {
-
-    state = {
-        loading: true
-    };
-
-    componentDidMount(){
-        setTimeout(() => {
-            this.setState({
-                loading : false
-            } )
-        } , 1000)
-    }
-
     render() {
 
-        const {title, tooltip, stat, footer} = this.props;
+        const {title, tooltip, stat, footer , loading} = this.props;
         return (
             <div>
-                <Card className='chart-card' loading={this.state.loading}>
+                <Card className='chart-card' loading={loading}>
 
                     <div className="chart-card_header">
                         <div className="chart-card_title">

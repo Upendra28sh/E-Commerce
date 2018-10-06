@@ -10,6 +10,15 @@ export const CONFIRM_PRODUCT_FROM_ORDER = gql`
     }
 `;
 
+export const GET_ACTIVE_USER_BY_SELLER = gql`
+{
+  getActiveUsersLastWeekBySeller {
+    users ,
+    date
+  }
+}
+`;
+
 export const GET_AUTH = gql`
     {
         auth @client {

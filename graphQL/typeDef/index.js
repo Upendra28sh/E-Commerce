@@ -17,6 +17,7 @@ import adminTypeDef from './admin';
 import approvalTypeDef from './approvals';
 import notificationTypedef from './notifications';
 import fbAuthTypedef from './fbAuth';
+import dashbaordTypedef from './dashboard';
 
 // Token code
 // 1 -> Successful signin/signup
@@ -209,4 +210,4 @@ const typeDefs = gql`
     scalar Date
 `;
 
-module.exports = [typeDefs, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef, notificationTypedef, fbAuthTypedef];
+module.exports = [typeDefs, dashbaordTypedef, productTypeDef, sellerTypeDef, orderTypeDef, authTypeDef, userTypeDef, cartTypeDef, postTypeDef, feedTypeDef, sellerpostTypeDef, wishlistTypeDef, adminTypeDef, approvalTypeDef, notificationTypedef, fbAuthTypedef];

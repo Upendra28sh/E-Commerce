@@ -21,3 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 
 /config.js
+/resolvers/e-commerce-60b22c41898a.json
