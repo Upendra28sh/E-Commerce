@@ -2,6 +2,8 @@ import React from 'react';
 import {Icon, Layout, Menu} from 'antd';
 import {Link} from 'react-router-dom';
 import Router from './Router/AppRouter';
+import {withApollo} from 'react-apollo'
+import {GET_AUTH} from "./Query/query";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -10,10 +12,41 @@ class Container extends React.Component {
         collapsed: false,
     };
 
+    constructor(props){
+        super(props);
+        this.logout = this.logout.bind(this)
+    }
+
     onCollapse = (collapsed) => {
         console.log(collapsed);
         this.setState({collapsed});
     };
+
+    logout() {
+        localStorage.clear();
+        this.props.client.clearStore().then(data => {
+            let auth = {
+                isAuthenticated: false,
+                user: {
+                    id: "",
+                    name: "",
+                    username: "",
+                    __typename: "AuthUser"
+                },
+                __typename: "Auth"
+            };
+
+            this.props.client.writeQuery({
+                query: GET_AUTH,
+                data: {auth}
+            });
+
+            console.log(data);
+            console.log("Logout");
+            this.props.history.push('/');
+        });
+
+    }
 
 
     render() {
@@ -72,6 +105,12 @@ class Container extends React.Component {
                                 <span className="nav-text">Profile</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="8">
+                            <div onClick={this.logout}>
+                                <Icon type="profile" />
+                                <span className="nav-text">Logout</span>
+                            </div>
+                        </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>
@@ -90,4 +129,4 @@ class Container extends React.Component {
     }
 }
 
-export default Container;
+export default withApollo(Container);
