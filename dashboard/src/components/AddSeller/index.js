@@ -2,13 +2,21 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Progress, Input} from 'antd';
 import { ADD_SELLER } from '../Query/query';
-import {withApollo} from 'react-apollo'
-
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { createUploadLink } from "apollo-upload-client";
+import { ApolloClient } from "apollo-client";
 import ShopName from "./ShopName";
 import SellerDetails from './SellerDetails';
 import ShopDetails from './ShopDetails';
 import ShopPolicy from './ShopPolicy';
-
+const BASE_URL = 'http://localhost:4000/graphql' ;
+let token = localStorage.getItem("token");
+const client = new ApolloClient({
+  link: createUploadLink({ uri: BASE_URL,
+  headers: {authorization: token ? `Bearer ${token}` : "",}
+  }),
+  cache: new InMemoryCache()
+});
 class AddSeller extends React.Component {
     constructor(props) {
         super(props);
@@ -26,6 +34,9 @@ class AddSeller extends React.Component {
             state: "",
             zipcode: "",
             aadhar: null,
+            aadhar_image:"",
+            pan_image:"",
+            cancelled_cheque:"",
             pan: null,
             gst: null,
             accountNo: null,
@@ -38,6 +49,10 @@ class AddSeller extends React.Component {
         this.submitDetails = this.submitDetails.bind(this);
 
     }
+    // handlepanfileChange = ({ fileList }) => this.setState({ pan_image:fileList[0] });
+    // handleaadharfileChange = ({ fileList }) => this.setState({ aadhar_image:fileList[0] });
+    // handlechequefileChange = ({ fileList }) => this.setState({ cancelled_cheque:fileList[0] });
+
 
     prepareInput() {
         return {
@@ -56,8 +71,11 @@ class AddSeller extends React.Component {
                 },
                 "legal":{
                     "pan": this.state.pan,
+                    "pan_image":this.state.pan_image,
                     "aadhar": this.state.aadhar,
+                    "aadhar_image":this.state.aadhar_image,
                     "gst": this.state.gst,
+                    "cancelled_cheque":this.state.cancelled_cheque,
                     "bank": {
                         "name": this.state.bankName,
                         "accountNumber": this.state.accountNo,
@@ -76,7 +94,7 @@ class AddSeller extends React.Component {
         console.log(this.state);
         let inputToGraph = this.prepareInput();
         console.log(inputToGraph);
-        this.props.client.mutate({
+        client.mutate({
             mutation: ADD_SELLER,
             variables: inputToGraph
         }).then(
@@ -130,7 +148,7 @@ class AddSeller extends React.Component {
         this.setState(
             () => ({
                 name: name,
-                image: image,
+                image: image[0].originFileObj,
                 intro: intro,
                 address: address,
                 street: street,
@@ -142,15 +160,18 @@ class AddSeller extends React.Component {
         this.onContinue();
     }
 
-    onSetShopDetails = (aadhar, pan, gst, bankName, accountNo, bankIFSC) => {
+    onSetShopDetails = (aadhar,aadhar_image, pan,pan_image, gst, bankName, accountNo, bankIFSC,cancelled_cheque) => {
         this.setState(
             () => ({
                 aadhar: aadhar,
+                aadhar_image:aadhar_image[0].originFileObj,
                 pan: pan,
+                pan_image:pan_image[0].originFileObj,
                 gst: gst,
                 bankName: bankName,
                 accountNo: accountNo,
-                bankIFSC: bankIFSC
+                bankIFSC: bankIFSC,
+                cancelled_cheque:cancelled_cheque[0].originFileObj,
             })
         );
         this.onContinue();
@@ -203,4 +224,4 @@ class AddSeller extends React.Component {
     }
 };
 
-export default withApollo(AddSeller);
+export default AddSeller;

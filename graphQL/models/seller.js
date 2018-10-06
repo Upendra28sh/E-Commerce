@@ -21,7 +21,10 @@ const sellerSchema = new mongoose.Schema({
 
     legal: {
         aadhar: String,
+        aadhar_image:String,
         pan: String,
+        pan_image:String,
+        cancelled_cheque:String,
         gst: String,
         bank: {
             name: String,
