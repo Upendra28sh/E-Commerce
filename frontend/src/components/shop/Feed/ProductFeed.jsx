@@ -180,7 +180,7 @@ class ProductFeed extends Component {
                     ]}
                 >
                     <TextArea
-                        onChange={this.captionChange}
+                        onChange={this.onCaptionChange}
                         value={this.state.captionValue}/>
                 </Modal>
             </div>
