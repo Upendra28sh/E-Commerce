@@ -41,7 +41,8 @@ export default gql`
         CompleteSignup(
             details: UserDetailsInput,
             address: AddressInput,
-            following: [ID]!
+            following: [ID]!,
+            categories: [String]
         ) : AuthPayload
     }
 `;

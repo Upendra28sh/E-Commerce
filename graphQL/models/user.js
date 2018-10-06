@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    categories: [{
+        type: String
+    }],
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

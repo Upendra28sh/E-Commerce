@@ -5,7 +5,7 @@ import Signup from './Signup';
 
 class Landing extends React.Component {
     state = {
-        selected: 0
+        selected: 1
     };
 
     render() {

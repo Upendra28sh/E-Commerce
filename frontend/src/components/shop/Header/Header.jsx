@@ -36,7 +36,7 @@ const menu = (
                             </strong>
                             {
                                 category.items.map((item, index) => (
-                                    <li key={index}>{item}</li>
+                                    <Link to={`/category/${category.name.toLowerCase()}/${item.toLowerCase()}`}><li key={index}>{item}</li></Link>
                                 ))
                             }
                         </ul>
