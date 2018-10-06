@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Icon, Upload, Button, Input, message, Modal } from "antd";
 import {Mutation} from 'react-apollo';
-import {ADD_POST} from '../query';
+import {ADD_POST} from '../../query';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';

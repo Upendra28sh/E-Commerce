@@ -209,10 +209,6 @@ class Signup extends React.Component {
                                         textButton="Signup with Facebook"
                                     />
                                 </div>
-
-                                <p style={{paddingTop: "10px", textAlign: "center"}}>
-                                    For help, contact us.
-                                </p>
                             </div>
                             
                     </div>

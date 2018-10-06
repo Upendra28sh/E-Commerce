@@ -1,8 +1,8 @@
 import React from "react";
 import {Col, Icon, Row, Tabs} from "antd";
-import {FOLLOW_USER, GET_AUTH, GET_USER, UNFOLLOW_USER} from "../query";
+import {FOLLOW_USER, GET_AUTH, GET_USER, UNFOLLOW_USER} from "../../query";
 import {Query, withApollo} from "react-apollo";
-import NotFound from "./NotFound";
+import NotFound from "../NotFound";
 
 import UserPosts from "./UserPosts";
 import UserFollowingShops from "./UserFollowingShops";

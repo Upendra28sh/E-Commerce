@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col} from 'antd';
 import Login from './Login';
 import Signup from './Signup';
+import Typing from 'react-typing-animation'
 
 class Landing extends React.Component {
     state = {
@@ -13,44 +14,58 @@ class Landing extends React.Component {
             <div>
                 <div className="main">
                     <div className="main_page"/>
-                    <div className="main_logo_1">
-                        <img src="/FRNZY.jpg" alt=""/>
+                    <div className="seller_link">
+                        <a href='//seller.frnzy.in'>
+                            <button className='btn btn-block'>
+                            Sell On Frnzy
+                            </button>
+                        </a>
                     </div>
                     <div className="main_content">
                         <Row>
                             <Col xs={24} sm={24} md={12}>
                                 <div className='main_box'>
                                     <div className='main_logo'>
-                                        <img src="/frnzy_logo.png" alt=""/>
+                                        <img src="/images/Frnzy Square.png" alt=""/>
                                     </div>
-                                    {/*<Row className="box_header">*/}
-                                        {/*<Col*/}
-                                            {/*span={12}*/}
-                                            {/*className={this.state.selected === 0 ? "selected" : ""}*/}
-                                            {/*onClick={() => this.setState({selected: 0})}*/}
-                                        {/*>*/}
-                                            {/*Login*/}
-                                        {/*</Col>*/}
-                                        {/*<Col*/}
-                                            {/*span={12}*/}
-                                            {/*className={this.state.selected === 1 ? "selected" : ""}*/}
-                                            {/*onClick={() => this.setState({selected: 1})}*/}
-                                        {/*>*/}
-                                            {/*Signup*/}
-                                        {/*</Col>*/}
-                                    {/*</Row>*/}
                                     <div className="box_content">
                                         {
-                                            this.state.selected ? <Signup {...this.props} /> : <Login {...this.props}/>
+                                            this.state.selected ?
+                                                <div className='box_text'>
+                                                    <Signup {...this.props} />
+                                                    <p>
+                                                        Existing User ? <span onClick={() => {
+                                                        this.setState({selected: 0});
+                                                    }}>Login</span>
+                                                    </p>
+                                                </div>
+                                                :
+                                                <div className='box_text'>
+                                                    <Login {...this.props}/>
+                                                    <p> New User ? <span onClick={() => {
+                                                        this.setState({selected: 1});
+                                                    }}>Signup</span>
+                                                    </p>
+                                                </div>
                                         }
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={0} sm={0} md={12}
-                                 style={{padding: '20px', fontSize: '20px', color: 'white', fontWeight: 'bold'}}>
-                                <p>Ullamco id aute cupidatat dolore consectetur irure nostrud minim est enim. Labore
-                                    cillum Lorem excepteur est ad aliquip duis deserunt ea ea enim consectetur
-                                    proident.</p>
+                            <Col xs={0} sm={0} md={12}>
+                                <div className="box_animated_text">
+                                    <h3>
+                                        A discovery based social-shopping platform.
+                                    </h3>
+                                    <Typing loop={true}>
+                                        <span>DISCOVERY.</span>
+                                        <Typing.Backspace count={10} delay={1000}/>
+                                        <span>COMMUNITY.</span>
+                                        <Typing.Backspace count={10} delay={1000}/>
+                                        <span>SHOPPING.</span>
+                                        <Typing.Backspace count={10} delay={1000}/>
+                                    </Typing>
+                                </div>
+
                             </Col>
                         </Row>
                     </div>

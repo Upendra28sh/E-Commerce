@@ -1,23 +1,11 @@
 import React from "react";
 import {Button, Form, Icon, Input, message} from "antd";
-import gql from "graphql-tag";
 import {Mutation, withApollo} from "react-apollo";
 import jwt from "jsonwebtoken";
 import FacebookLogin from 'react-facebook-login';
-import {FB_SIGNIN, GET_AUTH} from "../query";
+import {FB_SIGNIN, GET_AUTH, LOGIN_MUTATION} from "../query";
 
 const FormItem = Form.Item;
-
-const LOGIN_MUTATION = gql`
-    mutation Login($input: AuthInput) {
-        UserLogin(input: $input) {
-            token {
-                code
-                content
-            }
-        }
-    }
-`;
 
 class Login extends React.Component {
     responseFacebook = (data) => {
@@ -73,26 +61,10 @@ class Login extends React.Component {
                     if (data.UserLogin.token.code === 1) {
                         console.log(data.UserLogin.token.content);
                         localStorage.setItem("token", data.UserLogin.token.content);
-                        // askForPermissionToReceiveNotifications().then(token => {
-                        //   client.mutate({
-                        //     mutation: gql`
-                        //                       mutation {
-                        //                           Notify(
-                        //                             Email:"${values.email}"
-                        //                             UserToken: "${token}"
-                        //                           ) {
-                        //                             id
-                        //                           }
-                        //                         }
-                        //
-                        //                       `
-                        //   });
-                        // });
                         message.success("Login Successful");
                         setTimeout(() => {
                             this.props.history.push("/feed/");                            
-                        } , 1000);
-                        // this.props.history.push("/feed/");
+                        } , 1500);
                     } else {
                         message.error(data.UserLogin.token.content);
                     }
@@ -186,7 +158,6 @@ class Login extends React.Component {
                                         {/* Or <a href="">register now!</a> */}
                                     </FormItem>
                                 </Form>
-
                                 <div>
                                     <FacebookLogin
                                         appId="285659762264023"
@@ -197,10 +168,6 @@ class Login extends React.Component {
                                         scope="public_profile,user_friends,email"
                                     />
                                 </div>
-
-                                <p style={{paddingTop: "10px", textAlign: "center"}}>
-                                    For help, contact us.
-                                </p>
                             </div>
                         </div>
                 )}

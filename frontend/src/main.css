@@ -5,6 +5,7 @@
 @import url(../node_modules/font-awesome/css/font-awesome.min.css);
 @import url(../node_modules/react-router-modal/css/react-router-modal.css);
 @import url(../node_modules/antd/dist/antd.css);
+@import url(../node_modules/react-typist/dist/Typist.css);
 .categories {
   width: 500px;
   background-color: white;
@@ -111,7 +112,7 @@
   position: relative; }
 
 .main_page {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35)), url(/main.jpg);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35)), url(/images/main.jpg);
   height: 100vh;
   width: 100%;
   background-position: center !important;
@@ -142,19 +143,16 @@
     width: 100%;
     height: 100%; }
 
-.main_logo_1 {
+.seller_link {
   position: absolute;
   top: 20px;
-  left: 30px;
-  z-index: 1000;
-  width: 120px;
-  margin: auto;
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
-  .main_logo_1 img {
-    width: 100%;
-    height: 100%; }
+  right: 30px;
+  z-index: 1000; }
+  .seller_link button {
+    background: white;
+    padding: 5px 20px;
+    color: black;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
 
 .main_box {
   border-radius: 5px;
@@ -182,6 +180,23 @@ button.kep-login-facebook.metro {
   padding: 10px 13px;
   font-weight: 600;
   font-size: 13px; }
+
+.box_text {
+  padding-top: 60px; }
+  .box_text p {
+    text-align: center;
+    padding-top: 10px; }
+    .box_text p span {
+      text-decoration: underline;
+      cursor: pointer; }
+
+.box_animated_text {
+  color: white !important;
+  padding: 80px 20px; }
+  .box_animated_text h3 {
+    color: white; }
+  .box_animated_text span {
+    font-size: 2rem; }
 
 .sign_up__card {
   margin-top: 20px !important;

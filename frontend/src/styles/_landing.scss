@@ -1,43 +1,9 @@
-// .bg-image {
-//   height: 100vh;
-//   width: 100%;
-//   background-position: center !important;
-//   background-size: cover !important;
-//   background-repeat: no-repeat;
-
-//   .landing_logo {
-//     height: 34px;
-//     margin-top: 5px;
-//   }
-
-//   .landing_item {
-//     background-color: transparent;
-//     float: right;
-//     color: white;
-//     font-weight: 600;
-//     font-size: 14px;
-
-//     &:hover {
-//       border-bottom: solid 1px white;
-//     }
-//   }
-
-//   #landing_header {
-//     color: white;
-//     font-family: Lato, sans-serif;
-//     font-size: 80px;
-//     font-weight: 900;
-//     text-align: center;
-//     margin-top: 344px;
-//   }
-// }
 .main {
   position: relative;
 }
 
 .main_page {
-  //background: url("/main.jpg");
-  background:linear-gradient(0deg,rgba(0,0,0,0.15),rgba(0,0,0,0.35)),url(/main.jpg);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35)), url(/images/main.jpg);
   height: 100vh;
   width: 100%;
   background-position: center !important;
@@ -49,7 +15,7 @@
 
 .main_content {
   position: relative;
-  padding-top: 20vh ;
+  padding-top: 20vh;
   max-width: 800px;
   width: 95%;
   margin: auto;
@@ -58,17 +24,14 @@
 .main_logo {
   position: absolute;
   top: -60px;
-  left : calc(50% - 60px) ;
+  left: calc(50% - 60px);
   z-index: 1000;
   width: 120px;
   height: 120px;
   margin: auto;
-  //border: 2px solid black;
   border-radius: 50%;
-
-  //border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 
   img {
     width: 100%;
@@ -76,35 +39,26 @@
   }
 }
 
-.main_logo_1 {
+.seller_link {
   position: absolute;
   top: 20px;
-  left : 30px ;
+  right: 30px;
   z-index: 1000;
-  width: 120px;
-  margin: auto;
-  //border: 2px solid black;
-  //border-radius: 50%;
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 
-  img {
-    width: 100%;
-    height: 100%;
+  button {
+    background: white;
+    padding: 5px 20px;
+    color: black;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
   }
+
 }
 
-
 .main_box {
-  //border: solid 1px #faaeeb;
   border-radius: 5px;
-  //border: 2px solid black;
   background-color: white;
   max-width: 400px;
   margin: auto;
-  //box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-  //padding: 15px 0;
 
   .box_header {
     padding-bottom: 5px;
@@ -118,14 +72,6 @@
       border-bottom: solid 1px #999999;
       padding: 15px 0;
     }
-
-    //.selected {
-    //  background: #eee;
-    //}
-
-    //div:hover {
-    //  background: rgba(black, 0.02);
-    //}
 
     :first-child {
       border-right: solid 1px #999999;
@@ -143,4 +89,30 @@ button.kep-login-facebook.metro {
   padding: 10px 13px;
   font-weight: 600;
   font-size: 13px;
+}
+
+.box_text {
+  padding-top: 60px;
+
+  p {
+    text-align: center;
+    padding-top: 10px;
+
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.box_animated_text {
+  color: white !important;
+  padding: 80px 20px;
+
+  h3 {
+    color: white;
+  }
+  span {
+    font-size: 2rem;
+  }
 }

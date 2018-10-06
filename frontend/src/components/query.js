@@ -694,6 +694,8 @@ export const ADD_USER_POST_COMMENT = gql`
 // `
 
 
+
+
 export const GET_ALL_SELLERS = gql`
     query {
         allSellers{
@@ -862,5 +864,17 @@ export const UPDATE_POST_CAPTION = gql`
 export const DELETE_USER_POST = gql`
     mutation deletePost($id: ID!) {
         deleteUserPost(postID: $id)
+    }
+`;
+
+
+export const LOGIN_MUTATION = gql`
+    mutation Login($input: AuthInput) {
+        UserLogin(input: $input) {
+            token {
+                code
+                content
+            }
+        }
     }
 `;

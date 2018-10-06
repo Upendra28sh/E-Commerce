@@ -1,8 +1,8 @@
 import React from "react";
 import jwt from "jsonwebtoken";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Route, Switch , withRouter} from "react-router-dom";
-import {ModalContainer} from "react-router-modal";
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+import {ModalContainer , ModalRoute} from "react-router-modal";
 import {
     initializeFirebase
 } from "./push-notification";
@@ -19,6 +19,7 @@ import {ApolloLink, Observable} from 'apollo-link';
 import withAnalytics from "./withAnalytics";
 
 import "./main.css";
+import Details from "./components/shop/Details";
 
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -138,12 +139,18 @@ const client = new ApolloClient({
 
 initializeFirebase();
 
-const Root = () => {
+const Root = (props) => {
     return (
         <div>
             <Switch>
                 <Route path="/" component={StoreContainer}/>
             </Switch>
+            {/*{console.log(props)}*/}
+            <ModalRoute
+                path={`${props.match.url}/product/:id`}
+                parentPath={props.match.url}
+                component={Details}
+            />
             <ModalContainer
                 modalClassName={"react-router-modal__modal container"}
             />
