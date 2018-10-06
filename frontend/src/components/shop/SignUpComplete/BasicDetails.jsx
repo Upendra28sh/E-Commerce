@@ -123,7 +123,7 @@ class BasicDetails extends React.Component {
                                 getFieldDecorator('image',
                                 {
                                     rules: [
-                                        { required: true, message: 'Please upload you image'}
+                                        { required: true, message: 'Please upload your image'}
                                     ]
                                 }) (
                                     <Input onChange={(e)=>this.props.onChange(e)}/>

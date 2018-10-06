@@ -16,7 +16,7 @@ class SellerDetails extends React.Component {
         const { setFieldsValue } = this.props.form;
         setFieldsValue({
             'name': this.props.name,
-            'image': this.props.image,
+            'password': this.props.password,
             'intro': this.props.intro,
             'address': this.props.address,
             'street': this.props.street,
@@ -61,6 +61,7 @@ class SellerDetails extends React.Component {
                     data["name"],
                     data["image"],
                     data["intro"],
+                    data["password"],
                     data["address"],
                     data["street"],
                     data["city"],
@@ -155,7 +156,21 @@ class SellerDetails extends React.Component {
                                 )
                             }
                         </FormItem>
-
+                        <FormItem
+                            {...formItemLayout}
+                            label="Password"
+                        >
+                            {
+                                getFieldDecorator('password',
+                                {
+                                    rules: [
+                                        { required: true, message: 'Please input the Password'}
+                                    ]
+                                }) (
+                                    <Input />
+                                )
+                            }
+                        </FormItem>
                         <FormItem
                             {...formItemLayout}
                             label="Address"
@@ -219,6 +234,7 @@ class SellerDetails extends React.Component {
                                 )
                             }
                         </FormItem>
+                       
 
                         <FormItem
                             {...formItemLayout}

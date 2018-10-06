@@ -26,6 +26,7 @@ class AddSeller extends React.Component {
             shopName: "",
             name: "",
             image: "",
+            password:"",
             about: "",
             intro:"",
             address: "",
@@ -61,6 +62,7 @@ class AddSeller extends React.Component {
                 "shopName": this.state.shopName,
                 "image": this.state.image,
                 "about": this.state.about,
+                "password":this.state.password,
                 "intro": this.state.intro,
                 "address":{
                     "address": this.state.address,
@@ -143,13 +145,14 @@ class AddSeller extends React.Component {
         this.onContinue();
     }
 
-    onSetSellerDetails = (name, image, intro, address, street, city, state, zipcode) => {
+    onSetSellerDetails = (name, image, intro,password, address, street, city, state, zipcode) => {
         console.log(name,image,intro);
         this.setState(
             () => ({
                 name: name,
                 image: image[0].originFileObj,
                 intro: intro,
+                password:password,
                 address: address,
                 street: street,
                 city: city,
