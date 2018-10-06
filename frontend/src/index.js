@@ -1,21 +1,13 @@
 import React from "react";
 import jwt from "jsonwebtoken";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch , withRouter} from "react-router-dom";
 import {ModalContainer} from "react-router-modal";
-import {createUploadLink} from "apollo-upload-client";
 import {
-    initializeFirebase,
-    sendmessageusertoseller
+    initializeFirebase
 } from "./push-notification";
 import StoreContainer from "./components/shop/Container";
-// import AdminContainer from "./components/admin/Container";
-
-import "./main.css";
-
 import {ApolloProvider} from "react-apollo";
-// import ApolloClient from "apollo-client";
-
 import {IntrospectionFragmentMatcher} from 'apollo-cache-inmemory';
 import introspectionQueryResultData from './fragmentTypes.json';
 import {ApolloClient} from 'apollo-client';
@@ -24,10 +16,15 @@ import {HttpLink} from 'apollo-link-http';
 import {onError} from 'apollo-link-error';
 import {withClientState} from 'apollo-link-state';
 import {ApolloLink, Observable} from 'apollo-link';
+import withAnalytics from "./withAnalytics";
+
+import "./main.css";
+
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData
 });
+
 
 let token = localStorage.getItem("token");
 
@@ -141,18 +138,25 @@ const client = new ApolloClient({
 
 initializeFirebase();
 
+const Root = () => {
+    return (
+        <div>
+            <Switch>
+                <Route path="/" component={StoreContainer}/>
+            </Switch>
+            <ModalContainer
+                modalClassName={"react-router-modal__modal container"}
+            />
+        </div>
+    );
+};
+
+const App = withRouter(withAnalytics(Root));
+
 ReactDOM.render(
     <ApolloProvider client={client}>
         <BrowserRouter>
-            <div>
-                <Switch>
-                    {/* <Route path="/admin" component={AdminContainer}/> */}
-                    <Route path="/" component={StoreContainer}/>
-                </Switch>
-                <ModalContainer
-                    modalClassName={"react-router-modal__modal container"}
-                />
-            </div>
+            <App/>
         </BrowserRouter>
     </ApolloProvider>,
     document.getElementById("root")

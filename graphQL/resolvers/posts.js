@@ -68,6 +68,28 @@ module.exports = {
                         );
                 }
             );
+        },
+        updateUserPost: (parent, {input}, context, info) => {
+            let {postID, caption} = input;
+
+            return UserPost.findOneAndUpdate(
+                {_id: postID},
+                {$set: {caption: caption}},
+                {new: true}
+            ).exec().then(
+                data => {
+                    // console.log(data);
+                    return data;
+                }
+            )
+        },
+
+        deleteUserPost: (parent, {postID}, context, info) => {
+            return UserPost.findOneAndRemove(
+                {_id: postID}
+            ).exec().then(
+                data => !!data
+            )
         }
     }
 };

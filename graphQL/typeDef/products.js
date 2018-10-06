@@ -12,6 +12,7 @@ export default gql `
         returnAccepted : Boolean ,
         description: String!,
         keywords:[String],
+        category: CategoryInput
     }
     
     type AddProductPayload {

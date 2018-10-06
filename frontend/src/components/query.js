@@ -431,6 +431,7 @@ query user($username : String!) {
         id
         name
         about
+        image
         username
         email
         public
@@ -463,6 +464,14 @@ query user($username : String!) {
 }
 `;
 
+export const UPDATE_USER = gql`
+    mutation($input: UserDetailsInput) {
+        updateUser(input: $input) {
+            id
+        }
+    }
+`;
+
 export const GET_SEARCH_USER_SELLER = gql`
 query($input : String!){
   searchUsersAndSellers(query : $input) {
@@ -486,6 +495,7 @@ export const GET_POST = gql`
     query post($username : String!) {
         UserPosts(username : $username) {
             id
+            caption
             product {
               id
               name
@@ -837,3 +847,20 @@ query ($input : ID!){
         event
     }
 }`;
+
+export const UPDATE_POST_CAPTION = gql`
+    mutation updateCaption($input: UpdateUserPost) {
+        updateUserPost(
+            input: $input
+        ) {
+            id
+            caption
+        }
+    }
+`;
+
+export const DELETE_USER_POST = gql`
+    mutation deletePost($id: ID!) {
+        deleteUserPost(postID: $id)
+    }
+`;

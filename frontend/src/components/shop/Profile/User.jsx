@@ -139,6 +139,11 @@ class User extends React.Component {
                                                                     defaultChecked={user.public}
                                                                     onChange={this.onChangeVisibility.bind(this)}
                                                                 />
+                                                                <Icon   
+                                                                    type="edit"
+                                                                    style={{margin: '0 10px', fontSize: '20px', cursor: 'pointer'}}
+                                                                    onClick={() => this.props.history.push(`/user/${username}/edit/`)}
+                                                                />
                                                             </div>)}
                                                         </div>
                                                         <p className="tagline">
