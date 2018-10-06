@@ -33,7 +33,7 @@ class Container extends React.Component {
         return (
             <div>
                 {this.state.isMobile ? <MobileHeader {...this.props}/> : <Header {...this.props}/>}
-                <div className='main'>
+                <div>
                     <Router/>
                 </div>
             </div>

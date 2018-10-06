@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 
-
 export const initializeFirebase = () => {
     firebase.initializeApp({
         apiKey: "AIzaSyBPEbhbJqmEtx10J4bqCNkwn-DcWXCiNAU",
@@ -28,7 +27,7 @@ export const askForPermissionToReceiveNotifications = async () => {
         console.error(error);
     }
 };
-export const sendmessageusertoseller = async (username, message, shopname) => {
+export const sendMessageUserToSeller = async (username, message, shopname) => {
     firebase.database().ref('users/' + username + '/sellers/' + shopname).push({
         message: message,
         author: 'me',
@@ -36,16 +35,16 @@ export const sendmessageusertoseller = async (username, message, shopname) => {
         if (error) {
             console.log("error", error);
         } else {
-            console.log("sucess");
+            console.log("success");
         }
     });
     firebase.database().ref('sellers/' + shopname + '/users/' + username).push({
         message: message,
         author: 'them',
-        read:false
+        read: false
     });
 };
-export const sendmessageusertouser = async (username, message, otherusername) => {
+export const sendMessageUserToUser = async (username, message, otherusername) => {
     firebase.database().ref('users/' + username + '/users/' + otherusername).push({
         message: message,
         author: 'me',
@@ -53,27 +52,27 @@ export const sendmessageusertouser = async (username, message, otherusername) =>
         if (error) {
             console.log("error", error);
         } else {
-            console.log("sucess");
+            console.log("success");
         }
     });
     firebase.database().ref('users/' + otherusername + '/users/' + username).push({
         message: message,
         author: 'them',
-        read:false
+        read: false
     });
 };
 
-export  const checkintialized = () =>{
+export const checkIntialized = () => {
     return firebase.apps.length;
-  }
+};
 
-export function getmessages(username, shopname) {
+export function getMessages(username, shopname) {
 
     let getChatData = firebase.database().ref('users/' + username + '/sellers/' + shopname);
     return getChatData;
 }
 
-export function getmessagesfromuser(username, otheruser) {
+export function getMessagesFromUser(username, otheruser) {
 
     let getChatData = firebase.database().ref('users/' + username + '/users/' + otheruser);
     return getChatData;
